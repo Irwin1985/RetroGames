@@ -21,11 +21,13 @@ func _ready():
 func _physics_process(delta):	
 	motion.y += gravity
 	if Input.is_action_pressed("ui_right") or keep_moving_right:
-		motion.x = speed
-		_animate("run")
+		if !keep_moving_left:
+			motion.x = speed
+			_animate("run")
 	elif Input.is_action_pressed("ui_left") or keep_moving_left:
-		motion.x = -speed
-		_animate("run_back")
+		if !keep_moving_right:
+			motion.x = -speed
+			_animate("run_back")
 	else:
 		motion.x = 0
 		_animate("idle")
