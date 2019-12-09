@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/lion_jump.wav-4c7e4ecbcea7c731c4eb54eec2a18bb5.sample"
+
+[deps]
+
+source_file="res://assets/sfx/lion_jump.wav"
+dest_files=[ "res://.import/lion_jump.wav-4c7e4ecbcea7c731c4eb54eec2a18bb5.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=true
+edit/normalize=true
+edit/loop=false
+compress/mode=0

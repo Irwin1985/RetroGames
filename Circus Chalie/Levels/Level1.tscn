@@ -1,0 +1,139 @@
+[gd_scene load_steps=15 format=2]
+
+[ext_resource path="res://Levels/Level1.gd" type="Script" id=1]
+[ext_resource path="res://items/Flame.tscn" type="PackedScene" id=2]
+[ext_resource path="res://items/Boiler.tscn" type="PackedScene" id=3]
+[ext_resource path="res://assets/level1.png" type="Texture" id=4]
+[ext_resource path="res://items/Podium.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Meters.tscn" type="PackedScene" id=6]
+[ext_resource path="res://Lion/Lion.tscn" type="PackedScene" id=7]
+[ext_resource path="res://assets/Stage1.ogg" type="AudioStream" id=8]
+[ext_resource path="res://assets/sfx/hurt.wav" type="AudioStream" id=9]
+[ext_resource path="res://assets/sfx/game_over.ogg" type="AudioStream" id=10]
+[ext_resource path="res://assets/sfx/win.wav" type="AudioStream" id=11]
+[ext_resource path="res://HUD.tscn" type="PackedScene" id=12]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 2650, 0.356628 )
+
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 0.556427, 92.8256 )
+
+[node name="Level1" type="Node2D"]
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_group_": true
+}
+single_flame = ExtResource( 2 )
+boiler = ExtResource( 3 )
+
+[node name="Control" type="Control" parent="."]
+editor/display_folded = true
+margin_right = 40.0
+margin_bottom = 40.0
+
+[node name="TextureRect" type="TextureRect" parent="Control"]
+margin_right = 5247.0
+margin_bottom = 460.0
+texture = ExtResource( 4 )
+stretch_mode = 2
+
+[node name="Floor" type="StaticBody2D" parent="."]
+editor/display_folded = true
+position = Vector2( 1688.56, -62.7929 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Floor"]
+position = Vector2( 926.074, 473.952 )
+scale = Vector2( 0.998797, 0.542278 )
+shape = SubResource( 1 )
+
+[node name="LeftWall" type="StaticBody2D" parent="."]
+editor/display_folded = true
+position = Vector2( 65.3129, 317.039 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LeftWall"]
+shape = SubResource( 2 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="BoilerContainer" type="Node2D" parent="."]
+
+[node name="Items" type="Node2D" parent="."]
+editor/display_folded = true
+
+[node name="Podium" parent="Items" instance=ExtResource( 5 )]
+position = Vector2( 5107, 379 )
+
+[node name="Meters" parent="Items" instance=ExtResource( 6 )]
+
+[node name="FlameContainer" type="Node2D" parent="."]
+
+[node name="Lion" parent="." instance=ExtResource( 7 )]
+editor/display_folded = true
+position = Vector2( 100, 394.147 )
+
+[node name="Camera2D" parent="Lion" index="1"]
+offset = Vector2( 90, -85 )
+limit_left = -90
+limit_top = 0
+limit_right = 5200
+limit_bottom = 460
+
+[node name="SentinelsContainer" type="Node2D" parent="."]
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Sounds" type="Node2D" parent="."]
+editor/display_folded = true
+
+[node name="LevelSound" type="AudioStreamPlayer" parent="Sounds"]
+stream = ExtResource( 8 )
+autoplay = true
+
+[node name="HurtSound" type="AudioStreamPlayer" parent="Sounds"]
+stream = ExtResource( 9 )
+
+[node name="GameOverSound" type="AudioStreamPlayer" parent="Sounds"]
+stream = ExtResource( 10 )
+
+[node name="WinSound" type="AudioStreamPlayer" parent="Sounds"]
+stream = ExtResource( 11 )
+
+[node name="HUD" parent="." instance=ExtResource( 12 )]
+
+[node name="Position2D90" type="Position2D" parent="."]
+position = Vector2( 718, 394.147 )
+
+[node name="Position2D80" type="Position2D" parent="."]
+position = Vector2( 1218, 394.147 )
+
+[node name="Position2D70" type="Position2D" parent="."]
+position = Vector2( 1718, 394.147 )
+
+[node name="Position2D60" type="Position2D" parent="."]
+position = Vector2( 2218, 394.147 )
+
+[node name="Position2D50" type="Position2D" parent="."]
+position = Vector2( 2718, 394.147 )
+
+[node name="Position2D40" type="Position2D" parent="."]
+position = Vector2( 3218, 394.147 )
+
+[node name="Position2D30" type="Position2D" parent="."]
+position = Vector2( 3718, 394.147 )
+
+[node name="Position2D20" type="Position2D" parent="."]
+position = Vector2( 4218, 394.147 )
+[connection signal="win" from="Lion" to="." method="_on_Lion_win"]
+[connection signal="finished" from="Sounds/HurtSound" to="." method="_on_HurtSound_finished"]
+[connection signal="finished" from="Sounds/GameOverSound" to="." method="_on_GameOverSound_finished"]
+
+[editable path="Lion"]

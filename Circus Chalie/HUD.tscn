@@ -1,0 +1,166 @@
+[gd_scene load_steps=9 format=2]
+
+[ext_resource path="res://HUD.gd" type="Script" id=1]
+[ext_resource path="res://assets/banner.png" type="Texture" id=2]
+[ext_resource path="res://assets/ARCADECLASSIC.TTF" type="DynamicFontData" id=3]
+[ext_resource path="res://assets/live.png" type="Texture" id=4]
+[ext_resource path="res://LabelPause.gd" type="Script" id=5]
+[ext_resource path="res://assets/sfx/pause.wav" type="AudioStream" id=6]
+
+[sub_resource type="DynamicFont" id=1]
+size = 30
+font_data = ExtResource( 3 )
+
+[sub_resource type="DynamicFont" id=2]
+size = 30
+font_data = ExtResource( 3 )
+
+[node name="HUD" type="CanvasLayer"]
+script = ExtResource( 1 )
+
+[node name="TextureRect" type="Sprite" parent="."]
+scale = Vector2( 0.847, 1 )
+texture = ExtResource( 2 )
+centered = false
+
+[node name="Bonus" type="Control" parent="."]
+margin_right = 40.0
+margin_bottom = 40.0
+
+[node name="LabelTimer" type="Label" parent="Bonus"]
+margin_left = 277.0
+margin_top = 30.0
+margin_right = 379.0
+margin_bottom = 61.0
+custom_fonts/font = SubResource( 1 )
+text = "0000"
+
+[node name="TextureRect" type="ColorRect" parent="Bonus"]
+margin_left = 262.0
+margin_top = 44.0
+margin_right = 273.0
+margin_bottom = 46.0
+
+[node name="LabelBonus" type="Label" parent="Bonus"]
+modulate = Color( 0.901961, 0.0705882, 0.392157, 1 )
+margin_left = 177.0
+margin_top = 30.0
+margin_right = 262.0
+margin_bottom = 61.0
+custom_fonts/font = SubResource( 1 )
+text = "BONUS"
+
+[node name="HiScore" type="Control" parent="."]
+margin_right = 40.0
+margin_bottom = 40.0
+
+[node name="LabelHiScore" type="Label" parent="HiScore"]
+margin_left = 227.0
+margin_top = 10.0
+margin_right = 329.0
+margin_bottom = 41.0
+custom_fonts/font = SubResource( 1 )
+text = "000000"
+
+[node name="TextureRect" type="ColorRect" parent="HiScore"]
+margin_left = 213.0
+margin_top = 24.0
+margin_right = 224.0
+margin_bottom = 26.0
+
+[node name="LabelHiScoreText" type="Label" parent="HiScore"]
+margin_left = 177.0
+margin_top = 10.0
+margin_right = 211.0
+margin_bottom = 41.0
+custom_fonts/font = SubResource( 1 )
+text = "HI"
+
+[node name="PlayerScore" type="Control" parent="."]
+editor/display_folded = true
+margin_right = 40.0
+margin_bottom = 40.0
+
+[node name="PlayerScore" type="Label" parent="PlayerScore"]
+margin_left = 64.0
+margin_top = 10.0
+margin_right = 166.0
+margin_bottom = 41.0
+custom_fonts/font = SubResource( 1 )
+text = "000000"
+
+[node name="TextureRect" type="ColorRect" parent="PlayerScore"]
+margin_left = 50.0
+margin_top = 24.0
+margin_right = 61.0
+margin_bottom = 26.0
+
+[node name="LabelPlayer" type="Label" parent="PlayerScore"]
+margin_left = 14.0
+margin_top = 10.0
+margin_right = 48.0
+margin_bottom = 41.0
+custom_fonts/font = SubResource( 1 )
+text = "1P"
+
+[node name="Stage" type="Control" parent="."]
+editor/display_folded = true
+margin_right = 40.0
+margin_bottom = 40.0
+
+[node name="LabelStage" type="Label" parent="Stage"]
+margin_left = 456.0
+margin_top = 10.0
+margin_right = 490.0
+margin_bottom = 41.0
+custom_fonts/font = SubResource( 1 )
+text = "00"
+
+[node name="TextureRect" type="ColorRect" parent="Stage"]
+margin_left = 438.0
+margin_top = 24.0
+margin_right = 449.0
+margin_bottom = 26.0
+
+[node name="LabelStageDesc" type="Label" parent="Stage"]
+margin_left = 348.0
+margin_top = 10.0
+margin_right = 433.0
+margin_bottom = 41.0
+custom_fonts/font = SubResource( 1 )
+text = "stage"
+
+[node name="Lives" type="Control" parent="."]
+editor/display_folded = true
+margin_left = 426.0
+margin_top = 33.0
+margin_right = 492.0
+margin_bottom = 55.0
+
+[node name="SpriteLive1" type="Sprite" parent="Lives"]
+position = Vector2( 10, 11 )
+texture = ExtResource( 4 )
+
+[node name="SpriteLive2" type="Sprite" parent="Lives"]
+position = Vector2( 32, 11 )
+texture = ExtResource( 4 )
+
+[node name="SpriteLive3" type="Sprite" parent="Lives"]
+position = Vector2( 54, 11 )
+texture = ExtResource( 4 )
+
+[node name="LabelPause" type="Label" parent="."]
+pause_mode = 2
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -42.5
+margin_top = 65.0
+margin_right = 42.5
+margin_bottom = 31.0
+custom_fonts/font = SubResource( 2 )
+text = "PAUSE"
+script = ExtResource( 5 )
+
+[node name="PauseSound" type="AudioStreamPlayer" parent="."]
+pause_mode = 2
+stream = ExtResource( 6 )

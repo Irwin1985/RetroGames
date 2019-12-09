@@ -1,0 +1,133 @@
+[gd_scene load_steps=19 format=2]
+
+[ext_resource path="res://items/Flame.gd" type="Script" id=1]
+[ext_resource path="res://assets/bonus_flame_left.png" type="Texture" id=2]
+[ext_resource path="res://assets/bonus_flame_left_2.png" type="Texture" id=3]
+[ext_resource path="res://assets/big_flame_left.png" type="Texture" id=4]
+[ext_resource path="res://assets/big_flame_left_2.png" type="Texture" id=5]
+[ext_resource path="res://assets/bonus_flame_right.png" type="Texture" id=6]
+[ext_resource path="res://assets/bonus_flame_right_2.png" type="Texture" id=7]
+[ext_resource path="res://assets/big_flame_right.png" type="Texture" id=8]
+[ext_resource path="res://assets/big_flame_right_2.png" type="Texture" id=9]
+[ext_resource path="res://assets/money_bag.png" type="Texture" id=10]
+[ext_resource path="res://assets/ARCADECLASSIC.TTF" type="DynamicFontData" id=11]
+[ext_resource path="res://assets/sfx/bonus.wav" type="AudioStream" id=12]
+
+[sub_resource type="SpriteFrames" id=1]
+animations = [ {
+"frames": [ ExtResource( 2 ), ExtResource( 3 ) ],
+"loop": true,
+"name": "bonus_flame",
+"speed": 8.5
+}, {
+"frames": [ ExtResource( 4 ), ExtResource( 5 ) ],
+"loop": true,
+"name": "big_flame",
+"speed": 8.5
+} ]
+
+[sub_resource type="SpriteFrames" id=2]
+animations = [ {
+"frames": [ ExtResource( 6 ), ExtResource( 7 ) ],
+"loop": true,
+"name": "bonus_flame",
+"speed": 8.5
+}, {
+"frames": [ ExtResource( 8 ), ExtResource( 9 ) ],
+"loop": true,
+"name": "big_flame",
+"speed": 8.5
+} ]
+
+[sub_resource type="CircleShape2D" id=3]
+radius = 2.0
+
+[sub_resource type="CircleShape2D" id=4]
+radius = 1.0
+
+[sub_resource type="DynamicFont" id=5]
+size = 21
+font_data = ExtResource( 11 )
+
+[sub_resource type="CircleShape2D" id=6]
+radius = 4.0
+
+[node name="Flame" type="Area2D"]
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_group_": true
+}
+speed = 50
+
+[node name="AnimatedSpriteLeft" type="AnimatedSprite" parent="."]
+scale = Vector2( 2, 2 )
+frames = SubResource( 1 )
+animation = "bonus_flame"
+frame = 1
+playing = true
+centered = false
+
+[node name="AnimatedSpriteRight" type="AnimatedSprite" parent="."]
+position = Vector2( 24, 0 )
+scale = Vector2( 2, 2 )
+z_index = 1
+frames = SubResource( 2 )
+animation = "bonus_flame"
+frame = 1
+playing = true
+centered = false
+
+[node name="TimerKillBonus" type="Timer" parent="."]
+
+[node name="VisibilityNotifier2D" type="VisibilityNotifier2D" parent="."]
+
+[node name="SpriteBonus" type="Sprite" parent="."]
+position = Vector2( 20, 48 )
+scale = Vector2( 2, 2 )
+texture = ExtResource( 10 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Bonus" type="Area2D" parent="."]
+editor/display_folded = true
+
+[node name="BonusCollision" type="CollisionShape2D" parent="Bonus"]
+position = Vector2( 20, 60 )
+scale = Vector2( 2, 2 )
+shape = SubResource( 3 )
+
+[node name="HurtCollision" type="CollisionShape2D" parent="."]
+position = Vector2( 24, 125 )
+shape = SubResource( 4 )
+
+[node name="Control" type="Control" parent="."]
+margin_right = 40.0
+margin_bottom = 40.0
+
+[node name="Label" type="Label" parent="Control"]
+margin_left = -22.0
+margin_top = -2.0
+margin_right = 20.0
+margin_bottom = 24.0
+custom_fonts/font = SubResource( 5 )
+text = "500"
+
+[node name="BonusSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 12 )
+
+[node name="TimerMoveFlame" type="Timer" parent="."]
+autostart = true
+
+[node name="Score" type="Area2D" parent="."]
+position = Vector2( 21, 77 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Score"]
+shape = SubResource( 6 )
+[connection signal="body_entered" from="." to="." method="_on_BonusFlame_body_entered"]
+[connection signal="screen_exited" from="VisibilityNotifier2D" to="." method="_on_VisibilityNotifier2D_screen_exited"]
+[connection signal="body_entered" from="Bonus" to="." method="_on_Bonus_body_entered"]
+[connection signal="body_entered" from="Score" to="." method="_on_Score_body_entered"]

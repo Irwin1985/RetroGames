@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/aplause.wav-9e7d4d338cd3ec24b2282d2d3c8826dd.sample"
+
+[deps]
+
+source_file="res://assets/sfx/aplause.wav"
+dest_files=[ "res://.import/aplause.wav-9e7d4d338cd3ec24b2282d2d3c8826dd.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=true
+edit/normalize=true
+edit/loop=false
+compress/mode=0
