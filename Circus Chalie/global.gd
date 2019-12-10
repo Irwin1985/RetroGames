@@ -15,14 +15,17 @@ func _ready():
 	OS.set_clipboard(OS.get_user_data_dir())
 	load_game()
 	
-func save_game():
+func check_update_hi_score():
 	if player_score > hi_score:
 		hi_score = player_score
-		var save_game = File.new()
-		save_game.open("user://score.save", File.WRITE)
-		json_obj["score"] = hi_score
-		save_game.store_string(to_json(json_obj))
-		save_game.close()
+		save_game()
+	
+func save_game():
+	var save_game = File.new()
+	save_game.open("user://score.save", File.WRITE)
+	json_obj["score"] = hi_score
+	save_game.store_string(to_json(json_obj))
+	save_game.close()
 
 func load_game():
 	var load_game = File.new()
@@ -30,17 +33,17 @@ func load_game():
 		save_game()
 	load_game.open("user://score.save", File.READ)
 	json_obj = parse_json(load_game.get_as_text())
-	hi_score = json_obj["score"]	
+	hi_score = json_obj["score"]
 	load_game.close()
 
 func game_over():
-	save_game()
+	check_update_hi_score()
 	player_score = 0
 	hi_score = 0
 	lives = 3
 	game_over = false
 	current_level = -1
 	play_first_sound = false
-	can_pause = true
+	can_pause = false
 	check_point = 0
 	load_game()
