@@ -2,6 +2,7 @@ extends Node2D
 export (PackedScene) var single_flame
 export (PackedScene) var boiler
 onready var sentinel = preload("res://items/Sentinel.tscn")
+onready var bonus_timer = Timer.new()
 var pos = Vector2(0, 0)
 
 func _ready():
@@ -13,7 +14,18 @@ func _ready():
 	$HUD.begin_time()
 	spawn_boiler()
 	spawn_sentinel()
+	create_bonus_score_timer()
+	
+func create_bonus_score_timer()->void:
+	bonus_timer.connect("timeout", self, "_on_bonus_timer_timeout")
+	bonus_timer.wait_time = 0.02
+	add_child(bonus_timer)
 
+func _on_bonus_timer_timeout():
+	$HUD.add_time_to_score(10)
+	if $HUD.time_left <= 0:
+		bonus_timer.stop()
+	
 func _stop_items():
 	# boiler
 	for boiler in $BoilerContainer.get_children():
@@ -111,6 +123,8 @@ func _on_sentinel_entered():
 func _on_Lion_win():
 	for flame in $FlameContainer.get_children():
 		flame.queue_free()
+	$HUD.stop_time()
+	bonus_timer.start()
 	$Sounds/LevelSound.stop()
 	$Sounds/WinSound.play()
 

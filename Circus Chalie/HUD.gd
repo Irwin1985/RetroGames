@@ -61,6 +61,11 @@ func update_lives():
 func update_stage():
 	$Stage/LabelStage.text = "0" + str(global.current_level + 1)
 
+func add_time_to_score(value : int)->void:
+	time_left -= value
+	update_timer()
+	update_score(value)
+	
 func _on_timer_label_timeout():
 	$PlayerScore/LabelPlayer.visible = !$PlayerScore/LabelPlayer.visible
 
