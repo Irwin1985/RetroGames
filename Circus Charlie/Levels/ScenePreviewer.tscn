@@ -1,9 +1,9 @@
 [gd_scene load_steps=6 format=2]
 
-[ext_resource path="res://ScenePreviewer.gd" type="Script" id=1]
+[ext_resource path="res://Levels/ScenePreviewer.gd" type="Script" id=1]
 [ext_resource path="res://assets/ARCADECLASSIC.TTF" type="DynamicFontData" id=2]
 [ext_resource path="res://assets/sfx/aplause_part_2.wav" type="AudioStream" id=3]
-[ext_resource path="res://HUD.tscn" type="PackedScene" id=4]
+[ext_resource path="res://HUD/HUD.tscn" type="PackedScene" id=4]
 
 [sub_resource type="DynamicFont" id=1]
 size = 30
@@ -24,14 +24,14 @@ anchor_top = 0.5
 anchor_right = 1.0
 anchor_bottom = 0.5
 
-[node name="Label" type="Label" parent="StageCaption"]
+[node name="StageLabel" type="Label" parent="StageCaption"]
 margin_right = 500.0
 margin_bottom = 31.0
 custom_fonts/font = SubResource( 1 )
 text = "STAGE 0"
 align = 1
 
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+[node name="StageSound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 3 )
 
 [node name="HUD" parent="." instance=ExtResource( 4 )]

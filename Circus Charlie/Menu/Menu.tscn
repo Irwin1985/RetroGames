@@ -1,6 +1,6 @@
 [gd_scene load_steps=10 format=2]
 
-[ext_resource path="res://Menu.gd" type="Script" id=1]
+[ext_resource path="res://Menu/Menu.gd" type="Script" id=1]
 [ext_resource path="res://assets/ARCADECLASSIC.TTF" type="DynamicFontData" id=2]
 [ext_resource path="res://assets/hand.png" type="Texture" id=3]
 [ext_resource path="res://assets/title_01.png" type="Texture" id=4]
@@ -34,7 +34,7 @@ color = Color( 0, 0, 0, 1 )
 anchor_right = 1.0
 anchor_bottom = 1.0
 
-[node name="Label" type="Label" parent="Portrait"]
+[node name="TitleLabel" type="Label" parent="Portrait"]
 anchor_right = 1.0
 margin_top = 46.0
 margin_bottom = 77.0
@@ -43,7 +43,7 @@ text = "2019  RETRO GAMES"
 align = 1
 autowrap = true
 
-[node name="Label2" type="Label" parent="Portrait"]
+[node name="ChannelLabel" type="Label" parent="Portrait"]
 margin_top = 267.0
 margin_right = 500.0
 margin_bottom = 298.0
@@ -52,7 +52,7 @@ text = "BY      IRWIN RODRIGUEZ"
 align = 1
 autowrap = true
 
-[node name="Label3" type="Label" parent="Portrait"]
+[node name="PlayLabel" type="Label" parent="Portrait"]
 margin_top = 329.0
 margin_right = 500.0
 margin_bottom = 360.0
@@ -61,7 +61,7 @@ text = "PLAY   SELECT"
 align = 1
 autowrap = true
 
-[node name="LabelSelect" type="Label" parent="Portrait"]
+[node name="SelectLabel" type="Label" parent="Portrait"]
 editor/display_folded = true
 margin_top = 366.0
 margin_right = 500.0
@@ -71,7 +71,7 @@ text = "1   PLAYER"
 align = 1
 autowrap = true
 
-[node name="TextureRect" type="TextureRect" parent="Portrait/LabelSelect"]
+[node name="TextureRect" type="TextureRect" parent="Portrait/SelectLabel"]
 margin_left = 163.0
 margin_top = 5.0
 margin_right = 202.0

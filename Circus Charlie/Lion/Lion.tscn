@@ -1,30 +1,63 @@
 [gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://character/character.tscn" type="PackedScene" id=1]
-[ext_resource path="res://assets/sfx/lion_jump.wav" type="AudioStream" id=2]
-[ext_resource path="res://assets/lion_03.png" type="Texture" id=3]
-[ext_resource path="res://assets/lion_04.png" type="Texture" id=4]
-[ext_resource path="res://assets/lion_02.png" type="Texture" id=5]
-[ext_resource path="res://assets/lion_01.png" type="Texture" id=6]
-[ext_resource path="res://assets/stand_01.png" type="Texture" id=7]
-[ext_resource path="res://assets/win_01.png" type="Texture" id=8]
-[ext_resource path="res://assets/win_02.png" type="Texture" id=9]
+[ext_resource path="res://assets/lion_03.png" type="Texture" id=2]
+[ext_resource path="res://assets/lion_02.png" type="Texture" id=3]
+[ext_resource path="res://assets/lion_01.png" type="Texture" id=4]
+[ext_resource path="res://assets/lion_04.png" type="Texture" id=5]
+[ext_resource path="res://assets/stand_01.png" type="Texture" id=6]
+[ext_resource path="res://assets/win_01.png" type="Texture" id=7]
+[ext_resource path="res://assets/win_02.png" type="Texture" id=8]
+[ext_resource path="res://assets/stand_02.png" type="Texture" id=9]
 [ext_resource path="res://assets/die.png" type="Texture" id=10]
-[ext_resource path="res://assets/stand_02.png" type="Texture" id=11]
+[ext_resource path="res://assets/sfx/lion_jump.wav" type="AudioStream" id=11]
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
-"frames": [ ExtResource( 3 ) ],
+"frames": [ ExtResource( 2 ) ],
 "loop": true,
 "name": "idle",
 "speed": 5.0
 }, {
+"frames": [ ExtResource( 3 ), ExtResource( 4 ), ExtResource( 2 ) ],
+"loop": true,
+"name": "run",
+"speed": 7.0
+}, {
+"frames": [ ExtResource( 3 ), ExtResource( 2 ) ],
+"loop": true,
+"name": "run_back",
+"speed": 3.5
+}, {
 "frames": [ ExtResource( 4 ) ],
+"loop": true,
+"name": "jump",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 5 ) ],
 "loop": true,
 "name": "hurt",
 "speed": 5.0
+} ]
+
+[sub_resource type="SpriteFrames" id=2]
+animations = [ {
+"frames": [ ExtResource( 6 ) ],
+"loop": true,
+"name": "idle",
+"speed": 5.0
 }, {
-"frames": [ ExtResource( 5 ), ExtResource( 3 ) ],
+"frames": [ ExtResource( 7 ), ExtResource( 8 ) ],
+"loop": true,
+"name": "win",
+"speed": 3.5
+}, {
+"frames": [ ExtResource( 6 ), ExtResource( 9 ) ],
+"loop": true,
+"name": "run",
+"speed": 7.0
+}, {
+"frames": [ ExtResource( 9 ), ExtResource( 6 ) ],
 "loop": true,
 "name": "run_back",
 "speed": 3.5
@@ -34,49 +67,15 @@ animations = [ {
 "name": "jump",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 5 ), ExtResource( 6 ), ExtResource( 3 ) ],
-"loop": true,
-"name": "run",
-"speed": 7.0
-} ]
-
-[sub_resource type="SpriteFrames" id=2]
-animations = [ {
-"frames": [ ExtResource( 7 ) ],
-"loop": true,
-"name": "idle",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 8 ), ExtResource( 9 ) ],
-"loop": true,
-"name": "win",
-"speed": 3.5
-}, {
 "frames": [ ExtResource( 10 ) ],
 "loop": true,
 "name": "hurt",
 "speed": 5.0
-}, {
-"frames": [ ExtResource( 11 ), ExtResource( 7 ) ],
-"loop": true,
-"name": "run_back",
-"speed": 3.5
-}, {
-"frames": [ ExtResource( 7 ) ],
-"loop": true,
-"name": "jump",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 7 ), ExtResource( 11 ) ],
-"loop": true,
-"name": "run",
-"speed": 7.0
 } ]
 
-[node name="Lion" index="0" instance=ExtResource( 1 )]
+[node name="Lion" instance=ExtResource( 1 )]
 speed = 120
 jump_power = 375
-jump_sound = ExtResource( 2 )
 use_charlie = true
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="." index="0"]
@@ -93,7 +92,7 @@ animation = "idle"
 playing = true
 
 [node name="JumpSound" type="AudioStreamPlayer" parent="." index="3"]
-stream = ExtResource( 2 )
+stream = ExtResource( 11 )
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="." index="4"]
-polygon = PoolVector2Array( -14.355, -64.7068, 11.7258, -64.1073, 13.9742, -49.8678, 13.8243, -46.5702, 8.12847, -42.0735, 11.5759, -38.3263, 13.9742, -36.2278, 13.9742, -32.4806, 4.08145, -26.7848, 6.03001, -18.0912, 23.717, -16.1426, 31.9609, -9.84724, 33.7596, -2.20287, 34.2093, 9.33863, 29.8625, 13.9852, 24.0168, 14.1351, 19.8199, 11.587, 13.5245, 7.98962, -6.11105, 7.83974, -12.2565, 12.0366, -16.3035, 14.285, -24.3976, 15.9338, -30.5431, 15.9338, -32.042, 11.4371, -31.8921, -0.254303, -24.0978, -4.15144, -13.9053, -12.0956, -9.85828, -13.8943, -6.26093, -16.2925, -6.11105, -31.881, -7.90972, -33.9795, -8.05961, -40.1249, -5.96116, -41.9236, -8.05961, -44.0221, -12.1066, -50.3174, -12.5563, -58.1117, -16.0038, -58.1117, -16.1536, -61.8589 )
+polygon = PoolVector2Array( -14.0042, -64.1219, 11.8563, -63.99, 12.0542, -56.2714, 13.9014, -50.0042, 13.9014, -46.1779, 7.8321, -42.0217, 13.8354, -35.9524, 13.9674, -32.1261, 4.07177, -24.0777, 9.87719, -16.0953, 23.6651, -15.8973, 29.6684, -10.0259, 31.6475, -3.95664, 31.8454, 1.71684, 29.9323, 3.89388, 18.3874, 5.873, -14.6639, 5.54314, -24.0977, -7.38711, -14.1361, -15.9633, -6.15369, -20.3174, -7.9349, -34.1053, -10.046, -45.98, -16.0493, -58.1846 )

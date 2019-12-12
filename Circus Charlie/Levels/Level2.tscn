@@ -12,7 +12,7 @@
 [ext_resource path="res://assets/goal_platform.png" type="Texture" id=10]
 [ext_resource path="res://assets/goal_ladder.png" type="Texture" id=11]
 [ext_resource path="res://Player/Player.tscn" type="PackedScene" id=12]
-[ext_resource path="res://HUD.tscn" type="PackedScene" id=13]
+[ext_resource path="res://HUD/HUD.tscn" type="PackedScene" id=13]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 55, 0.5 )

@@ -1,12 +1,13 @@
 [gd_scene load_steps=15 format=2]
 
-[ext_resource path="res://items/Boiler.gd" type="Script" id=1]
+[ext_resource path="res://Items/Boiler/Boiler.gd" type="Script" id=1]
 [ext_resource path="res://assets/boiler_01.png" type="Texture" id=2]
 [ext_resource path="res://assets/boiler_02.png" type="Texture" id=3]
 [ext_resource path="res://assets/coin.png" type="Texture" id=4]
 [ext_resource path="res://assets/sfx/bonus.wav" type="AudioStream" id=5]
 [ext_resource path="res://assets/sfx/CoinShow.wav" type="AudioStream" id=6]
 [ext_resource path="res://assets/ARCADECLASSIC.TTF" type="DynamicFontData" id=7]
+
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
@@ -87,6 +88,7 @@ position = Vector2( 0.473335, 7.41563 )
 shape = SubResource( 2 )
 
 [node name="AreaNotifier" type="Area2D" parent="."]
+editor/display_folded = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AreaNotifier"]
 position = Vector2( -0.0915155, -103.933 )
@@ -97,6 +99,7 @@ anims/bonus = SubResource( 4 )
 anims/coin = SubResource( 5 )
 
 [node name="CoinSprite" type="Sprite" parent="."]
+editor/display_folded = true
 scale = Vector2( 2, 2 )
 texture = ExtResource( 4 )
 __meta__ = {
@@ -104,6 +107,7 @@ __meta__ = {
 }
 
 [node name="CoinArea2D" type="Area2D" parent="CoinSprite"]
+editor/display_folded = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CoinSprite/CoinArea2D"]
 shape = SubResource( 6 )

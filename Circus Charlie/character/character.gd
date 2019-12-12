@@ -1,71 +1,52 @@
 extends KinematicBody2D
 
+signal win
+
 export (int) var speed
 export (bool) var can_jump
 export (int) var jump_power
 export (int) var gravity
-export (AudioStreamSample) var jump_sound
 export (bool) var use_charlie = false
-
-signal win
 
 var motion = Vector2()
 var jumping = false
-var keep_moving_right = false
-var keep_moving_left = false
 var sound_played = true
 
+
 func _ready():
+	$JumpSound.volume_db = global.STANDARD_VOLUME
 	if !can_jump:
 		set_physics_process(false)
-		
+
+
 func _physics_process(delta):	
 	motion.y += gravity
-#	if Input.is_action_pressed("ui_right") or keep_moving_right:
-#		if !keep_moving_left:
-#			motion.x = speed
-#			_animate("run")
-#	elif Input.is_action_pressed("ui_left") or keep_moving_left:
-#		if !keep_moving_right:
-#			motion.x = -speed
-#			_animate("run_back")
-#	else:
-#		motion.x = 0
-#		_animate("idle")
 	if !jumping:
 		if Input.is_action_pressed("ui_right"):
 			motion.x = speed
-			_animate("run")
+			animate("run")
 		elif Input.is_action_pressed("ui_left"):
 			motion.x = -speed
-			_animate("run_back")
+			animate("run_back")
 		else:
 			motion.x = 0
-			_animate("idle")
+			animate("idle")
 
 	if is_on_floor():
 		sound_played = false
 		jumping = false
-		keep_moving_right = false
-		keep_moving_left = false
 		if Input.is_action_pressed("ui_up"):
 			motion.y = -jump_power
 			jumping = true
 			if Input.is_action_pressed("ui_right"):
-				keep_moving_right = true
 				motion.x = speed
 			elif Input.is_action_pressed("ui_left"):
-				keep_moving_left = true
 				motion.x = -speed
 	else:
 		if !sound_played:
 			$JumpSound.play()
 			sound_played = true
-		_animate("jump")
-#		if motion.x > 0:
-#			keep_moving_right = true
-#		elif motion.x < 0:
-#			keep_moving_left = true
+		animate("jump")
 		
 	motion = move_and_slide(motion, Vector2.UP)
 	
@@ -74,14 +55,17 @@ func _physics_process(delta):
 		if collision.collider.name == "Podium":
 			win()
 
-func _animate(state):
+
+func animate(state):
 	$AnimatedSprite.animation = state
 	if use_charlie:
 		$Charlie.animation = state
-	
+
+
 func hurt():
 	set_physics_process(false)
-	_animate("hurt")
+	animate("hurt")
+
 
 func win():
 	emit_signal("win")

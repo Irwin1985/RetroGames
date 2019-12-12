@@ -13,7 +13,7 @@ func _input(event):
 			if !get_tree().paused:
 				visible = true
 				timer_pause.start()
-				get_node("..").get_node("PauseSound").play()				
+				get_node("..").get_node("PauseSound").play()
 				get_tree().paused = true
 			else:
 				get_tree().paused = false
