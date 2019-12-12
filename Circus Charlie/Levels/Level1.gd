@@ -25,6 +25,7 @@ func _on_bonus_timer_timeout():
 	$HUD.add_time_to_score(10)
 	if $HUD.time_left <= 0:
 		bonus_timer.stop()
+		global.transition_to_level(2)
 	
 func _stop_items():
 	# boiler
