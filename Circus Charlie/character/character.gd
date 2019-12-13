@@ -42,6 +42,8 @@ func _physics_process(delta):
 				motion.x = speed
 			elif Input.is_action_pressed("ui_left"):
 				motion.x = -speed
+			else:
+				motion.x = 0
 	else:
 		if !sound_played:
 			$JumpSound.play()

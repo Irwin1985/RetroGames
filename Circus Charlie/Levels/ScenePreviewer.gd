@@ -8,7 +8,7 @@ func _ready():
 	$HUD.update_lives()
 	$HUD.update_score(0)
 	$HUD.update_hi_score()
-	if !global.game_over:
+	if !global.is_game_over:
 		$StageCaption/StageLabel.text = "STAGE 0" + str(global.current_level + 1)
 	else:
 		global.game_over()

@@ -55,20 +55,25 @@ func spawn_flame(how_many):
 		flame.connect("hurt", self, "_on_flame_hurt")
 		flame.connect("bonus", self, "_on_flame_bonus")
 		flame.connect("score", self, "_on_flame_score")
+		call_deferred("add_flame_deferred", flame)
+
+func add_flame_deferred(flame)->void:
 		$FlameContainer.add_child(flame)
 
 
 func spawn_boiler():
+	var rand_boiler = randi() % 10
 	for i in range(10):
-		var rand_boiler = randi() % 10
 		var b = boiler.instance()
 		var bonus_total = 0
 		b.position = Vector2(545 + (500 * i), 379)
 		b.connect("hurt", self, "_on_boiler_hurt")
 		b.connect("score", self, "_on_boiler_score")
 		b.connect("pickup", self, "_on_boiler_pickup")
-		if (rand_boiler / 2) * 2 == 0:
-			bonus_total = int(rand_range(2, 6))
+		# Only one random boiler has a coin
+		if rand_boiler == i:
+			# Coin appears only after jumping backwards (pair number of jumps)
+			bonus_total = int(rand_range(1, 3)) * 2
 			b.put_bonus(bonus_total)
 		$BoilerContainer.add_child(b)
 
@@ -89,7 +94,7 @@ func hurt():
 	$Sounds/HurtSound.play()
 	global.lives -= 1
 	if global.lives <= 0:
-		global.game_over = true
+		global.is_game_over = true
 
 
 func set_sfx_volume():
@@ -125,7 +130,7 @@ func _on_bonus_timer_timeout():
 	$HUD.add_time_to_score(10)
 	if $HUD.time_left <= 0:
 		bonus_timer.stop()
-		global.transition_to_level(2)
+		global.transition_to_next_level()
 
 
 func _on_sentinel_entered():

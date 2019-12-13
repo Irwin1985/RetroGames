@@ -21,10 +21,9 @@ func _input(event):
 				$StartSound.play()
 				set_process(true)
 
-
 func _process(delta):
-	counter += 1
-	if counter >= 10:
+	counter += delta
+	if counter >= 0.2:
 		counter = 0
 		$Portrait/SelectLabel.visible = !$Portrait/SelectLabel.visible
 

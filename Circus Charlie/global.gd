@@ -5,9 +5,9 @@ const STANDARD_VOLUME = -15
 var player_score = 0
 var hi_score = 0
 var lives = 3
-var game_over = false
+var is_game_over = false
 var json_obj = {}
-var stage = ["res://Levels/level1.tscn", "res://Levels/level2.tscn"]
+var stage = ["res://Levels/Level1.tscn", "res://Levels/Level2.tscn"]
 var current_level = -1
 var play_first_sound = false
 var can_pause = false
@@ -19,7 +19,7 @@ onready var game_file = "user://score.save"
 func _ready():
 	OS.center_window()
 	load_game()
-	level_change_timer.connect("timeout", self, "change_level", [], CONNECT_DEFERRED)
+	level_change_timer.connect("timeout", self, "start_next_level", [], CONNECT_DEFERRED)
 	level_change_timer.wait_time = 1
 	add_child(level_change_timer)
 
@@ -48,13 +48,14 @@ func load_game():
 	load_game.close()
 
 
-func transition_to_level(level : int)->void:
+func transition_to_next_level()->void:
 	level_change_timer.start()
 
 
-func change_level():
+func start_next_level()->void:
 	level_change_timer.stop()
-	get_tree().change_scene(stage[1])
+	current_level += 1
+	get_tree().change_scene("res://Levels/ScenePreviewer.tscn")
 
 
 func game_over():
@@ -62,7 +63,7 @@ func game_over():
 	player_score = 0
 	hi_score = 0
 	lives = 3
-	game_over = false
+	is_game_over = false
 	current_level = -1
 	play_first_sound = false
 	can_pause = false
