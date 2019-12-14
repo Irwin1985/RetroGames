@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/HurryUp.wav-957ca6ec8d0a718065b9160022eb4c75.sample"
+
+[deps]
+
+source_file="res://assets/sfx/HurryUp.wav"
+dest_files=[ "res://.import/HurryUp.wav-957ca6ec8d0a718065b9160022eb4c75.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=true
+edit/normalize=true
+edit/loop=false
+compress/mode=0
