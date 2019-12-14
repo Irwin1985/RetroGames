@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://Levels/Level1.gd" type="Script" id=1]
 [ext_resource path="res://Items/Flame/Flame.tscn" type="PackedScene" id=2]
@@ -8,10 +8,11 @@
 [ext_resource path="res://Meters.tscn" type="PackedScene" id=6]
 [ext_resource path="res://Lion/Lion.tscn" type="PackedScene" id=7]
 [ext_resource path="res://assets/Stage1.ogg" type="AudioStream" id=8]
-[ext_resource path="res://assets/sfx/hurt.wav" type="AudioStream" id=9]
-[ext_resource path="res://assets/sfx/game_over.ogg" type="AudioStream" id=10]
-[ext_resource path="res://assets/sfx/win.wav" type="AudioStream" id=11]
-[ext_resource path="res://HUD/HUD.tscn" type="PackedScene" id=12]
+[ext_resource path="res://assets/sfx/Hurt.wav" type="AudioStream" id=9]
+[ext_resource path="res://assets/sfx/GameOver.wav" type="AudioStream" id=10]
+[ext_resource path="res://assets/sfx/Clapping.wav" type="AudioStream" id=11]
+[ext_resource path="res://assets/sfx/TimeReduce.ogg" type="AudioStream" id=12]
+[ext_resource path="res://HUD/HUD.tscn" type="PackedScene" id=13]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 2650, 0.356628 )
@@ -89,7 +90,6 @@ limit_bottom = 460
 [node name="SentinelsContainer" type="Node2D" parent="."]
 
 [node name="Sounds" type="Node2D" parent="."]
-editor/display_folded = true
 
 [node name="LevelSound" type="AudioStreamPlayer" parent="Sounds"]
 stream = ExtResource( 8 )
@@ -104,7 +104,10 @@ stream = ExtResource( 10 )
 [node name="WinSound" type="AudioStreamPlayer" parent="Sounds"]
 stream = ExtResource( 11 )
 
-[node name="HUD" parent="." instance=ExtResource( 12 )]
+[node name="ReduceTimeSound" type="AudioStreamPlayer" parent="Sounds"]
+stream = ExtResource( 12 )
+
+[node name="HUD" parent="." instance=ExtResource( 13 )]
 
 [node name="CheckPoints" type="Node2D" parent="."]
 editor/display_folded = true
@@ -135,5 +138,6 @@ position = Vector2( 4218, 394.147 )
 [connection signal="win" from="Lion" to="." method="_on_Lion_win"]
 [connection signal="finished" from="Sounds/HurtSound" to="." method="_on_HurtSound_finished"]
 [connection signal="finished" from="Sounds/GameOverSound" to="." method="_on_GameOverSound_finished"]
+[connection signal="finished" from="Sounds/WinSound" to="." method="_on_WinSound_finished"]
 
 [editable path="Lion"]

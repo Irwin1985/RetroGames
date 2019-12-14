@@ -2,12 +2,12 @@
 
 importer="wav"
 type="AudioStreamSample"
-path="res://.import/bonus.wav-2b1d8559bcd2deeabb6ecdfc37e36a3f.sample"
+path="res://.import/Bonus.wav-2f303fb6de1bb869ac06263d2c85ee27.sample"
 
 [deps]
 
-source_file="res://assets/sfx/bonus.wav"
-dest_files=[ "res://.import/bonus.wav-2b1d8559bcd2deeabb6ecdfc37e36a3f.sample" ]
+source_file="res://assets/sfx/Bonus.wav"
+dest_files=[ "res://.import/Bonus.wav-2f303fb6de1bb869ac06263d2c85ee27.sample" ]
 
 [params]
 

@@ -2,12 +2,12 @@
 
 importer="wav"
 type="AudioStreamSample"
-path="res://.import/pause.wav-afc3610bb12f40f4eb3365e714b3c19f.sample"
+path="res://.import/Pause.wav-1f496f47829176a80e6ba3ae20f238da.sample"
 
 [deps]
 
-source_file="res://assets/sfx/pause.wav"
-dest_files=[ "res://.import/pause.wav-afc3610bb12f40f4eb3365e714b3c19f.sample" ]
+source_file="res://assets/sfx/Pause.wav"
+dest_files=[ "res://.import/Pause.wav-1f496f47829176a80e6ba3ae20f238da.sample" ]
 
 [params]
 

@@ -64,8 +64,8 @@ func game_over():
 	hi_score = 0
 	lives = 3
 	is_game_over = false
-	current_level = -1
-	play_first_sound = false
+	current_level = -1	
 	can_pause = false
 	check_point = 0
 	load_game()
+	play_first_sound = false

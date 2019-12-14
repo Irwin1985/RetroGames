@@ -5,7 +5,8 @@
 [ext_resource path="res://assets/walk_02.png" type="Texture" id=3]
 [ext_resource path="res://assets/walk_03.png" type="Texture" id=4]
 [ext_resource path="res://assets/jump_01.png" type="Texture" id=5]
-[ext_resource path="res://assets/sfx/player_jump.wav" type="AudioStream" id=6]
+[ext_resource path="res://assets/sfx/PlayerJump.wav" type="AudioStream" id=6]
+
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {

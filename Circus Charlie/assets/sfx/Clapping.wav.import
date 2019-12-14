@@ -2,12 +2,12 @@
 
 importer="wav"
 type="AudioStreamSample"
-path="res://.import/Spring.wav-5cf3d8b2c03f0c9f9e854aafd2215731.sample"
+path="res://.import/Clapping.wav-12e99199bb50edcaccf1485c085af56c.sample"
 
 [deps]
 
-source_file="res://assets/sfx/Spring.wav"
-dest_files=[ "res://.import/Spring.wav-5cf3d8b2c03f0c9f9e854aafd2215731.sample" ]
+source_file="res://assets/sfx/Clapping.wav"
+dest_files=[ "res://.import/Clapping.wav-12e99199bb50edcaccf1485c085af56c.sample" ]
 
 [params]
 

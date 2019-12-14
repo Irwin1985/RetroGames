@@ -22,7 +22,7 @@ func _ready():
 
 
 func create_bonus_score_timer()->void:
-	bonus_timer.connect("timeout", self, "_on_bonus_timer_timeout")
+	bonus_timer.connect("timeout", self, "_on_bonus_timer_timeout")	
 	bonus_timer.wait_time = 0.02
 	add_child(bonus_timer)
 
@@ -38,9 +38,11 @@ func stop_items():
 
 func spawn_flame(how_many):
 	for i in range(how_many):
+		
 		var flame = single_flame.instance()
 		var rand = randi() % 4
 		var rand_bonus = randi() % 20
+		
 		if pos.x == 0:
 			pos = Vector2($Lion.position.x + 380, 184)
 		else:
@@ -129,6 +131,7 @@ func set_player_position():
 func _on_bonus_timer_timeout():
 	$HUD.add_time_to_score(10)
 	if $HUD.time_left <= 0:
+		$Sounds/ReduceTimeSound.stop()
 		bonus_timer.stop()
 		global.transition_to_next_level()
 
@@ -172,7 +175,11 @@ func _on_GameOverSound_finished():
 func _on_Lion_win():
 	for flame in $FlameContainer.get_children():
 		flame.queue_free()
-	$HUD.stop_time()
+	$HUD.stop_time()	
 	bonus_timer.start()
 	$Sounds/LevelSound.stop()
-	$Sounds/WinSound.play()
+	$Sounds/WinSound.play()	
+
+
+func _on_WinSound_finished():
+	$Sounds/ReduceTimeSound.play()

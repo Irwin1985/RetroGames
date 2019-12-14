@@ -6,6 +6,7 @@ var time_left = 5000
 
 
 func _ready():
+	$PauseSound.volume_db = global.STANDARD_VOLUME
 	hide_lives()
 	update_lives()
 	update_stage()

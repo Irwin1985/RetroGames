@@ -2,12 +2,12 @@
 
 importer="wav"
 type="AudioStreamSample"
-path="res://.import/Spring.wav-5cf3d8b2c03f0c9f9e854aafd2215731.sample"
+path="res://.import/LiveUp.wav-aa6a049b7173b541527ff093d152232a.sample"
 
 [deps]
 
-source_file="res://assets/sfx/Spring.wav"
-dest_files=[ "res://.import/Spring.wav-5cf3d8b2c03f0c9f9e854aafd2215731.sample" ]
+source_file="res://assets/sfx/LiveUp.wav"
+dest_files=[ "res://.import/LiveUp.wav-aa6a049b7173b541527ff093d152232a.sample" ]
 
 [params]
 

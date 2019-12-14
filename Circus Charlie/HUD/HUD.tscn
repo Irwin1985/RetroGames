@@ -4,7 +4,7 @@
 [ext_resource path="res://assets/banner.png" type="Texture" id=2]
 [ext_resource path="res://assets/ARCADECLASSIC.TTF" type="DynamicFontData" id=3]
 [ext_resource path="res://assets/live.png" type="Texture" id=4]
-[ext_resource path="res://LabelPause.gd" type="Script" id=5]
+[ext_resource path="res://HUD/LabelPause.gd" type="Script" id=5]
 [ext_resource path="res://assets/sfx/pause.wav" type="AudioStream" id=6]
 
 [sub_resource type="DynamicFont" id=1]

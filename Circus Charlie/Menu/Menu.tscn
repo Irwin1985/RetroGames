@@ -6,7 +6,7 @@
 [ext_resource path="res://assets/title_01.png" type="Texture" id=4]
 [ext_resource path="res://assets/title_02.png" type="Texture" id=5]
 [ext_resource path="res://assets/title_03.png" type="Texture" id=6]
-[ext_resource path="res://assets/sfx/aplause_part_1.wav" type="AudioStream" id=7]
+[ext_resource path="res://assets/sfx/ClapStarting.wav" type="AudioStream" id=7]
 
 [sub_resource type="DynamicFont" id=1]
 size = 30
@@ -81,6 +81,7 @@ texture = ExtResource( 3 )
 [node name="AnimatedSprite" type="AnimatedSprite" parent="Portrait"]
 position = Vector2( 250, 166 )
 frames = SubResource( 2 )
+frame = 1
 playing = true
 
 [node name="StartSound" type="AudioStreamPlayer" parent="."]
