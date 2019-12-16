@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://Items/Boiler/Boiler.gd" type="Script" id=1]
 [ext_resource path="res://assets/boiler_01.png" type="Texture" id=2]
@@ -16,14 +16,12 @@ animations = [ {
 "speed": 10.0
 } ]
 
-[sub_resource type="CircleShape2D" id=2]
-radius = 9.91245
-
 [sub_resource type="RectangleShape2D" id=3]
 extents = Vector2( 1.21812, 51.3237 )
 
 [sub_resource type="Animation" id=4]
 resource_name = "bonus"
+length = 0.5
 tracks/0/type = "value"
 tracks/0/path = NodePath("ControlBonus/LabelBonus:rect_position")
 tracks/0/interp = 2
@@ -31,7 +29,7 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 1 ),
+"times": PoolRealArray( 0, 0.5 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 0,
 "values": [ Vector2( 0, 0 ), Vector2( 55, 0 ) ]
@@ -80,11 +78,11 @@ script = ExtResource( 1 )
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 scale = Vector2( 2, 2 )
 frames = SubResource( 1 )
+frame = 1
 playing = true
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2( 0.473335, 7.41563 )
-shape = SubResource( 2 )
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+polygon = PoolVector2Array( -10.2073, 0.317158, 12.5387, -12.1654, 12.6137, 27.8558, -10.1677, 28.3565 )
 
 [node name="AreaNotifier" type="Area2D" parent="."]
 editor/display_folded = true
@@ -98,7 +96,8 @@ anims/bonus = SubResource( 4 )
 anims/coin = SubResource( 5 )
 
 [node name="CoinSprite" type="Sprite" parent="."]
-rotation = -6.28319
+position = Vector2( 0, -195.635 )
+rotation = -3.92699
 scale = Vector2( 2, 2 )
 texture = ExtResource( 4 )
 __meta__ = {

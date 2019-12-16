@@ -3,7 +3,9 @@ extends CanvasLayer
 onready var label_timer = Timer.new()
 onready var game_timer = Timer.new()
 var time_left = 5000
-
+var time_delta = 10
+signal little_time_left
+signal out_of_time
 
 func _ready():
 	$PauseSound.volume_db = global.STANDARD_VOLUME
@@ -85,5 +87,11 @@ func _on_timer_label_timeout():
 
 
 func _on_game_label_timeout():
-	time_left -= 10
+	time_left -= time_delta
 	update_timer()
+	if time_left > (1000 - time_delta) and time_left <= 1000:
+		emit_signal("little_time_left")
+	elif time_left <= 0:
+		time_left = 0
+		game_timer.stop()
+		emit_signal("out_of_time")

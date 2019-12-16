@@ -65,9 +65,11 @@ func animate(state):
 
 
 func hurt():
-	set_physics_process(false)
+	stop()
 	animate("hurt")
 
+func stop():
+	set_physics_process(false)
 
 func win():
 	emit_signal("win")

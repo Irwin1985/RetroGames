@@ -67,7 +67,6 @@ __meta__ = {
 [node name="BoilerContainer" type="Node2D" parent="."]
 
 [node name="Items" type="Node2D" parent="."]
-editor/display_folded = true
 
 [node name="Podium" parent="Items" instance=ExtResource( 5 )]
 position = Vector2( 5107, 379 )
@@ -77,7 +76,6 @@ position = Vector2( 5107, 379 )
 [node name="FlameContainer" type="Node2D" parent="."]
 
 [node name="Lion" parent="." instance=ExtResource( 7 )]
-editor/display_folded = true
 position = Vector2( 100, 394.147 )
 
 [node name="Camera2D" parent="Lion" index="1"]
@@ -139,5 +137,7 @@ position = Vector2( 4218, 394.147 )
 [connection signal="finished" from="Sounds/HurtSound" to="." method="_on_HurtSound_finished"]
 [connection signal="finished" from="Sounds/GameOverSound" to="." method="_on_GameOverSound_finished"]
 [connection signal="finished" from="Sounds/WinSound" to="." method="_on_WinSound_finished"]
+[connection signal="little_time_left" from="HUD" to="." method="_on_HUD_little_time_left"]
+[connection signal="out_of_time" from="HUD" to="." method="_on_HUD_out_of_time"]
 
 [editable path="Lion"]

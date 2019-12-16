@@ -12,23 +12,17 @@ var current_level = -1
 var play_first_sound = false
 var can_pause = false
 var check_point = 0
-var level_change_timer = Timer.new()
 onready var game_file = "user://score.save"
 
 
 func _ready():
 	OS.center_window()
 	load_game()
-	level_change_timer.connect("timeout", self, "start_next_level", [], CONNECT_DEFERRED)
-	level_change_timer.wait_time = 1
-	add_child(level_change_timer)
-
 
 func check_update_hi_score():
 	if player_score > hi_score:
 		hi_score = player_score
 		save_game()
-
 
 func save_game():
 	var save_game = File.new()
@@ -47,17 +41,10 @@ func load_game():
 	hi_score = json_obj["score"]
 	load_game.close()
 
-
-func transition_to_next_level()->void:
-	level_change_timer.start()
-
-
 func start_next_level()->void:
-	level_change_timer.stop()
 	current_level += 1
 	get_tree().change_scene("res://Levels/ScenePreviewer.tscn")
-
-
+	
 func game_over():
 	check_update_hi_score()
 	player_score = 0

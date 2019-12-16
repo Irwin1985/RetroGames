@@ -51,6 +51,7 @@ custom_fonts/font = SubResource( 1 )
 text = "BONUS"
 
 [node name="HiScore" type="Control" parent="."]
+editor/display_folded = true
 margin_right = 40.0
 margin_bottom = 40.0
 
