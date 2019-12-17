@@ -1,0 +1,73 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://assets/level5.png" type="Texture" id=1]
+[ext_resource path="res://assets/level_40m.png" type="Texture" id=2]
+[ext_resource path="res://assets/level_50m.png" type="Texture" id=3]
+[ext_resource path="res://assets/trampoline.png" type="Texture" id=4]
+[ext_resource path="res://assets/swing.png" type="Texture" id=5]
+[ext_resource path="res://assets/swinging_01.png" type="Texture" id=6]
+
+[sub_resource type="CapsuleShape2D" id=1]
+
+[node name="Node2D" type="Node2D"]
+
+[node name="level5" type="TextureRect" parent="."]
+margin_right = 1280.0
+margin_bottom = 224.0
+rect_scale = Vector2( 2, 2.06 )
+texture = ExtResource( 1 )
+stretch_mode = 2
+
+[node name="level_40m" type="Sprite" parent="."]
+position = Vector2( 560, 436 )
+scale = Vector2( 2, 2 )
+texture = ExtResource( 2 )
+
+[node name="level_50m" type="Sprite" parent="."]
+position = Vector2( 60, 436 )
+scale = Vector2( 2, 2 )
+texture = ExtResource( 3 )
+
+[node name="trampoline" type="Sprite" parent="."]
+position = Vector2( 238, 396 )
+scale = Vector2( 2, 2 )
+texture = ExtResource( 4 )
+
+[node name="trampoline2" type="Sprite" parent="."]
+position = Vector2( 494, 396 )
+scale = Vector2( 2, 2 )
+texture = ExtResource( 4 )
+
+[node name="swing" type="Sprite" parent="."]
+position = Vector2( 114, 110 )
+scale = Vector2( 2, 2 )
+texture = ExtResource( 5 )
+offset = Vector2( -2, 30 )
+
+[node name="swing2" type="Sprite" parent="."]
+position = Vector2( 370, 110 )
+scale = Vector2( 2, 2 )
+texture = ExtResource( 5 )
+offset = Vector2( -2, 30 )
+
+[node name="KinematicBody2D" type="KinematicBody2D" parent="."]
+editor/display_folded = true
+position = Vector2( 90.2891, 235.964 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="KinematicBody2D"]
+shape = SubResource( 1 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Sprite" type="Sprite" parent="KinematicBody2D"]
+scale = Vector2( 2, 2 )
+texture = ExtResource( 6 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Camera2D" type="Camera2D" parent="KinematicBody2D"]
+current = true
+limit_left = 0
+limit_top = 0
