@@ -1,0 +1,28 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://Items/Trampoline/trampoline.gd" type="Script" id=1]
+[ext_resource path="res://assets/trampoline.png" type="Texture" id=2]
+[ext_resource path="res://assets/sfx/spring.wav" type="AudioStream" id=3]
+
+[sub_resource type="CircleShape2D" id=1]
+radius = 13.4075
+
+[node name="trampoline" type="Area2D"]
+position = Vector2( 256, 396 )
+script = ExtResource( 1 )
+
+[node name="sprite" type="Sprite" parent="."]
+scale = Vector2( 2, 2 )
+texture = ExtResource( 2 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( 0, -9 )
+scale = Vector2( 2.12, 0.48 )
+shape = SubResource( 1 )
+
+[node name="BounceSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 3 )
+[connection signal="body_entered" from="." to="." method="_on_trampoline_body_entered"]
