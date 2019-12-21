@@ -8,9 +8,20 @@
 
 config_version=4
 
-_global_script_classes=[  ]
+_global_script_classes=[ {
+"base": "Node2D",
+"class": "Swing",
+"language": "GDScript",
+"path": "res://Items/Swing/swing.gd"
+}, {
+"base": "Area2D",
+"class": "Trampoline",
+"language": "GDScript",
+"path": "res://Items/Trampoline/trampoline.gd"
+} ]
 _global_script_class_icons={
-
+"Swing": "",
+"Trampoline": ""
 }
 
 [application]

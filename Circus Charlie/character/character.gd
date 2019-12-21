@@ -9,8 +9,9 @@ export (int) var gravity
 export (bool) var use_charlie = false
 
 var motion = Vector2()
+var hanging : bool = false
 var jumping = false
-var sound_played = true
+var last_swing : Swing = null
 
 
 func _ready():
@@ -33,22 +34,18 @@ func _physics_process(delta):
 			animate("idle")
 
 	if is_on_floor():
-		sound_played = false
 		jumping = false
 		if Input.is_action_pressed("ui_up"):
 			motion.y = -jump_power
 			jumping = true
+			$JumpSound.play()
+			animate("jump")
 			if Input.is_action_pressed("ui_right"):
 				motion.x = speed
 			elif Input.is_action_pressed("ui_left"):
 				motion.x = -speed
 			else:
 				motion.x = 0
-	else:
-		if !sound_played:
-			$JumpSound.play()
-			sound_played = true
-		animate("jump")
 		
 	motion = move_and_slide(motion, Vector2.UP)
 	

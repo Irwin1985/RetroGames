@@ -7,7 +7,7 @@
 [sub_resource type="CircleShape2D" id=1]
 radius = 13.4075
 
-[node name="trampoline" type="Area2D"]
+[node name="Trampoline" type="Area2D"]
 position = Vector2( 256, 396 )
 script = ExtResource( 1 )
 
@@ -18,10 +18,13 @@ __meta__ = {
 "_edit_lock_": true
 }
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="BounceMat" type="CollisionShape2D" parent="."]
 position = Vector2( 0, -9 )
 scale = Vector2( 2.12, 0.48 )
 shape = SubResource( 1 )
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="BounceSound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 3 )
