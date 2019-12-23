@@ -1,4 +1,5 @@
 extends KinematicBody2D
+class_name Player
 
 signal win
 
@@ -21,46 +22,71 @@ func _ready():
 
 
 func _physics_process(delta):	
-	motion.y += gravity
-	if !jumping:
-		if Input.is_action_pressed("ui_right"):
-			motion.x = speed
-			animate("run")
-		elif Input.is_action_pressed("ui_left"):
-			motion.x = -speed
-			animate("run_back")
-		else:
-			motion.x = 0
-			animate("idle")
-
-	if is_on_floor():
-		jumping = false
-		if Input.is_action_pressed("ui_up"):
-			motion.y = -jump_power
-			jumping = true
-			$JumpSound.play()
-			animate("jump")
+	if hanging:
+		var pos_offset : Vector2 = Vector2(-18, 8)
+		position = last_swing.get_grab_bar_position() + pos_offset
+		if Input.is_action_pressed("game_jump"):
+			hanging = false
+			motion = last_swing.get_tangential_speed()
+			jump()
+	else:
+		motion.y += gravity
+		if !jumping:
 			if Input.is_action_pressed("ui_right"):
 				motion.x = speed
+				animate("run")
 			elif Input.is_action_pressed("ui_left"):
 				motion.x = -speed
+				animate("run_back")
 			else:
 				motion.x = 0
-		
-	motion = move_and_slide(motion, Vector2.UP)
-	
-	for i in get_slide_count():
-		var collision = get_slide_collision(i)
-		if collision.collider.name == "Podium":
-			win()
+				animate("idle")
+		if is_on_floor():
+			jumping = false
+			if Input.is_action_pressed("ui_up"):
+				motion.y = -jump_power
+				jump()
+				if Input.is_action_pressed("ui_right"):
+					motion.x = speed
+				elif Input.is_action_pressed("ui_left"):
+					motion.x = -speed
+				else:
+					motion.x = 0
+		motion = move_and_slide(motion, Vector2.UP)
 
+func jump()->void:
+	jumping = true
+	$JumpSound.play()
+	animate("jump")
 
 func animate(state):
 	$AnimatedSprite.animation = state
 	if use_charlie:
 		$Charlie.animation = state
 
-
+func take_swing(swing : Swing)->void:
+	if last_swing != null and last_swing != swing:
+		last_swing.enable_bar()
+	hanging = true
+	jumping = false
+	animate("swing")
+	$AnimatedSprite.set_speed_scale(swing.get_speed())
+	$AnimatedSprite.set_frame( \
+		$AnimatedSprite.get_sprite_frames().get_frame_count("swing") * \
+		swing.get_swing_position() / 4)
+	last_swing = swing
+	
+func bounce_trampoline()->void:
+	if last_swing != null:
+		last_swing.enable_bar()
+		last_swing = null
+	if Input.is_action_pressed("game_left"):
+		motion = Vector2(-100, -500)
+	elif Input.is_action_pressed("game_right"):
+		motion = Vector2(100, -500)
+	else:
+		motion = Vector2(0, -500)
+		
 func hurt():
 	stop()
 	animate("hurt")

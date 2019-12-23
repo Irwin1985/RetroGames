@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://Levels/Level5.gd" type="Script" id=1]
 [ext_resource path="res://assets/level5.png" type="Texture" id=2]
@@ -8,42 +8,14 @@
 [ext_resource path="res://assets/level_30m.png" type="Texture" id=6]
 [ext_resource path="res://assets/level_40m.png" type="Texture" id=7]
 [ext_resource path="res://assets/level_50m.png" type="Texture" id=8]
-[ext_resource path="res://Levels/Player.gd" type="Script" id=9]
-[ext_resource path="res://assets/die.png" type="Texture" id=10]
-[ext_resource path="res://assets/swinging_03.png" type="Texture" id=11]
-[ext_resource path="res://assets/swinging_05.png" type="Texture" id=12]
-[ext_resource path="res://assets/swinging_02.png" type="Texture" id=13]
-[ext_resource path="res://assets/swinging_01.png" type="Texture" id=14]
-[ext_resource path="res://assets/jump_01.png" type="Texture" id=15]
-[ext_resource path="res://assets/sfx/hurt.wav" type="AudioStream" id=16]
-[ext_resource path="res://assets/Stage3.ogg" type="AudioStream" id=17]
+[ext_resource path="res://Player/Player.tscn" type="PackedScene" id=9]
+[ext_resource path="res://assets/Stage3.ogg" type="AudioStream" id=10]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 1500, 24 )
 
-[sub_resource type="RectangleShape2D" id=4]
+[sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 20, 250 )
-
-[sub_resource type="SpriteFrames" id=2]
-animations = [ {
-"frames": [ ExtResource( 10 ) ],
-"loop": true,
-"name": "hurt",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 11 ), ExtResource( 11 ), ExtResource( 12 ), ExtResource( 13 ), ExtResource( 14 ), ExtResource( 13 ), ExtResource( 12 ), ExtResource( 11 ), ExtResource( 11 ), ExtResource( 11 ) ],
-"loop": true,
-"name": "swinging",
-"speed": 2.5
-}, {
-"frames": [ ExtResource( 15 ) ],
-"loop": true,
-"name": "jump",
-"speed": 5.0
-} ]
-
-[sub_resource type="CapsuleShape2D" id=3]
-height = 22.2607
 
 [node name="Node2D" type="Node2D"]
 script = ExtResource( 1 )
@@ -68,7 +40,7 @@ one_way_collision = true
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="Limits/WallsCollider"]
 position = Vector2( 0, 250 )
-shape = SubResource( 4 )
+shape = SubResource( 2 )
 
 [node name="FloorDetector" type="Area2D" parent="Limits"]
 editor/display_folded = true
@@ -81,6 +53,7 @@ one_way_collision = true
 [node name="EnvironmentObjects" type="Node2D" parent="."]
 
 [node name="Checkpoints" type="Node2D" parent="."]
+editor/display_folded = true
 
 [node name="level_0m" type="Sprite" parent="Checkpoints"]
 position = Vector2( 2620, 436 )
@@ -112,41 +85,14 @@ position = Vector2( 60, 436 )
 scale = Vector2( 2, 2 )
 texture = ExtResource( 8 )
 
-[node name="Player" type="KinematicBody2D" parent="."]
-position = Vector2( 50, 320 )
-script = ExtResource( 9 )
-
-[node name="AnimatedSprite" type="AnimatedSprite" parent="Player"]
-scale = Vector2( 2, 2 )
-frames = SubResource( 2 )
-animation = "jump"
-playing = true
-__meta__ = {
-"_edit_lock_": true
-}
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]
-position = Vector2( 2.3192, 0.913319 )
-shape = SubResource( 3 )
-__meta__ = {
-"_edit_lock_": true
-}
-
-[node name="Camera2D" type="Camera2D" parent="Player"]
-current = true
-limit_left = 0
-limit_top = 0
-limit_bottom = 250
-__meta__ = {
-"_edit_lock_": true
-}
-
-[node name="HurtSound" type="AudioStreamPlayer" parent="Player"]
-stream = ExtResource( 16 )
+[node name="Player" parent="." instance=ExtResource( 9 )]
+position = Vector2( 70.3243, 305.911 )
+gravity = 10
 
 [node name="Sounds" type="Node2D" parent="."]
+editor/display_folded = true
 
 [node name="LevelSound" type="AudioStreamPlayer" parent="Sounds"]
-stream = ExtResource( 17 )
+stream = ExtResource( 10 )
 autoplay = true
 [connection signal="body_entered" from="Limits/FloorDetector" to="." method="_on_Detector_body_entered"]

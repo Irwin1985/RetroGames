@@ -170,7 +170,7 @@ func _on_Lion_win():
 	podium_center_timer.start()
 	bonus_timer.start()
 	$Sounds/LevelSound.stop()
-	$Sounds/WinSound.play()	
+	$Sounds/WinSound.play()
 
 func _on_podium_center_timeout()->void:
 	var xdelta : int = ($Items/Podium.get_position() - $Lion.get_position() ).x

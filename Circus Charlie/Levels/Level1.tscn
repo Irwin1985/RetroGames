@@ -29,7 +29,6 @@ single_flame = ExtResource( 2 )
 boiler = ExtResource( 3 )
 
 [node name="Control" type="Control" parent="."]
-editor/display_folded = true
 margin_right = 40.0
 margin_bottom = 40.0
 
@@ -67,6 +66,7 @@ __meta__ = {
 [node name="BoilerContainer" type="Node2D" parent="."]
 
 [node name="Items" type="Node2D" parent="."]
+editor/display_folded = true
 
 [node name="Podium" parent="Items" instance=ExtResource( 5 )]
 position = Vector2( 5107, 379 )
@@ -76,6 +76,7 @@ position = Vector2( 5107, 379 )
 [node name="FlameContainer" type="Node2D" parent="."]
 
 [node name="Lion" parent="." instance=ExtResource( 7 )]
+editor/display_folded = true
 position = Vector2( 100, 394.147 )
 
 [node name="Camera2D" parent="Lion" index="1"]
@@ -88,6 +89,7 @@ limit_bottom = 460
 [node name="SentinelsContainer" type="Node2D" parent="."]
 
 [node name="Sounds" type="Node2D" parent="."]
+editor/display_folded = true
 
 [node name="LevelSound" type="AudioStreamPlayer" parent="Sounds"]
 stream = ExtResource( 8 )

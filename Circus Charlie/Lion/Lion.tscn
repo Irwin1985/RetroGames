@@ -7,9 +7,9 @@
 [ext_resource path="res://assets/lion_04.png" type="Texture" id=5]
 [ext_resource path="res://assets/stand_01.png" type="Texture" id=6]
 [ext_resource path="res://assets/stand_02.png" type="Texture" id=7]
-[ext_resource path="res://assets/die.png" type="Texture" id=8]
-[ext_resource path="res://assets/win_01.png" type="Texture" id=9]
-[ext_resource path="res://assets/win_02.png" type="Texture" id=10]
+[ext_resource path="res://assets/win_01.png" type="Texture" id=8]
+[ext_resource path="res://assets/win_02.png" type="Texture" id=9]
+[ext_resource path="res://assets/die.png" type="Texture" id=10]
 [ext_resource path="res://assets/sfx/LionJump.wav" type="AudioStream" id=11]
 
 [sub_resource type="SpriteFrames" id=1]
@@ -18,11 +18,6 @@ animations = [ {
 "loop": true,
 "name": "idle",
 "speed": 5.0
-}, {
-"frames": [ ExtResource( 3 ), ExtResource( 4 ), ExtResource( 2 ) ],
-"loop": true,
-"name": "run",
-"speed": 7.0
 }, {
 "frames": [ ExtResource( 3 ), ExtResource( 2 ) ],
 "loop": true,
@@ -38,6 +33,11 @@ animations = [ {
 "loop": true,
 "name": "hurt",
 "speed": 5.0
+}, {
+"frames": [ ExtResource( 3 ), ExtResource( 4 ), ExtResource( 2 ) ],
+"loop": true,
+"name": "run",
+"speed": 7.0
 } ]
 
 [sub_resource type="SpriteFrames" id=2]
@@ -46,11 +46,6 @@ animations = [ {
 "loop": true,
 "name": "idle",
 "speed": 5.0
-}, {
-"frames": [ ExtResource( 6 ), ExtResource( 7 ) ],
-"loop": true,
-"name": "run",
-"speed": 7.0
 }, {
 "frames": [ ExtResource( 7 ), ExtResource( 6 ) ],
 "loop": true,
@@ -62,15 +57,20 @@ animations = [ {
 "name": "jump",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 8 ) ],
+"frames": [ ExtResource( 8 ), ExtResource( 9 ) ],
+"loop": true,
+"name": "win",
+"speed": 3.5
+}, {
+"frames": [ ExtResource( 10 ) ],
 "loop": true,
 "name": "hurt",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 9 ), ExtResource( 10 ) ],
+"frames": [ ExtResource( 6 ), ExtResource( 7 ) ],
 "loop": true,
-"name": "win",
-"speed": 3.5
+"name": "run",
+"speed": 7.0
 } ]
 
 [node name="Lion" instance=ExtResource( 1 )]

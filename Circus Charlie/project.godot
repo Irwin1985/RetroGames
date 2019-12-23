@@ -9,6 +9,11 @@
 config_version=4
 
 _global_script_classes=[ {
+"base": "KinematicBody2D",
+"class": "Player",
+"language": "GDScript",
+"path": "res://character/character.gd"
+}, {
 "base": "Node2D",
 "class": "Swing",
 "language": "GDScript",
@@ -20,6 +25,7 @@ _global_script_classes=[ {
 "path": "res://Items/Trampoline/trampoline.gd"
 } ]
 _global_script_class_icons={
+"Player": "",
 "Swing": "",
 "Trampoline": ""
 }
