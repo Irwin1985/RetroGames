@@ -77,7 +77,7 @@ func spawn_flame(how_many):
 		else:
 			flame.start("big")
 		
-		flame.connect("hurt", self, "_on_flame_hurt")
+		flame.connect("hurt", $Lion, "hurt")
 		flame.connect("bonus", self, "_on_flame_bonus")
 		flame.connect("score", self, "_on_flame_score")
 		$FlameContainer.call_deferred("add_child", flame)
@@ -86,7 +86,7 @@ func spawn_boiler():
 	for i in range(10):
 		var b = boiler.instance()
 		b.position = Vector2(545 + (500 * i), 379)
-		b.connect("hurt", self, "_on_boiler_hurt")
+		b.connect("hurt", $Lion, "hurt")
 		b.connect("score", self, "_on_boiler_score")
 		b.connect("pickup", self, "_on_boiler_pickup")
 		$BoilerContainer.add_child(b)
@@ -115,17 +115,11 @@ func _on_flame_bonus(score):
 func _on_flame_score(score):
 	$HUD.update_score(score)
 
-func _on_flame_hurt():
-	hurt()
-
 func _on_boiler_score(score):
 	$HUD.update_score(score)
 
 func _on_boiler_pickup(score):
 	$HUD.update_score(score)
-
-func _on_boiler_hurt():
-	hurt()
 	
 func _on_HUD_little_time_left():
 	$Sounds/LevelSound.pitch_scale = 1.075
@@ -134,29 +128,23 @@ func _on_HUD_little_time_left():
 #################################################
 # Losing methods
 func _on_HUD_out_of_time():
-	lose()
+	$Lion.lose()
 
-func hurt():
-	$HUD.stop_time()
-	$Lion.hurt()
+func _on_Lion_lose():
 	lose()
 
 func lose():
+	$HUD.stop_time()
 	stop_items()
-	$Lion.stop()
 	$Sounds/LevelSound.stop()
-	$Sounds/HurtSound.play()
 	global.lives -= 1
 	if global.lives <= 0:
 		global.is_game_over = true
-		
-func _on_HurtSound_finished():
-	yield(get_tree().create_timer(0.5), "timeout")
+	yield(get_tree().create_timer(0.66), "timeout")
 	$Sounds/GameOverSound.play()
 
 func _on_GameOverSound_finished():
-	get_tree().change_scene("res://Levels/ScenePreviewer.tscn")
-
+	get_tree().call_deferred("change_scene","res://Levels/ScenePreviewer.tscn")
 
 #################################################
 # Winning methods

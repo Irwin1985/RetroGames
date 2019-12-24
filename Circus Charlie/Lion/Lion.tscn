@@ -2,14 +2,14 @@
 
 [ext_resource path="res://character/character.tscn" type="PackedScene" id=1]
 [ext_resource path="res://assets/lion_03.png" type="Texture" id=2]
-[ext_resource path="res://assets/lion_02.png" type="Texture" id=3]
-[ext_resource path="res://assets/lion_01.png" type="Texture" id=4]
-[ext_resource path="res://assets/lion_04.png" type="Texture" id=5]
+[ext_resource path="res://assets/lion_01.png" type="Texture" id=3]
+[ext_resource path="res://assets/lion_04.png" type="Texture" id=4]
+[ext_resource path="res://assets/lion_02.png" type="Texture" id=5]
 [ext_resource path="res://assets/stand_01.png" type="Texture" id=6]
-[ext_resource path="res://assets/stand_02.png" type="Texture" id=7]
-[ext_resource path="res://assets/win_01.png" type="Texture" id=8]
-[ext_resource path="res://assets/win_02.png" type="Texture" id=9]
-[ext_resource path="res://assets/die.png" type="Texture" id=10]
+[ext_resource path="res://assets/win_01.png" type="Texture" id=7]
+[ext_resource path="res://assets/win_02.png" type="Texture" id=8]
+[ext_resource path="res://assets/die.png" type="Texture" id=9]
+[ext_resource path="res://assets/stand_02.png" type="Texture" id=10]
 [ext_resource path="res://assets/sfx/LionJump.wav" type="AudioStream" id=11]
 
 [sub_resource type="SpriteFrames" id=1]
@@ -19,22 +19,22 @@ animations = [ {
 "name": "idle",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 3 ), ExtResource( 2 ) ],
-"loop": true,
-"name": "run_back",
-"speed": 3.5
-}, {
-"frames": [ ExtResource( 4 ) ],
+"frames": [ ExtResource( 3 ) ],
 "loop": true,
 "name": "jump",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 5 ) ],
+"frames": [ ExtResource( 4 ) ],
 "loop": true,
 "name": "hurt",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 3 ), ExtResource( 4 ), ExtResource( 2 ) ],
+"frames": [ ExtResource( 5 ), ExtResource( 2 ) ],
+"loop": true,
+"name": "run_back",
+"speed": 3.5
+}, {
+"frames": [ ExtResource( 5 ), ExtResource( 3 ), ExtResource( 2 ) ],
 "loop": true,
 "name": "run",
 "speed": 7.0
@@ -47,9 +47,9 @@ animations = [ {
 "name": "idle",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 7 ), ExtResource( 6 ) ],
+"frames": [ ExtResource( 7 ), ExtResource( 8 ) ],
 "loop": true,
-"name": "run_back",
+"name": "win",
 "speed": 3.5
 }, {
 "frames": [ ExtResource( 6 ) ],
@@ -57,17 +57,17 @@ animations = [ {
 "name": "jump",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 8 ), ExtResource( 9 ) ],
-"loop": true,
-"name": "win",
-"speed": 3.5
-}, {
-"frames": [ ExtResource( 10 ) ],
+"frames": [ ExtResource( 9 ) ],
 "loop": true,
 "name": "hurt",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 6 ), ExtResource( 7 ) ],
+"frames": [ ExtResource( 10 ), ExtResource( 6 ) ],
+"loop": true,
+"name": "run_back",
+"speed": 3.5
+}, {
+"frames": [ ExtResource( 6 ), ExtResource( 10 ) ],
 "loop": true,
 "name": "run",
 "speed": 7.0

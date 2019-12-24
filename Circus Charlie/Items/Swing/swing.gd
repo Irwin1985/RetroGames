@@ -31,7 +31,7 @@ func enable_bar()->void:
 	grab_enabled = true
 	
 func get_tangential_speed()->Vector2:
-	var vert_speed = -abs(sin($SwingRope.rotation) * 150)
+	var vert_speed = -abs(sin($SwingRope.rotation) * 175)
 	if $AnimationPlayer.current_animation_position < 0.9:
 		return Vector2(200, -vert_speed)
 	elif $AnimationPlayer.current_animation_position < 1.8:

@@ -2,6 +2,7 @@ extends KinematicBody2D
 class_name Player
 
 signal win
+signal lose
 
 export (int) var speed
 export (bool) var can_jump
@@ -11,7 +12,9 @@ export (bool) var use_charlie = false
 
 var motion = Vector2()
 var hanging : bool = false
-var jumping = false
+var jumping : bool = false
+var lost : bool = false
+var won : bool = false
 var last_swing : Swing = null
 
 
@@ -76,27 +79,42 @@ func take_swing(swing : Swing)->void:
 		swing.get_swing_position() / 4)
 	last_swing = swing
 	
-func bounce_trampoline()->void:
+func bounce_trampoline(bounce_power : float = 640)->void:
 	if last_swing != null:
 		last_swing.enable_bar()
 		last_swing = null
 	if Input.is_action_pressed("game_left"):
-		motion = Vector2(-100, -500)
+		motion = Vector2(-100, -bounce_power)
 	elif Input.is_action_pressed("game_right"):
-		motion = Vector2(100, -500)
+		motion = Vector2(100, -bounce_power)
 	else:
-		motion = Vector2(0, -500)
+		motion = Vector2(0, -bounce_power)
 		
-func hurt():
-	stop()
-	animate("hurt")
-
 func stop():
 	set_physics_process(false)
+	$AnimatedSprite.stop()
+	if use_charlie:
+		$Charlie.stop()
+
+func hurt():
+	if not won and not lost:
+		animate("hurt")
+		lose()
+
+func lose():
+	if not won and not lost:
+		lost = true
+		emit_signal("lose")
+		$HurtSound.play()
+		stop()
 
 func win():
-	emit_signal("win")
-	if use_charlie:
-		$Charlie.animation = "win"
-	$AnimatedSprite.animation = "idle"
-	set_physics_process(false)
+	if not lost:
+		won = true
+		emit_signal("win")
+		if use_charlie:
+			$Charlie.animation = "win"
+			$AnimatedSprite.animation = "idle"
+		else:
+			$AnimatedSprite.animation = "win"
+		set_physics_process(false)
