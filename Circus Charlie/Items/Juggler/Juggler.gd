@@ -12,11 +12,10 @@ func _ready():
 func juggle_throw()->void:
 	wait_timer.wait_time = randf() * 1.75 + .75
 	state_machine.travel("juggle throw")
-	yield(get_tree().create_timer(0.05),"timeout")
 	var new_knife : Area2D = $Knife.duplicate()
 	new_knife.get_node("AnimationPlayer").play("juggle")
 	add_child(new_knife)
-	yield(get_tree().create_timer(1.9),"timeout")
+	yield(get_tree().create_timer(2.1),"timeout")
 	state_machine.travel("juggle catch")
-	yield(get_tree().create_timer(0.2),"timeout")
+	yield(get_tree().create_timer(0.3),"timeout")
 	new_knife.call_deferred("queue_free")

@@ -4,7 +4,6 @@
 [ext_resource path="res://assets/fire eater.png" type="Texture" id=2]
 [ext_resource path="res://assets/flame.png" type="Texture" id=3]
 
-
 [sub_resource type="Animation" id=1]
 resource_name = "Fire Spitting"
 length = 0.65
@@ -111,6 +110,7 @@ scale = Vector2( 2, 2 )
 texture = ExtResource( 2 )
 vframes = 2
 hframes = 2
+frame = 1
 __meta__ = {
 "_edit_lock_": true
 }

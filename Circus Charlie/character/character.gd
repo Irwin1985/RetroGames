@@ -33,14 +33,14 @@ func _physics_process(delta):
 			motion = last_swing.get_tangential_speed()
 			jump()
 	else:
-		motion.y += gravity
+		motion.y += gravity * delta * 60
 		if !jumping:
 			if Input.is_action_pressed("ui_right"):
 				motion.x = speed
 				animate("run")
 			elif Input.is_action_pressed("ui_left"):
 				motion.x = -speed
-				animate("run_back")
+				animate("run back")
 			else:
 				motion.x = 0
 				animate("idle")
@@ -62,43 +62,71 @@ func jump()->void:
 	$JumpSound.play()
 	animate("jump")
 
-func animate(state):
-	$AnimatedSprite.animation = state
-	if use_charlie:
-		$Charlie.animation = state
+func animate(state : String)->void:
+#	if $AnimationPlayer.get_current_animation() != state:
+#		print($AnimationPlayer.get_current_animation() + "-" + state)
+		$AnimationPlayer.play(state)
+#		$AnimationPlayer.call_deferred("play",state)
+#	$AnimatedSprite.animation = state
+#	if use_charlie:
+#		$Charlie.animation = state
 
 func take_swing(swing : Swing)->void:
 	if last_swing != null and last_swing != swing:
 		last_swing.enable_bar()
 	hanging = true
 	jumping = false
-	animate("swing")
-	$AnimatedSprite.set_speed_scale(swing.get_speed())
-	$AnimatedSprite.set_frame( \
-		$AnimatedSprite.get_sprite_frames().get_frame_count("swing") * \
-		swing.get_swing_position() / 4)
+	$Charlie.animation = "swing"
+	$AnimationPlayer.set_speed_scale(swing.get_speed())
+	$AnimationPlayer.play("swing")
+	$AnimationPlayer.seek(swing.get_swing_position())
 	last_swing = swing
 	
-func bounce_trampoline(bounce_power : float = 640)->void:
+func bounce_trampoline(bounciness : float = 640)->void:
 	if last_swing != null:
 		last_swing.enable_bar()
 		last_swing = null
 	if Input.is_action_pressed("game_left"):
-		motion = Vector2(-100, -bounce_power)
+		motion = Vector2(-100, -bounciness)
 	elif Input.is_action_pressed("game_right"):
-		motion = Vector2(100, -bounce_power)
+		motion = Vector2(100, -bounciness)
 	else:
-		motion = Vector2(0, -bounce_power)
+		motion = Vector2(0, -bounciness)
+		
+func bounce_big_trampoline(trampoline : BigTrampoline, bounciness: float, bounce_in_center : bool = true)->void:
+	jumping = true
+	if Input.is_action_pressed("game_left"):
+		motion = Vector2(-200, -400)
+		trampoline.reset_bounces()
+		$AnimationPlayer.seek(1)
+		$AnimationPlayer.play_backwards("spin jump")
+	elif Input.is_action_pressed("game_right"):
+		motion = Vector2(200, -400)
+		trampoline.reset_bounces()
+#		$AnimationPlayer.seek(0)
+#		$AnimationPlayer.play("spin jump")
+		$AnimationPlayer.seek(0)
+		animate("spin jump")
+	else:
+		motion = Vector2(0, -bounciness)
+#		$AnimationPlayer.play("jump")
+		animate("jump")
+	if bounce_in_center:
+		var center_vector : Vector2 = Vector2(trampoline.get_bounce_center().x - position.x, 0) 
+		move_local_x(center_vector.x)
 		
 func stop():
 	set_physics_process(false)
-	$AnimatedSprite.stop()
+	$Charlie.stop()
+	$AnimationPlayer.stop()
 	if use_charlie:
 		$Charlie.stop()
 
 func hurt():
 	if not won and not lost:
-		animate("hurt")
+		call_deferred("animate","hurt")
+		# Wait for the animation to be updated before stopping the player
+#		yield(get_tree().create_timer(0.1),"timeout")
 		lose()
 
 func lose():
@@ -112,9 +140,10 @@ func win():
 	if not lost:
 		won = true
 		emit_signal("win")
-		if use_charlie:
-			$Charlie.animation = "win"
-			$AnimatedSprite.animation = "idle"
-		else:
-			$AnimatedSprite.animation = "win"
+		animate("win")
+#		if use_charlie:
+#			$Charlie.animation = "win"
+#			$AnimatedSprite.animation = "idle"
+#		else:
+#			$AnimatedSprite.animation = "win"
 		set_physics_process(false)

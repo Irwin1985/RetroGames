@@ -5,15 +5,15 @@ var bounce_count : int = 0
 
 func bounce_player(body : PhysicsBody2D)->void:
 	if body.name == "Player":
-		var bounciness : float = 700
+		var bounciness : float = 900
 		bounce_count += 1
 		if bounce_count == 1:
-			bounciness = 350
+			bounciness = 400
 		elif bounce_count == 2:
-			bounciness = 450
-		elif bounce_count == 3:
 			bounciness = 550
-		body.bounce_trampoline(self, bounciness)
+		elif bounce_count == 3:
+			bounciness = 700
+		body.bounce_big_trampoline(self, bounciness)
 		$BounceSound.play()
 		yield(get_tree().create_timer(0.5), "timeout")
 	bounce_enabled = true

@@ -146,9 +146,6 @@ shape = SubResource( 3 )
 position = Vector2( 70.3243, 305.911 )
 gravity = 15
 
-[node name="AnimatedSprite" parent="Player" index="0"]
-frame = 0
-
 [node name="Camera2D" parent="Player" index="2"]
 offset = Vector2( 90, 0 )
 limit_left = -90

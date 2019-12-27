@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=2]
+[gd_scene load_steps=20 format=2]
 
 [ext_resource path="res://Levels/LevelN.gd" type="Script" id=1]
 [ext_resource path="res://assets/background.png" type="Texture" id=2]
@@ -10,14 +10,10 @@
 [ext_resource path="res://assets/level_20m.png" type="Texture" id=8]
 [ext_resource path="res://assets/level_10m.png" type="Texture" id=9]
 [ext_resource path="res://assets/level_0m.png" type="Texture" id=10]
-[ext_resource path="res://assets/platform.png" type="Texture" id=11]
-[ext_resource path="res://Levels/KinematicBody2D.gd" type="Script" id=12]
-[ext_resource path="res://assets/die.png" type="Texture" id=13]
-[ext_resource path="res://assets/swinging_05.png" type="Texture" id=14]
-[ext_resource path="res://assets/swinging_03.png" type="Texture" id=15]
-[ext_resource path="res://assets/jump_01.png" type="Texture" id=16]
-[ext_resource path="res://assets/sfx/hurt.wav" type="AudioStream" id=17]
-[ext_resource path="res://assets/Stage2.ogg" type="AudioStream" id=18]
+[ext_resource path="res://Items/Podium/Podium.tscn" type="PackedScene" id=11]
+[ext_resource path="res://assets/platform.png" type="Texture" id=12]
+[ext_resource path="res://assets/Stage2.ogg" type="AudioStream" id=13]
+[ext_resource path="res://Player/Player.tscn" type="PackedScene" id=14]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 10, 125 )
@@ -34,120 +30,6 @@ extents = Vector2( 1000, 10 )
 [sub_resource type="RectangleShape2D" id=5]
 extents = Vector2( 1000, 10 )
 
-[sub_resource type="SpriteFrames" id=16]
-animations = [ {
-"frames": [ ExtResource( 13 ) ],
-"loop": true,
-"name": "hurt",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 14 ), ExtResource( 15 ) ],
-"loop": false,
-"name": "jump and spin",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 16 ) ],
-"loop": true,
-"name": "jump",
-"speed": 5.0
-} ]
-
-[sub_resource type="CapsuleShape2D" id=17]
-height = 22.0306
-
-[sub_resource type="Animation" id=18]
-length = 0.1
-tracks/0/type = "value"
-tracks/0/path = NodePath("AnimatedSprite:animation")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 1,
-"values": [ "hurt" ]
-}
-tracks/1/type = "value"
-tracks/1/path = NodePath("AnimatedSprite:rotation_degrees")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ 0.0 ]
-}
-
-[sub_resource type="Animation" id=19]
-length = 0.1
-tracks/0/type = "value"
-tracks/0/path = NodePath("AnimatedSprite:animation")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 1,
-"values": [ "jump" ]
-}
-tracks/1/type = "value"
-tracks/1/path = NodePath("AnimatedSprite:rotation_degrees")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ 0.0 ]
-}
-
-[sub_resource type="Animation" id=20]
-loop = true
-tracks/0/type = "value"
-tracks/0/path = NodePath("AnimatedSprite:animation")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 1,
-"values": [ "jump and spin" ]
-}
-tracks/1/type = "value"
-tracks/1/path = NodePath("AnimatedSprite:rotation_degrees")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
-"times": PoolRealArray( 0, 0.2, 0.3, 0.4, 0.5, 0.6 ),
-"transitions": PoolRealArray( 1, 1, 1, 1, 1, 0 ),
-"update": 1,
-"values": [ 0.0, 0.0, 90.0, 180.0, 270.0, 360.0 ]
-}
-tracks/2/type = "value"
-tracks/2/path = NodePath("AnimatedSprite:frame")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/keys = {
-"times": PoolRealArray( 0, 0.2, 0.3, 0.6, 0.7 ),
-"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
-"update": 1,
-"values": [ 0, 0, 1, 1, 0 ]
-}
-
 [node name="Node2D" type="Node2D"]
 script = ExtResource( 1 )
 
@@ -161,9 +43,10 @@ texture = ExtResource( 2 )
 stretch_mode = 2
 
 [node name="Walls" type="StaticBody2D" parent="Background"]
+editor/display_folded = true
 
 [node name="Left" type="CollisionShape2D" parent="Background/Walls"]
-position = Vector2( 0, 125 )
+position = Vector2( 0, 100 )
 shape = SubResource( 1 )
 
 [node name="Bottom" type="CollisionShape2D" parent="Background/Walls"]
@@ -171,7 +54,7 @@ position = Vector2( 1000, 225 )
 shape = SubResource( 2 )
 
 [node name="Right" type="CollisionShape2D" parent="Background/Walls"]
-position = Vector2( 1900, 125 )
+position = Vector2( 1900, 100 )
 shape = SubResource( 3 )
 
 [node name="Bounds" type="Area2D" parent="Background"]
@@ -181,7 +64,7 @@ position = Vector2( 1000, 220 )
 shape = SubResource( 4 )
 
 [node name="Ceiling" type="CollisionShape2D" parent="Background/Bounds"]
-position = Vector2( 1000, 0 )
+position = Vector2( 1000, -25 )
 shape = SubResource( 5 )
 
 [node name="Checkpoints" type="Node2D" parent="."]
@@ -229,50 +112,35 @@ texture = ExtResource( 10 )
 
 [node name="Environment" type="Node2D" parent="."]
 
+[node name="Podium" parent="." instance=ExtResource( 11 )]
+position = Vector2( 3684, 388 )
+
 [node name="Sprite" type="Sprite" parent="."]
 position = Vector2( 3684, 388 )
 scale = Vector2( 2, 2 )
-texture = ExtResource( 11 )
+texture = ExtResource( 12 )
 
-[node name="Player" type="KinematicBody2D" parent="."]
-position = Vector2( 100, 250 )
-script = ExtResource( 12 )
+[node name="Sounds" type="Node" parent="."]
 
-[node name="AnimatedSprite" type="AnimatedSprite" parent="Player"]
-scale = Vector2( 2, 2 )
-frames = SubResource( 16 )
-animation = "jump"
-__meta__ = {
-"_edit_lock_": true
-}
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]
-position = Vector2( 1.36224, 1.70281 )
-shape = SubResource( 17 )
-__meta__ = {
-"_edit_lock_": true
-}
-
-[node name="Camera2D" type="Camera2D" parent="Player"]
-current = true
-limit_left = 0
-limit_top = 0
-limit_bottom = 250
-__meta__ = {
-"_edit_lock_": true
-}
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="Player"]
-anims/hurt = SubResource( 18 )
-anims/jump = SubResource( 19 )
-"anims/spin jump" = SubResource( 20 )
-
-[node name="HurtSound" type="AudioStreamPlayer" parent="Player"]
-stream = ExtResource( 17 )
-
-[node name="Node" type="Node" parent="."]
-
-[node name="LevelSound" type="AudioStreamPlayer" parent="Node"]
-stream = ExtResource( 18 )
+[node name="LevelSound" type="AudioStreamPlayer" parent="Sounds"]
+stream = ExtResource( 13 )
 autoplay = true
+
+[node name="Player" parent="." instance=ExtResource( 14 )]
+editor/display_folded = true
+position = Vector2( 100, 250 )
+gravity = 15
+
+[node name="Charlie" parent="Player" index="0"]
+animation = "hurt"
+frame = 0
+
+[node name="Camera2D" parent="Player" index="2"]
+offset = Vector2( 90, 0 )
+limit_left = -90
+limit_top = 0
+limit_right = 3800
+limit_bottom = 240
 [connection signal="body_entered" from="Background/Bounds" to="." method="_on_Bounds_body_entered"]
+
+[editable path="Player"]
