@@ -1,13 +1,20 @@
 extends Node2D
 class_name Swing
 
+signal first_grab
+
 var grab_enabled : bool = true
+var already_grabbed : bool = false
+var checkpoint : int = 0
 
 func get_speed()->float:
 	return $AnimationPlayer.playback_speed
 
 func set_speed(speed : float)->void:
 	$AnimationPlayer.playback_speed = speed
+
+func put_checkpoint(distance : int)->void:
+	checkpoint = distance
 
 func _on_Area2D_body_entered(body : PhysicsBody2D)->void:
 	if body.name == "Player" and grab_enabled:
@@ -16,6 +23,11 @@ func _on_Area2D_body_entered(body : PhysicsBody2D)->void:
 		
 func take_player(body : PhysicsBody2D)->void:
 	if body.name == "Player":
+		if not already_grabbed:
+			already_grabbed = true
+			emit_signal("first_grab")
+		if checkpoint != 0:
+			global.set_checkpoint(checkpoint)
 		if $AnimationPlayer.current_animation_position > 2 and \
 			$AnimationPlayer.current_animation_position < 3.8:
 			# Change swing direction

@@ -1,18 +1,24 @@
 extends Trampoline
 class_name BigTrampoline
 
+signal bonus_pick
+
+var give_points : bool = true
 var bounce_count : int = 0
 
 func bounce_player(body : PhysicsBody2D)->void:
 	if body.name == "Player":
-		var bounciness : float = 900
+		if give_points:
+			give_points = false
+			global.give_points(20)
+		var bounciness : float = 1100
 		bounce_count += 1
 		if bounce_count == 1:
-			bounciness = 400
+			bounciness = 500
 		elif bounce_count == 2:
-			bounciness = 550
+			bounciness = 650
 		elif bounce_count == 3:
-			bounciness = 700
+			bounciness = 800
 		body.bounce_big_trampoline(self, bounciness)
 		$BounceSound.play()
 		yield(get_tree().create_timer(0.5), "timeout")
@@ -30,3 +36,9 @@ func _on_Bonus_body_entered(body):
 		print("Pick bonus")
 		$Bonus.set_visible(false)
 		$Bonus/CollisionShape2D.call_deferred("set_disabled", true)
+		$Bonus/BonusSound.play()
+		emit_signal("bonus_pick")
+
+func stop()->void:
+	# Called when stopping level objects
+	pass

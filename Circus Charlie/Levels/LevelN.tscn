@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=2]
+[gd_scene load_steps=22 format=2]
 
 [ext_resource path="res://Levels/LevelN.gd" type="Script" id=1]
 [ext_resource path="res://assets/background.png" type="Texture" id=2]
@@ -13,7 +13,9 @@
 [ext_resource path="res://Items/Podium/Podium.tscn" type="PackedScene" id=11]
 [ext_resource path="res://assets/platform.png" type="Texture" id=12]
 [ext_resource path="res://assets/Stage2.ogg" type="AudioStream" id=13]
-[ext_resource path="res://Player/Player.tscn" type="PackedScene" id=14]
+[ext_resource path="res://assets/sfx/GameOver.wav" type="AudioStream" id=14]
+[ext_resource path="res://assets/sfx/Clapping.wav" type="AudioStream" id=15]
+[ext_resource path="res://Player/Player.tscn" type="PackedScene" id=16]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 10, 125 )
@@ -126,14 +128,15 @@ texture = ExtResource( 12 )
 stream = ExtResource( 13 )
 autoplay = true
 
-[node name="Player" parent="." instance=ExtResource( 14 )]
-editor/display_folded = true
-position = Vector2( 100, 250 )
-gravity = 15
+[node name="GameOverSound" type="AudioStreamPlayer" parent="Sounds"]
+stream = ExtResource( 14 )
 
-[node name="Charlie" parent="Player" index="0"]
-animation = "hurt"
-frame = 0
+[node name="WinSound" type="AudioStreamPlayer" parent="Sounds"]
+stream = ExtResource( 15 )
+
+[node name="Player" parent="." instance=ExtResource( 16 )]
+position = Vector2( 100, 250 )
+gravity = 20
 
 [node name="Camera2D" parent="Player" index="2"]
 offset = Vector2( 90, 0 )
@@ -142,5 +145,10 @@ limit_top = 0
 limit_right = 3800
 limit_bottom = 240
 [connection signal="body_entered" from="Background/Bounds" to="." method="_on_Bounds_body_entered"]
+[connection signal="finished" from="Sounds/GameOverSound" to="." method="_on_GameOverSound_finished"]
+[connection signal="finished" from="Sounds/WinSound" to="." method="_on_WinSound_finished"]
+[connection signal="hit" from="Player" to="." method="_on_Player_hit"]
+[connection signal="lose" from="Player" to="." method="_on_Player_lose"]
+[connection signal="win" from="Player" to="." method="_on_Player_win"]
 
 [editable path="Player"]

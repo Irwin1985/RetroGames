@@ -1,22 +1,34 @@
 extends Node2D
 
-onready var wait_timer : Timer = Timer.new()
+onready var fire_timer : Timer = Timer.new()
 onready var state_machine = $AnimationTree.get("parameters/playback")
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	wait_timer.connect("timeout", self, "spit_fire")
-	wait_timer.wait_time = randf() * 1.75 + .75
-	wait_timer.start()
-	add_child(wait_timer)
+	if fire_timer.connect("timeout", self, "spit_fire") != OK:
+		print("Error connecting timeount of fire_timer")
+	fire_timer.wait_time = randf() * 1.75 + .75
+	fire_timer.start()
+	add_child(fire_timer)
 
 func spit_fire()->void:
-	wait_timer.wait_time = randf() * 1.75 + .75
+	fire_timer.wait_time = randf() * 1.75 + .75
 	state_machine.travel("Fire Spitting")
 	yield(get_tree().create_timer(0.2),"timeout")
 	var new_fire : Area2D = $Fire.duplicate()
 	new_fire.get_node("AnimationPlayer").play("Fire")
-	add_child(new_fire)
-	yield(get_tree().create_timer(1.1),"timeout")
+	$Flames.add_child(new_fire)
+	yield(new_fire.get_node("AnimationPlayer"),"animation_finished")
 	new_fire.call_deferred("queue_free")
-#	$Fire/AnimationPlayer.play("Fire")
+
+func stop():
+	fire_timer.stop()
+	$AnimationPlayer.stop()
+	$AnimationTree.set_active(false)
+	for fire in $Flames.get_children():
+		fire.get_node("AnimationPlayer").stop()
+	
+
+func _on_Fire_body_entered(body : PhysicsBody2D)->void:
+	if body.name == "Player":
+		body.hit_and_fall()

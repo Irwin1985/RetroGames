@@ -137,9 +137,7 @@ func lose():
 	$HUD.stop_time()
 	stop_items()
 	$Sounds/LevelSound.stop()
-	global.lives -= 1
-	if global.lives <= 0:
-		global.is_game_over = true
+	global.lose_life()
 	yield(get_tree().create_timer(0.66), "timeout")
 	$Sounds/GameOverSound.play()
 
