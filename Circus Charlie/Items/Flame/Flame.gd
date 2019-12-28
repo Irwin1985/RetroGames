@@ -10,8 +10,10 @@ var can_move_bonus = false
 
 func _ready():
 	$Control/Label.visible = false
-	$TimerMoveFlame.connect("timeout", self, "_on_TimerMoveFlame_timeout")
-	$TimerKillBonus.connect("timeout", self, "_on_TimerKillBonus_timeout")
+	if $TimerMoveFlame.connect("timeout", self, "_on_TimerMoveFlame_timeout") != OK:
+		print("Error connecting timeout of MoveFlame")
+	if $TimerKillBonus.connect("timeout", self, "_on_TimerKillBonus_timeout") != OK:
+		print("Error connecting timeout of KillBonus")
 
 
 func _process(delta):
@@ -21,7 +23,8 @@ func _process(delta):
 
 
 func bonus():
-	emit_signal("bonus", 1000)
+#	emit_signal("bonus", 1000)
+	global.give_points(1000)
 	$Control/Label.visible = true
 	can_move_bonus = true
 	$BonusSound.play()
@@ -59,7 +62,8 @@ func _on_TimerKillBonus_timeout():
 
 
 func _on_Score_body_entered(body):
-	emit_signal("score", 100)
+#	emit_signal("score", 100)
+	global.give_points(100)
 
 
 func _on_TimerMoveFlame_timeout():

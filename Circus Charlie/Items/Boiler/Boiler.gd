@@ -54,7 +54,8 @@ func _on_AreaNotifier_body_entered(body):
 	if body.name == "Lion":
 		if !can_hide:
 			global.check_point += 1
-		emit_signal("score", STANDARD_POINT)
+		global.give_points(STANDARD_POINT)
+#		emit_signal("score", STANDARD_POINT)
 		can_hide = true
 
 func activate_bonus():
@@ -74,7 +75,8 @@ func _on_CoinArea2D_body_entered(body):
 		$AnimationPlayer.stop()
 		$CoinPickupSound.play()
 		$AnimationPlayer.play("bonus")
-		emit_signal("pickup", BONUS_POINT)
+#		emit_signal("pickup", BONUS_POINT)
+		global.give_points(BONUS_POINT)
 
 func _on_AnimationPlayer_animation_finished(anim_name):
 	cancel_bonus()

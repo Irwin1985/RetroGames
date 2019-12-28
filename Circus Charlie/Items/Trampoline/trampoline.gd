@@ -1,4 +1,5 @@
 extends Area2D
+class_name Trampoline
 
 class_name Trampoline
 
@@ -15,6 +16,6 @@ func bounce_player(body : PhysicsBody2D)->void:
 		$BounceSound.play()
 		yield(get_tree().create_timer(0.5), "timeout")
 	bounce_enabled = true
-
+	
 func get_bounce_center()->Vector2:
 	return $BounceMat.global_position

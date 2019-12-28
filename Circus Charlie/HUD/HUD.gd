@@ -1,7 +1,9 @@
 extends CanvasLayer
 
-onready var label_timer = Timer.new()
-onready var game_timer = Timer.new()
+class_name GameHUD
+
+var label_timer = Timer.new()
+var game_timer = Timer.new()
 var time_left = 5000
 var time_delta = 10
 signal little_time_left
@@ -9,8 +11,8 @@ signal out_of_time
 
 func _ready():
 	$PauseSound.volume_db = global.STANDARD_VOLUME
-	hide_lives()
-	update_lives()
+#	hide_lives()
+#	update_lives(0)
 	update_stage()
 	create_timer()
 
@@ -48,18 +50,16 @@ func hide_lives():
 
 
 func update_score(score):
-	if score > 0:
-		global.player_score += score	
-	$PlayerScore/PlayerScore.text = "%06d" % global.player_score
+	$PlayerScore/PlayerScore.text = "%06d" % score
 
 
-func update_hi_score():	
-	$HiScore/LabelHiScore.text = "%06d" % global.hi_score
+func update_hi_score(score):
+	$HiScore/LabelHiScore.text = "%06d" % score
 
 
-func update_lives():
+func update_lives(lives: int)->void:
 	hide_lives()
-	for l in global.lives:
+	for l in lives:
 		match l:
 			0:
 				$Lives/SpriteLive3.visible = true
@@ -70,6 +70,7 @@ func update_lives():
 				$Lives/SpriteLive1.visible = true
 				$Lives/SpriteLive2.visible = true
 				$Lives/SpriteLive3.visible = true
+	$Lives/SpriteLife4.visible = lives >= 4
 
 
 func update_stage():

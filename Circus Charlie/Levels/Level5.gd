@@ -7,8 +7,7 @@ onready var audience_timer = Timer.new()
 
 func _ready():
 	randomize()
-	$Player.position.x += 0
-	$Player.position.y -= 150
+	set_player_position()
 	var trampolines : PackedScene = preload("res://Items/Trampoline/trampoline.tscn")
 	var swings : PackedScene = preload("res://Items/Swing/swing.tscn")
 	for i in range (total_swings):
@@ -27,8 +26,12 @@ func _ready():
 #			new_swing.set_speed(randf() * 0.6 + 0.7) # 0.7-1.3
 #			new_swing.set_speed(randf() * 0.9 + 0.55) # 0.55-1.45
 #			new_swing.set_speed(randf() * 1.2 + 0.4) # 0.4-1.6
-		if i % 2 != 0:
-			new_swing.reset_swing_position()
+			if i % 2 != 0:
+				new_swing.reset_swing_position()
+			else:
+				new_swing.put_checkpoint(i/2)
+		if new_swing.connect("first_grab", self, "_on_swing_first_grab") != OK:
+			print("Error connecting swing's first grab signal")
 		$EnvironmentObjects.add_child(new_swing)
 	platform_center_timer.connect("timeout", self, "_on_platform_center_timeout")	
 	platform_center_timer.wait_time = 0.02
@@ -36,6 +39,21 @@ func _ready():
 	audience_timer.connect("timeout", self, "_on_audience_timeout")	
 	audience_timer.wait_time = 0.05
 	add_child(audience_timer)
+
+func set_player_position():
+	var checkpoint_pos : int = 0
+	match global.check_point:
+		1, 2, 3:
+			checkpoint_pos = 512 * global.check_point
+		4: # Last one at 10M goes back to 20M
+			checkpoint_pos = 512 * 3
+		_:
+			checkpoint_pos = 0
+	$Player.position.x += checkpoint_pos
+	$Player.position.y -= 150
+
+func _on_swing_first_grab():
+	global.give_points(500)
 
 func _on_Detector_body_entered(body : PhysicsBody2D)->void:
 	if body.name == "Player":
@@ -57,9 +75,7 @@ func lose():
 #	stop_items()
 #	$HUD.stop_time()
 	$Sounds/LevelSound.stop()
-	global.lives -= 1
-	if global.lives <= 0:
-		global.is_game_over = true
+	global.lose_life()
 	yield(get_tree().create_timer(0.66), "timeout")
 	$Sounds/GameOverSound.play()
 

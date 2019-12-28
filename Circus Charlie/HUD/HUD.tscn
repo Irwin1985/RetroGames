@@ -132,7 +132,6 @@ custom_fonts/font = SubResource( 1 )
 text = "stage"
 
 [node name="Lives" type="Control" parent="."]
-editor/display_folded = true
 margin_left = 426.0
 margin_top = 33.0
 margin_right = 492.0
@@ -148,6 +147,10 @@ texture = ExtResource( 4 )
 
 [node name="SpriteLive3" type="Sprite" parent="Lives"]
 position = Vector2( 54, 11 )
+texture = ExtResource( 4 )
+
+[node name="SpriteLife4" type="Sprite" parent="Lives"]
+position = Vector2( -12, 11 )
 texture = ExtResource( 4 )
 
 [node name="LabelPause" type="Label" parent="."]

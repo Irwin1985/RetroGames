@@ -63,6 +63,7 @@ speed = 50
 scale = Vector2( 2, 2 )
 frames = SubResource( 1 )
 animation = "bonus_flame"
+frame = 1
 playing = true
 centered = false
 
@@ -72,6 +73,7 @@ scale = Vector2( 2, 2 )
 z_index = 1
 frames = SubResource( 2 )
 animation = "bonus_flame"
+frame = 1
 playing = true
 centered = false
 

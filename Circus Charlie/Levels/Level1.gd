@@ -14,9 +14,10 @@ func _ready():
 	set_sfx_volume()
 	set_player_position()
 	global.can_pause = true
-	$HUD.update_score(0)
-	$HUD.update_hi_score()
-	$HUD.begin_time()
+	add_child(global.get_hud())
+#	$HUD.update_score(0)
+#	$HUD.update_hi_score()
+#	$HUD.begin_time()
 	spawn_boiler()
 	spawn_sentinel()
 	create_bonus_score_timer()
@@ -137,9 +138,7 @@ func lose():
 	$HUD.stop_time()
 	stop_items()
 	$Sounds/LevelSound.stop()
-	global.lives -= 1
-	if global.lives <= 0:
-		global.is_game_over = true
+	global.lose_life()
 	yield(get_tree().create_timer(0.66), "timeout")
 	$Sounds/GameOverSound.play()
 

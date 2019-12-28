@@ -34,5 +34,4 @@ func _on_Timer_timeout():
 
 
 func _on_StartSound_finished():
-	global.current_level += 1
-	get_tree().change_scene("res://Levels/ScenePreviewer.tscn")
+	global.start_next_level()
