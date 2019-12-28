@@ -4,9 +4,8 @@ export (PackedScene) var single_flame
 export (PackedScene) var boiler
 
 onready var sentinel = preload("res://Items/Sentinel/Sentinel.tscn")
-onready var bonus_timer = Timer.new()
-onready var podium_center_timer = Timer.new()
 var pos = Vector2(0, 0)
+var hud : GameHUD = null
 
 
 func _ready():
@@ -14,28 +13,22 @@ func _ready():
 	set_sfx_volume()
 	set_player_position()
 	global.can_pause = true
-	add_child(global.get_hud())
-#	$HUD.update_score(0)
-#	$HUD.update_hi_score()
-#	$HUD.begin_time()
+	hud = global.get_hud()
+	if hud.connect("little_time_left", self, "_on_HUD_little_time_left") != OK:
+		print("Error connecting little_time_left")
+	if hud.connect("out_of_time", self, "_on_HUD_out_of_time") != OK:
+		print("Error connecting out_of_time")
+	if hud.connect("bonus_giving_finished", self, "_on_bonus_giving_finished") != OK:
+		print("Error connecting bonus_giving_finished")
+	add_child(hud)
 	spawn_boiler()
 	spawn_sentinel()
-	create_bonus_score_timer()
-	create_podium_center_timer()
 
-func create_bonus_score_timer()->void:
-	bonus_timer.connect("timeout", self, "_on_bonus_timer_timeout")	
-	bonus_timer.wait_time = 0.02
-	add_child(bonus_timer)
-	
-func create_podium_center_timer()->void:
-	podium_center_timer.connect("timeout", self, "_on_podium_center_timeout")	
-	podium_center_timer.wait_time = 0.02
-	add_child(podium_center_timer)
 
 func set_sfx_volume():
 	for audio in $Sounds.get_children():
 		audio.volume_db = global.STANDARD_VOLUME
+
 
 func set_player_position():
 	var checkpoint_pos = 0
@@ -59,7 +52,8 @@ func set_player_position():
 		_:
 			checkpoint_pos = $Lion.position.x
 	$Lion.position.x = checkpoint_pos
-	
+
+
 func spawn_flame(how_many):
 	for i in range(how_many):
 		
@@ -79,18 +73,16 @@ func spawn_flame(how_many):
 			flame.start("big")
 		
 		flame.connect("hurt", $Lion, "hurt")
-		flame.connect("bonus", self, "_on_flame_bonus")
-		flame.connect("score", self, "_on_flame_score")
 		$FlameContainer.call_deferred("add_child", flame)
+
 
 func spawn_boiler():
 	for i in range(10):
 		var b = boiler.instance()
 		b.position = Vector2(545 + (500 * i), 379)
 		b.connect("hurt", $Lion, "hurt")
-		b.connect("score", self, "_on_boiler_score")
-		b.connect("pickup", self, "_on_boiler_pickup")
 		$BoilerContainer.add_child(b)
+
 
 func spawn_sentinel():
 	for i in range(9):
@@ -99,29 +91,21 @@ func spawn_sentinel():
 		s.connect("entered", self, "_on_sentinel_entered")
 		$SentinelsContainer.add_child(s)
 
+
 func stop_items():
 	for boiler in $BoilerContainer.get_children():
 		boiler.stop()
 
+
 	for flame in $FlameContainer.get_children():
 		flame.stop()
 		flame.set_process(false)
-		
+
+
 func _on_sentinel_entered():
 	spawn_flame(5)
 
-func _on_flame_bonus(score):
-	$HUD.update_score(score)
 
-func _on_flame_score(score):
-	$HUD.update_score(score)
-
-func _on_boiler_score(score):
-	$HUD.update_score(score)
-
-func _on_boiler_pickup(score):
-	$HUD.update_score(score)
-	
 func _on_HUD_little_time_left():
 	$Sounds/LevelSound.pitch_scale = 1.075
 
@@ -131,54 +115,44 @@ func _on_HUD_little_time_left():
 func _on_HUD_out_of_time():
 	$Lion.lose()
 
+
 func _on_Lion_lose():
 	lose()
 
+
 func lose():
-	$HUD.stop_time()
+	hud.stop_time()
 	stop_items()
 	$Sounds/LevelSound.stop()
 	global.lose_life()
 	yield(get_tree().create_timer(0.66), "timeout")
 	$Sounds/GameOverSound.play()
 
+
 func _on_GameOverSound_finished():
 	get_tree().call_deferred("change_scene","res://Levels/ScenePreviewer.tscn")
+
 
 #################################################
 # Winning methods
 func _on_Lion_win():
 	for flame in $FlameContainer.get_children():
 		flame.queue_free()
-	var podium_level : Vector2 = $Items/Podium.position + Vector2.UP * 38
-	podium_level.x = $Lion.get_position().x
-	$Lion.set_position(podium_level)
-	$HUD.stop_time()
-	podium_center_timer.start()
-	bonus_timer.start()
+	hud.give_bonus_start()
+	$Items/Podium.player_center($Lion)
 	$Sounds/LevelSound.stop()
 	$Sounds/WinSound.play()
 
-func _on_podium_center_timeout()->void:
-	var xdelta : int = ($Items/Podium.get_position() - $Lion.get_position() ).x
-	if abs(xdelta) > 1:
-		var direction : Vector2 = Vector2(xdelta, 0).normalized()
-		$Lion.set_position($Lion.get_position() + direction)
-	else:
-		podium_center_timer.stop()
 
-func _on_bonus_timer_timeout():
-	$HUD.add_time_to_score(10)
-	if $HUD.time_left <= 0:
-		$Sounds/ReduceTimeSound.stop()
-		bonus_timer.stop()
-		if not $Sounds/WinSound.playing:
-			yield(get_tree().create_timer(0.5), "timeout")
-			global.start_next_level()
-			
+func _on_bonus_giving_finished():
+	if not $Sounds/WinSound.playing:
+		yield(get_tree().create_timer(0.5), "timeout")
+		global.start_next_level()
+
+
 func _on_WinSound_finished():
-	if bonus_timer.is_stopped():
+	if not hud.is_giving_bonus():
 		yield(get_tree().create_timer(0.5), "timeout")
 		global.start_next_level()
 	else:
-		$Sounds/ReduceTimeSound.play()
+		hud.bonus_giving_play()

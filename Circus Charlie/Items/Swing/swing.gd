@@ -7,20 +7,25 @@ var grab_enabled : bool = true
 var already_grabbed : bool = false
 var checkpoint : int = 0
 
+
 func get_speed()->float:
 	return $AnimationPlayer.playback_speed
+
 
 func set_speed(speed : float)->void:
 	$AnimationPlayer.playback_speed = speed
 
+
 func put_checkpoint(distance : int)->void:
 	checkpoint = distance
+
 
 func _on_Area2D_body_entered(body : PhysicsBody2D)->void:
 	if body.name == "Player" and grab_enabled:
 		grab_enabled = false
 		call_deferred("take_player", body)
-		
+
+
 func take_player(body : PhysicsBody2D)->void:
 	if body.name == "Player":
 		if not already_grabbed:
@@ -35,13 +40,16 @@ func take_player(body : PhysicsBody2D)->void:
 		body.take_swing(self)
 	else:
 		grab_enabled = true
-	
+
+
 func get_grab_bar_position()->Vector2:
 	return $SwingRope/GrabBar.global_position
-	
+
+
 func enable_bar()->void:
 	grab_enabled = true
-	
+
+
 func get_tangential_speed()->Vector2:
 	var vert_speed = -abs(sin($SwingRope.rotation) * 175)
 	if $AnimationPlayer.current_animation_position < 0.9:
@@ -56,9 +64,11 @@ func get_tangential_speed()->Vector2:
 		return Vector2(-200, vert_speed)
 	else:
 		return Vector2(0, -100)
-		
+
+
 func get_swing_position()->float: # 0.0-4.0
 	return $AnimationPlayer.current_animation_position
+
 
 func reset_swing_position(animation_position : float = 3)->void:
 	$AnimationPlayer.play("swing")

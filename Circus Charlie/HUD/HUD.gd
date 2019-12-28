@@ -2,12 +2,15 @@ extends CanvasLayer
 
 class_name GameHUD
 
-var label_timer = Timer.new()
-var game_timer = Timer.new()
-var time_left = 5000
-var time_delta = 10
 signal little_time_left
 signal out_of_time
+signal bonus_giving_finished
+
+var label_timer = Timer.new()
+var game_timer = Timer.new()
+var bonus_timer = Timer.new()
+var time_left = 5000
+var time_delta = 10
 
 func _ready():
 	$PauseSound.volume_db = global.STANDARD_VOLUME
@@ -29,6 +32,11 @@ func create_timer():
 	game_timer.wait_time = 0.3
 	add_child(game_timer)
 	update_timer()
+	
+	# Bonus to score timer
+	bonus_timer.connect("timeout", self, "_on_bonus_timeout")	
+	bonus_timer.wait_time = 0.02
+	add_child(bonus_timer)
 
 
 func update_timer():
@@ -74,13 +82,38 @@ func update_lives(lives: int)->void:
 
 
 func update_stage():
-	$Stage/LabelStage.text = "0" + str(global.current_level + 1)
+#	$Stage/LabelStage.text = "0" + str(global.current_level + 1)
+	$Stage/LabelStage.text = "%02d" % (global.current_level + 1)
+
+
+func give_bonus_start():
+	stop_time()
+	bonus_timer.start()
+
+
+func bonus_giving_play():
+	$Sounds/BonusGivingSound.play()
+
+
+func is_giving_bonus():
+	return not bonus_timer.is_stopped()
+
+func _on_bonus_timeout():
+	add_time_to_score(10)
+	if time_left <= 0:
+		emit_signal("bonus_giving_finished")
+		$Sounds/BonusGivingSound.stop()
+		bonus_timer.stop()
 
 
 func add_time_to_score(value : int)->void:
-	time_left -= value
+	if time_left > value:
+		global.give_points(value)
+		time_left -= value
+	else:
+		global.give_points(time_left)
+		time_left = 0
 	update_timer()
-	update_score(value)
 
 
 func _on_timer_label_timeout():

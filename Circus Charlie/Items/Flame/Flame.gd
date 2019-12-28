@@ -1,8 +1,6 @@
 extends Area2D
 export (int) var speed
 signal hurt
-signal bonus
-signal score
 
 var motion = Vector2.ZERO
 var can_move_bonus = false
@@ -23,7 +21,6 @@ func _process(delta):
 
 
 func bonus():
-#	emit_signal("bonus", 1000)
 	global.give_points(1000)
 	$Control/Label.visible = true
 	can_move_bonus = true
@@ -62,7 +59,6 @@ func _on_TimerKillBonus_timeout():
 
 
 func _on_Score_body_entered(body):
-#	emit_signal("score", 100)
 	global.give_points(100)
 
 

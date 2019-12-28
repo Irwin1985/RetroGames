@@ -11,9 +11,9 @@ var lives: int = 4
 var is_game_over: bool = false
 var json_obj = {}
 var stage = ["res://Levels/Level1.tscn", \
+			"res://Levels/Level5.tscn", \
+			"res://Levels/LevelN.tscn", \
 			"res://Levels/Level2.tscn", \
-			"res://Levels/LevelN.tscn", \
-			"res://Levels/LevelN.tscn", \
 			"res://Levels/Level5.tscn", \
 			"res://Levels/LevelN.tscn"]
 var current_level: int = -1
@@ -26,7 +26,8 @@ onready var game_file: String = "user://score.save"
 func _ready()->void:
 	OS.center_window()
 	load_game()
-	
+
+
 func get_hud(in_level_hud : bool = true)->GameHUD:
 	hud = hud_scene.instance()
 	hud.update_score(player_score)
@@ -37,24 +38,29 @@ func get_hud(in_level_hud : bool = true)->GameHUD:
 	else:
 		hud.update_lives(lives)
 	return hud
-	
+
+
 func give_points(points : int)->void:
 	player_score += points
 	hud.update_score(player_score)
 	if player_score > hi_score:
 		update_hi_score(player_score)
-		
+
+
 func update_hi_score(score : int)->void:
 	hi_score = score
 	hud.update_hi_score(hi_score)
-	
+
+
 func set_checkpoint(value : int)->void:
 	check_point = value
+
 
 func check_update_hi_score():
 	if player_score > hi_score:
 		hi_score = player_score
 		save_game()
+
 
 func save_game():
 	var save_game = File.new()
@@ -75,6 +81,7 @@ func load_game():
 
 func start_next_level()->void:
 	current_level += 1
+	check_point = 0
 #	play_first_sound = true
 	get_tree().call_deferred("change_scene", \
 			"res://Levels/ScenePreviewer.tscn")

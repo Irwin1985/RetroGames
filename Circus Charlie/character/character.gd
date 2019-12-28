@@ -112,8 +112,8 @@ func bounce_big_trampoline(trampoline : BigTrampoline, bounciness: float, bounce
 		trampoline.reset_bounces()
 #		$AnimationPlayer.seek(0)
 #		$AnimationPlayer.play("spin jump")
-		$AnimationPlayer.seek(0)
 		animate("spin jump")
+		$AnimationPlayer.seek(0)
 	else:
 		motion = Vector2(0, -bounciness)
 #		$AnimationPlayer.play("jump")

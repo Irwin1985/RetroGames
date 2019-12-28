@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://HUD/HUD.gd" type="Script" id=1]
 [ext_resource path="res://assets/banner.png" type="Texture" id=2]
@@ -6,6 +6,7 @@
 [ext_resource path="res://assets/live.png" type="Texture" id=4]
 [ext_resource path="res://HUD/LabelPause.gd" type="Script" id=5]
 [ext_resource path="res://assets/sfx/pause.wav" type="AudioStream" id=6]
+[ext_resource path="res://assets/sfx/TimeReduce.ogg" type="AudioStream" id=7]
 
 [sub_resource type="DynamicFont" id=1]
 size = 30
@@ -132,6 +133,7 @@ custom_fonts/font = SubResource( 1 )
 text = "stage"
 
 [node name="Lives" type="Control" parent="."]
+editor/display_folded = true
 margin_left = 426.0
 margin_top = 33.0
 margin_right = 492.0
@@ -168,3 +170,8 @@ script = ExtResource( 5 )
 [node name="PauseSound" type="AudioStreamPlayer" parent="."]
 pause_mode = 2
 stream = ExtResource( 6 )
+
+[node name="Sounds" type="Node" parent="."]
+
+[node name="BonusGivingSound" type="AudioStreamPlayer" parent="Sounds"]
+stream = ExtResource( 7 )
