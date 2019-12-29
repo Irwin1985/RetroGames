@@ -67,7 +67,6 @@ __meta__ = {
 [node name="BoilerContainer" type="Node2D" parent="."]
 
 [node name="Items" type="Node2D" parent="."]
-editor/display_folded = true
 
 [node name="Podium" parent="Items" instance=ExtResource( 5 )]
 position = Vector2( 5107, 379 )
@@ -90,6 +89,7 @@ limit_bottom = 460
 [node name="SentinelsContainer" type="Node2D" parent="."]
 
 [node name="Sounds" type="Node2D" parent="."]
+editor/display_folded = true
 
 [node name="LevelSound" type="AudioStreamPlayer" parent="Sounds"]
 stream = ExtResource( 8 )

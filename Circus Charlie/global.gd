@@ -1,6 +1,7 @@
 extends Node
 
 const STANDARD_VOLUME = -15
+const STAGE_TWO_INDEX = 1
 
 var player_score = 0
 var hi_score = 0
@@ -13,6 +14,9 @@ var play_first_sound = false
 var can_pause = false
 var check_point = 0
 var level_change_timer = Timer.new()
+var stage_2_current_monkey_index = -1
+var stage_2_first_time_lauched = false
+
 onready var game_file = "user://score.save"
 
 
@@ -55,6 +59,9 @@ func transition_to_next_level()->void:
 func start_next_level()->void:
 	level_change_timer.stop()
 	current_level += 1
+	if current_level == STAGE_TWO_INDEX:
+		stage_2_first_time_lauched = true
+		stage_2_current_monkey_index = 0
 	get_tree().change_scene("res://Levels/ScenePreviewer.tscn")
 
 
@@ -69,3 +76,8 @@ func game_over():
 	check_point = 0
 	load_game()
 	play_first_sound = false
+
+
+func rand_bool():
+	randomize()
+	return bool(randi() % 2)

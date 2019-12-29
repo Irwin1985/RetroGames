@@ -10,7 +10,7 @@ var pos = Vector2(0, 0)
 
 func _ready():
 	randomize()
-	set_sfx_volume()
+	call_deferred("set_sfx_volume")
 	set_player_position()
 	global.can_pause = true
 	$HUD.update_score(0)
@@ -174,11 +174,12 @@ func _on_GameOverSound_finished():
 
 func _on_Lion_win():
 	for flame in $FlameContainer.get_children():
-		flame.queue_free()
-	$HUD.stop_time()	
+		flame.call_deferred("queue_free")
+
+	$HUD.stop_time()
 	bonus_timer.start()
 	$Sounds/LevelSound.stop()
-	$Sounds/WinSound.play()	
+	$Sounds/WinSound.play()
 
 
 func _on_WinSound_finished():

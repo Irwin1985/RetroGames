@@ -28,5 +28,7 @@ func _ready():
 
 
 func _on_timer_timeout():
+	if global.current_level == global.STAGE_TWO_INDEX and global.stage_2_first_time_lauched:
+		global.stage_2_first_time_lauched = false
 	get_tree().change_scene(global.stage[global.current_level])
 
