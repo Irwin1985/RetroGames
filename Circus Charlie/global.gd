@@ -1,9 +1,14 @@
 extends Node
 
 const STANDARD_VOLUME = -15
+const STAGE_TWO_INDEX = 1
 
 onready var hud_scene : PackedScene = preload("res://HUD/HUD.tscn")
 var hud : GameHUD = null
+
+var level_change_timer = Timer.new()
+var stage_2_current_monkey_index = -1
+var stage_2_first_time_lauched = false
 
 var player_score: int = 0
 var hi_score: int = 0
@@ -85,12 +90,18 @@ func start_next_level()->void:
 #	play_first_sound = true
 	get_tree().call_deferred("change_scene", \
 			"res://Levels/ScenePreviewer.tscn")
+	if current_level == STAGE_TWO_INDEX:
+		stage_2_first_time_lauched = true
+		stage_2_current_monkey_index = 0
+	get_tree().change_scene("res://Levels/ScenePreviewer.tscn")
 
 func lose_life():
 	global.lives -= 1
 	if global.lives <= 0:
 		game_over()
 	
+
+
 func game_over():
 	check_update_hi_score()
 	is_game_over = true
@@ -107,4 +118,7 @@ func restart_game():
 	check_point = 0
 	load_game()
 	play_first_sound = false
-	
+
+func rand_bool():
+	randomize()
+	return bool(randi() % 2)

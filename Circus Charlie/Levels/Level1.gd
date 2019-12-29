@@ -10,7 +10,7 @@ var hud : GameHUD = null
 
 func _ready():
 	randomize()
-	set_sfx_volume()
+	call_deferred("set_sfx_volume")
 	set_player_position()
 	global.can_pause = true
 	hud = global.get_hud()
@@ -137,7 +137,7 @@ func _on_GameOverSound_finished():
 # Winning methods
 func _on_Lion_win():
 	for flame in $FlameContainer.get_children():
-		flame.queue_free()
+		flame.call_deferred("queue_free")
 	hud.give_bonus_start()
 	$Items/Podium.player_center($Lion)
 	$Sounds/LevelSound.stop()

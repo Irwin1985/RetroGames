@@ -36,6 +36,11 @@ animations = [ {
 }, {
 "frames": [ ExtResource( 5 ), ExtResource( 3 ), ExtResource( 2 ) ],
 "loop": true,
+"name": "jump",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 4 ), ExtResource( 5 ), ExtResource( 2 ) ],
+"loop": true,
 "name": "run",
 "speed": 7.0
 } ]
@@ -314,15 +319,12 @@ frames = SubResource( 2 )
 animation = "idle"
 playing = true
 
-[node name="JumpSound" type="AudioStreamPlayer" parent="." index="3"]
-stream = ExtResource( 11 )
-
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="." index="4"]
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="." index="3"]
 position = Vector2( -19.5791, 29.5206 )
 scale = Vector2( 1.14496, 4.48253 )
 polygon = PoolVector2Array( 13.0688, -20.3877, 19.4818, -20.3486, 22.0775, -19.2566, 22.841, -17.8526, 22.6883, -16.7215, 17.3441, -15.9025, 17.8022, -10.1303, 22.2302, -9.58428, 31.8497, -9.62328, 37.0411, -9.07726, 39.9423, -8.18023, 41.1638, -6.81519, 37.3465, -5.80115, 26.9636, -5.60614, 13.9849, -5.56714, 4.06009, -5.84015, 2.68587, -7.82922, 3.75471, -9.31127, 11.3892, -10.0523, 16.428, -10.1303, 15.9699, -15.9805, 11.8473, -17.3065, 8.79348, -18.5546, 10.1677, -19.8806 )
 
-[node name="Feets" type="CollisionPolygon2D" parent="." index="5" groups=[
+[node name="Feets" type="CollisionPolygon2D" parent="." index="4" groups=[
 "feets",
 ]]
 position = Vector2( 0.914316, 15.3418 )

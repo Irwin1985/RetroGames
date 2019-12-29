@@ -58,9 +58,8 @@ animations = [ {
 "speed": 5.0
 } ]
 
-[sub_resource type="CapsuleShape2D" id=2]
-radius = 6.0
-height = 38.0
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 14.1291, 10 )
 
 [sub_resource type="Animation" id=3]
 resource_name = "hurt"
@@ -289,6 +288,8 @@ frames = SubResource( 1 )
 animation = "jump"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." index="1"]
+position = Vector2( 1.29591, 0 )
+scale = Vector2( 0.760002, 2.4 )
 shape = SubResource( 2 )
 
 [node name="JumpSound" type="AudioStreamPlayer" parent="." index="3"]

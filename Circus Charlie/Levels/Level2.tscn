@@ -1,34 +1,45 @@
-[gd_scene load_steps=17 format=2]
+[gd_scene load_steps=23 format=2]
 
-[ext_resource path="res://assets/level2.png" type="Texture" id=1]
-[ext_resource path="res://assets/level_0m.png" type="Texture" id=2]
-[ext_resource path="res://assets/level_10m.png" type="Texture" id=3]
-[ext_resource path="res://assets/level_20m.png" type="Texture" id=4]
-[ext_resource path="res://assets/level_30m.png" type="Texture" id=5]
-[ext_resource path="res://assets/level_40m.png" type="Texture" id=6]
-[ext_resource path="res://assets/level_50m.png" type="Texture" id=7]
-[ext_resource path="res://assets/level_60m.png" type="Texture" id=8]
-[ext_resource path="res://assets/level_70m.png" type="Texture" id=9]
-[ext_resource path="res://assets/goal_platform.png" type="Texture" id=10]
-[ext_resource path="res://assets/goal_ladder.png" type="Texture" id=11]
-[ext_resource path="res://Player/Player.tscn" type="PackedScene" id=12]
-[ext_resource path="res://HUD/HUD.tscn" type="PackedScene" id=13]
+[ext_resource path="res://Levels/Level2.gd" type="Script" id=1]
+[ext_resource path="res://Monkey/MonkeyBase.tscn" type="PackedScene" id=2]
+[ext_resource path="res://assets/level2.png" type="Texture" id=3]
+[ext_resource path="res://assets/level_0m.png" type="Texture" id=4]
+[ext_resource path="res://assets/level_10m.png" type="Texture" id=5]
+[ext_resource path="res://assets/level_20m.png" type="Texture" id=6]
+[ext_resource path="res://assets/level_30m.png" type="Texture" id=7]
+[ext_resource path="res://assets/level_40m.png" type="Texture" id=8]
+[ext_resource path="res://assets/level_50m.png" type="Texture" id=9]
+[ext_resource path="res://assets/level_60m.png" type="Texture" id=10]
+[ext_resource path="res://assets/level_70m.png" type="Texture" id=11]
+[ext_resource path="res://assets/goal_platform.png" type="Texture" id=12]
+[ext_resource path="res://assets/goal_ladder.png" type="Texture" id=13]
+[ext_resource path="res://Player/Player.tscn" type="PackedScene" id=14]
+[ext_resource path="res://HUD/HUD.tscn" type="PackedScene" id=15]
+[ext_resource path="res://assets/Stage2.ogg" type="AudioStream" id=16]
+[ext_resource path="res://assets/sfx/TimeReduce.ogg" type="AudioStream" id=17]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 55, 0.5 )
 
+[sub_resource type="RectangleShape2D" id=5]
+
 [sub_resource type="RectangleShape2D" id=2]
-extents = Vector2( 1828, 0.120972 )
+extents = Vector2( 1828, 2 )
 
 [sub_resource type="RectangleShape2D" id=3]
+extents = Vector2( 1828, 5 )
+
+[sub_resource type="RectangleShape2D" id=4]
 extents = Vector2( 2, 70.8109 )
 
 [node name="Level2" type="Node2D"]
+script = ExtResource( 1 )
+Monkey = ExtResource( 2 )
 
 [node name="TextureRect" type="TextureRect" parent="."]
 margin_right = 3655.0
 margin_bottom = 460.0
-texture = ExtResource( 1 )
+texture = ExtResource( 3 )
 stretch_mode = 2
 
 [node name="LevelContainer" type="Node2D" parent="."]
@@ -37,64 +48,80 @@ editor/display_folded = true
 [node name="level_0m" type="Sprite" parent="LevelContainer"]
 position = Vector2( 3560, 435 )
 scale = Vector2( 2, 2 )
-texture = ExtResource( 2 )
+texture = ExtResource( 4 )
 
 [node name="level_10m" type="Sprite" parent="LevelContainer"]
 position = Vector2( 3060, 435 )
 scale = Vector2( 2, 2 )
-texture = ExtResource( 3 )
+texture = ExtResource( 5 )
 
 [node name="level_20m" type="Sprite" parent="LevelContainer"]
 position = Vector2( 2560, 435 )
 scale = Vector2( 2, 2 )
-texture = ExtResource( 4 )
+texture = ExtResource( 6 )
 
 [node name="level_30m" type="Sprite" parent="LevelContainer"]
 position = Vector2( 2060, 435 )
 scale = Vector2( 2, 2 )
-texture = ExtResource( 5 )
+texture = ExtResource( 7 )
 
 [node name="level_40m" type="Sprite" parent="LevelContainer"]
 position = Vector2( 1560, 435 )
 scale = Vector2( 2, 2 )
-texture = ExtResource( 6 )
+texture = ExtResource( 8 )
 
 [node name="level_50m" type="Sprite" parent="LevelContainer"]
 position = Vector2( 1060, 435 )
 scale = Vector2( 2, 2 )
-texture = ExtResource( 7 )
+texture = ExtResource( 9 )
 
 [node name="level_60m" type="Sprite" parent="LevelContainer"]
 position = Vector2( 560, 435 )
 scale = Vector2( 2, 2 )
-texture = ExtResource( 8 )
+texture = ExtResource( 10 )
 
 [node name="level_70m" type="Sprite" parent="LevelContainer"]
 position = Vector2( 60, 435 )
 scale = Vector2( 2, 2 )
-texture = ExtResource( 9 )
+texture = ExtResource( 11 )
 
 [node name="GoalPlatform" type="Node2D" parent="."]
-editor/display_folded = true
 
-[node name="Goal" type="StaticBody2D" parent="GoalPlatform"]
+[node name="Podium" type="StaticBody2D" parent="GoalPlatform" groups=[
+"goal",
+]]
 editor/display_folded = true
 position = Vector2( 3548, 201 )
 __meta__ = {
 "_edit_group_": true
 }
 
-[node name="goal_platform" type="Sprite" parent="GoalPlatform/Goal"]
-texture = ExtResource( 10 )
+[node name="goal_platform" type="Sprite" parent="GoalPlatform/Podium"]
+texture = ExtResource( 12 )
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="GoalPlatform/Goal"]
-position = Vector2( 5, 2 )
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GoalPlatform/Podium"]
+position = Vector2( 4.31787, 2.93784 )
+scale = Vector2( 1, 5.88 )
 shape = SubResource( 1 )
 
 [node name="goal_ladder" type="Sprite" parent="GoalPlatform"]
 position = Vector2( 3549, 301 )
 scale = Vector2( 1, 0.823009 )
-texture = ExtResource( 11 )
+texture = ExtResource( 13 )
+
+[node name="GoalSensor" type="Area2D" parent="GoalPlatform"]
+position = Vector2( 3237.23, 129.252 )
+scale = Vector2( 1, 2.36 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GoalPlatform/GoalSensor"]
+scale = Vector2( 0.44, 4.60001 )
+shape = SubResource( 5 )
+__meta__ = {
+"_edit_group_": true
+}
 
 [node name="Floor" type="StaticBody2D" parent="."]
 editor/display_folded = true
@@ -107,28 +134,70 @@ position = Vector2( 1828, 248.516 )
 scale = Vector2( 0.998724, 0.782454 )
 shape = SubResource( 2 )
 
-[node name="Player" parent="." instance=ExtResource( 12 )]
-editor/display_folded = true
-position = Vector2( 140, 224.5 )
-jump_power = 380
-gravity = 10
+[node name="MonkeyContainer" type="Node2D" parent="."]
 
-[node name="Camera2D" parent="Player" index="2"]
-limit_left = 0
-limit_top = 0
-limit_right = 3655
-
-[node name="LeftWall" type="Node" parent="."]
-
-[node name="StaticBody2D" type="StaticBody2D" parent="LeftWall"]
-position = Vector2( 131.126, 137.112 )
+[node name="UnderFloor" type="StaticBody2D" parent="."]
+position = Vector2( 0, 180 )
 __meta__ = {
 "_edit_group_": true
 }
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="LeftWall/StaticBody2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="UnderFloor"]
+position = Vector2( 1828, 248.516 )
+scale = Vector2( 0.998724, 0.782454 )
 shape = SubResource( 3 )
+disabled = true
 
-[node name="HUD" parent="." instance=ExtResource( 13 )]
+[node name="Player" parent="." instance=ExtResource( 14 )]
+editor/display_folded = true
+position = Vector2( 140, 224.5 )
+speed = 75
+jump_power = 470
+gravity = 15
+slow_backward = true
+process_hurt = true
+
+[node name="Camera2D" parent="Player" index="2"]
+position = Vector2( -140, 0 )
+anchor_mode = 0
+limit_left = 0
+limit_top = 0
+limit_right = 3655
+limit_bottom = 460
+editor_draw_limits = true
+editor_draw_drag_margin = true
+
+[node name="Walls" type="Node" parent="."]
+editor/display_folded = true
+
+[node name="LeftWall" type="StaticBody2D" parent="Walls"]
+editor/display_folded = true
+position = Vector2( 28, 142 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Walls/LeftWall"]
+shape = SubResource( 4 )
+
+[node name="HUD" parent="." instance=ExtResource( 15 )]
+
+[node name="MonkeyFirtPosition" type="Position2D" parent="."]
+position = Vector2( 500, 243 )
+
+[node name="Sounds" type="Node" parent="."]
+editor/display_folded = true
+
+[node name="LevelSound" type="AudioStreamPlayer" parent="Sounds"]
+stream = ExtResource( 16 )
+autoplay = true
+
+[node name="ReduceTimeSound" type="AudioStreamPlayer" parent="Sounds"]
+stream = ExtResource( 17 )
+[connection signal="body_entered" from="GoalPlatform/GoalSensor" to="." method="_on_GoalSensor_body_entered"]
+[connection signal="hurt_proceed" from="Player" to="." method="_on_Player_hurt_proceed"]
+[connection signal="moved" from="Player" to="." method="_on_Player_moved"]
+[connection signal="stopped" from="Player" to="." method="_on_Player_stopped"]
+[connection signal="win" from="Player" to="." method="_on_Player_win"]
 
 [editable path="Player"]
