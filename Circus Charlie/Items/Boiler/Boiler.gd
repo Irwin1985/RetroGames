@@ -1,11 +1,8 @@
 extends Area2D
 
 signal hurt
-signal pickup
-signal score
 
 var can_hide = false
-var is_bonus = false
 var bonus_counter = 0
 var bonus_total = 0
 var can_pickup = false
@@ -22,6 +19,7 @@ func _ready():
 	add_child(visibility)
 	$CoinSprite.visible = false
 	$ControlBonus/LabelBonus.hide()
+	bonus_total = ( randi() % 10 + 1 ) * 2
 
 
 func set_sfx_volume():
@@ -32,21 +30,11 @@ func set_sfx_volume():
 func stop():
 	$AnimatedSprite.stop()
 
-
-func put_bonus(count):
-	is_bonus = true	
-	bonus_total = count
-
-
 func cancel_bonus():
-	is_bonus = false
 	can_pickup = false
-	bonus_total = 0
-	bonus_counter = 0
 	$CoinSprite.visible = false
-	$CoinSprite/CoinArea2D/CollisionShape2D.disabled = true
 	$ControlBonus/LabelBonus.hide()
-
+	$AnimationPlayer.seek(0, true)
 
 func _on_visibility_screen_exited():
 	if can_hide:
@@ -58,22 +46,23 @@ func _on_Boiler_body_entered(body):
 
 
 func _on_AreaNotifier_body_entered(body):
-	if is_bonus:
-		bonus_counter += 1
-		if bonus_counter >= bonus_total:
-			can_pickup = true
-			is_bonus = false
-			yield(get_tree().create_timer(0.5), "timeout")
-			$CoinShowSound.play()
-			$CoinSprite.visible = true
-			$AnimationPlayer.play("coin")
-			
+	bonus_counter += 1
+	if bonus_counter >= bonus_total:
+		call_deferred("activate_bonus")
 	if body.name == "Lion":
 		if !can_hide:
 			global.check_point += 1
-		emit_signal("score", STANDARD_POINT)
+		global.give_points(STANDARD_POINT)
 		can_hide = true
 
+func activate_bonus():
+	bonus_counter = 0
+	bonus_total = ( randi() % 20 + 1 ) * 2
+	yield(get_tree().create_timer(0.5), "timeout")
+	can_pickup = true
+	$CoinShowSound.play()
+	$AnimationPlayer.play("coin")
+	$CoinSprite.visible = true
 
 func _on_CoinArea2D_body_entered(body):
 	if body.name == "Lion" and can_pickup:
@@ -83,8 +72,7 @@ func _on_CoinArea2D_body_entered(body):
 		$AnimationPlayer.stop()
 		$CoinPickupSound.play()
 		$AnimationPlayer.play("bonus")
-		emit_signal("pickup", BONUS_POINT)
-
+		global.give_points(BONUS_POINT)
 
 func _on_AnimationPlayer_animation_finished(anim_name):
 	cancel_bonus()

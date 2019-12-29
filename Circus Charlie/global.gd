@@ -3,29 +3,62 @@ extends Node
 const STANDARD_VOLUME = -15
 const STAGE_TWO_INDEX = 1
 
-var player_score = 0
-var hi_score = 0
-var lives = 3
-var is_game_over = false
-var json_obj = {}
-var stage = ["res://Levels/Level1.tscn", "res://Levels/Level2.tscn"]
-var current_level = -1
-var play_first_sound = false
-var can_pause = false
-var check_point = 0
+onready var hud_scene : PackedScene = preload("res://HUD/HUD.tscn")
+var hud : GameHUD = null
+
 var level_change_timer = Timer.new()
 var stage_2_current_monkey_index = -1
 var stage_2_first_time_lauched = false
 
-onready var game_file = "user://score.save"
+var player_score: int = 0
+var hi_score: int = 0
+var lives: int = 4
+var is_game_over: bool = false
+var json_obj = {}
+var stage = ["res://Levels/Level1.tscn", \
+			"res://Levels/Level5.tscn", \
+			"res://Levels/LevelN.tscn", \
+			"res://Levels/Level2.tscn", \
+			"res://Levels/Level5.tscn", \
+			"res://Levels/LevelN.tscn"]
+var current_level: int = -1
+var play_first_sound: bool = false
+var can_pause: bool = false
+var check_point: int = 0
+onready var game_file: String = "user://score.save"
 
 
-func _ready():
+func _ready()->void:
 	OS.center_window()
 	load_game()
-	level_change_timer.connect("timeout", self, "start_next_level", [], CONNECT_DEFERRED)
-	level_change_timer.wait_time = 1
-	add_child(level_change_timer)
+
+
+func get_hud(in_level_hud : bool = true)->GameHUD:
+	hud = hud_scene.instance()
+	hud.update_score(player_score)
+	hud.update_hi_score(hi_score)
+	if in_level_hud:
+		hud.update_lives(lives - 1)
+		hud.begin_time()
+	else:
+		hud.update_lives(lives)
+	return hud
+
+
+func give_points(points : int)->void:
+	player_score += points
+	hud.update_score(player_score)
+	if player_score > hi_score:
+		update_hi_score(player_score)
+
+
+func update_hi_score(score : int)->void:
+	hi_score = score
+	hud.update_hi_score(hi_score)
+
+
+func set_checkpoint(value : int)->void:
+	check_point = value
 
 
 func check_update_hi_score():
@@ -51,32 +84,40 @@ func load_game():
 	hi_score = json_obj["score"]
 	load_game.close()
 
-
-func transition_to_next_level()->void:
-	level_change_timer.start()
-
-
 func start_next_level()->void:
-	level_change_timer.stop()
 	current_level += 1
+	check_point = 0
+#	play_first_sound = true
+	get_tree().call_deferred("change_scene", \
+			"res://Levels/ScenePreviewer.tscn")
 	if current_level == STAGE_TWO_INDEX:
 		stage_2_first_time_lauched = true
 		stage_2_current_monkey_index = 0
 	get_tree().change_scene("res://Levels/ScenePreviewer.tscn")
 
+func lose_life():
+	global.lives -= 1
+	if global.lives <= 0:
+		game_over()
+	
+
 
 func game_over():
 	check_update_hi_score()
+	is_game_over = true
+	can_pause = false
+	play_first_sound = true
+	
+func restart_game():
 	player_score = 0
 	hi_score = 0
-	lives = 3
+	lives = 4
 	is_game_over = false
-	current_level = -1	
+	current_level = -1
 	can_pause = false
 	check_point = 0
 	load_game()
 	play_first_sound = false
-
 
 func rand_bool():
 	randomize()
