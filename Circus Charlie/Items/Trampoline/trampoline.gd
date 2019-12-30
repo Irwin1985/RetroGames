@@ -19,3 +19,8 @@ func bounce_player(body : PhysicsBody2D)->void:
 	
 func get_bounce_center()->Vector2:
 	return $BounceMat.global_position
+
+
+func stop()->void:
+	# Called when stopping level objects
+	pass

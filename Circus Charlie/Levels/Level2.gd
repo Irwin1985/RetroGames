@@ -12,6 +12,7 @@ const PLAYER_NAME = "Player"
 const PLAYER_MINIMAL_DISTANCE = 300
 const BONUS_PER_WON_TIME = 10
 
+var hud : GameHUD = null
 var monkey_index = -1
 var monkey_pattern = [6, 9, 8, 9, 7, 10, 10, 5, 6, 9, 8, 10, 5, 4, 8]
 var show_cyan_monkey = false
@@ -21,7 +22,8 @@ onready var bonus_timer = Timer.new()
 
 func _ready():
 	randomize()
-	$LevelSound.volume_db = global.STANDARD_VOLUME
+	add_HUD()
+	$Sounds/LevelSound.volume_db = global.STANDARD_VOLUME
 	set_timer_env()
 	show_cyan_monkey = global.stage_2_first_time_lauched
 	set_bonus_timer()
@@ -33,6 +35,17 @@ func _ready():
 	if global.stage_2_current_monkey_index >= 0:
 		monkey_index = global.stage_2_current_monkey_index - 1
 	spawn_monkey()
+
+
+func add_HUD():
+	hud = global.get_hud()
+#	if hud.connect("little_time_left", self, "_on_HUD_little_time_left") != OK:
+#		print("Error connecting little_time_left")
+#	if hud.connect("out_of_time", self, "_on_HUD_out_of_time") != OK:
+#		print("Error connecting out_of_time")
+	if hud.connect("bonus_giving_finished", self, "_on_bonus_giving_finished") != OK:
+		print("Error connecting bonus_giving_finished")
+	add_child(hud)
 
 
 func set_bonus_timer():
@@ -81,12 +94,18 @@ func set_monkey_speed(new_speed):
 			monkey.playback_speed = new_speed
 
 
-func _on_bonus_timer_timeout():
-	$HUD.add_time_to_score(BONUS_PER_WON_TIME)
-	if $HUD.time_left <= 0:
-		bonus_timer.stop()
-		$Sounds/ReduceTimeSound.stop()
-		global.transition_to_next_level()
+#func _on_bonus_timer_timeout():
+#	$HUD.add_time_to_score(BONUS_PER_WON_TIME)
+#	if $HUD.time_left <= 0:
+#		bonus_timer.stop()
+#		$Sounds/ReduceTimeSound.stop()
+#		global.transition_to_next_level()
+
+
+func _on_bonus_giving_finished():
+	if not $Sounds/WinSound.playing:
+		yield(get_tree().create_timer(0.5), "timeout")
+		global.start_next_level()
 
 
 func set_timer_env():
@@ -106,16 +125,18 @@ func _on_Player_stopped():
 
 
 func _on_Player_win():
-	$HUD.stop_time()
-	
+#	$HUD.stop_time()
+	hud.stop_time()
 
 
 func _on_monkey_body_entered(body):
 	if body.name == PLAYER_NAME:
 		global.stage_2_current_monkey_index = monkey_index
-		$Player.hurt()
-		$LevelSound.stop()
+#		$Player.hurt()
+		$Player.hit_and_fall()
+		$Sounds/LevelSound.stop()
 		monkey_timer.stop()
+		hud.stop_time()
 		for monkey in $MonkeyContainer.get_children():
 			if monkey != null:
 				monkey.move = false
@@ -124,30 +145,38 @@ func _on_monkey_body_entered(body):
 				monkey.monitoring = false
 				monkey.set_process(false)
 
-		var HurtSound = $Player.get_node("Sounds").get_node("HurtSound")
-		var FallingDownSound = $Player.get_node("Sounds").get_node("FallingDownSound")
-		
-		HurtSound.play()
-		yield(HurtSound, "finished")
-		yield(get_tree().create_timer(0.5), "timeout")
+#		var HurtSound = $Player.get_node("Sounds").get_node("HurtSound")
+#		var FallingDownSound = $Player.get_node("Sounds").get_node("FallingDownSound")
+#
+#		HurtSound.play()
+#		yield(HurtSound, "finished")
+#		yield(get_tree().create_timer(0.5), "timeout")
 
 		$Floor/CollisionShape2D.disabled = true
 		$UnderFloor/CollisionShape2D.disabled = false
+#
+#		$Player.set_physics_process(true)
+#		FallSound.play()
+#		yield(FallingDownSound, "finished")
 
-		$Player.set_physics_process(true)
-		FallingDownSound.play()
-		yield(FallingDownSound, "finished")
+
+func _on_HurtFloor_body_entered(body):
+	if body.name == "Player":
+		body.hurt()
 
 
 func _on_monkey_timer_timeout():
 	spawn_monkey()
+
 
 func _on_monkey_screen_exited(_monkey: Area2D):
 	if _monkey != null:
 		if _monkey.position.x < $Player.position.x:
 			_monkey.queue_free()
 
-func _on_Player_hurt_proceed():
+
+#func _on_Player_hurt_proceed():
+func _on_Player_lose():
 	yield(get_tree().create_timer(0.4), "timeout")
 	global.lives -= 1
 	if global.lives <= 0:

@@ -73,3 +73,7 @@ func get_swing_position()->float: # 0.0-4.0
 func reset_swing_position(animation_position : float = 3)->void:
 	$AnimationPlayer.play("swing")
 	$AnimationPlayer.seek(animation_position)
+
+
+func stop()->void:
+	$AnimationPlayer.stop()

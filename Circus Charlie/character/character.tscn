@@ -16,5 +16,7 @@ gravity = 10
 [node name="Camera2D" type="Camera2D" parent="."]
 current = true
 
-[node name="HurtSound" type="AudioStreamPlayer" parent="."]
+[node name="Sounds" type="Node" parent="."]
+
+[node name="HurtSound" type="AudioStreamPlayer" parent="Sounds"]
 stream = ExtResource( 2 )

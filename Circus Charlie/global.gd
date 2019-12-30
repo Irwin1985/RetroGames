@@ -16,9 +16,9 @@ var lives: int = 4
 var is_game_over: bool = false
 var json_obj = {}
 var stage = ["res://Levels/Level1.tscn", \
+			"res://Levels/Level2.tscn", \
 			"res://Levels/Level5.tscn", \
 			"res://Levels/LevelN.tscn", \
-			"res://Levels/Level2.tscn", \
 			"res://Levels/Level5.tscn", \
 			"res://Levels/LevelN.tscn"]
 var current_level: int = -1
@@ -84,6 +84,7 @@ func load_game():
 	hi_score = json_obj["score"]
 	load_game.close()
 
+
 func start_next_level()->void:
 	current_level += 1
 	check_point = 0
@@ -93,13 +94,13 @@ func start_next_level()->void:
 	if current_level == STAGE_TWO_INDEX:
 		stage_2_first_time_lauched = true
 		stage_2_current_monkey_index = 0
-	get_tree().change_scene("res://Levels/ScenePreviewer.tscn")
+#	get_tree().change_scene("res://Levels/ScenePreviewer.tscn")
+
 
 func lose_life():
 	global.lives -= 1
 	if global.lives <= 0:
 		game_over()
-	
 
 
 func game_over():

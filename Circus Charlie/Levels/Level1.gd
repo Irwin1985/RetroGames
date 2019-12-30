@@ -112,6 +112,7 @@ func _on_HUD_little_time_left():
 
 #################################################
 # Losing methods
+
 func _on_HUD_out_of_time():
 	$Lion.lose()
 

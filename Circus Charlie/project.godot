@@ -24,6 +24,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://character/character.gd"
 }, {
+"base": "StaticBody2D",
+"class": "Podium",
+"language": "GDScript",
+"path": "res://Items/Podium/Podium.gd"
+}, {
 "base": "Node2D",
 "class": "Swing",
 "language": "GDScript",
@@ -38,6 +43,7 @@ _global_script_class_icons={
 "BigTrampoline": "",
 "GameHUD": "",
 "Player": "",
+"Podium": "",
 "Swing": "",
 "Trampoline": ""
 }

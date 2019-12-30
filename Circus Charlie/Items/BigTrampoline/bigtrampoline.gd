@@ -49,8 +49,3 @@ func _on_Bonus_body_entered(body):
 		$Bonus/CollisionShape2D.call_deferred("set_disabled", true)
 		$Bonus/BonusSound.play()
 		emit_signal("bonus_pick")
-
-
-func stop()->void:
-	# Called when stopping level objects
-	pass

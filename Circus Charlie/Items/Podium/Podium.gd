@@ -1,4 +1,6 @@
 extends StaticBody2D
+class_name Podium
+
 
 var player : PhysicsBody2D = null
 var player_center_timer = Timer.new()

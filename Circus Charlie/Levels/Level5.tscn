@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=2]
+[gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://Levels/Level5.gd" type="Script" id=1]
 [ext_resource path="res://assets/level5.png" type="Texture" id=2]
@@ -9,21 +9,17 @@
 [ext_resource path="res://assets/level_30m.png" type="Texture" id=7]
 [ext_resource path="res://assets/level_40m.png" type="Texture" id=8]
 [ext_resource path="res://assets/level_50m.png" type="Texture" id=9]
-[ext_resource path="res://Levels/HighPlatform.gd" type="Script" id=10]
-[ext_resource path="res://assets/highplatform.png" type="Texture" id=11]
-[ext_resource path="res://Player/Player.tscn" type="PackedScene" id=12]
-[ext_resource path="res://assets/Stage3.ogg" type="AudioStream" id=13]
-[ext_resource path="res://assets/sfx/GameOver.wav" type="AudioStream" id=14]
-[ext_resource path="res://assets/sfx/Clapping.wav" type="AudioStream" id=15]
+[ext_resource path="res://Items/HighPlatform/HighPlatform.tscn" type="PackedScene" id=10]
+[ext_resource path="res://Player/Player.tscn" type="PackedScene" id=11]
+[ext_resource path="res://assets/Stage3.ogg" type="AudioStream" id=12]
+[ext_resource path="res://assets/sfx/GameOver.wav" type="AudioStream" id=13]
+[ext_resource path="res://assets/sfx/Clapping.wav" type="AudioStream" id=14]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 1500, 24 )
 
 [sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 20, 250 )
-
-[sub_resource type="RectangleShape2D" id=3]
-extents = Vector2( 50, 5 )
 
 [node name="Level5" type="Node2D"]
 script = ExtResource( 1 )
@@ -121,28 +117,10 @@ position = Vector2( 60, 436 )
 scale = Vector2( 2, 2 )
 texture = ExtResource( 9 )
 
-[node name="HighPlatform" type="Node2D" parent="."]
+[node name="HighPlatform" parent="." instance=ExtResource( 10 )]
+
+[node name="Player" parent="." instance=ExtResource( 11 )]
 editor/display_folded = true
-position = Vector2( 2400, 316 )
-script = ExtResource( 10 )
-
-[node name="PlatformTable" type="StaticBody2D" parent="HighPlatform"]
-
-[node name="Sprite" type="Sprite" parent="HighPlatform/PlatformTable"]
-scale = Vector2( 2, 2 )
-texture = ExtResource( 11 )
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="HighPlatform/PlatformTable"]
-position = Vector2( 4, -70 )
-shape = SubResource( 3 )
-
-[node name="PlatformTop" type="Area2D" parent="HighPlatform"]
-
-[node name="CollisionShape2D2" type="CollisionShape2D" parent="HighPlatform/PlatformTop"]
-position = Vector2( 4, -75 )
-shape = SubResource( 3 )
-
-[node name="Player" parent="." instance=ExtResource( 12 )]
 position = Vector2( 70.3243, 305.911 )
 gravity = 15
 
@@ -157,16 +135,15 @@ limit_bottom = 460
 editor/display_folded = true
 
 [node name="LevelSound" type="AudioStreamPlayer" parent="Sounds"]
-stream = ExtResource( 13 )
+stream = ExtResource( 12 )
 autoplay = true
 
 [node name="GameOverSound" type="AudioStreamPlayer" parent="Sounds"]
-stream = ExtResource( 14 )
+stream = ExtResource( 13 )
 
 [node name="WinSound" type="AudioStreamPlayer" parent="Sounds"]
-stream = ExtResource( 15 )
+stream = ExtResource( 14 )
 [connection signal="body_entered" from="Limits/FloorDetector" to="." method="_on_Detector_body_entered"]
-[connection signal="body_entered" from="HighPlatform/PlatformTop" to="HighPlatform" method="_on_PlatformTop_body_entered"]
 [connection signal="lose" from="Player" to="." method="_on_Player_lose"]
 [connection signal="win" from="Player" to="." method="_on_Player_win"]
 [connection signal="finished" from="Sounds/GameOverSound" to="." method="_on_GameOverSound_finished"]

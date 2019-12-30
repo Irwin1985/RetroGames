@@ -6,6 +6,7 @@ onready var platform_center_timer = Timer.new()
 onready var audience_timer = Timer.new()
 var hud : GameHUD = null
 
+
 func _ready():
 	randomize()
 	set_player_position()
@@ -64,27 +65,38 @@ func set_player_position():
 	$Player.position.x += checkpoint_pos
 	$Player.position.y -= 150
 
+
 func _on_swing_first_grab():
 	global.give_points(500)
+
 
 func _on_Detector_body_entered(body : PhysicsBody2D)->void:
 	if body.name == "Player":
 		body.hurt()
 
+
 func stop_items():
+	$Sounds/LevelSound.stop()
 	for item in $EnvironmentObjects.get_children():
-		item.call_deferred("queue_free")
+		item.stop()
+
 
 func _on_HUD_little_time_left():
 	$Sounds/LevelSound.pitch_scale = 1.075
-	
+
+
 #################################################
 # Losing methods
+
 func _on_HUD_out_of_time():
-	lose()
+#	lose()
+	stop_items()
+	$Player.hit_and_fall()
+
 
 func _on_Player_lose():
 	lose()
+
 
 func lose():
 	hud.stop_time()
@@ -94,11 +106,14 @@ func lose():
 	yield(get_tree().create_timer(0.66), "timeout")
 	$Sounds/GameOverSound.play()
 
+
 func _on_GameOverSound_finished():
 	get_tree().call_deferred("change_scene","res://Levels/ScenePreviewer.tscn")
 
+
 #################################################
 # Winning methods
+
 func _on_Player_win():
 	for item in $EnvironmentObjects.get_children():
 		item.call_deferred("queue_free")
@@ -111,6 +126,7 @@ func _on_Player_win():
 	$Sounds/LevelSound.stop()
 	$Sounds/WinSound.play()
 
+
 func _on_platform_center_timeout()->void:
 	var xdelta : int = ($HighPlatform.get_position() - $Player.get_position() ).x
 	if abs(xdelta) > 1:
@@ -118,7 +134,8 @@ func _on_platform_center_timeout()->void:
 		$Player.set_position($Player.get_position() + direction)
 	else:
 		platform_center_timer.stop()
-		
+
+
 func _on_audience_timeout()->void:
 	$Background/Celebrating.visible = not $Background/Celebrating.visible
 
