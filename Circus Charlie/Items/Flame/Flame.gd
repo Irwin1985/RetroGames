@@ -1,6 +1,11 @@
 extends Area2D
 export (int) var speed
+
+class_name FlameRing
+
 signal hurt
+signal appear
+signal disappear
 
 var motion = Vector2.ZERO
 var can_move_bonus = false
@@ -58,6 +63,7 @@ func _on_TimerKillBonus_timeout():
 	$Control/Label.visible = false
 
 
+# warning-ignore:unused_argument
 func _on_Score_body_entered(body):
 	global.give_points(100)
 
@@ -66,8 +72,13 @@ func _on_TimerMoveFlame_timeout():
 	motion.x = -speed
 
 
+func _on_VisibilityNotifier2D_screen_entered():
+	emit_signal("appear", self)
+
+
 func _on_VisibilityNotifier2D_screen_exited():
-	queue_free()
+#	queue_free()
+	emit_signal("disappear", self)
 
 
 func _on_Bonus_body_entered(body):
@@ -78,3 +89,4 @@ func _on_Bonus_body_entered(body):
 func _on_BonusFlame_body_entered(body):
 	if body.name == "Lion":
 		emit_signal("hurt")
+

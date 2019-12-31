@@ -41,6 +41,7 @@ func _on_visibility_screen_exited():
 		queue_free()
 
 
+# warning-ignore:unused_argument
 func _on_Boiler_body_entered(body):
 	emit_signal("hurt")
 
@@ -64,6 +65,7 @@ func activate_bonus():
 	$AnimationPlayer.play("coin")
 	$CoinSprite.visible = true
 
+
 func _on_CoinArea2D_body_entered(body):
 	if body.name == "Lion" and can_pickup:
 		$ControlBonus.rect_position.y = $CoinSprite.position.y
@@ -74,5 +76,7 @@ func _on_CoinArea2D_body_entered(body):
 		$AnimationPlayer.play("bonus")
 		global.give_points(BONUS_POINT)
 
+
+# warning-ignore:unused_argument
 func _on_AnimationPlayer_animation_finished(anim_name):
 	cancel_bonus()

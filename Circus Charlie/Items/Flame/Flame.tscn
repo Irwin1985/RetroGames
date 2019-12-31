@@ -63,6 +63,7 @@ speed = 50
 scale = Vector2( 2, 2 )
 frames = SubResource( 1 )
 animation = "bonus_flame"
+frame = 1
 playing = true
 centered = false
 
@@ -72,6 +73,7 @@ scale = Vector2( 2, 2 )
 z_index = 1
 frames = SubResource( 2 )
 animation = "bonus_flame"
+frame = 1
 playing = true
 centered = false
 
@@ -127,6 +129,7 @@ __meta__ = {
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Score"]
 shape = SubResource( 6 )
 [connection signal="body_entered" from="." to="." method="_on_BonusFlame_body_entered"]
+[connection signal="screen_entered" from="VisibilityNotifier2D" to="." method="_on_VisibilityNotifier2D_screen_entered"]
 [connection signal="screen_exited" from="VisibilityNotifier2D" to="." method="_on_VisibilityNotifier2D_screen_exited"]
 [connection signal="body_entered" from="Bonus" to="." method="_on_Bonus_body_entered"]
 [connection signal="body_entered" from="Score" to="." method="_on_Score_body_entered"]

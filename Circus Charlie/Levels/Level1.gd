@@ -3,16 +3,24 @@ extends Node2D
 export (PackedScene) var single_flame
 export (PackedScene) var boiler
 
-onready var sentinel = preload("res://Items/Sentinel/Sentinel.tscn")
+#onready var sentinel = preload("res://Items/Sentinel/Sentinel.tscn")
 var pos = Vector2(0, 0)
 var hud : GameHUD = null
-
+var last_flame = null
+var next_bonus_flame : int = 0
 
 func _ready():
 	randomize()
 	call_deferred("set_sfx_volume")
 	set_player_position()
 	global.can_pause = true
+	add_HUD()
+	next_bonus_flame = randi() % 5 + 4 # 4..8
+	spawn_boiler()
+	spawn_next_flame()
+#	spawn_sentinel()
+
+func add_HUD():
 	hud = global.get_hud()
 	if hud.connect("little_time_left", self, "_on_HUD_little_time_left") != OK:
 		print("Error connecting little_time_left")
@@ -21,9 +29,6 @@ func _ready():
 	if hud.connect("bonus_giving_finished", self, "_on_bonus_giving_finished") != OK:
 		print("Error connecting bonus_giving_finished")
 	add_child(hud)
-	spawn_boiler()
-	spawn_sentinel()
-
 
 func set_sfx_volume():
 	for audio in $Sounds.get_children():
@@ -54,26 +59,50 @@ func set_player_position():
 	$Lion.position.x = checkpoint_pos
 
 
-func spawn_flame(how_many):
-	for i in range(how_many):
-		
-		var flame = single_flame.instance()
-		var rand = randi() % 4
-		var rand_bonus = randi() % 20
-		
-		if pos.x == 0:
-			pos = Vector2($Lion.position.x + 380, 184)
-		else:
-			pos = Vector2(pos.x + (380 if (rand / 2) * 2 == 0 else 300), 184)
-		
-		flame.position = pos
-		if (rand_bonus / 2) * 2 == 0:
-			flame.start("bonus")
-		else:
-			flame.start("big")
-		
-		flame.connect("hurt", $Lion, "hurt")
-		$FlameContainer.call_deferred("add_child", flame)
+#func spawn_flame(how_many):
+#	for i in range(how_many):
+#
+#		var flame = single_flame.instance()
+#		var rand = randi() % 4
+#		var rand_bonus = randi() % 20
+#
+#		if pos.x == 0:
+#			pos = Vector2($Lion.position.x + 380, 184)
+#		else:
+#			pos = Vector2(pos.x + (380 if (rand / 2) * 2 == 0 else 300), 184)
+#
+#		flame.position = pos
+#		if (rand_bonus / 2) * 2 == 0:
+#			flame.start("bonus")
+#		else:
+#			flame.start("big")
+#
+#		flame.connect("hurt", $Lion, "hurt")
+#		$FlameContainer.call_deferred("add_child", flame)
+
+func spawn_next_flame():
+	var flame = single_flame.instance()
+	var rand = randi() % 4
+	
+	if last_flame == null:
+		pos = Vector2($Lion.position.x + 380, 184)
+	else:
+		pos = last_flame.position + Vector2.RIGHT * (380 if (rand / 2) * 2 == 0 else 300)
+	
+	flame.position = pos
+	if next_bonus_flame <= 0:
+		next_bonus_flame = randi() % 12 + 4 # 4..15
+		flame.start("bonus")
+	else:
+		flame.start("big")
+	
+	flame.connect("hurt", $Lion, "hurt")
+	flame.connect("appear", self, "_on_Flame_appear")
+	flame.connect("disappear", self, "_on_Flame_disappear")
+	$FlameContainer.call_deferred("add_child", flame)
+	
+	last_flame = flame
+	next_bonus_flame -= 1
 
 
 func spawn_boiler():
@@ -84,12 +113,25 @@ func spawn_boiler():
 		$BoilerContainer.add_child(b)
 
 
-func spawn_sentinel():
-	for i in range(9):
-		var s = sentinel.instance()
-		s.position = Vector2(100 + (250 * i), 340)		
-		s.connect("entered", self, "_on_sentinel_entered")
-		$SentinelsContainer.add_child(s)
+#func spawn_sentinel():
+#	for i in range(9):
+#		var s = sentinel.instance()
+#		s.position = Vector2(100 + (250 * i), 340)		
+#		s.connect("entered", self, "_on_sentinel_entered")
+#		$SentinelsContainer.add_child(s)
+
+
+func _on_Flame_appear(flame : FlameRing)->void:
+	if flame == last_flame:
+		spawn_next_flame()
+
+func _on_Flame_disappear(flame : FlameRing)->void:
+	if flame.position.x < $Lion.position.x:
+		flame.call_deferred("queue_free")
+
+
+#func _on_sentinel_entered():
+#	spawn_flame(5)
 
 
 func stop_items():
@@ -100,10 +142,6 @@ func stop_items():
 	for flame in $FlameContainer.get_children():
 		flame.stop()
 		flame.set_process(false)
-
-
-func _on_sentinel_entered():
-	spawn_flame(5)
 
 
 func _on_HUD_little_time_left():
