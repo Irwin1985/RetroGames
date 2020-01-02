@@ -15,7 +15,9 @@ export (int) var gravity
 export (bool) var use_charlie = false
 export (bool) var slow_backward = false
 export (bool) var process_hurt = false
-
+# character behaviour = this variable will let the code 
+# behaves different ways depending on player's scenario.
+export (String, "none", "Stage 1:Lion", "Stage 2:Monkey", "Stage 3:Balls", "Stage 4:Horse", "Stage 5:Swinging") var character_behaviour
 onready var fall_timer : Timer = Timer.new()
 var motion = Vector2()
 
