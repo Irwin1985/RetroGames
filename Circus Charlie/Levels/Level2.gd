@@ -9,7 +9,7 @@ const SPAWN_MONKEY_INTERVAL = 1
 const MONKEY_NORMAL_SPEED = 1
 const MONKEY_HIGH_SPEED = 2
 const PLAYER_NAME = "Player"
-const PLAYER_MINIMAL_DISTANCE = 300
+const PLAYER_MINIMAL_DISTANCE = 500
 const BONUS_PER_WON_TIME = 10
 
 var hud : GameHUD = null
@@ -19,6 +19,8 @@ var show_cyan_monkey = false
 var last_monkey_name = ""
 onready var monkey_timer = Timer.new()
 onready var bonus_timer = Timer.new()
+onready var platform_center_timer = Timer.new()
+onready var audience_timer = Timer.new()
 
 func _ready():
 	randomize()
@@ -109,11 +111,30 @@ func _on_bonus_giving_finished():
 
 
 func set_timer_env():
+	# Monkey Timer Settings
 	monkey_timer.wait_time = SPAWN_MONKEY_INTERVAL
 	monkey_timer.connect("timeout", self, "_on_monkey_timer_timeout",
 		[], CONNECT_DEFERRED)
 	monkey_timer.start()
 	add_child(monkey_timer)
+
+	# Platform Center Timer Settings
+	platform_center_timer.connect("timeout", self, "_on_platform_center_timeout")	
+	platform_center_timer.wait_time = 0.02
+	add_child(platform_center_timer)
+
+	# Audience Timer Settings
+	audience_timer.connect("timeout", self, "_on_audience_timeout")	
+	audience_timer.wait_time = 0.05
+	add_child(audience_timer)
+
+func _on_platform_center_timeout()->void:
+	var xdelta : int = ($HighPlatform.get_position() - $Player.get_position() ).x
+	if abs(xdelta) > 1:
+		var direction : Vector2 = Vector2(xdelta, 0).normalized()
+		$Player.set_position($Player.get_position() + direction)
+	else:
+		platform_center_timer.stop()
 
 
 func _on_Player_moved():
@@ -125,8 +146,11 @@ func _on_Player_stopped():
 
 
 func _on_Player_win():
-#	$HUD.stop_time()
-	hud.stop_time()
+	hud.give_bonus_start()
+	platform_center_timer.start()
+	audience_timer.start()
+	$Sounds/LevelSound.stop()
+	$Sounds/WinSound.play()
 
 
 func _on_monkey_body_entered(body):
@@ -177,17 +201,28 @@ func _on_monkey_screen_exited(_monkey: Area2D):
 
 #func _on_Player_hurt_proceed():
 func _on_Player_lose():
-	yield(get_tree().create_timer(0.4), "timeout")
-	global.lives -= 1
-	if global.lives <= 0:
-		global.game_over()
-	get_tree().change_scene("res://Levels/ScenePreviewer.tscn")
-	return
-	$Floor/CollisionShape2D.disabled = true
-	for monkey in $MonkeyContainer.get_children():
-		if monkey != null:
-			monkey.get_node("StaticBody2D").get_node("CollisionShape2D").disabled = true
-	$UnderFloor/CollisionShape2D.disabled = false
+	lose()
+
+
+func lose():
+	hud.stop_time()
+	$Sounds/LevelSound.stop()
+	global.lose_life()
+	yield(get_tree().create_timer(0.66), "timeout")
+	$Sounds/GameOverSound.play()
+
+#	print("policia lose")
+#	yield(get_tree().create_timer(0.4), "timeout")
+#	global.lives -= 1
+#	if global.lives <= 0:
+#		global.game_over()
+#	get_tree().change_scene("res://Levels/ScenePreviewer.tscn")
+#	return
+#	$Floor/CollisionShape2D.disabled = true
+#	for monkey in $MonkeyContainer.get_children():
+#		if monkey != null:
+#			monkey.get_node("StaticBody2D").get_node("CollisionShape2D").disabled = true
+#	$UnderFloor/CollisionShape2D.disabled = false
 
 
 func _on_GoalSensor_body_entered(body):
@@ -195,6 +230,18 @@ func _on_GoalSensor_body_entered(body):
 		monkey_timer.stop()
 		for monkey in $MonkeyContainer.get_children():
 			var offset = monkey.position.x - $Player.position.x
-			print(offset)
 			if offset > PLAYER_MINIMAL_DISTANCE:
 				monkey.call_deferred("queue_free")
+
+
+func _on_GameOverSound_finished():
+	get_tree().call_deferred("change_scene","res://Levels/ScenePreviewer.tscn")
+
+
+func _on_WinSound_finished():
+	audience_timer.stop()
+	if not hud.is_giving_bonus():
+		yield(get_tree().create_timer(0.5), "timeout")
+		global.start_next_level()
+	else:
+		hud.bonus_giving_play()

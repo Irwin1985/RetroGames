@@ -80,6 +80,10 @@ func _physics_process(delta):
 					motion.x = -speed
 				else:
 					motion.x = 0
+		if motion.x > 0:
+			emit_signal("moved")
+		elif motion.x == 0:
+			emit_signal("stopped")
 		motion = move_and_slide(motion, Vector2.UP)
 #		if !sound_played and !is_hurt:
 #			if there_is_sound:
@@ -181,8 +185,6 @@ func stop()->void:
 	set_physics_process(false)
 	$Charlie.stop()
 	$AnimationPlayer.stop()
-	if use_charlie:
-		$Charlie.stop()
 
 
 func hit_and_fall()->void:
@@ -190,7 +192,8 @@ func hit_and_fall()->void:
 		hit = true
 		emit_signal("hit")
 		$Sounds/HurtSound.play()
-		$Charlie.set_animation("jump")
+		if character_behaviour != "Stage 2:Monkey":
+			$Charlie.set_animation("jump")
 		$Charlie.set_rotation(0)
 		stop()
 		yield(get_tree().create_timer(0.8),"timeout")

@@ -25,6 +25,7 @@ extents = Vector2( 20, 250 )
 script = ExtResource( 1 )
 
 [node name="Background" type="TextureRect" parent="."]
+editor/display_folded = true
 margin_top = 12.0
 margin_right = 1408.0
 margin_bottom = 236.0
@@ -124,9 +125,6 @@ editor/display_folded = true
 position = Vector2( 70.3243, 305.911 )
 gravity = 15
 
-[node name="Charlie" parent="Player" index="0"]
-frame = 0
-
 [node name="Camera2D" parent="Player" index="2"]
 offset = Vector2( 90, 0 )
 limit_left = -90
@@ -135,7 +133,6 @@ limit_right = 2816
 limit_bottom = 460
 
 [node name="Sounds" type="Node2D" parent="."]
-editor/display_folded = true
 
 [node name="LevelSound" type="AudioStreamPlayer" parent="Sounds"]
 stream = ExtResource( 12 )

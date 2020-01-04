@@ -11,25 +11,23 @@
 [ext_resource path="res://assets/level_50m.png" type="Texture" id=9]
 [ext_resource path="res://assets/level_60m.png" type="Texture" id=10]
 [ext_resource path="res://assets/level_70m.png" type="Texture" id=11]
-[ext_resource path="res://assets/goal_platform.png" type="Texture" id=12]
-[ext_resource path="res://assets/goal_ladder.png" type="Texture" id=13]
-[ext_resource path="res://Player/Player.tscn" type="PackedScene" id=14]
-[ext_resource path="res://assets/Stage2.ogg" type="AudioStream" id=15]
-[ext_resource path="res://assets/sfx/TimeReduce.ogg" type="AudioStream" id=16]
+[ext_resource path="res://Items/HighPlatform/HighPlatform.tscn" type="PackedScene" id=12]
+[ext_resource path="res://Player/Player.tscn" type="PackedScene" id=13]
+[ext_resource path="res://assets/Stage2.ogg" type="AudioStream" id=14]
+[ext_resource path="res://assets/sfx/TimeReduce.ogg" type="AudioStream" id=15]
+[ext_resource path="res://assets/sfx/GameOver.wav" type="AudioStream" id=16]
+[ext_resource path="res://assets/sfx/Clapping.wav" type="AudioStream" id=17]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 55, 0.5 )
-
-[sub_resource type="RectangleShape2D" id=2]
-
-[sub_resource type="RectangleShape2D" id=3]
 extents = Vector2( 1828, 2 )
 
-[sub_resource type="RectangleShape2D" id=4]
+[sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 1828, 5 )
 
-[sub_resource type="RectangleShape2D" id=5]
+[sub_resource type="RectangleShape2D" id=3]
 extents = Vector2( 2, 70.8109 )
+
+[sub_resource type="RectangleShape2D" id=4]
 
 [node name="Level2" type="Node2D"]
 script = ExtResource( 1 )
@@ -84,45 +82,6 @@ position = Vector2( 60, 435 )
 scale = Vector2( 2, 2 )
 texture = ExtResource( 11 )
 
-[node name="GoalPlatform" type="Node2D" parent="."]
-editor/display_folded = true
-
-[node name="Podium" type="StaticBody2D" parent="GoalPlatform" groups=[
-"goal",
-]]
-editor/display_folded = true
-position = Vector2( 3548, 201 )
-__meta__ = {
-"_edit_group_": true
-}
-
-[node name="goal_platform" type="Sprite" parent="GoalPlatform/Podium"]
-texture = ExtResource( 12 )
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="GoalPlatform/Podium"]
-position = Vector2( 4.31787, 2.93784 )
-scale = Vector2( 1, 5.88 )
-shape = SubResource( 1 )
-
-[node name="goal_ladder" type="Sprite" parent="GoalPlatform"]
-position = Vector2( 3549, 301 )
-scale = Vector2( 1, 0.823009 )
-texture = ExtResource( 13 )
-
-[node name="GoalSensor" type="Area2D" parent="GoalPlatform"]
-position = Vector2( 3237.23, 129.252 )
-scale = Vector2( 1, 2.36 )
-__meta__ = {
-"_edit_group_": true
-}
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="GoalPlatform/GoalSensor"]
-scale = Vector2( 0.44, 4.60001 )
-shape = SubResource( 2 )
-__meta__ = {
-"_edit_group_": true
-}
-
 [node name="Floor" type="StaticBody2D" parent="."]
 editor/display_folded = true
 __meta__ = {
@@ -132,7 +91,7 @@ __meta__ = {
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Floor"]
 position = Vector2( 1828, 248.516 )
 scale = Vector2( 0.998724, 0.782454 )
-shape = SubResource( 3 )
+shape = SubResource( 1 )
 
 [node name="MonkeyContainer" type="Node2D" parent="."]
 
@@ -145,7 +104,7 @@ __meta__ = {
 [node name="CollisionShape2D" type="CollisionShape2D" parent="UnderFloor"]
 position = Vector2( 1828, 248.516 )
 scale = Vector2( 0.998724, 0.782454 )
-shape = SubResource( 4 )
+shape = SubResource( 2 )
 disabled = true
 
 [node name="HurtFloor" type="Area2D" parent="."]
@@ -153,9 +112,21 @@ disabled = true
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HurtFloor"]
 position = Vector2( 1828, 428.516 )
 scale = Vector2( 0.998724, 0.782454 )
-shape = SubResource( 4 )
+shape = SubResource( 2 )
 
-[node name="Player" parent="." instance=ExtResource( 14 )]
+[node name="HighPlatform" parent="." instance=ExtResource( 12 )]
+position = Vector2( 3547.17, 293.991 )
+
+[node name="Sprite" parent="HighPlatform/PlatformTable" index="0"]
+scale = Vector2( 2.5, 2.5 )
+
+[node name="CollisionShape2D" parent="HighPlatform/PlatformTable" index="1"]
+position = Vector2( 4, -90 )
+
+[node name="CollisionShape2D2" parent="HighPlatform/PlatformTop" index="0"]
+position = Vector2( 4, -95 )
+
+[node name="Player" parent="." instance=ExtResource( 13 )]
 editor/display_folded = true
 position = Vector2( 140, 224.5 )
 speed = 75
@@ -166,7 +137,7 @@ process_hurt = true
 character_behaviour = "Stage 2:Monkey"
 
 [node name="Charlie" parent="Player" index="0"]
-frame = 1
+frame = 0
 
 [node name="Camera2D" parent="Player" index="2"]
 position = Vector2( -140, 0 )
@@ -189,7 +160,7 @@ __meta__ = {
 }
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Walls/LeftWall"]
-shape = SubResource( 5 )
+shape = SubResource( 3 )
 
 [node name="MonkeyFirtPosition" type="Position2D" parent="."]
 position = Vector2( 500, 243 )
@@ -197,16 +168,34 @@ position = Vector2( 500, 243 )
 [node name="Sounds" type="Node" parent="."]
 
 [node name="LevelSound" type="AudioStreamPlayer" parent="Sounds"]
-stream = ExtResource( 15 )
+stream = ExtResource( 14 )
 autoplay = true
 
 [node name="ReduceTimeSound" type="AudioStreamPlayer" parent="Sounds"]
+stream = ExtResource( 15 )
+
+[node name="GameOverSound" type="AudioStreamPlayer" parent="Sounds"]
 stream = ExtResource( 16 )
-[connection signal="body_entered" from="GoalPlatform/GoalSensor" to="." method="_on_GoalSensor_body_entered"]
+
+[node name="WinSound" type="AudioStreamPlayer" parent="Sounds"]
+stream = ExtResource( 17 )
+
+[node name="GoalSensor" type="Area2D" parent="."]
+position = Vector2( 3237.23, 129.252 )
+scale = Vector2( 1, 2.36 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GoalSensor"]
+scale = Vector2( 0.44, 4.6 )
+shape = SubResource( 4 )
 [connection signal="body_entered" from="HurtFloor" to="." method="_on_HurtFloor_body_entered"]
 [connection signal="lose" from="Player" to="." method="_on_Player_lose"]
 [connection signal="moved" from="Player" to="." method="_on_Player_moved"]
 [connection signal="stopped" from="Player" to="." method="_on_Player_stopped"]
 [connection signal="win" from="Player" to="." method="_on_Player_win"]
+[connection signal="finished" from="Sounds/GameOverSound" to="." method="_on_GameOverSound_finished"]
+[connection signal="finished" from="Sounds/WinSound" to="." method="_on_WinSound_finished"]
+[connection signal="body_entered" from="GoalSensor" to="." method="_on_GoalSensor_body_entered"]
+
+[editable path="HighPlatform"]
 
 [editable path="Player"]
