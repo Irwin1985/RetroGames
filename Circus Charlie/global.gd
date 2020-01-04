@@ -26,6 +26,8 @@ var play_first_sound: bool = false
 var can_pause: bool = false
 var check_point: int = 0
 var current_check_point_path := "" setget set_current_check_point_path
+var pitch_scale = 1.37
+
 onready var game_file: String = "user://score.save"
 
 

@@ -17,6 +17,7 @@ var monkey_index = -1
 var monkey_pattern = [6, 9, 8, 9, 7, 10, 10, 5, 6, 9, 8, 10, 5, 4, 8]
 var show_cyan_monkey = false
 var last_monkey_name = ""
+
 onready var monkey_timer = Timer.new()
 onready var bonus_timer = Timer.new()
 onready var platform_center_timer = Timer.new()
@@ -25,6 +26,7 @@ onready var audience_timer = Timer.new()
 func _ready():
 	randomize()
 	add_HUD()
+	global.can_pause = true
 	$Sounds/LevelSound.volume_db = global.STANDARD_VOLUME
 	set_timer_env()
 	show_cyan_monkey = global.stage_2_first_time_lauched
@@ -48,10 +50,10 @@ func _ready():
 
 func add_HUD():
 	hud = global.get_hud()
-#	if hud.connect("little_time_left", self, "_on_HUD_little_time_left") != OK:
-#		print("Error connecting little_time_left")
-#	if hud.connect("out_of_time", self, "_on_HUD_out_of_time") != OK:
-#		print("Error connecting out_of_time")
+	if hud.connect("little_time_left", self, "_on_HUD_little_time_left") != OK:
+		print("Error connecting little_time_left")
+	if hud.connect("out_of_time", self, "_on_HUD_out_of_time") != OK:
+		print("Error connecting out_of_time")
 	if hud.connect("bonus_giving_finished", self, "_on_bonus_giving_finished") != OK:
 		print("Error connecting bonus_giving_finished")
 	add_child(hud)
@@ -105,14 +107,6 @@ func set_monkey_speed(new_speed):
 			monkey.playback_speed = new_speed
 
 
-#func _on_bonus_timer_timeout():
-#	$HUD.add_time_to_score(BONUS_PER_WON_TIME)
-#	if $HUD.time_left <= 0:
-#		bonus_timer.stop()
-#		$Sounds/ReduceTimeSound.stop()
-#		global.transition_to_next_level()
-
-
 func _on_bonus_giving_finished():
 	if not $Sounds/WinSound.playing:
 		yield(get_tree().create_timer(0.5), "timeout")
@@ -136,6 +130,7 @@ func set_timer_env():
 	audience_timer.connect("timeout", self, "_on_audience_timeout")	
 	audience_timer.wait_time = 0.05
 	add_child(audience_timer)
+
 
 func _on_platform_center_timeout()->void:
 	var xdelta : int = ($HighPlatform.get_position() - $Player.get_position() ).x
@@ -165,7 +160,6 @@ func _on_Player_win():
 func _on_monkey_body_entered(body):
 	if body.name == PLAYER_NAME:
 		global.stage_2_current_monkey_index = monkey_index
-#		$Player.hurt()
 		$Player.hit_and_fall()
 		$Sounds/LevelSound.stop()
 		monkey_timer.stop()
@@ -177,20 +171,8 @@ func _on_monkey_body_entered(body):
 				monkey.get_node("AnimatedSprite").stop()
 				monkey.monitoring = false
 				monkey.set_process(false)
-
-#		var HurtSound = $Player.get_node("Sounds").get_node("HurtSound")
-#		var FallingDownSound = $Player.get_node("Sounds").get_node("FallingDownSound")
-#
-#		HurtSound.play()
-#		yield(HurtSound, "finished")
-#		yield(get_tree().create_timer(0.5), "timeout")
-
 		$Floor/CollisionShape2D.disabled = true
 		$UnderFloor/CollisionShape2D.disabled = false
-#
-#		$Player.set_physics_process(true)
-#		FallSound.play()
-#		yield(FallingDownSound, "finished")
 
 
 func _on_HurtFloor_body_entered(body):
@@ -208,7 +190,6 @@ func _on_monkey_screen_exited(_monkey: Area2D):
 			_monkey.queue_free()
 
 
-#func _on_Player_hurt_proceed():
 func _on_Player_lose():
 	lose()
 
@@ -219,19 +200,6 @@ func lose():
 	global.lose_life()
 	yield(get_tree().create_timer(0.66), "timeout")
 	$Sounds/GameOverSound.play()
-
-#	print("policia lose")
-#	yield(get_tree().create_timer(0.4), "timeout")
-#	global.lives -= 1
-#	if global.lives <= 0:
-#		global.game_over()
-#	get_tree().change_scene("res://Levels/ScenePreviewer.tscn")
-#	return
-#	$Floor/CollisionShape2D.disabled = true
-#	for monkey in $MonkeyContainer.get_children():
-#		if monkey != null:
-#			monkey.get_node("StaticBody2D").get_node("CollisionShape2D").disabled = true
-#	$UnderFloor/CollisionShape2D.disabled = false
 
 
 func _on_GoalSensor_body_entered(body):
@@ -279,3 +247,13 @@ func _on_CheckPoint30_body_entered(body):
 func _on_CheckPoint20_body_entered(body):
 	if body.name == PLAYER_NAME:
 		global.current_check_point_path = "CheckPoints/chkpt_50m"
+
+
+func _on_HUD_little_time_left():
+	$Sounds/LevelSound.pitch_scale = global.pitch_scale
+	$Sounds/LevelSound.stop()
+	$Sounds/LevelSound.play()
+
+
+func _on_HUD_out_of_time():
+	$Player.lose()

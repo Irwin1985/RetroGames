@@ -88,7 +88,6 @@ limit_bottom = 460
 [node name="SentinelsContainer" type="Node2D" parent="."]
 
 [node name="Sounds" type="Node2D" parent="."]
-editor/display_folded = true
 
 [node name="LevelSound" type="AudioStreamPlayer" parent="Sounds"]
 stream = ExtResource( 8 )
@@ -104,6 +103,7 @@ stream = ExtResource( 10 )
 stream = ExtResource( 11 )
 
 [node name="CheckPoints" parent="." instance=ExtResource( 12 )]
+editor/display_folded = true
 [connection signal="lose" from="Lion" to="." method="_on_Lion_lose"]
 [connection signal="win" from="Lion" to="." method="_on_Lion_win"]
 [connection signal="finished" from="Sounds/GameOverSound" to="." method="_on_GameOverSound_finished"]

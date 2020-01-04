@@ -11,7 +11,7 @@ var next_bonus_flame : int = 0
 
 func _ready():
 	randomize()
-	call_deferred("set_sfx_volume")
+	set_sfx_volume()
 	set_player_position()
 	global.can_pause = true
 	add_HUD()
@@ -145,7 +145,9 @@ func stop_items():
 
 
 func _on_HUD_little_time_left():
-	$Sounds/LevelSound.pitch_scale = 1.075
+	$Sounds/LevelSound.pitch_scale = global.pitch_scale
+	$Sounds/LevelSound.stop()
+	$Sounds/LevelSound.play()
 
 
 #################################################
