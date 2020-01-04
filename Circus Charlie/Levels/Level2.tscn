@@ -163,6 +163,7 @@ jump_power = 470
 gravity = 15
 slow_backward = true
 process_hurt = true
+character_behaviour = "Stage 2:Monkey"
 
 [node name="Charlie" parent="Player" index="0"]
 frame = 1
