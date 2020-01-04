@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=2]
+[gd_scene load_steps=24 format=2]
 
 [ext_resource path="res://Levels/Level2.gd" type="Script" id=1]
 [ext_resource path="res://Monkey/MonkeyBase.tscn" type="PackedScene" id=2]
@@ -17,6 +17,7 @@
 [ext_resource path="res://assets/sfx/TimeReduce.ogg" type="AudioStream" id=15]
 [ext_resource path="res://assets/sfx/GameOver.wav" type="AudioStream" id=16]
 [ext_resource path="res://assets/sfx/Clapping.wav" type="AudioStream" id=17]
+[ext_resource path="res://Items/CheckPoints.tscn" type="PackedScene" id=18]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 1828, 2 )
@@ -28,6 +29,9 @@ extents = Vector2( 1828, 5 )
 extents = Vector2( 2, 70.8109 )
 
 [sub_resource type="RectangleShape2D" id=4]
+
+[sub_resource type="RectangleShape2D" id=5]
+extents = Vector2( 5, 120 )
 
 [node name="Level2" type="Node2D"]
 script = ExtResource( 1 )
@@ -129,6 +133,7 @@ position = Vector2( 4, -95 )
 [node name="Player" parent="." instance=ExtResource( 13 )]
 editor/display_folded = true
 position = Vector2( 140, 224.5 )
+scale = Vector2( 0.998518, 0.804541 )
 speed = 75
 jump_power = 470
 gravity = 15
@@ -162,9 +167,6 @@ __meta__ = {
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Walls/LeftWall"]
 shape = SubResource( 3 )
 
-[node name="MonkeyFirtPosition" type="Position2D" parent="."]
-position = Vector2( 500, 243 )
-
 [node name="Sounds" type="Node" parent="."]
 
 [node name="LevelSound" type="AudioStreamPlayer" parent="Sounds"]
@@ -187,6 +189,82 @@ scale = Vector2( 1, 2.36 )
 [node name="CollisionShape2D" type="CollisionShape2D" parent="GoalSensor"]
 scale = Vector2( 0.44, 4.6 )
 shape = SubResource( 4 )
+
+[node name="CheckPoints" parent="." instance=ExtResource( 18 )]
+
+[node name="chkpt_90m" parent="CheckPoints" index="0"]
+position = Vector2( 640, 224.5 )
+
+[node name="CheckPoint60" type="Area2D" parent="CheckPoints/chkpt_90m" index="0"]
+editor/display_folded = true
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CheckPoints/chkpt_90m/CheckPoint60"]
+position = Vector2( 0, -75 )
+shape = SubResource( 5 )
+
+[node name="chkpt_80m" parent="CheckPoints" index="1"]
+position = Vector2( 1140, 224.5 )
+
+[node name="CheckPoint50" type="Area2D" parent="CheckPoints/chkpt_80m" index="0"]
+editor/display_folded = true
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CheckPoints/chkpt_80m/CheckPoint50"]
+position = Vector2( 0, -75 )
+shape = SubResource( 5 )
+
+[node name="chkpt_70m" parent="CheckPoints" index="2"]
+position = Vector2( 1640, 224.5 )
+
+[node name="CheckPoint40" type="Area2D" parent="CheckPoints/chkpt_70m" index="0"]
+editor/display_folded = true
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CheckPoints/chkpt_70m/CheckPoint40"]
+position = Vector2( 0, -75 )
+shape = SubResource( 5 )
+
+[node name="chkpt_60m" parent="CheckPoints" index="3"]
+position = Vector2( 2140, 224.5 )
+
+[node name="CheckPoint30" type="Area2D" parent="CheckPoints/chkpt_60m" index="0"]
+editor/display_folded = true
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CheckPoints/chkpt_60m/CheckPoint30"]
+position = Vector2( 0, -75 )
+shape = SubResource( 5 )
+
+[node name="chkpt_50m" parent="CheckPoints" index="4"]
+position = Vector2( 2640, 224.5 )
+
+[node name="CheckPoint20" type="Area2D" parent="CheckPoints/chkpt_50m" index="0"]
+editor/display_folded = true
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CheckPoints/chkpt_50m/CheckPoint20"]
+position = Vector2( 0, -75 )
+shape = SubResource( 5 )
+
+[node name="chkpt_40m" parent="CheckPoints" index="5"]
+position = Vector2( 3140, 224.5 )
+
+[node name="chkpt_30m" parent="CheckPoints" index="6"]
+position = Vector2( 3640, 224.5 )
+
+[node name="chkpt_20m" parent="CheckPoints" index="7"]
+position = Vector2( 4140, 224.5 )
 [connection signal="body_entered" from="HurtFloor" to="." method="_on_HurtFloor_body_entered"]
 [connection signal="lose" from="Player" to="." method="_on_Player_lose"]
 [connection signal="moved" from="Player" to="." method="_on_Player_moved"]
@@ -195,7 +273,14 @@ shape = SubResource( 4 )
 [connection signal="finished" from="Sounds/GameOverSound" to="." method="_on_GameOverSound_finished"]
 [connection signal="finished" from="Sounds/WinSound" to="." method="_on_WinSound_finished"]
 [connection signal="body_entered" from="GoalSensor" to="." method="_on_GoalSensor_body_entered"]
+[connection signal="body_entered" from="CheckPoints/chkpt_90m/CheckPoint60" to="." method="_on_CheckPoint60_body_entered"]
+[connection signal="body_entered" from="CheckPoints/chkpt_80m/CheckPoint50" to="." method="_on_CheckPoint50_body_entered"]
+[connection signal="body_entered" from="CheckPoints/chkpt_70m/CheckPoint40" to="." method="_on_CheckPoint40_body_entered"]
+[connection signal="body_entered" from="CheckPoints/chkpt_60m/CheckPoint30" to="." method="_on_CheckPoint30_body_entered"]
+[connection signal="body_entered" from="CheckPoints/chkpt_50m/CheckPoint20" to="." method="_on_CheckPoint20_body_entered"]
 
 [editable path="HighPlatform"]
 
 [editable path="Player"]
+
+[editable path="CheckPoints"]

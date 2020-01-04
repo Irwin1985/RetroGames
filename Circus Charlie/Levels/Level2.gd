@@ -31,8 +31,15 @@ func _ready():
 	set_bonus_timer()
 	
 #	Test only = delete when test the whole game
-	show_cyan_monkey = true
+	show_cyan_monkey = true # delete this line when compile the game
+	global.play_first_sound = true
+	global.current_level = 1 # delete this line when compile the game
 #	Test only
+
+	if global.current_check_point_path != "":
+		var CheckPointNode: Position2D = get_node(global.current_check_point_path)
+		if CheckPointNode != null:
+			$Player.position = CheckPointNode.position
 
 	if global.stage_2_current_monkey_index >= 0:
 		monkey_index = global.stage_2_current_monkey_index - 1
@@ -62,12 +69,14 @@ func spawn_monkey():
 	var monkey_position = 0
 	
 	monkey.name = "Enemy" + str(randi())
-	monkey.connect("body_entered", self, "_on_monkey_body_entered", [], CONNECT_DEFERRED)
+	monkey.connect("body_entered", self, "_on_monkey_body_entered", 
+			[], CONNECT_DEFERRED)
 	monkey.connect("screen_exited", self, "_on_monkey_screen_exited",
 			[], CONNECT_DEFERRED)
 	
 	if $MonkeyContainer.get_child_count() == 0:
-		monkey_position = $MonkeyFirtPosition.position.x
+#		monkey_position = $MonkeyFirtPosition.position.x
+		monkey_position = $Player.position.x + 360
 	else:
 		get_monkey_index()
 		monkey_position = $MonkeyContainer.get_child(
@@ -245,3 +254,28 @@ func _on_WinSound_finished():
 		global.start_next_level()
 	else:
 		hud.bonus_giving_play()
+
+
+func _on_CheckPoint60_body_entered(body):
+	if body.name == PLAYER_NAME:
+		global.current_check_point_path = "CheckPoints/chkpt_90m"
+
+
+func _on_CheckPoint50_body_entered(body):
+	if body.name == PLAYER_NAME:
+		global.current_check_point_path = "CheckPoints/chkpt_80m"
+
+
+func _on_CheckPoint40_body_entered(body):
+	if body.name == PLAYER_NAME:
+		global.current_check_point_path = "CheckPoints/chkpt_70m"
+
+
+func _on_CheckPoint30_body_entered(body):
+	if body.name == PLAYER_NAME:
+		global.current_check_point_path = "CheckPoints/chkpt_60m"
+
+
+func _on_CheckPoint20_body_entered(body):
+	if body.name == PLAYER_NAME:
+		global.current_check_point_path = "CheckPoints/chkpt_50m"
