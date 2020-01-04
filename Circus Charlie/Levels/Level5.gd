@@ -11,14 +11,7 @@ func _ready():
 	randomize()
 	set_player_position()
 	global.can_pause = true
-	hud = global.get_hud()
-	if hud.connect("little_time_left", self, "_on_HUD_little_time_left") != OK:
-		print("Error connecting little_time_left")
-	if hud.connect("out_of_time", self, "_on_HUD_out_of_time") != OK:
-		print("Error connecting out_of_time")
-	if hud.connect("bonus_giving_finished", self, "_on_bonus_giving_finished") != OK:
-		print("Error connecting bonus_giving_finished")
-	add_child(hud)
+	add_HUD()
 	var trampolines : PackedScene = preload("res://Items/Trampoline/trampoline.tscn")
 	var swings : PackedScene = preload("res://Items/Swing/swing.tscn")
 	for i in range (total_swings):
@@ -30,10 +23,12 @@ func _ready():
 		# Add Swings
 		var new_swing = swings.instance()
 		new_swing.position = Vector2(i * 256 + 160, 124)
-		if i == 0:
+		if i == global.check_point * 2:
 			new_swing.set_speed(0.9)
+			new_swing.already_grabbed = true
 		else:
 			new_swing.set_speed(randf() * 0.3 + 0.85) # 0.85-1.15
+			# Used for difficulty settings 
 #			new_swing.set_speed(randf() * 0.6 + 0.7) # 0.7-1.3
 #			new_swing.set_speed(randf() * 0.9 + 0.55) # 0.55-1.45
 #			new_swing.set_speed(randf() * 1.2 + 0.4) # 0.4-1.6
@@ -50,6 +45,17 @@ func _ready():
 	audience_timer.connect("timeout", self, "_on_audience_timeout")	
 	audience_timer.wait_time = 0.05
 	add_child(audience_timer)
+
+
+func add_HUD():
+	hud = global.get_hud()
+	if hud.connect("little_time_left", self, "_on_HUD_little_time_left") != OK:
+		print("Error connecting little_time_left")
+	if hud.connect("out_of_time", self, "_on_HUD_out_of_time") != OK:
+		print("Error connecting out_of_time")
+	if hud.connect("bonus_giving_finished", self, "_on_bonus_giving_finished") != OK:
+		print("Error connecting bonus_giving_finished")
+	add_child(hud)
 
 
 func set_player_position():
