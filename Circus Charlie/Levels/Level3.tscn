@@ -1,0 +1,272 @@
+[gd_scene load_steps=22 format=2]
+
+[ext_resource path="res://assets/background.png" type="Texture" id=1]
+[ext_resource path="res://assets/level_0m.png" type="Texture" id=2]
+[ext_resource path="res://assets/level_10m.png" type="Texture" id=3]
+[ext_resource path="res://assets/level_20m.png" type="Texture" id=4]
+[ext_resource path="res://assets/level_30m.png" type="Texture" id=5]
+[ext_resource path="res://assets/level_40m.png" type="Texture" id=6]
+[ext_resource path="res://assets/level_50m.png" type="Texture" id=7]
+[ext_resource path="res://assets/level_60m.png" type="Texture" id=8]
+[ext_resource path="res://assets/level_70m.png" type="Texture" id=9]
+[ext_resource path="res://assets/level_80m.png" type="Texture" id=10]
+[ext_resource path="res://Player/Player.tscn" type="PackedScene" id=11]
+[ext_resource path="res://assets/Stage2.ogg" type="AudioStream" id=12]
+[ext_resource path="res://assets/sfx/TimeReduce.ogg" type="AudioStream" id=13]
+[ext_resource path="res://assets/sfx/GameOver.wav" type="AudioStream" id=14]
+[ext_resource path="res://assets/sfx/Clapping.wav" type="AudioStream" id=15]
+[ext_resource path="res://Items/CheckPoints.tscn" type="PackedScene" id=16]
+[ext_resource path="res://Items/Podium/Podium.tscn" type="PackedScene" id=17]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 1828, 2 )
+
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 2, 70.8109 )
+
+[sub_resource type="RectangleShape2D" id=3]
+
+[sub_resource type="RectangleShape2D" id=4]
+extents = Vector2( 5, 120 )
+
+[node name="Level3" type="Node2D"]
+
+[node name="Background" type="TextureRect" parent="."]
+margin_right = 2117.0
+margin_bottom = 224.0
+rect_scale = Vector2( 1.95, 2.05 )
+texture = ExtResource( 1 )
+stretch_mode = 2
+
+[node name="LevelContainer" type="Node2D" parent="."]
+editor/display_folded = true
+
+[node name="level_0m" type="Sprite" parent="LevelContainer"]
+position = Vector2( 4060, 435 )
+scale = Vector2( 2, 2 )
+texture = ExtResource( 2 )
+
+[node name="level_10m" type="Sprite" parent="LevelContainer"]
+position = Vector2( 3560, 435 )
+scale = Vector2( 2, 2 )
+texture = ExtResource( 3 )
+
+[node name="level_20m" type="Sprite" parent="LevelContainer"]
+position = Vector2( 3060, 435 )
+scale = Vector2( 2, 2 )
+texture = ExtResource( 4 )
+
+[node name="level_30m" type="Sprite" parent="LevelContainer"]
+position = Vector2( 2560, 435 )
+scale = Vector2( 2, 2 )
+texture = ExtResource( 5 )
+
+[node name="level_40m" type="Sprite" parent="LevelContainer"]
+position = Vector2( 2060, 435 )
+scale = Vector2( 2, 2 )
+texture = ExtResource( 6 )
+
+[node name="level_50m" type="Sprite" parent="LevelContainer"]
+position = Vector2( 1560, 435 )
+scale = Vector2( 2, 2 )
+texture = ExtResource( 7 )
+
+[node name="level_60m" type="Sprite" parent="LevelContainer"]
+position = Vector2( 1060, 435 )
+scale = Vector2( 2, 2 )
+texture = ExtResource( 8 )
+
+[node name="level_70m" type="Sprite" parent="LevelContainer"]
+position = Vector2( 560, 435 )
+scale = Vector2( 2, 2 )
+texture = ExtResource( 9 )
+
+[node name="level_80m" type="Sprite" parent="LevelContainer"]
+position = Vector2( 60, 435 )
+scale = Vector2( 2, 2 )
+texture = ExtResource( 10 )
+
+[node name="Floor" type="StaticBody2D" parent="."]
+editor/display_folded = true
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Floor"]
+position = Vector2( 1828, 411 )
+scale = Vector2( 0.998724, 0.782454 )
+shape = SubResource( 1 )
+
+[node name="BallContainer" type="Node2D" parent="."]
+
+[node name="Player" parent="." instance=ExtResource( 11 )]
+editor/display_folded = true
+position = Vector2( 81.4791, 388.846 )
+scale = Vector2( 0.998518, 0.804541 )
+speed = 75
+jump_power = 470
+gravity = 15
+slow_backward = true
+process_hurt = true
+character_behaviour = "Stage 2:Monkey"
+
+[node name="Camera2D" parent="Player" index="2"]
+position = Vector2( -140, 0 )
+anchor_mode = 0
+limit_left = 0
+limit_top = 0
+limit_right = 4130
+limit_bottom = 460
+editor_draw_limits = true
+editor_draw_drag_margin = true
+
+[node name="Sounds" parent="Player" index="3"]
+editor/display_folded = true
+
+[node name="Walls" type="Node" parent="."]
+editor/display_folded = true
+
+[node name="LeftWall" type="StaticBody2D" parent="Walls"]
+editor/display_folded = true
+position = Vector2( 28, 142 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Walls/LeftWall"]
+shape = SubResource( 2 )
+
+[node name="Sounds" type="Node" parent="."]
+editor/display_folded = true
+
+[node name="LevelSound" type="AudioStreamPlayer" parent="Sounds"]
+stream = ExtResource( 12 )
+autoplay = true
+
+[node name="ReduceTimeSound" type="AudioStreamPlayer" parent="Sounds"]
+stream = ExtResource( 13 )
+
+[node name="GameOverSound" type="AudioStreamPlayer" parent="Sounds"]
+stream = ExtResource( 14 )
+
+[node name="WinSound" type="AudioStreamPlayer" parent="Sounds"]
+stream = ExtResource( 15 )
+
+[node name="GoalSensor" type="Area2D" parent="."]
+editor/display_folded = true
+position = Vector2( 3599.08, 296.524 )
+scale = Vector2( 1, 2.36 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GoalSensor"]
+scale = Vector2( 0.44, 4.6 )
+shape = SubResource( 3 )
+
+[node name="CheckPoints" parent="." instance=ExtResource( 16 )]
+editor/display_folded = true
+
+[node name="chkpt_90m" parent="CheckPoints" index="0"]
+position = Vector2( 640, 394.147 )
+
+[node name="CheckPoint70" type="Area2D" parent="CheckPoints/chkpt_90m" index="0"]
+editor/display_folded = true
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CheckPoints/chkpt_90m/CheckPoint70"]
+position = Vector2( 0, -75 )
+shape = SubResource( 4 )
+
+[node name="chkpt_80m" parent="CheckPoints" index="1"]
+position = Vector2( 1140, 394.147 )
+
+[node name="CheckPoint60" type="Area2D" parent="CheckPoints/chkpt_80m" index="0"]
+editor/display_folded = true
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CheckPoints/chkpt_80m/CheckPoint60"]
+position = Vector2( 0, -75 )
+shape = SubResource( 4 )
+
+[node name="chkpt_70m" parent="CheckPoints" index="2"]
+position = Vector2( 1640, 394.147 )
+
+[node name="CheckPoint50" type="Area2D" parent="CheckPoints/chkpt_70m" index="0"]
+editor/display_folded = true
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CheckPoints/chkpt_70m/CheckPoint50"]
+position = Vector2( 0, -75 )
+shape = SubResource( 4 )
+
+[node name="chkpt_60m" parent="CheckPoints" index="3"]
+position = Vector2( 2140, 394.147 )
+
+[node name="CheckPoint40" type="Area2D" parent="CheckPoints/chkpt_60m" index="0"]
+editor/display_folded = true
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CheckPoints/chkpt_60m/CheckPoint40"]
+position = Vector2( 0, -75 )
+shape = SubResource( 4 )
+
+[node name="chkpt_50m" parent="CheckPoints" index="4"]
+position = Vector2( 2640, 394.147 )
+
+[node name="CheckPoint30" type="Area2D" parent="CheckPoints/chkpt_50m" index="0"]
+editor/display_folded = true
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CheckPoints/chkpt_50m/CheckPoint30"]
+position = Vector2( 0, -75 )
+shape = SubResource( 4 )
+
+[node name="chkpt_40m" parent="CheckPoints" index="5"]
+position = Vector2( 3140, 394.147 )
+
+[node name="CheckPoint20" type="Area2D" parent="CheckPoints/chkpt_40m" index="0"]
+editor/display_folded = true
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CheckPoints/chkpt_40m/CheckPoint20"]
+position = Vector2( 0, -75 )
+shape = SubResource( 4 )
+
+[node name="chkpt_30m" parent="CheckPoints" index="6"]
+position = Vector2( 3640, 394.147 )
+
+[node name="chkpt_20m" parent="CheckPoints" index="7"]
+position = Vector2( 4140, 394.147 )
+
+[node name="Podium" parent="." instance=ExtResource( 17 )]
+position = Vector2( 4033.89, 378.21 )
+[connection signal="lose" from="Player" to="." method="_on_Player_lose"]
+[connection signal="moved" from="Player" to="." method="_on_Player_moved"]
+[connection signal="stopped" from="Player" to="." method="_on_Player_stopped"]
+[connection signal="win" from="Player" to="." method="_on_Player_win"]
+[connection signal="finished" from="Sounds/GameOverSound" to="." method="_on_GameOverSound_finished"]
+[connection signal="finished" from="Sounds/WinSound" to="." method="_on_WinSound_finished"]
+[connection signal="body_entered" from="GoalSensor" to="." method="_on_GoalSensor_body_entered"]
+[connection signal="body_entered" from="CheckPoints/chkpt_90m/CheckPoint70" to="." method="_on_CheckPoint60_body_entered"]
+[connection signal="body_entered" from="CheckPoints/chkpt_80m/CheckPoint60" to="." method="_on_CheckPoint50_body_entered"]
+[connection signal="body_entered" from="CheckPoints/chkpt_70m/CheckPoint50" to="." method="_on_CheckPoint40_body_entered"]
+[connection signal="body_entered" from="CheckPoints/chkpt_60m/CheckPoint40" to="." method="_on_CheckPoint30_body_entered"]
+[connection signal="body_entered" from="CheckPoints/chkpt_50m/CheckPoint30" to="." method="_on_CheckPoint20_body_entered"]
+[connection signal="body_entered" from="CheckPoints/chkpt_40m/CheckPoint20" to="." method="_on_CheckPoint20_body_entered"]
+
+[editable path="Player"]
+
+[editable path="CheckPoints"]
