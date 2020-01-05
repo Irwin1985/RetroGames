@@ -22,6 +22,7 @@ onready var monkey_timer = Timer.new()
 onready var bonus_timer = Timer.new()
 onready var platform_center_timer = Timer.new()
 onready var audience_timer = Timer.new()
+onready var BlueMonkey: PackedScene = preload("res://Monkey/BlueMonkey.tscn")
 
 func _ready():
 	randomize()
@@ -67,17 +68,17 @@ func set_bonus_timer():
 
 
 func spawn_monkey():
-	var monkey: Area2D = Monkey.instance()
+	var MonkeyInstance: Area2D = Monkey.instance()
 	var monkey_position = 0
 	
-	monkey.name = "Enemy" + str(randi())
-	monkey.connect("body_entered", self, "_on_monkey_body_entered", 
+	MonkeyInstance.name = "Enemy" + str(randi())
+	MonkeyInstance.connect("body_entered", self, "_on_monkey_body_entered", 
 			[], CONNECT_DEFERRED)
-	monkey.connect("screen_exited", self, "_on_monkey_screen_exited",
+	MonkeyInstance.connect("screen_exited", self, "_on_monkey_screen_exited",
 			[], CONNECT_DEFERRED)
-	
+	MonkeyInstance.connect("cyan_monkey_showed", self, "_on_MonkeyInstance_monkey_showed")
+
 	if $MonkeyContainer.get_child_count() == 0:
-#		monkey_position = $MonkeyFirtPosition.position.x
 		monkey_position = $Player.position.x + 360
 	else:
 		get_monkey_index()
@@ -86,12 +87,12 @@ func spawn_monkey():
 		
 		monkey_position += monkey_pattern[monkey_index] * MONKEY_PADDING_SIZE
 		if monkey_index == CYAN_MONKEY_INDEX and show_cyan_monkey:
-			monkey.enable_player_sensor()
+			MonkeyInstance.enable_player_sensor()
 
-	monkey.position = Vector2(monkey_position, MONKEY_TOP)
-	monkey.move = true
-	$MonkeyContainer.add_child(monkey)
-	last_monkey_name = monkey.name
+	MonkeyInstance.position = Vector2(monkey_position, MONKEY_TOP)
+	MonkeyInstance.move = true
+	$MonkeyContainer.add_child(MonkeyInstance)
+	last_monkey_name = MonkeyInstance.name
 
 
 func get_monkey_index():
@@ -159,25 +160,32 @@ func _on_Player_win():
 
 func _on_monkey_body_entered(body):
 	if body.name == PLAYER_NAME:
-		global.stage_2_current_monkey_index = monkey_index
-		$Player.hit_and_fall()
-		$Sounds/LevelSound.stop()
-		monkey_timer.stop()
-		hud.stop_time()
-		for monkey in $MonkeyContainer.get_children():
-			if monkey != null:
-				monkey.move = false
-				monkey.get_node("StaticBody2D").get_node("CollisionShape2D").disabled = true
-				monkey.get_node("AnimatedSprite").stop()
-				monkey.monitoring = false
-				monkey.set_process(false)
-		$Floor/CollisionShape2D.disabled = true
-		$UnderFloor/CollisionShape2D.disabled = false
+		game_over()
 
 
-func _on_HurtFloor_body_entered(body):
-	if body.name == "Player":
-		body.hurt()
+func game_over():
+	global.stage_2_current_monkey_index = monkey_index
+	$Player.hit_and_fall()
+	$Sounds/LevelSound.stop()
+	monkey_timer.stop()
+	hud.stop_time()
+	for monkey in $MonkeyContainer.get_children():
+		if monkey != null:
+			monkey.move = false
+			monkey.get_node("AnimatedSprite").stop()
+			monkey.monitoring = false
+			monkey.set_process(false)
+	$Floor/CollisionShape2D.disabled = true
+	$UnderFloor/CollisionShape2D.disabled = false
+
+
+func _on_MonkeyInstance_monkey_showed():
+	var BlueMonkeyInstance = BlueMonkey.instance()
+	BlueMonkeyInstance.connect("player_detected", self, "game_over", [], CONNECT_DEFERRED)
+	BlueMonkeyInstance.connect("player_bonus", self, "_on_BlueMonkey_player_bonus", [], CONNECT_DEFERRED)
+	BlueMonkeyInstance.position.x = $Player.position.x + 940
+	BlueMonkeyInstance.position.y = $Player.position.y
+	add_child(BlueMonkeyInstance)
 
 
 func _on_monkey_timer_timeout():
@@ -188,6 +196,11 @@ func _on_monkey_screen_exited(_monkey: Area2D):
 	if _monkey != null:
 		if _monkey.position.x < $Player.position.x:
 			_monkey.queue_free()
+
+
+func _on_HurtFloor_body_entered(body):
+	if body.name == "Player":
+		body.hurt()
 
 
 func _on_Player_lose():
@@ -257,3 +270,14 @@ func _on_HUD_little_time_left():
 
 func _on_HUD_out_of_time():
 	$Player.lose()
+
+
+func _on_BlueMonkey_player_bonus():
+	$Player.bonus_earned_for_jumping_cyan_monkey()
+
+
+
+
+
+
+

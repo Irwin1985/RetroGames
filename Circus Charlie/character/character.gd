@@ -32,9 +32,10 @@ var current_enemy_name = ""
 var is_hurt = false
 var is_floor_detected = false
 var there_is_sound
-
+var bonus_earned := false
 
 func _ready():
+	$GUI/Label.visible = false
 	there_is_sound = get_node("Sounds") != null
 	set_sfx_volume()
 	if fall_timer.connect("timeout", self, "fall_down") != OK:
@@ -80,40 +81,18 @@ func _physics_process(delta):
 					motion.x = -speed
 				else:
 					motion.x = 0
+			if bonus_earned:
+				bonus_earned = false
+				$GUI/Label.visible = true
+				if not $Sounds/BonusSound.playing:
+					$Sounds/BonusSound.play()
+
 		if motion.x > 0:
 			emit_signal("moved")
 		elif motion.x == 0:
 			emit_signal("stopped")
 		motion = move_and_slide(motion, Vector2.UP)
-#		if !sound_played and !is_hurt:
-#			if there_is_sound:
-#				$Sounds/JumpSound.play()
-#			sound_played = true
-#		if !is_hurt:
-#			animate("jump")
-	
-#	if motion.x > 0:
-#		emit_signal("moved")
-#	elif motion.x == 0:
-#		emit_signal("stopped")
-#	motion = move_and_slide(motion, Vector2.UP)
-#
-#	for idx in get_slide_count():
-#		var collision = get_slide_collision(idx)
-#		match collision.collider.name:
-#			"Podium":
-#				win()
-#			"UnderFloor":
-#				if !is_floor_detected:
-#					is_floor_detected = true
-#					if there_is_sound:
-#						$Sounds/HurtSound.play()
-#					animate("hurt")
-#					if there_is_sound:
-#						yield($Sounds/HurtSound, "finished")
-#					yield(get_tree().create_timer(0.4), "timeout")
-#					continue_hurt()
-#######
+
 
 func set_sfx_volume():
 	if there_is_sound:
@@ -128,13 +107,7 @@ func jump()->void:
 
 
 func animate(state : String)->void:
-#	if $AnimationPlayer.get_current_animation() != state:
-#		print($AnimationPlayer.get_current_animation() + "-" + state)
-		$AnimationPlayer.play(state)
-#		$AnimationPlayer.call_deferred("play",state)
-#	$AnimatedSprite.animation = state
-#	if use_charlie:
-#		$Charlie.animation = state
+	$AnimationPlayer.play(state)
 
 
 func take_swing(swing : Swing)->void:
@@ -210,16 +183,6 @@ func hurt()->void:
 	if not won and not lost:
 		call_deferred("animate","hurt")
 		lose()
-    #########
-#	if !use_charlie:
-#		is_hurt = true
-#		motion.y = 0
-#		gravity = gravity - ((35 * gravity) / 100)
-#		$AnimatedSprite.play("idle")
-#	else:
-#		$AnimatedSprite.animation = "hurt"
-#		$Charlie.animation = "hurt"
-#	set_physics_process(false)
 
 
 func lose():
@@ -231,9 +194,6 @@ func lose():
 
 
 func continue_hurt():
-#	if there_is_sound:
-#		$Sounds/LoseSound.play()
-#		yield($Sounds/LoseSound, "finished")
 	emit_signal("hurt_proceed")
 
 
@@ -248,3 +208,10 @@ func win():
 #		else:
 #			$AnimatedSprite.animation = "win"
 		set_physics_process(false)
+
+func _on_BonusSound_finished():
+	$GUI/Label.visible = false
+
+
+func bonus_earned_for_jumping_cyan_monkey():
+	bonus_earned = true

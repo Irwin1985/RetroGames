@@ -14,16 +14,13 @@ animations = [ {
 } ]
 
 [sub_resource type="RectangleShape2D" id=2]
-extents = Vector2( 12.1935, 16.051 )
+extents = Vector2( 6.01617, 7.05374 )
 
 [sub_resource type="RectangleShape2D" id=3]
-extents = Vector2( 23.8396, 3.2778 )
+extents = Vector2( 3.13036, 6.84942 )
 
 [node name="MonkeyBase" type="Area2D"]
 script = ExtResource( 1 )
-__meta__ = {
-"_edit_group_": true
-}
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 scale = Vector2( 2, 2 )
@@ -32,8 +29,7 @@ frame = 2
 playing = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2( -7.16357, -5.79772 )
-scale = Vector2( 0.72, 0.640001 )
+position = Vector2( -5.23858, -5.04911 )
 shape = SubResource( 2 )
 
 [node name="VisibilityNotifier2D" type="VisibilityNotifier2D" parent="."]
@@ -43,14 +39,17 @@ scale = Vector2( 1.2, 1.04 )
 position = Vector2( -21, 0 )
 cast_to = Vector2( 0, 0 )
 
-[node name="StaticBody2D" type="StaticBody2D" parent="."]
+[node name="CyanMonkeyTimer" type="Timer" parent="."]
+wait_time = 0.5
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
-modulate = Color( 0.137255, 0.317647, 0.866667, 1 )
-position = Vector2( -6.92889, -5.59866 )
-scale = Vector2( 0.34424, 2.99476 )
+[node name="MonkeyBack" type="StaticBody2D" parent="."]
+position = Vector2( -2.29837, 9.35853 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MonkeyBack"]
 shape = SubResource( 3 )
-one_way_collision = true
-one_way_collision_margin = 2.0
 [connection signal="screen_entered" from="VisibilityNotifier2D" to="." method="_on_VisibilityNotifier2D_screen_entered"]
 [connection signal="screen_exited" from="VisibilityNotifier2D" to="." method="_on_VisibilityNotifier2D_screen_exited"]
+[connection signal="timeout" from="CyanMonkeyTimer" to="." method="_on_CyanMonkeyTimer_timeout"]
