@@ -33,9 +33,11 @@ var is_hurt = false
 var is_floor_detected = false
 var there_is_sound
 var bonus_earned := false
+onready var BonusLabel: Label = get_node("GUI/BonusLabel")
 
 func _ready():
-	$GUI/Label.visible = false
+	if BonusLabel != null:
+		BonusLabel.visible = false
 	there_is_sound = get_node("Sounds") != null
 	set_sfx_volume()
 	if fall_timer.connect("timeout", self, "fall_down") != OK:
@@ -83,7 +85,7 @@ func _physics_process(delta):
 					motion.x = 0
 			if bonus_earned:
 				bonus_earned = false
-				$GUI/Label.visible = true
+				BonusLabel.visible = true
 				if not $Sounds/BonusSound.playing:
 					$Sounds/BonusSound.play()
 
@@ -210,7 +212,7 @@ func win():
 		set_physics_process(false)
 
 func _on_BonusSound_finished():
-	$GUI/Label.visible = false
+	BonusLabel.visible = false
 
 
 func bonus_earned_for_jumping_cyan_monkey():

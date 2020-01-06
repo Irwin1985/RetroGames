@@ -141,6 +141,9 @@ slow_backward = true
 process_hurt = true
 character_behaviour = "Stage 2:Monkey"
 
+[node name="Charlie" parent="Player" index="0"]
+frame = 1
+
 [node name="Camera2D" parent="Player" index="2"]
 position = Vector2( -140, 0 )
 anchor_mode = 0
