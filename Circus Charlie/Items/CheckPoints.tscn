@@ -1,0 +1,27 @@
+[gd_scene format=2]
+
+[node name="CheckPoints" type="Node2D"]
+
+[node name="chkpt_90m" type="Position2D" parent="."]
+position = Vector2( 718, 394.147 )
+
+[node name="chkpt_80m" type="Position2D" parent="."]
+position = Vector2( 1218, 394.147 )
+
+[node name="chkpt_70m" type="Position2D" parent="."]
+position = Vector2( 1718, 394.147 )
+
+[node name="chkpt_60m" type="Position2D" parent="."]
+position = Vector2( 2218, 394.147 )
+
+[node name="chkpt_50m" type="Position2D" parent="."]
+position = Vector2( 2718, 394.147 )
+
+[node name="chkpt_40m" type="Position2D" parent="."]
+position = Vector2( 3218, 394.147 )
+
+[node name="chkpt_30m" type="Position2D" parent="."]
+position = Vector2( 3718, 394.147 )
+
+[node name="chkpt_20m" type="Position2D" parent="."]
+position = Vector2( 4218, 394.147 )

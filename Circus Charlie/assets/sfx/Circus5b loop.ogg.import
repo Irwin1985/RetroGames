@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/Circus5b loop.ogg-58db61078fb9a2469a5cea14bf875b98.oggstr"
+
+[deps]
+
+source_file="res://assets/sfx/Circus5b loop.ogg"
+dest_files=[ "res://.import/Circus5b loop.ogg-58db61078fb9a2469a5cea14bf875b98.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0

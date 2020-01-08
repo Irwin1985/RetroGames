@@ -1,9 +1,8 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://Levels/ScenePreviewer.gd" type="Script" id=1]
 [ext_resource path="res://assets/ARCADECLASSIC.TTF" type="DynamicFontData" id=2]
 [ext_resource path="res://assets/sfx/ClapEnding.wav" type="AudioStream" id=3]
-[ext_resource path="res://HUD/HUD.tscn" type="PackedScene" id=4]
 
 [sub_resource type="DynamicFont" id=1]
 size = 30
@@ -33,5 +32,3 @@ align = 1
 
 [node name="StageSound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 3 )
-
-[node name="HUD" parent="." instance=ExtResource( 4 )]

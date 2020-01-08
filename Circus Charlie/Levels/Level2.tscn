@@ -1,34 +1,46 @@
-[gd_scene load_steps=17 format=2]
+[gd_scene load_steps=24 format=2]
 
-[ext_resource path="res://assets/level2.png" type="Texture" id=1]
-[ext_resource path="res://assets/level_0m.png" type="Texture" id=2]
-[ext_resource path="res://assets/level_10m.png" type="Texture" id=3]
-[ext_resource path="res://assets/level_20m.png" type="Texture" id=4]
-[ext_resource path="res://assets/level_30m.png" type="Texture" id=5]
-[ext_resource path="res://assets/level_40m.png" type="Texture" id=6]
-[ext_resource path="res://assets/level_50m.png" type="Texture" id=7]
-[ext_resource path="res://assets/level_60m.png" type="Texture" id=8]
-[ext_resource path="res://assets/level_70m.png" type="Texture" id=9]
-[ext_resource path="res://assets/goal_platform.png" type="Texture" id=10]
-[ext_resource path="res://assets/goal_ladder.png" type="Texture" id=11]
-[ext_resource path="res://Player/Player.tscn" type="PackedScene" id=12]
-[ext_resource path="res://HUD/HUD.tscn" type="PackedScene" id=13]
+[ext_resource path="res://Levels/Level2.gd" type="Script" id=1]
+[ext_resource path="res://Monkey/MonkeyBase.tscn" type="PackedScene" id=2]
+[ext_resource path="res://assets/level2.png" type="Texture" id=3]
+[ext_resource path="res://assets/level_0m.png" type="Texture" id=4]
+[ext_resource path="res://assets/level_10m.png" type="Texture" id=5]
+[ext_resource path="res://assets/level_20m.png" type="Texture" id=6]
+[ext_resource path="res://assets/level_30m.png" type="Texture" id=7]
+[ext_resource path="res://assets/level_40m.png" type="Texture" id=8]
+[ext_resource path="res://assets/level_50m.png" type="Texture" id=9]
+[ext_resource path="res://assets/level_60m.png" type="Texture" id=10]
+[ext_resource path="res://assets/level_70m.png" type="Texture" id=11]
+[ext_resource path="res://Items/HighPlatform/HighPlatform.tscn" type="PackedScene" id=12]
+[ext_resource path="res://Player/Player.tscn" type="PackedScene" id=13]
+[ext_resource path="res://assets/Stage2.ogg" type="AudioStream" id=14]
+[ext_resource path="res://assets/sfx/TimeReduce.ogg" type="AudioStream" id=15]
+[ext_resource path="res://assets/sfx/GameOver.wav" type="AudioStream" id=16]
+[ext_resource path="res://assets/sfx/Clapping.wav" type="AudioStream" id=17]
+[ext_resource path="res://Items/CheckPoints.tscn" type="PackedScene" id=18]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 55, 0.5 )
+extents = Vector2( 1828, 2 )
 
 [sub_resource type="RectangleShape2D" id=2]
-extents = Vector2( 1828, 0.120972 )
+extents = Vector2( 1828, 5 )
 
 [sub_resource type="RectangleShape2D" id=3]
 extents = Vector2( 2, 70.8109 )
 
+[sub_resource type="RectangleShape2D" id=4]
+
+[sub_resource type="RectangleShape2D" id=5]
+extents = Vector2( 5, 120 )
+
 [node name="Level2" type="Node2D"]
+script = ExtResource( 1 )
+Monkey = ExtResource( 2 )
 
 [node name="TextureRect" type="TextureRect" parent="."]
 margin_right = 3655.0
 margin_bottom = 460.0
-texture = ExtResource( 1 )
+texture = ExtResource( 3 )
 stretch_mode = 2
 
 [node name="LevelContainer" type="Node2D" parent="."]
@@ -37,63 +49,41 @@ editor/display_folded = true
 [node name="level_0m" type="Sprite" parent="LevelContainer"]
 position = Vector2( 3560, 435 )
 scale = Vector2( 2, 2 )
-texture = ExtResource( 2 )
+texture = ExtResource( 4 )
 
 [node name="level_10m" type="Sprite" parent="LevelContainer"]
 position = Vector2( 3060, 435 )
 scale = Vector2( 2, 2 )
-texture = ExtResource( 3 )
+texture = ExtResource( 5 )
 
 [node name="level_20m" type="Sprite" parent="LevelContainer"]
 position = Vector2( 2560, 435 )
 scale = Vector2( 2, 2 )
-texture = ExtResource( 4 )
+texture = ExtResource( 6 )
 
 [node name="level_30m" type="Sprite" parent="LevelContainer"]
 position = Vector2( 2060, 435 )
 scale = Vector2( 2, 2 )
-texture = ExtResource( 5 )
+texture = ExtResource( 7 )
 
 [node name="level_40m" type="Sprite" parent="LevelContainer"]
 position = Vector2( 1560, 435 )
 scale = Vector2( 2, 2 )
-texture = ExtResource( 6 )
+texture = ExtResource( 8 )
 
 [node name="level_50m" type="Sprite" parent="LevelContainer"]
 position = Vector2( 1060, 435 )
 scale = Vector2( 2, 2 )
-texture = ExtResource( 7 )
+texture = ExtResource( 9 )
 
 [node name="level_60m" type="Sprite" parent="LevelContainer"]
 position = Vector2( 560, 435 )
 scale = Vector2( 2, 2 )
-texture = ExtResource( 8 )
+texture = ExtResource( 10 )
 
 [node name="level_70m" type="Sprite" parent="LevelContainer"]
 position = Vector2( 60, 435 )
 scale = Vector2( 2, 2 )
-texture = ExtResource( 9 )
-
-[node name="GoalPlatform" type="Node2D" parent="."]
-editor/display_folded = true
-
-[node name="Goal" type="StaticBody2D" parent="GoalPlatform"]
-editor/display_folded = true
-position = Vector2( 3548, 201 )
-__meta__ = {
-"_edit_group_": true
-}
-
-[node name="goal_platform" type="Sprite" parent="GoalPlatform/Goal"]
-texture = ExtResource( 10 )
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="GoalPlatform/Goal"]
-position = Vector2( 5, 2 )
-shape = SubResource( 1 )
-
-[node name="goal_ladder" type="Sprite" parent="GoalPlatform"]
-position = Vector2( 3549, 301 )
-scale = Vector2( 1, 0.823009 )
 texture = ExtResource( 11 )
 
 [node name="Floor" type="StaticBody2D" parent="."]
@@ -105,30 +95,193 @@ __meta__ = {
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Floor"]
 position = Vector2( 1828, 248.516 )
 scale = Vector2( 0.998724, 0.782454 )
-shape = SubResource( 2 )
+shape = SubResource( 1 )
 
-[node name="Player" parent="." instance=ExtResource( 12 )]
-editor/display_folded = true
-position = Vector2( 140, 224.5 )
-jump_power = 380
-gravity = 10
+[node name="MonkeyContainer" type="Node2D" parent="."]
 
-[node name="Camera2D" parent="Player" index="2"]
-limit_left = 0
-limit_top = 0
-limit_right = 3655
-
-[node name="LeftWall" type="Node" parent="."]
-
-[node name="StaticBody2D" type="StaticBody2D" parent="LeftWall"]
-position = Vector2( 131.126, 137.112 )
+[node name="UnderFloor" type="StaticBody2D" parent="."]
+position = Vector2( 0, 180 )
 __meta__ = {
 "_edit_group_": true
 }
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="LeftWall/StaticBody2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="UnderFloor"]
+position = Vector2( 1828, 248.516 )
+scale = Vector2( 0.998724, 0.782454 )
+shape = SubResource( 2 )
+disabled = true
+
+[node name="HurtFloor" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtFloor"]
+position = Vector2( 1828, 428.516 )
+scale = Vector2( 0.998724, 0.782454 )
+shape = SubResource( 2 )
+
+[node name="HighPlatform" parent="." instance=ExtResource( 12 )]
+position = Vector2( 3547.17, 293.991 )
+
+[node name="Sprite" parent="HighPlatform/PlatformTable" index="0"]
+scale = Vector2( 2.5, 2.5 )
+
+[node name="CollisionShape2D" parent="HighPlatform/PlatformTable" index="1"]
+position = Vector2( 4, -90 )
+
+[node name="CollisionShape2D2" parent="HighPlatform/PlatformTop" index="0"]
+position = Vector2( 4, -95 )
+
+[node name="Player" parent="." instance=ExtResource( 13 )]
+editor/display_folded = true
+position = Vector2( 140, 224.5 )
+scale = Vector2( 0.998518, 0.804541 )
+speed = 75
+jump_power = 470
+gravity = 15
+slow_backward = true
+process_hurt = true
+character_behaviour = "Stage 2:Monkey"
+
+[node name="Charlie" parent="Player" index="0"]
+frame = 1
+
+[node name="Camera2D" parent="Player" index="2"]
+position = Vector2( -140, 0 )
+anchor_mode = 0
+limit_left = 0
+limit_top = 0
+limit_right = 3655
+limit_bottom = 460
+editor_draw_limits = true
+editor_draw_drag_margin = true
+
+[node name="Walls" type="Node" parent="."]
+editor/display_folded = true
+
+[node name="LeftWall" type="StaticBody2D" parent="Walls"]
+editor/display_folded = true
+position = Vector2( 28, 142 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Walls/LeftWall"]
 shape = SubResource( 3 )
 
-[node name="HUD" parent="." instance=ExtResource( 13 )]
+[node name="Sounds" type="Node" parent="."]
+editor/display_folded = true
+
+[node name="LevelSound" type="AudioStreamPlayer" parent="Sounds"]
+stream = ExtResource( 14 )
+autoplay = true
+
+[node name="ReduceTimeSound" type="AudioStreamPlayer" parent="Sounds"]
+stream = ExtResource( 15 )
+
+[node name="GameOverSound" type="AudioStreamPlayer" parent="Sounds"]
+stream = ExtResource( 16 )
+
+[node name="WinSound" type="AudioStreamPlayer" parent="Sounds"]
+stream = ExtResource( 17 )
+
+[node name="GoalSensor" type="Area2D" parent="."]
+position = Vector2( 3237.23, 129.252 )
+scale = Vector2( 1, 2.36 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GoalSensor"]
+scale = Vector2( 0.44, 4.6 )
+shape = SubResource( 4 )
+
+[node name="CheckPoints" parent="." instance=ExtResource( 18 )]
+
+[node name="chkpt_90m" parent="CheckPoints" index="0"]
+position = Vector2( 640, 224.5 )
+
+[node name="CheckPoint60" type="Area2D" parent="CheckPoints/chkpt_90m" index="0"]
+editor/display_folded = true
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CheckPoints/chkpt_90m/CheckPoint60"]
+position = Vector2( 0, -75 )
+shape = SubResource( 5 )
+
+[node name="chkpt_80m" parent="CheckPoints" index="1"]
+position = Vector2( 1140, 224.5 )
+
+[node name="CheckPoint50" type="Area2D" parent="CheckPoints/chkpt_80m" index="0"]
+editor/display_folded = true
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CheckPoints/chkpt_80m/CheckPoint50"]
+position = Vector2( 0, -75 )
+shape = SubResource( 5 )
+
+[node name="chkpt_70m" parent="CheckPoints" index="2"]
+position = Vector2( 1640, 224.5 )
+
+[node name="CheckPoint40" type="Area2D" parent="CheckPoints/chkpt_70m" index="0"]
+editor/display_folded = true
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CheckPoints/chkpt_70m/CheckPoint40"]
+position = Vector2( 0, -75 )
+shape = SubResource( 5 )
+
+[node name="chkpt_60m" parent="CheckPoints" index="3"]
+position = Vector2( 2140, 224.5 )
+
+[node name="CheckPoint30" type="Area2D" parent="CheckPoints/chkpt_60m" index="0"]
+editor/display_folded = true
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CheckPoints/chkpt_60m/CheckPoint30"]
+position = Vector2( 0, -75 )
+shape = SubResource( 5 )
+
+[node name="chkpt_50m" parent="CheckPoints" index="4"]
+position = Vector2( 2640, 224.5 )
+
+[node name="CheckPoint20" type="Area2D" parent="CheckPoints/chkpt_50m" index="0"]
+editor/display_folded = true
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CheckPoints/chkpt_50m/CheckPoint20"]
+position = Vector2( 0, -75 )
+shape = SubResource( 5 )
+
+[node name="chkpt_40m" parent="CheckPoints" index="5"]
+position = Vector2( 3140, 224.5 )
+
+[node name="chkpt_30m" parent="CheckPoints" index="6"]
+position = Vector2( 3640, 224.5 )
+
+[node name="chkpt_20m" parent="CheckPoints" index="7"]
+position = Vector2( 4140, 224.5 )
+[connection signal="body_entered" from="HurtFloor" to="." method="_on_HurtFloor_body_entered"]
+[connection signal="lose" from="Player" to="." method="_on_Player_lose"]
+[connection signal="moved" from="Player" to="." method="_on_Player_moved"]
+[connection signal="stopped" from="Player" to="." method="_on_Player_stopped"]
+[connection signal="win" from="Player" to="." method="_on_Player_win"]
+[connection signal="finished" from="Sounds/GameOverSound" to="." method="_on_GameOverSound_finished"]
+[connection signal="finished" from="Sounds/WinSound" to="." method="_on_WinSound_finished"]
+[connection signal="body_entered" from="GoalSensor" to="." method="_on_GoalSensor_body_entered"]
+[connection signal="body_entered" from="CheckPoints/chkpt_90m/CheckPoint60" to="." method="_on_CheckPoint60_body_entered"]
+[connection signal="body_entered" from="CheckPoints/chkpt_80m/CheckPoint50" to="." method="_on_CheckPoint50_body_entered"]
+[connection signal="body_entered" from="CheckPoints/chkpt_70m/CheckPoint40" to="." method="_on_CheckPoint40_body_entered"]
+[connection signal="body_entered" from="CheckPoints/chkpt_60m/CheckPoint30" to="." method="_on_CheckPoint30_body_entered"]
+[connection signal="body_entered" from="CheckPoints/chkpt_50m/CheckPoint20" to="." method="_on_CheckPoint20_body_entered"]
+
+[editable path="HighPlatform"]
 
 [editable path="Player"]
+
+[editable path="CheckPoints"]

@@ -1,15 +1,15 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=20 format=2]
 
 [ext_resource path="res://character/character.tscn" type="PackedScene" id=1]
 [ext_resource path="res://assets/lion_03.png" type="Texture" id=2]
 [ext_resource path="res://assets/lion_04.png" type="Texture" id=3]
-[ext_resource path="res://assets/lion_02.png" type="Texture" id=4]
-[ext_resource path="res://assets/lion_01.png" type="Texture" id=5]
+[ext_resource path="res://assets/lion_01.png" type="Texture" id=4]
+[ext_resource path="res://assets/lion_02.png" type="Texture" id=5]
 [ext_resource path="res://assets/stand_01.png" type="Texture" id=6]
 [ext_resource path="res://assets/die.png" type="Texture" id=7]
-[ext_resource path="res://assets/stand_02.png" type="Texture" id=8]
-[ext_resource path="res://assets/win_01.png" type="Texture" id=9]
-[ext_resource path="res://assets/win_02.png" type="Texture" id=10]
+[ext_resource path="res://assets/win_01.png" type="Texture" id=8]
+[ext_resource path="res://assets/win_02.png" type="Texture" id=9]
+[ext_resource path="res://assets/stand_02.png" type="Texture" id=10]
 [ext_resource path="res://assets/sfx/LionJump.wav" type="AudioStream" id=11]
 
 [sub_resource type="SpriteFrames" id=1]
@@ -24,20 +24,20 @@ animations = [ {
 "name": "hurt",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 4 ), ExtResource( 5 ), ExtResource( 2 ) ],
+"frames": [ ExtResource( 4 ) ],
 "loop": true,
-"name": "run",
-"speed": 7.0
+"name": "jump",
+"speed": 5.0
 }, {
-"frames": [ ExtResource( 4 ), ExtResource( 2 ) ],
+"frames": [ ExtResource( 5 ), ExtResource( 2 ) ],
 "loop": true,
 "name": "run_back",
 "speed": 3.5
 }, {
-"frames": [ ExtResource( 5 ) ],
+"frames": [ ExtResource( 5 ), ExtResource( 4 ), ExtResource( 2 ) ],
 "loop": true,
-"name": "jump",
-"speed": 5.0
+"name": "run",
+"speed": 7.0
 } ]
 
 [sub_resource type="SpriteFrames" id=2]
@@ -52,14 +52,9 @@ animations = [ {
 "name": "hurt",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 6 ), ExtResource( 8 ) ],
+"frames": [ ExtResource( 8 ), ExtResource( 9 ) ],
 "loop": true,
-"name": "run",
-"speed": 7.0
-}, {
-"frames": [ ExtResource( 8 ), ExtResource( 6 ) ],
-"loop": true,
-"name": "run_back",
+"name": "win",
 "speed": 3.5
 }, {
 "frames": [ ExtResource( 6 ) ],
@@ -67,11 +62,235 @@ animations = [ {
 "name": "jump",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 9 ), ExtResource( 10 ) ],
+"frames": [ ExtResource( 10 ), ExtResource( 6 ) ],
 "loop": true,
-"name": "win",
+"name": "run_back",
 "speed": 3.5
+}, {
+"frames": [ ExtResource( 6 ), ExtResource( 10 ) ],
+"loop": true,
+"name": "run",
+"speed": 7.0
 } ]
+
+[sub_resource type="Animation" id=3]
+resource_name = "hurt"
+tracks/0/type = "value"
+tracks/0/path = NodePath("Charlie:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ "hurt" ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("LionSprite:animation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ "hurt" ]
+}
+
+[sub_resource type="Animation" id=4]
+resource_name = "idle"
+tracks/0/type = "value"
+tracks/0/path = NodePath("LionSprite:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ "idle" ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Charlie:animation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ "idle" ]
+}
+
+[sub_resource type="Animation" id=5]
+resource_name = "jump"
+tracks/0/type = "value"
+tracks/0/path = NodePath("LionSprite:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ "jump" ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Charlie:animation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ "idle" ]
+}
+
+[sub_resource type="Animation" id=6]
+tracks/0/type = "value"
+tracks/0/path = NodePath("Charlie:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ "run" ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("LionSprite:animation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ "run" ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("LionSprite:playing")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("Charlie:playing")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+
+[sub_resource type="Animation" id=7]
+tracks/0/type = "value"
+tracks/0/path = NodePath("Charlie:playing")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Charlie:animation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ "run_back" ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("LionSprite:animation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ "run_back" ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("LionSprite:playing")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+
+[sub_resource type="Animation" id=8]
+tracks/0/type = "value"
+tracks/0/path = NodePath("LionSprite:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ "idle" ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Charlie:animation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ "win" ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Charlie:playing")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
 
 [node name="Lion" index="0" instance=ExtResource( 1 )]
 position = Vector2( 0, -0.0415783 )
@@ -79,7 +298,7 @@ speed = 120
 jump_power = 375
 use_charlie = true
 
-[node name="AnimatedSprite" type="AnimatedSprite" parent="." index="0"]
+[node name="LionSprite" type="AnimatedSprite" parent="." index="0"]
 scale = Vector2( 2, 2 )
 frames = SubResource( 1 )
 animation = "idle"
@@ -92,17 +311,25 @@ frames = SubResource( 2 )
 animation = "idle"
 playing = true
 
-[node name="JumpSound" type="AudioStreamPlayer" parent="." index="3"]
-stream = ExtResource( 11 )
-
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="." index="4"]
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="." index="3"]
 position = Vector2( -19.5791, 29.5206 )
 scale = Vector2( 1.14496, 4.48253 )
 polygon = PoolVector2Array( 13.0688, -20.3877, 19.4818, -20.3486, 22.0775, -19.2566, 22.841, -17.8526, 22.6883, -16.7215, 17.3441, -15.9025, 17.8022, -10.1303, 22.2302, -9.58428, 31.8497, -9.62328, 37.0411, -9.07726, 39.9423, -8.18023, 41.1638, -6.81519, 37.3465, -5.80115, 26.9636, -5.60614, 13.9849, -5.56714, 4.06009, -5.84015, 2.68587, -7.82922, 3.75471, -9.31127, 11.3892, -10.0523, 16.428, -10.1303, 15.9699, -15.9805, 11.8473, -17.3065, 8.79348, -18.5546, 10.1677, -19.8806 )
 
-[node name="Feets" type="CollisionPolygon2D" parent="." index="5" groups=[
+[node name="Feets" type="CollisionPolygon2D" parent="." index="4" groups=[
 "feets",
 ]]
 position = Vector2( 0.914316, 15.3418 )
 scale = Vector2( 0.484778, 0.0670093 )
 polygon = PoolVector2Array( -22.642, -20.1584, 25.3995, -19.2462, 25.3995, 8.57654, -22.5159, 9.48875 )
+
+[node name="JumpSound" type="AudioStreamPlayer" parent="Sounds" index="1"]
+stream = ExtResource( 11 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." index="6"]
+anims/hurt = SubResource( 3 )
+anims/idle = SubResource( 4 )
+anims/jump = SubResource( 5 )
+anims/run = SubResource( 6 )
+"anims/run back" = SubResource( 7 )
+anims/win = SubResource( 8 )
