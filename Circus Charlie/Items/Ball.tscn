@@ -1,0 +1,42 @@
+[gd_scene load_steps=9 format=2]
+
+[ext_resource path="res://Items/Ball.gd" type="Script" id=1]
+[ext_resource path="res://assets/ball_01.png" type="Texture" id=2]
+[ext_resource path="res://assets/ball_02.png" type="Texture" id=3]
+[ext_resource path="res://assets/ball_03.png" type="Texture" id=4]
+[ext_resource path="res://assets/ball_04.png" type="Texture" id=5]
+
+[sub_resource type="SpriteFrames" id=1]
+animations = [ {
+"frames": [ ExtResource( 2 ), ExtResource( 3 ), ExtResource( 4 ), ExtResource( 5 ) ],
+"loop": true,
+"name": "default",
+"speed": 3.0
+} ]
+
+[sub_resource type="CircleShape2D" id=2]
+radius = 24.3864
+
+[sub_resource type="RectangleShape2D" id=3]
+extents = Vector2( 24.573, 81.7817 )
+
+[node name="Ball" type="Area2D"]
+script = ExtResource( 1 )
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+scale = Vector2( 2, 2 )
+frames = SubResource( 1 )
+frame = 1
+playing = true
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+editor/display_folded = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+shape = SubResource( 2 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( 0, -120 )
+shape = SubResource( 3 )
+[connection signal="body_entered" from="." to="." method="_on_Ball_body_entered"]
+[connection signal="body_exited" from="." to="." method="_on_Ball_body_exited"]

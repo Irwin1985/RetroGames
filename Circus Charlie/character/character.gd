@@ -15,8 +15,6 @@ export (int) var gravity
 export (bool) var use_charlie = false
 export (bool) var slow_backward = false
 export (bool) var process_hurt = false
-# character behaviour = this variable will let the code 
-# behaves different ways depending on player's scenario.
 export (String, "none", "Stage 1:Lion", "Stage 2:Monkey", "Stage 3:Balls", "Stage 4:Horse", "Stage 5:Swinging") var character_behaviour
 onready var fall_timer : Timer = Timer.new()
 var motion = Vector2()
@@ -44,12 +42,11 @@ func _ready():
 		print("Error connecting timeout of fall_timer")
 	fall_timer.wait_time = 0.02
 	add_child(fall_timer)
-#	$JumpSound.volume_db = global.STANDARD_VOLUME
 	if !can_jump:
 		set_physics_process(false)
 
 
-func _physics_process(delta):	
+func _physics_process(delta):
 	if hanging:
 		var pos_offset : Vector2 = Vector2(-18, 8)
 		position = last_swing.get_grab_bar_position() + pos_offset
@@ -90,7 +87,7 @@ func _physics_process(delta):
 					$Sounds/BonusSound.play()
 
 		if motion.x > 0:
-			emit_signal("moved")
+			emit_signal("moved", motion.x)
 		elif motion.x == 0:
 			emit_signal("stopped")
 		motion = move_and_slide(motion, Vector2.UP)

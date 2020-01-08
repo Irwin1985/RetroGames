@@ -142,7 +142,7 @@ func _on_platform_center_timeout()->void:
 		platform_center_timer.stop()
 
 
-func _on_Player_moved():
+func _on_Player_moved(motion = 0):
 	set_monkey_speed(MONKEY_HIGH_SPEED)
 
 

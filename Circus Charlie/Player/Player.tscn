@@ -2,16 +2,16 @@
 
 [ext_resource path="res://character/character.tscn" type="PackedScene" id=1]
 [ext_resource path="res://assets/walk_01.png" type="Texture" id=2]
-[ext_resource path="res://assets/die.png" type="Texture" id=3]
-[ext_resource path="res://assets/win_01.png" type="Texture" id=4]
-[ext_resource path="res://assets/win_02.png" type="Texture" id=5]
-[ext_resource path="res://assets/jump_01.png" type="Texture" id=6]
-[ext_resource path="res://assets/swinging_03.png" type="Texture" id=7]
-[ext_resource path="res://assets/swinging_05.png" type="Texture" id=8]
-[ext_resource path="res://assets/swinging_02.png" type="Texture" id=9]
-[ext_resource path="res://assets/swinging_01.png" type="Texture" id=10]
-[ext_resource path="res://assets/walk_02.png" type="Texture" id=11]
-[ext_resource path="res://assets/walk_03.png" type="Texture" id=12]
+[ext_resource path="res://assets/jump_01.png" type="Texture" id=3]
+[ext_resource path="res://assets/swinging_03.png" type="Texture" id=4]
+[ext_resource path="res://assets/swinging_05.png" type="Texture" id=5]
+[ext_resource path="res://assets/swinging_02.png" type="Texture" id=6]
+[ext_resource path="res://assets/swinging_01.png" type="Texture" id=7]
+[ext_resource path="res://assets/walk_02.png" type="Texture" id=8]
+[ext_resource path="res://assets/walk_03.png" type="Texture" id=9]
+[ext_resource path="res://assets/die.png" type="Texture" id=10]
+[ext_resource path="res://assets/win_01.png" type="Texture" id=11]
+[ext_resource path="res://assets/win_02.png" type="Texture" id=12]
 [ext_resource path="res://assets/sfx/PlayerJump.wav" type="AudioStream" id=13]
 [ext_resource path="res://assets/sfx/FallingDown.wav" type="AudioStream" id=14]
 [ext_resource path="res://assets/sfx/bonus.wav" type="AudioStream" id=15]
@@ -26,37 +26,37 @@ animations = [ {
 }, {
 "frames": [ ExtResource( 3 ) ],
 "loop": true,
-"name": "hurt",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 4 ), ExtResource( 5 ) ],
-"loop": true,
-"name": "win",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 6 ) ],
-"loop": true,
 "name": "jump",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 7 ), ExtResource( 7 ), ExtResource( 8 ), ExtResource( 9 ), ExtResource( 10 ), ExtResource( 9 ), ExtResource( 8 ), ExtResource( 7 ), ExtResource( 7 ), ExtResource( 7 ) ],
+"frames": [ ExtResource( 4 ), ExtResource( 4 ), ExtResource( 5 ), ExtResource( 6 ), ExtResource( 7 ), ExtResource( 6 ), ExtResource( 5 ), ExtResource( 4 ), ExtResource( 4 ), ExtResource( 4 ) ],
 "loop": true,
 "name": "swing",
 "speed": 2.5
 }, {
-"frames": [ ExtResource( 11 ), ExtResource( 2 ), ExtResource( 12 ) ],
+"frames": [ ExtResource( 8 ), ExtResource( 2 ), ExtResource( 9 ) ],
 "loop": true,
 "name": "run",
 "speed": 4.0
 }, {
-"frames": [ ExtResource( 11 ), ExtResource( 2 ) ],
+"frames": [ ExtResource( 10 ) ],
+"loop": true,
+"name": "hurt",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 6 ), ExtResource( 4 ), ExtResource( 5 ) ],
+"loop": true,
+"name": "spin jump",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 8 ), ExtResource( 2 ) ],
 "loop": true,
 "name": "run_back",
 "speed": 3.0
 }, {
-"frames": [ ExtResource( 9 ), ExtResource( 7 ), ExtResource( 8 ) ],
+"frames": [ ExtResource( 11 ), ExtResource( 12 ) ],
 "loop": true,
-"name": "spin jump",
+"name": "win",
 "speed": 5.0
 } ]
 
