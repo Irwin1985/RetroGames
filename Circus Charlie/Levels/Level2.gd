@@ -199,7 +199,7 @@ func _on_monkey_screen_exited(_monkey: Area2D):
 
 
 func _on_HurtFloor_body_entered(body):
-	if body.name == "Player":
+	if body.name == PLAYER_NAME:
 		body.hurt()
 
 

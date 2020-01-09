@@ -1,5 +1,7 @@
 extends Area2D
 
+signal player_detected
+
 export (int) var speed = 20 setget set_speed
 
 const PLAYER_NAME = "Player"
@@ -29,6 +31,7 @@ func set_can_move_itself(new_val):
 func _on_Ball_body_entered(body):
 	if body.name == PLAYER_NAME:
 		is_player_detected = false
+		emit_signal("player_detected", self)
 		self.can_move_itself = false
 
 

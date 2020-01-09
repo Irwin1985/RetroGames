@@ -2,6 +2,7 @@ extends Node
 
 const STANDARD_VOLUME = -15
 const STAGE_TWO_INDEX = 1
+const STAGE_THREE_INDEX = 1
 
 onready var hud_scene : PackedScene = preload("res://HUD/HUD.tscn")
 var hud : GameHUD = null
@@ -9,6 +10,8 @@ var hud : GameHUD = null
 var level_change_timer = Timer.new()
 var stage_2_current_monkey_index = -1
 var stage_2_first_time_lauched = false
+var stage_3_current_ball_index = -1
+var stage_3_first_time_lauched = false
 
 var player_score: int = 0
 var hi_score: int = 0
@@ -17,8 +20,7 @@ var is_game_over: bool = false
 var json_obj = {}
 var stage = ["res://Levels/Level1.tscn", \
 			"res://Levels/Level2.tscn", \
-			"res://Levels/Level5.tscn", \
-			"res://Levels/LevelN.tscn", \
+			"res://Levels/Level3.tscn", \
 			"res://Levels/Level5.tscn", \
 			"res://Levels/LevelN.tscn"]
 var current_level: int = -1
@@ -97,6 +99,10 @@ func start_next_level()->void:
 	if current_level == STAGE_TWO_INDEX:
 		stage_2_first_time_lauched = true
 		stage_2_current_monkey_index = 0
+
+	if current_level == STAGE_THREE_INDEX:
+		stage_3_first_time_lauched = true
+		stage_3_current_ball_index = 0
 #	get_tree().change_scene("res://Levels/ScenePreviewer.tscn")
 
 

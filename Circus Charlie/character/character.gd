@@ -6,6 +6,7 @@ signal lose
 signal hit
 signal moved
 signal stopped
+signal jumped
 signal hurt_proceed
 
 export (int) var speed
@@ -31,6 +32,8 @@ var is_hurt = false
 var is_floor_detected = false
 var there_is_sound
 var bonus_earned := false
+var BallScene: PackedScene = preload("res://Items/Ball.tscn")
+var BallReference: Area2D = null
 onready var BonusLabel: Label = get_node("GUI/BonusLabel")
 
 func _ready():
@@ -80,18 +83,20 @@ func _physics_process(delta):
 					motion.x = -speed
 				else:
 					motion.x = 0
+				emit_signal("jumped", motion.x)
+
 			if bonus_earned:
 				bonus_earned = false
 				BonusLabel.visible = true
 				if not $Sounds/BonusSound.playing:
 					$Sounds/BonusSound.play()
 
-		if motion.x > 0:
+		if motion.x != 0:
 			emit_signal("moved", motion.x)
-		elif motion.x == 0:
+		else:
 			emit_signal("stopped")
-		motion = move_and_slide(motion, Vector2.UP)
 
+		motion = move_and_slide(motion, Vector2.UP)
 
 func set_sfx_volume():
 	if there_is_sound:
@@ -164,13 +169,16 @@ func hit_and_fall()->void:
 		hit = true
 		emit_signal("hit")
 		$Sounds/HurtSound.play()
-		if character_behaviour != "Stage 2:Monkey":
+		if character_behaviour != "Stage 2:Monkey" and character_behaviour != "Stage 3:Balls":
 			$Charlie.set_animation("jump")
 		$Charlie.set_rotation(0)
 		stop()
-		yield(get_tree().create_timer(0.8),"timeout")
-		$Sounds/FallSound.play()
-		fall_timer.start()
+		if character_behaviour != "Stage 3:Balls":
+			yield(get_tree().create_timer(0.8),"timeout")
+			$Sounds/FallSound.play()
+			fall_timer.start()
+		else:
+			hurt()
 
 
 func fall_down()->void:
@@ -201,12 +209,8 @@ func win():
 		won = true
 		emit_signal("win")
 		animate("win")
-#		if use_charlie:
-#			$Charlie.animation = "win"
-#			$AnimatedSprite.animation = "idle"
-#		else:
-#			$AnimatedSprite.animation = "win"
 		set_physics_process(false)
+
 
 func _on_BonusSound_finished():
 	BonusLabel.visible = false
@@ -214,3 +218,8 @@ func _on_BonusSound_finished():
 
 func bonus_earned_for_jumping_cyan_monkey():
 	bonus_earned = true
+
+
+func create_ball_scene(ball_position):
+	BallReference = BallScene.instance()
+	add_child(BallReference)
