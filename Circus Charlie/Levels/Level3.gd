@@ -8,18 +8,20 @@ const SPAWN_BALL_INTERVAL = 1
 const PLAYER_MINIMAL_DISTANCE = 500
 
 var ball_index = -1
-var ball_pattern = [6, 9, 8, 9, 7, 10, 10, 5, 6, 9, 8, 10, 5, 4, 8]
+var ball_pattern = [6, 4, 6, 3, 5, 6, 3, 4, 6, 3, 6, 5, 6, 3, 6]
 var last_ball_name = ""
+var play_ball_hurt := false
 
 onready var ball_timer = Timer.new()
 
 var track_player_pos := false
-var BallInstance: Area2D = null
+var PlayerBall: Area2D = null
 var AnimSprite :AnimatedSprite = null
 
 
 func _ready():
 	set_timer_env()
+	setBallInstance($PlayerBall)
 #	Test only = delete when test the whole game
 	global.play_first_sound = true
 	global.current_level = 2 # delete this line when compile the game
@@ -28,15 +30,16 @@ func _ready():
 	if global.current_check_point_path != "":
 		var CheckPointNode: Position2D = get_node(global.current_check_point_path)
 		if CheckPointNode != null:
-			$Player.position = CheckPointNode.position
+			$PlayerBall.position.x = CheckPointNode.position.x
+			$Player.position.x = CheckPointNode.position.x
 
 	if global.stage_3_current_ball_index >= 0:
 		ball_index = global.stage_3_current_ball_index - 1
 	spawn_ball()
 
 func _process(delta):
-	if track_player_pos:
-		BallInstance.position.x = $Player.global_position.x
+	if track_player_pos and PlayerBall != null:
+		PlayerBall.position.x = $Player.global_position.x
 
 
 func spawn_ball():
@@ -44,11 +47,10 @@ func spawn_ball():
 	var ball_position = 0
 	
 	BallInstance.name = "Enemy" + str(randi())
-	BallInstance.connect("body_entered", self, "_on_ball_body_entered", 
-			[], CONNECT_DEFERRED)
-	BallInstance.connect("screen_exited", self, "_on_ball_screen_exited",
-			[], CONNECT_DEFERRED)
-
+	BallInstance.connect("screen_exited", self, "_on_BallInstance_screen_exited",[], CONNECT_DEFERRED)
+	BallInstance.connect("player_detected", self, "_on_BallInstance_player_detected",[], CONNECT_DEFERRED)
+	BallInstance.connect("bonus", self, "_on_BallInstance_bonus", [], CONNECT_DEFERRED)
+	
 	if $BallContainer.get_child_count() == 0:
 		ball_position = $Player.position.x + 360
 	else:
@@ -70,45 +72,41 @@ func get_ball_index():
 		ball_index = 0
 
 
-func _on_Ball_player_detected(BallInstanceRef : Area2D):
-	track_player_pos = true
-	BallInstance = BallInstanceRef
-	AnimSprite = BallInstance.get_node("AnimatedSprite")
-
-
 func _on_Player_moved(motion):
-	if track_player_pos and BallInstance != null:
-		AnimSprite.play("default", true if motion < 0 else false)
+	if track_player_pos and PlayerBall != null:
+		AnimSprite.play("default", false if motion < 0 else true)
 		AnimSprite.speed_scale = 2
 		
 
 
 func _on_Player_stopped():
-	if track_player_pos and BallInstance != null:
-		BallInstance.get_node("AnimatedSprite").stop()
+	if track_player_pos and PlayerBall != null:
+		PlayerBall.get_node("AnimatedSprite").stop()
 
 
 func _on_Player_jumped(motion):
-	track_player_pos = false
-
+	track_player_pos = motion == 0
+	if !track_player_pos and PlayerBall != null:
+		PlayerBall.orientation = -1 if motion > 0 else 1
+		PlayerBall.can_move_itself = false
+		AnimSprite.speed_scale = 3
+		PlayerBall.speed = 160
 
 func _on_Floor_body_entered(body):
 	if body.name == PLAYER_NAME:
 		game_over()
+		if play_ball_hurt:
+			$Sounds/HurtSound.play()
+		else:
+			$Player/Sounds/HurtSound.play()
 
 
 func game_over():
 	global.stage_3_current_ball_index = ball_index
-	$Player.hit_and_fall()
+	$Player.hurt()
 	$Sounds/LevelSound.stop()
 	ball_timer.stop()
 	hud.stop_time()
-	for ball in $BallContainer.get_children():
-		if ball != null:
-			ball.can_move_itself = false
-			ball.get_node("AnimatedSprite").stop()
-			ball.monitoring = false
-			ball.set_process(false)
 
 func set_timer_env():
 	# Ball Timer Settings
@@ -120,12 +118,13 @@ func set_timer_env():
 
 func _on_Player_win():
 	player_won()
+	$Podium.player_center($Player)
 #	platform_center_timer.start()
 
 func _on_ball_timer_timeout():
 	spawn_ball()
 
-func _on_ball_screen_exited(_ball: Area2D):
+func _on_BallInstance_screen_exited(_ball: Area2D):
 	if _ball != null:
 		if _ball.position.x < $Player.position.x:
 			_ball.queue_free()
@@ -133,6 +132,7 @@ func _on_ball_screen_exited(_ball: Area2D):
 
 func _on_Player_lose():
 	lose()
+
 
 func _on_GoalSensor_body_entered(body):
 	if body.name == PLAYER_NAME:
@@ -179,10 +179,50 @@ func _on_CheckPoint20_body_entered(body):
 		global.current_check_point_path = "CheckPoints/chkpt_40m"
 
 
+func _on_BallInstance_player_detected(BallInstanceRef : Area2D):
+	setBallInstance(BallInstanceRef)
 
 
+func setBallInstance(BallRef : Area2D, track_player : bool = true):
+	track_player_pos = track_player
+	PlayerBall = BallRef
+	AnimSprite = PlayerBall.get_node("AnimatedSprite")
+	PlayerBall.connect("area_entered", self, "_on_BallInstance_area_entered", [], CONNECT_DEFERRED)
+	PlayerBall.get_node("RayCast2D").enabled = false
 
 
+func _on_BallInstance_bonus():
+	$Player.bonus_earned = true
+
+
+func _on_BallInstance_hurt():
+	Player_hurt()
+
+
+func _on_BallInstance_area_entered(area):
+	if area.is_in_group("ball") and track_player_pos and PlayerBall != null:
+		if $Player.motion.x == 0: # Player's ball was hitted
+			AnimSprite.speed_scale = 3
+			PlayerBall.can_move_itself = true
+			PlayerBall.orientation = -1
+			PlayerBall.speed = 160
+			area.can_move_itself = false
+		else: # Player's ball hits
+			AnimSprite.speed_scale = 3
+			PlayerBall.can_move_itself = true
+			PlayerBall.orientation = -1
+			PlayerBall.speed = 160
+			# Area Settings
+			area.get_node("AnimatedSprite").speed_scale = 3
+			area.speed = 160
+			area.orientation = 1
+		Player_hurt()
+
+func Player_hurt():
+	play_ball_hurt = true
+	$Player/Sounds/HurtSound.play()
+	$Player.hit_and_fall()
+	track_player_pos = false
 
 
 

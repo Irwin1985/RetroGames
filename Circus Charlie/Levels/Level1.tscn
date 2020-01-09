@@ -21,9 +21,6 @@ extents = Vector2( 0.556427, 92.8256 )
 
 [node name="Level1" type="Node2D"]
 script = ExtResource( 1 )
-__meta__ = {
-"_edit_group_": true
-}
 single_flame = ExtResource( 2 )
 boiler = ExtResource( 3 )
 
@@ -65,7 +62,6 @@ __meta__ = {
 [node name="BoilerContainer" type="Node2D" parent="."]
 
 [node name="Items" type="Node2D" parent="."]
-editor/display_folded = true
 
 [node name="Podium" parent="Items" instance=ExtResource( 5 )]
 position = Vector2( 5107, 379 )

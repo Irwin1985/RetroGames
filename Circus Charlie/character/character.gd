@@ -168,7 +168,8 @@ func hit_and_fall()->void:
 	if not hit:
 		hit = true
 		emit_signal("hit")
-		$Sounds/HurtSound.play()
+		if character_behaviour != "Stage 3:Balls":
+			$Sounds/HurtSound.play()
 		if character_behaviour != "Stage 2:Monkey" and character_behaviour != "Stage 3:Balls":
 			$Charlie.set_animation("jump")
 		$Charlie.set_rotation(0)
@@ -178,13 +179,12 @@ func hit_and_fall()->void:
 			$Sounds/FallSound.play()
 			fall_timer.start()
 		else:
-			hurt()
+			fall_timer.start()
 
 
 func fall_down()->void:
 	if not lost:
 		position.y += 4
-
 
 func hurt()->void:
 	if not won and not lost:
@@ -196,7 +196,8 @@ func lose():
 	if not won and not lost:
 		lost = true
 		emit_signal("lose")
-		$Sounds/HurtSound.play()
+		if character_behaviour != "Stage 3:Balls":
+			$Sounds/HurtSound.play()
 		stop()
 
 

@@ -1,10 +1,13 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://Items/Podium/Podium.gd" type="Script" id=1]
 [ext_resource path="res://assets/podium_01.png" type="Texture" id=2]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 34.7751, 3.37305 )
+extents = Vector2( 99.5342, 3.37305 )
+
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 76.0873, 3.37305 )
 
 [node name="Podium" type="StaticBody2D" groups=[
 "goal",
@@ -19,13 +22,16 @@ scale = Vector2( 2, 2 )
 texture = ExtResource( 2 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2( 0, -19 )
+position = Vector2( 43.5442, -18.0039 )
+scale = Vector2( 0.767765, 1.16729 )
 shape = SubResource( 1 )
 
 [node name="PodiumTop" type="Area2D" parent="."]
-position = Vector2( 0, -19 )
+__meta__ = {
+"_edit_group_": true
+}
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PodiumTop"]
-position = Vector2( 0, -4 )
-shape = SubResource( 1 )
+position = Vector2( 43.8583, -33.7049 )
+shape = SubResource( 2 )
 [connection signal="body_entered" from="PodiumTop" to="." method="_on_PodiumTop_body_entered"]
