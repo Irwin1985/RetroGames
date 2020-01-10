@@ -17,6 +17,7 @@ export (bool) var use_charlie = false
 export (bool) var slow_backward = false
 export (bool) var process_hurt = false
 export (String, "none", "Stage 1:Lion", "Stage 2:Monkey", "Stage 3:Balls", "Stage 4:Horse", "Stage 5:Swinging") var character_behaviour
+export (PackedScene) var Horse
 onready var fall_timer : Timer = Timer.new()
 var motion = Vector2()
 
@@ -59,7 +60,7 @@ func _physics_process(delta):
 			jump()
 	else:
 		motion.y += gravity * delta * 60
-		if !jumping:
+		if !jumping and character_behaviour != "Stage 4:Horse":
 			if Input.is_action_pressed("game_right"):
 				motion.x = speed
 				animate("run")
@@ -72,19 +73,33 @@ func _physics_process(delta):
 			else:
 				motion.x = 0
 				animate("idle")
+		elif character_behaviour == "Stage 4:Horse":
+			animate("ride" if !jumping else "jump")
+			motion.x = speed
+			if Horse != null:
+				Horse.get_node("AnimatedSprite").speed_scale = 1
+			if Input.is_action_pressed("game_left"):
+				motion.x = speed - (60 * speed) / 100
+				if Horse != null:
+					Horse.get_node("AnimatedSprite").speed_scale = 0.5
+
 		if is_on_floor():
 			jumping = false
 			if Input.is_action_pressed("game_jump"):
 				motion.y = -jump_power
 				jump()
-				if Input.is_action_pressed("game_right"):
-					motion.x = speed
-				elif Input.is_action_pressed("game_left"):
-					motion.x = -speed
+				if character_behaviour != "Stage 4:Horse":
+					if Input.is_action_pressed("game_right"):
+						motion.x = speed
+					elif Input.is_action_pressed("game_left"):
+						motion.x = -speed
+					else:
+						motion.x = 0
 				else:
-					motion.x = 0
+					motion.x = speed
 				emit_signal("jumped", motion.x)
-
+			if character_behaviour == "Stage 4:Horse":
+				animate("ride")
 			if bonus_earned:
 				bonus_earned = false
 				BonusLabel.visible = true

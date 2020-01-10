@@ -3,29 +3,29 @@
 [ext_resource path="res://Levels/Level4.gd" type="Script" id=1]
 [ext_resource path="res://assets/background.png" type="Texture" id=2]
 [ext_resource path="res://Horse/Horse.tscn" type="PackedScene" id=3]
-[ext_resource path="res://Items/Podium/Podium.tscn" type="PackedScene" id=4]
-[ext_resource path="res://assets/level_120m.png" type="Texture" id=5]
-[ext_resource path="res://assets/level_110m.png" type="Texture" id=6]
-[ext_resource path="res://assets/level_100m.png" type="Texture" id=7]
-[ext_resource path="res://assets/level_90m.png" type="Texture" id=8]
-[ext_resource path="res://assets/level_80m.png" type="Texture" id=9]
-[ext_resource path="res://assets/level_70m.png" type="Texture" id=10]
-[ext_resource path="res://assets/level_60m.png" type="Texture" id=11]
-[ext_resource path="res://assets/level_50m.png" type="Texture" id=12]
-[ext_resource path="res://assets/level_40m.png" type="Texture" id=13]
-[ext_resource path="res://assets/level_30m.png" type="Texture" id=14]
-[ext_resource path="res://assets/level_20m.png" type="Texture" id=15]
-[ext_resource path="res://assets/level_10m.png" type="Texture" id=16]
-[ext_resource path="res://assets/level_0m.png" type="Texture" id=17]
-[ext_resource path="res://assets/level_130m.png" type="Texture" id=18]
-[ext_resource path="res://assets/level_140m.png" type="Texture" id=19]
-[ext_resource path="res://assets/level_150m.png" type="Texture" id=20]
-[ext_resource path="res://assets/level_160m.png" type="Texture" id=21]
-[ext_resource path="res://assets/level_170m.png" type="Texture" id=22]
-[ext_resource path="res://assets/level_180m.png" type="Texture" id=23]
-[ext_resource path="res://assets/level_190m.png" type="Texture" id=24]
-[ext_resource path="res://assets/level_200m.png" type="Texture" id=25]
-[ext_resource path="res://Player/Player.tscn" type="PackedScene" id=26]
+[ext_resource path="res://Player/Player.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Items/Podium/Podium.tscn" type="PackedScene" id=5]
+[ext_resource path="res://assets/level_120m.png" type="Texture" id=6]
+[ext_resource path="res://assets/level_110m.png" type="Texture" id=7]
+[ext_resource path="res://assets/level_100m.png" type="Texture" id=8]
+[ext_resource path="res://assets/level_90m.png" type="Texture" id=9]
+[ext_resource path="res://assets/level_80m.png" type="Texture" id=10]
+[ext_resource path="res://assets/level_70m.png" type="Texture" id=11]
+[ext_resource path="res://assets/level_60m.png" type="Texture" id=12]
+[ext_resource path="res://assets/level_50m.png" type="Texture" id=13]
+[ext_resource path="res://assets/level_40m.png" type="Texture" id=14]
+[ext_resource path="res://assets/level_30m.png" type="Texture" id=15]
+[ext_resource path="res://assets/level_20m.png" type="Texture" id=16]
+[ext_resource path="res://assets/level_10m.png" type="Texture" id=17]
+[ext_resource path="res://assets/level_0m.png" type="Texture" id=18]
+[ext_resource path="res://assets/level_130m.png" type="Texture" id=19]
+[ext_resource path="res://assets/level_140m.png" type="Texture" id=20]
+[ext_resource path="res://assets/level_150m.png" type="Texture" id=21]
+[ext_resource path="res://assets/level_160m.png" type="Texture" id=22]
+[ext_resource path="res://assets/level_170m.png" type="Texture" id=23]
+[ext_resource path="res://assets/level_180m.png" type="Texture" id=24]
+[ext_resource path="res://assets/level_190m.png" type="Texture" id=25]
+[ext_resource path="res://assets/level_200m.png" type="Texture" id=26]
 [ext_resource path="res://assets/Stage1.ogg" type="AudioStream" id=27]
 [ext_resource path="res://assets/sfx/TimeReduce.ogg" type="AudioStream" id=28]
 [ext_resource path="res://assets/sfx/GameOver.wav" type="AudioStream" id=29]
@@ -60,9 +60,23 @@ __meta__ = {
 }
 
 [node name="Horse" parent="." instance=ExtResource( 3 )]
-position = Vector2( 113.961, 375.468 )
+position = Vector2( 115.893, 376.541 )
 
-[node name="Podium" parent="." instance=ExtResource( 4 )]
+[node name="Player" parent="." instance=ExtResource( 4 )]
+editor/display_folded = true
+position = Vector2( 110.397, 346.811 )
+scale = Vector2( 0.998518, 0.804541 )
+speed = 250
+jump_power = 450
+gravity = 15
+slow_backward = true
+process_hurt = true
+character_behaviour = "Stage 4:Horse"
+
+[node name="Charlie" parent="Player" index="0"]
+frame = 0
+
+[node name="Podium" parent="." instance=ExtResource( 5 )]
 position = Vector2( 10040, 378.21 )
 
 [node name="LevelContainer" type="Node2D" parent="."]
@@ -74,107 +88,107 @@ __meta__ = {
 [node name="level_120m" type="Sprite" parent="LevelContainer"]
 position = Vector2( 4060, 435 )
 scale = Vector2( 2, 2 )
-texture = ExtResource( 5 )
+texture = ExtResource( 6 )
 
 [node name="level_110m" type="Sprite" parent="LevelContainer"]
 position = Vector2( 4560, 435 )
 scale = Vector2( 2, 2 )
-texture = ExtResource( 6 )
+texture = ExtResource( 7 )
 
 [node name="level_100m" type="Sprite" parent="LevelContainer"]
 position = Vector2( 5060, 435 )
 scale = Vector2( 2, 2 )
-texture = ExtResource( 7 )
+texture = ExtResource( 8 )
 
 [node name="level_90m" type="Sprite" parent="LevelContainer"]
 position = Vector2( 5560, 434.337 )
 scale = Vector2( 2, 2 )
-texture = ExtResource( 8 )
+texture = ExtResource( 9 )
 
 [node name="level_80m" type="Sprite" parent="LevelContainer"]
 position = Vector2( 6060, 435 )
 scale = Vector2( 2, 2 )
-texture = ExtResource( 9 )
+texture = ExtResource( 10 )
 
 [node name="level_70m" type="Sprite" parent="LevelContainer"]
 position = Vector2( 6560, 435 )
 scale = Vector2( 2, 2 )
-texture = ExtResource( 10 )
+texture = ExtResource( 11 )
 
 [node name="level_60m" type="Sprite" parent="LevelContainer"]
 position = Vector2( 7060, 435 )
 scale = Vector2( 2, 2 )
-texture = ExtResource( 11 )
+texture = ExtResource( 12 )
 
 [node name="level_50m" type="Sprite" parent="LevelContainer"]
 position = Vector2( 7560, 435 )
 scale = Vector2( 2, 2 )
-texture = ExtResource( 12 )
+texture = ExtResource( 13 )
 
 [node name="level_40m" type="Sprite" parent="LevelContainer"]
 position = Vector2( 8060, 435 )
 scale = Vector2( 2, 2 )
-texture = ExtResource( 13 )
+texture = ExtResource( 14 )
 
 [node name="level_30m" type="Sprite" parent="LevelContainer"]
 position = Vector2( 8560, 435 )
 scale = Vector2( 2, 2 )
-texture = ExtResource( 14 )
+texture = ExtResource( 15 )
 
 [node name="level_20m" type="Sprite" parent="LevelContainer"]
 position = Vector2( 9060, 435 )
 scale = Vector2( 2, 2 )
-texture = ExtResource( 15 )
+texture = ExtResource( 16 )
 
 [node name="level_10m" type="Sprite" parent="LevelContainer"]
 position = Vector2( 9560, 435 )
 scale = Vector2( 2, 2 )
-texture = ExtResource( 16 )
+texture = ExtResource( 17 )
 
 [node name="level_00m" type="Sprite" parent="LevelContainer"]
 position = Vector2( 10060, 435 )
 scale = Vector2( 2, 2 )
-texture = ExtResource( 17 )
+texture = ExtResource( 18 )
 
 [node name="level_130m" type="Sprite" parent="LevelContainer"]
 position = Vector2( 3560, 435 )
 scale = Vector2( 2, 2 )
-texture = ExtResource( 18 )
+texture = ExtResource( 19 )
 
 [node name="level_140m" type="Sprite" parent="LevelContainer"]
 position = Vector2( 3060, 435 )
 scale = Vector2( 2, 2 )
-texture = ExtResource( 19 )
+texture = ExtResource( 20 )
 
 [node name="level_150m" type="Sprite" parent="LevelContainer"]
 position = Vector2( 2560, 435 )
 scale = Vector2( 2, 2 )
-texture = ExtResource( 20 )
+texture = ExtResource( 21 )
 
 [node name="level_160m" type="Sprite" parent="LevelContainer"]
 position = Vector2( 2060, 435 )
 scale = Vector2( 2, 2 )
-texture = ExtResource( 21 )
+texture = ExtResource( 22 )
 
 [node name="level_170m" type="Sprite" parent="LevelContainer"]
 position = Vector2( 1560, 435 )
 scale = Vector2( 2, 2 )
-texture = ExtResource( 22 )
+texture = ExtResource( 23 )
 
 [node name="level_180m" type="Sprite" parent="LevelContainer"]
 position = Vector2( 1060, 435 )
 scale = Vector2( 2, 2 )
-texture = ExtResource( 23 )
+texture = ExtResource( 24 )
 
 [node name="level_190m" type="Sprite" parent="LevelContainer"]
 position = Vector2( 560, 434.659 )
 scale = Vector2( 2, 2 )
-texture = ExtResource( 24 )
+texture = ExtResource( 25 )
 
 [node name="level_200m" type="Sprite" parent="LevelContainer"]
 position = Vector2( 60, 435 )
 scale = Vector2( 2, 2 )
-texture = ExtResource( 25 )
+texture = ExtResource( 26 )
 
 [node name="Floor" type="Area2D" parent="."]
 editor/display_folded = true
@@ -185,30 +199,6 @@ scale = Vector2( 0.990652, 70.7378 )
 shape = SubResource( 1 )
 
 [node name="BallContainer" type="Node2D" parent="."]
-
-[node name="Player" parent="." instance=ExtResource( 26 )]
-editor/display_folded = true
-position = Vector2( 107, 340 )
-scale = Vector2( 0.998518, 0.804541 )
-speed = 110
-jump_power = 450
-gravity = 15
-slow_backward = true
-process_hurt = true
-character_behaviour = "Stage 3:Balls"
-
-[node name="Camera2D" parent="Player" index="2"]
-position = Vector2( -140, 0 )
-anchor_mode = 0
-limit_left = 0
-limit_top = 0
-limit_right = 10135
-limit_bottom = 460
-editor_draw_limits = true
-editor_draw_drag_margin = true
-
-[node name="Sounds" parent="Player" index="3"]
-editor/display_folded = true
 
 [node name="Walls" type="Node" parent="."]
 editor/display_folded = true
@@ -414,6 +404,7 @@ ramp_type = "Small"
 
 [node name="AnimatedSprite" parent="Bounce/180m/Ramp2" index="0"]
 animation = "small_bounce"
+frame = 2
 
 [node name="Area2D" parent="Bounce/180m/Ramp2" index="2"]
 editor/display_folded = true
@@ -677,12 +668,12 @@ ramp_type = "Small"
 editor/display_folded = true
 position = Vector2( 187.494, -20 )
 ramp_type = "Small"
-[connection signal="body_entered" from="Floor" to="." method="_on_Floor_body_entered"]
 [connection signal="jumped" from="Player" to="." method="_on_Player_jumped"]
 [connection signal="lose" from="Player" to="." method="_on_Player_lose"]
 [connection signal="moved" from="Player" to="." method="_on_Player_moved"]
 [connection signal="stopped" from="Player" to="." method="_on_Player_stopped"]
 [connection signal="win" from="Player" to="." method="_on_Player_win"]
+[connection signal="body_entered" from="Floor" to="." method="_on_Floor_body_entered"]
 [connection signal="finished" from="Sounds/GameOverSound" to="." method="_on_GameOverSound_finished"]
 [connection signal="finished" from="Sounds/WinSound" to="." method="_on_WinSound_finished"]
 [connection signal="body_entered" from="GoalSensor" to="." method="_on_GoalSensor_body_entered"]
