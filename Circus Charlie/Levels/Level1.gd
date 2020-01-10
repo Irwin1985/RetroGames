@@ -3,7 +3,6 @@ extends Node2D
 export (PackedScene) var single_flame
 export (PackedScene) var boiler
 
-#onready var sentinel = preload("res://Items/Sentinel/Sentinel.tscn")
 var pos = Vector2(0, 0)
 var hud : GameHUD = null
 var last_flame = null
@@ -11,6 +10,10 @@ var next_bonus_flame : int = 0
 
 func _ready():
 	randomize()
+#	Test only = delete when test the whole game
+	global.play_first_sound = true
+	global.current_level = 0 # delete this line when compile the game
+#	Test only
 	set_sfx_volume()
 	set_player_position()
 	global.can_pause = true
@@ -18,7 +21,7 @@ func _ready():
 	next_bonus_flame = randi() % 5 + 4 # 4..8
 	spawn_boiler()
 	spawn_next_flame()
-#	spawn_sentinel()
+
 
 func add_HUD():
 	hud = global.get_hud()
@@ -36,49 +39,12 @@ func set_sfx_volume():
 
 
 func set_player_position():
-	var checkpoint_pos = 0
-	match global.check_point:
-		2:
-			checkpoint_pos = $CheckPoints/chkpt_90m.position.x
-		3:
-			checkpoint_pos = $CheckPoints/chkpt_80m.position.x
-		4:
-			checkpoint_pos = $CheckPoints/chkpt_70m.position.x
-		5:
-			checkpoint_pos = $CheckPoints/chkpt_60m.position.x
-		6:
-			checkpoint_pos = $CheckPoints/chkpt_50m.position.x
-		7:
-			checkpoint_pos = $CheckPoints/chkpt_40m.position.x
-		8:
-			checkpoint_pos = $CheckPoints/chkpt_30m.position.x
-		9, 10:
-			checkpoint_pos = $CheckPoints/chkpt_20m.position.x
-		_:
-			checkpoint_pos = $Lion.position.x
-	$Lion.position.x = checkpoint_pos
+	print(global.current_check_point_path)
+	if global.current_check_point_path != "":
+		var CheckPointNode: Position2D = get_node(global.current_check_point_path)
+		if CheckPointNode != null:
+			$Lion.position.x = CheckPointNode.position.x
 
-
-#func spawn_flame(how_many):
-#	for i in range(how_many):
-#
-#		var flame = single_flame.instance()
-#		var rand = randi() % 4
-#		var rand_bonus = randi() % 20
-#
-#		if pos.x == 0:
-#			pos = Vector2($Lion.position.x + 380, 184)
-#		else:
-#			pos = Vector2(pos.x + (380 if (rand / 2) * 2 == 0 else 300), 184)
-#
-#		flame.position = pos
-#		if (rand_bonus / 2) * 2 == 0:
-#			flame.start("bonus")
-#		else:
-#			flame.start("big")
-#
-#		flame.connect("hurt", $Lion, "hurt")
-#		$FlameContainer.call_deferred("add_child", flame)
 
 func spawn_next_flame():
 	var flame = single_flame.instance()
@@ -113,31 +79,19 @@ func spawn_boiler():
 		$BoilerContainer.add_child(b)
 
 
-#func spawn_sentinel():
-#	for i in range(9):
-#		var s = sentinel.instance()
-#		s.position = Vector2(100 + (250 * i), 340)		
-#		s.connect("entered", self, "_on_sentinel_entered")
-#		$SentinelsContainer.add_child(s)
-
-
 func _on_Flame_appear(flame : FlameRing)->void:
 	if flame == last_flame:
 		spawn_next_flame()
+
 
 func _on_Flame_disappear(flame : FlameRing)->void:
 	if flame.position.x < $Lion.position.x:
 		flame.call_deferred("queue_free")
 
 
-#func _on_sentinel_entered():
-#	spawn_flame(5)
-
-
 func stop_items():
 	for boiler in $BoilerContainer.get_children():
 		boiler.stop()
-
 
 	for flame in $FlameContainer.get_children():
 		flame.stop()
@@ -149,9 +103,6 @@ func _on_HUD_little_time_left():
 	$Sounds/LevelSound.stop()
 	$Sounds/LevelSound.play()
 
-
-#################################################
-# Losing methods
 
 func _on_HUD_out_of_time():
 	$Lion.lose()
@@ -174,8 +125,6 @@ func _on_GameOverSound_finished():
 	get_tree().call_deferred("change_scene","res://Levels/ScenePreviewer.tscn")
 
 
-#################################################
-# Winning methods
 func _on_Lion_win():
 	for flame in $FlameContainer.get_children():
 		flame.call_deferred("queue_free")

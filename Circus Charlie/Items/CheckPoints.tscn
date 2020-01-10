@@ -1,27 +1,264 @@
-[gd_scene format=2]
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://Items/CheckPoints.gd" type="Script" id=1]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 5, 120 )
+
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 5, 120 )
 
 [node name="CheckPoints" type="Node2D"]
+script = ExtResource( 1 )
+
+[node name="chkpt_190m" type="Position2D" parent="."]
+editor/display_folded = true
+position = Vector2( -50, 394.147 )
+
+[node name="CheckPoint190" type="Area2D" parent="chkpt_190m"]
+editor/display_folded = true
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="chkpt_190m/CheckPoint190"]
+shape = SubResource( 1 )
+
+[node name="chkpt_180m" type="Position2D" parent="."]
+editor/display_folded = true
+position = Vector2( -50, 394.147 )
+
+[node name="CheckPoint180" type="Area2D" parent="chkpt_180m"]
+editor/display_folded = true
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="chkpt_180m/CheckPoint180"]
+shape = SubResource( 2 )
+
+[node name="chkpt_170m" type="Position2D" parent="."]
+editor/display_folded = true
+position = Vector2( -50, 394.147 )
+
+[node name="CheckPoint170" type="Area2D" parent="chkpt_170m"]
+editor/display_folded = true
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="chkpt_170m/CheckPoint170"]
+shape = SubResource( 2 )
+
+[node name="chkpt_160m" type="Position2D" parent="."]
+editor/display_folded = true
+position = Vector2( -50, 394.147 )
+
+[node name="CheckPoint160" type="Area2D" parent="chkpt_160m"]
+editor/display_folded = true
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="chkpt_160m/CheckPoint160"]
+shape = SubResource( 2 )
+
+[node name="chkpt_150m" type="Position2D" parent="."]
+editor/display_folded = true
+position = Vector2( -50, 394.147 )
+
+[node name="CheckPoint150" type="Area2D" parent="chkpt_150m"]
+editor/display_folded = true
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="chkpt_150m/CheckPoint150"]
+shape = SubResource( 2 )
+
+[node name="chkpt_140m" type="Position2D" parent="."]
+editor/display_folded = true
+position = Vector2( -50, 394.147 )
+
+[node name="CheckPoint140" type="Area2D" parent="chkpt_140m"]
+editor/display_folded = true
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="chkpt_140m/CheckPoint140"]
+shape = SubResource( 2 )
+
+[node name="chkpt_130m" type="Position2D" parent="."]
+editor/display_folded = true
+position = Vector2( -50, 394.147 )
+
+[node name="CheckPoint130" type="Area2D" parent="chkpt_130m"]
+editor/display_folded = true
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="chkpt_130m/CheckPoint130"]
+shape = SubResource( 2 )
+
+[node name="chkpt_120m" type="Position2D" parent="."]
+editor/display_folded = true
+position = Vector2( -50, 394.147 )
+
+[node name="CheckPoint120" type="Area2D" parent="chkpt_120m"]
+editor/display_folded = true
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="chkpt_120m/CheckPoint120"]
+shape = SubResource( 2 )
+
+[node name="chkpt_110m" type="Position2D" parent="."]
+editor/display_folded = true
+position = Vector2( -50, 394.147 )
+
+[node name="CheckPoint110" type="Area2D" parent="chkpt_110m"]
+editor/display_folded = true
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="chkpt_110m/CheckPoint110"]
+shape = SubResource( 2 )
+
+[node name="chkpt_100m" type="Position2D" parent="."]
+editor/display_folded = true
+position = Vector2( -50, 394.147 )
+
+[node name="CheckPoint100" type="Area2D" parent="chkpt_100m"]
+editor/display_folded = true
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="chkpt_100m/CheckPoint100"]
+shape = SubResource( 2 )
 
 [node name="chkpt_90m" type="Position2D" parent="."]
-position = Vector2( 718, 394.147 )
+editor/display_folded = true
+position = Vector2( -50, 394.147 )
+
+[node name="CheckPoint90" type="Area2D" parent="chkpt_90m"]
+editor/display_folded = true
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="chkpt_90m/CheckPoint90"]
+shape = SubResource( 2 )
 
 [node name="chkpt_80m" type="Position2D" parent="."]
-position = Vector2( 1218, 394.147 )
+editor/display_folded = true
+position = Vector2( -50, 394.147 )
+
+[node name="CheckPoint80" type="Area2D" parent="chkpt_80m"]
+editor/display_folded = true
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="chkpt_80m/CheckPoint80"]
+shape = SubResource( 2 )
 
 [node name="chkpt_70m" type="Position2D" parent="."]
-position = Vector2( 1718, 394.147 )
+editor/display_folded = true
+position = Vector2( -50, 394.147 )
+
+[node name="CheckPoint70" type="Area2D" parent="chkpt_70m"]
+editor/display_folded = true
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="chkpt_70m/CheckPoint70"]
+shape = SubResource( 2 )
 
 [node name="chkpt_60m" type="Position2D" parent="."]
-position = Vector2( 2218, 394.147 )
+editor/display_folded = true
+position = Vector2( -50, 394.147 )
+
+[node name="CheckPoint60" type="Area2D" parent="chkpt_60m"]
+editor/display_folded = true
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="chkpt_60m/CheckPoint60"]
+shape = SubResource( 2 )
 
 [node name="chkpt_50m" type="Position2D" parent="."]
-position = Vector2( 2718, 394.147 )
+editor/display_folded = true
+position = Vector2( -50, 394.147 )
+
+[node name="CheckPoint50" type="Area2D" parent="chkpt_50m"]
+editor/display_folded = true
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="chkpt_50m/CheckPoint50"]
+shape = SubResource( 2 )
 
 [node name="chkpt_40m" type="Position2D" parent="."]
-position = Vector2( 3218, 394.147 )
+editor/display_folded = true
+position = Vector2( -50, 394.147 )
+
+[node name="CheckPoint40" type="Area2D" parent="chkpt_40m"]
+editor/display_folded = true
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="chkpt_40m/CheckPoint40"]
+shape = SubResource( 2 )
 
 [node name="chkpt_30m" type="Position2D" parent="."]
-position = Vector2( 3718, 394.147 )
+editor/display_folded = true
+position = Vector2( -50, 394.147 )
+
+[node name="CheckPoint30" type="Area2D" parent="chkpt_30m"]
+editor/display_folded = true
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="chkpt_30m/CheckPoint30"]
+shape = SubResource( 2 )
 
 [node name="chkpt_20m" type="Position2D" parent="."]
-position = Vector2( 4218, 394.147 )
+editor/display_folded = true
+position = Vector2( -50, 394.147 )
+
+[node name="CheckPoint20" type="Area2D" parent="chkpt_20m"]
+editor/display_folded = true
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="chkpt_20m/CheckPoint20"]
+shape = SubResource( 2 )
+[connection signal="body_entered" from="chkpt_190m/CheckPoint190" to="." method="_on_CheckPoint190_body_entered"]
+[connection signal="body_entered" from="chkpt_180m/CheckPoint180" to="." method="_on_CheckPoint180_body_entered"]
+[connection signal="body_entered" from="chkpt_170m/CheckPoint170" to="." method="_on_CheckPoint170_body_entered"]
+[connection signal="body_entered" from="chkpt_160m/CheckPoint160" to="." method="_on_CheckPoint160_body_entered"]
+[connection signal="body_entered" from="chkpt_150m/CheckPoint150" to="." method="_on_CheckPoint150_body_entered"]
+[connection signal="body_entered" from="chkpt_140m/CheckPoint140" to="." method="_on_CheckPoint140_body_entered"]
+[connection signal="body_entered" from="chkpt_130m/CheckPoint130" to="." method="_on_CheckPoint130_body_entered"]
+[connection signal="body_entered" from="chkpt_120m/CheckPoint120" to="." method="_on_CheckPoint120_body_entered"]
+[connection signal="body_entered" from="chkpt_110m/CheckPoint110" to="." method="_on_CheckPoint110_body_entered"]
+[connection signal="body_entered" from="chkpt_100m/CheckPoint100" to="." method="_on_CheckPoint100_body_entered"]
+[connection signal="body_entered" from="chkpt_90m/CheckPoint90" to="." method="_on_CheckPoint90_body_entered"]
+[connection signal="body_entered" from="chkpt_80m/CheckPoint80" to="." method="_on_CheckPoint80_body_entered"]
+[connection signal="body_entered" from="chkpt_70m/CheckPoint70" to="." method="_on_CheckPoint70_body_entered"]
+[connection signal="body_entered" from="chkpt_60m/CheckPoint60" to="." method="_on_CheckPoint60_body_entered"]
+[connection signal="body_entered" from="chkpt_50m/CheckPoint50" to="." method="_on_CheckPoint50_body_entered"]
+[connection signal="body_entered" from="chkpt_40m/CheckPoint40" to="." method="_on_CheckPoint40_body_entered"]
+[connection signal="body_entered" from="chkpt_30m/CheckPoint30" to="." method="_on_CheckPoint30_body_entered"]
+[connection signal="body_entered" from="chkpt_20m/CheckPoint20" to="." method="_on_CheckPoint20_body_entered"]

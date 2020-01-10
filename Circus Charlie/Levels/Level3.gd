@@ -8,7 +8,7 @@ const SPAWN_BALL_INTERVAL = 1
 const PLAYER_MINIMAL_DISTANCE = 500
 
 var ball_index = -1
-var ball_pattern = [6, 4, 6, 3, 5, 6, 3, 4, 6, 3, 6, 5, 6, 3, 6]
+var ball_pattern = [7, 4, 6, 3, 5, 6, 5, 4, 7, 3, 6, 5, 7, 3, 6]
 var last_ball_name = ""
 var play_ball_hurt := false
 
@@ -26,7 +26,6 @@ func _ready():
 	global.play_first_sound = true
 	global.current_level = 2 # delete this line when compile the game
 #	Test only
-
 	if global.current_check_point_path != "":
 		var CheckPointNode: Position2D = get_node(global.current_check_point_path)
 		if CheckPointNode != null:
@@ -119,7 +118,6 @@ func set_timer_env():
 func _on_Player_win():
 	player_won()
 	$Podium.player_center($Player)
-#	platform_center_timer.start()
 
 func _on_ball_timer_timeout():
 	spawn_ball()
@@ -149,34 +147,6 @@ func _on_GameOverSound_finished():
 
 func _on_WinSound_finished():
 	WinSound_finished()
-
-func _on_CheckPoint70_body_entered(body):
-	if body.name == PLAYER_NAME:
-		global.current_check_point_path = "CheckPoints/chkpt_90m"
-
-func _on_CheckPoint60_body_entered(body):
-	if body.name == PLAYER_NAME:
-		global.current_check_point_path = "CheckPoints/chkpt_80m"
-
-
-func _on_CheckPoint50_body_entered(body):
-	if body.name == PLAYER_NAME:
-		global.current_check_point_path = "CheckPoints/chkpt_70m"
-
-
-func _on_CheckPoint40_body_entered(body):
-	if body.name == PLAYER_NAME:
-		global.current_check_point_path = "CheckPoints/chkpt_60m"
-
-
-func _on_CheckPoint30_body_entered(body):
-	if body.name == PLAYER_NAME:
-		global.current_check_point_path = "CheckPoints/chkpt_50m"
-
-
-func _on_CheckPoint20_body_entered(body):
-	if body.name == PLAYER_NAME:
-		global.current_check_point_path = "CheckPoints/chkpt_40m"
 
 
 func _on_BallInstance_player_detected(BallInstanceRef : Area2D):

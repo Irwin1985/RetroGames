@@ -30,7 +30,7 @@ var sound_played = true
 var current_enemy_name = ""
 var is_hurt = false
 var is_floor_detected = false
-var there_is_sound
+var there_is_sound := false
 var bonus_earned := false
 var BallScene: PackedScene = preload("res://Items/Ball.tscn")
 var BallReference: Area2D = null

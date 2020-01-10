@@ -67,6 +67,37 @@ __meta__ = {
 position = Vector2( 5107, 379 )
 
 [node name="Meters" parent="Items" instance=ExtResource( 6 )]
+editor/display_folded = true
+
+[node name="1" parent="Items/Meters" index="1"]
+position = Vector2( 500, 0 )
+
+[node name="2" parent="Items/Meters" index="2"]
+position = Vector2( 1000, 0 )
+
+[node name="3" parent="Items/Meters" index="3"]
+position = Vector2( 1500, 0 )
+
+[node name="4" parent="Items/Meters" index="4"]
+position = Vector2( 2000, 0 )
+
+[node name="5" parent="Items/Meters" index="5"]
+position = Vector2( 2500, 0 )
+
+[node name="6" parent="Items/Meters" index="6"]
+position = Vector2( 3000, 0 )
+
+[node name="7" parent="Items/Meters" index="7"]
+position = Vector2( 3500, 0 )
+
+[node name="8" parent="Items/Meters" index="8"]
+position = Vector2( 4000, 0 )
+
+[node name="9" parent="Items/Meters" index="9"]
+position = Vector2( 4500, 0 )
+
+[node name="10" parent="Items/Meters" index="10"]
+position = Vector2( 5000, 0 )
 
 [node name="FlameContainer" type="Node2D" parent="."]
 
@@ -84,6 +115,7 @@ limit_bottom = 460
 [node name="SentinelsContainer" type="Node2D" parent="."]
 
 [node name="Sounds" type="Node2D" parent="."]
+editor/display_folded = true
 
 [node name="LevelSound" type="AudioStreamPlayer" parent="Sounds"]
 stream = ExtResource( 8 )
@@ -99,11 +131,60 @@ stream = ExtResource( 10 )
 stream = ExtResource( 11 )
 
 [node name="CheckPoints" parent="." instance=ExtResource( 12 )]
-editor/display_folded = true
+
+[node name="chkpt_90m" parent="CheckPoints" index="10"]
+position = Vector2( 640, 394.147 )
+
+[node name="CheckPoint90" parent="CheckPoints/chkpt_90m" index="0"]
+position = Vector2( 0, -100 )
+
+[node name="chkpt_80m" parent="CheckPoints" index="11"]
+position = Vector2( 1140, 394.147 )
+
+[node name="CheckPoint80" parent="CheckPoints/chkpt_80m" index="0"]
+position = Vector2( 0, -100 )
+
+[node name="chkpt_70m" parent="CheckPoints" index="12"]
+position = Vector2( 1640, 394.147 )
+
+[node name="CheckPoint70" parent="CheckPoints/chkpt_70m" index="0"]
+position = Vector2( 0, -100 )
+
+[node name="chkpt_60m" parent="CheckPoints" index="13"]
+position = Vector2( 2140, 394.147 )
+
+[node name="CheckPoint60" parent="CheckPoints/chkpt_60m" index="0"]
+position = Vector2( 0, -100 )
+
+[node name="chkpt_50m" parent="CheckPoints" index="14"]
+position = Vector2( 2640, 394.147 )
+
+[node name="CheckPoint50" parent="CheckPoints/chkpt_50m" index="0"]
+position = Vector2( 0, -100 )
+
+[node name="chkpt_40m" parent="CheckPoints" index="15"]
+position = Vector2( 3140, 394.147 )
+
+[node name="CheckPoint40" parent="CheckPoints/chkpt_40m" index="0"]
+position = Vector2( 0, -100 )
+
+[node name="chkpt_30m" parent="CheckPoints" index="16"]
+position = Vector2( 3640, 394.147 )
+
+[node name="CheckPoint30" parent="CheckPoints/chkpt_30m" index="0"]
+position = Vector2( 0, -100 )
+
+[node name="chkpt_20m" parent="CheckPoints" index="17"]
+position = Vector2( 4140, 394.147 )
+
+[node name="CheckPoint20" parent="CheckPoints/chkpt_20m" index="0"]
+position = Vector2( 0, -100 )
 [connection signal="lose" from="Lion" to="." method="_on_Lion_lose"]
 [connection signal="win" from="Lion" to="." method="_on_Lion_win"]
 [connection signal="finished" from="Sounds/GameOverSound" to="." method="_on_GameOverSound_finished"]
 [connection signal="finished" from="Sounds/WinSound" to="." method="_on_WinSound_finished"]
+
+[editable path="Items/Meters"]
 
 [editable path="Lion"]
 

@@ -51,8 +51,8 @@ func _on_AreaNotifier_body_entered(body):
 	if bonus_counter >= bonus_total:
 		call_deferred("activate_bonus")
 	if body.name == "Lion":
-		if !can_hide:
-			global.check_point += 1
+#		if !can_hide:
+#			global.check_point += 1
 		global.give_points(STANDARD_POINT)
 		can_hide = true
 
