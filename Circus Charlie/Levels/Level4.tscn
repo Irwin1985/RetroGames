@@ -1,36 +1,38 @@
-[gd_scene load_steps=36 format=2]
+[gd_scene load_steps=38 format=2]
 
 [ext_resource path="res://Levels/Level4.gd" type="Script" id=1]
 [ext_resource path="res://assets/background.png" type="Texture" id=2]
-[ext_resource path="res://Items/Podium/Podium.tscn" type="PackedScene" id=3]
-[ext_resource path="res://assets/level_120m.png" type="Texture" id=4]
-[ext_resource path="res://assets/level_110m.png" type="Texture" id=5]
-[ext_resource path="res://assets/level_100m.png" type="Texture" id=6]
-[ext_resource path="res://assets/level_90m.png" type="Texture" id=7]
-[ext_resource path="res://assets/level_80m.png" type="Texture" id=8]
-[ext_resource path="res://assets/level_70m.png" type="Texture" id=9]
-[ext_resource path="res://assets/level_60m.png" type="Texture" id=10]
-[ext_resource path="res://assets/level_50m.png" type="Texture" id=11]
-[ext_resource path="res://assets/level_40m.png" type="Texture" id=12]
-[ext_resource path="res://assets/level_30m.png" type="Texture" id=13]
-[ext_resource path="res://assets/level_20m.png" type="Texture" id=14]
-[ext_resource path="res://assets/level_10m.png" type="Texture" id=15]
-[ext_resource path="res://assets/level_0m.png" type="Texture" id=16]
-[ext_resource path="res://assets/level_130m.png" type="Texture" id=17]
-[ext_resource path="res://assets/level_140m.png" type="Texture" id=18]
-[ext_resource path="res://assets/level_150m.png" type="Texture" id=19]
-[ext_resource path="res://assets/level_160m.png" type="Texture" id=20]
-[ext_resource path="res://assets/level_170m.png" type="Texture" id=21]
-[ext_resource path="res://assets/level_180m.png" type="Texture" id=22]
-[ext_resource path="res://assets/level_190m.png" type="Texture" id=23]
-[ext_resource path="res://assets/level_200m.png" type="Texture" id=24]
-[ext_resource path="res://Player/Player.tscn" type="PackedScene" id=25]
-[ext_resource path="res://assets/Stage2.ogg" type="AudioStream" id=26]
-[ext_resource path="res://assets/sfx/TimeReduce.ogg" type="AudioStream" id=27]
-[ext_resource path="res://assets/sfx/GameOver.wav" type="AudioStream" id=28]
-[ext_resource path="res://assets/sfx/Clapping.wav" type="AudioStream" id=29]
-[ext_resource path="res://assets/sfx/HurtBall.wav" type="AudioStream" id=30]
-[ext_resource path="res://Items/CheckPoints.tscn" type="PackedScene" id=31]
+[ext_resource path="res://Horse/Horse.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Items/Podium/Podium.tscn" type="PackedScene" id=4]
+[ext_resource path="res://assets/level_120m.png" type="Texture" id=5]
+[ext_resource path="res://assets/level_110m.png" type="Texture" id=6]
+[ext_resource path="res://assets/level_100m.png" type="Texture" id=7]
+[ext_resource path="res://assets/level_90m.png" type="Texture" id=8]
+[ext_resource path="res://assets/level_80m.png" type="Texture" id=9]
+[ext_resource path="res://assets/level_70m.png" type="Texture" id=10]
+[ext_resource path="res://assets/level_60m.png" type="Texture" id=11]
+[ext_resource path="res://assets/level_50m.png" type="Texture" id=12]
+[ext_resource path="res://assets/level_40m.png" type="Texture" id=13]
+[ext_resource path="res://assets/level_30m.png" type="Texture" id=14]
+[ext_resource path="res://assets/level_20m.png" type="Texture" id=15]
+[ext_resource path="res://assets/level_10m.png" type="Texture" id=16]
+[ext_resource path="res://assets/level_0m.png" type="Texture" id=17]
+[ext_resource path="res://assets/level_130m.png" type="Texture" id=18]
+[ext_resource path="res://assets/level_140m.png" type="Texture" id=19]
+[ext_resource path="res://assets/level_150m.png" type="Texture" id=20]
+[ext_resource path="res://assets/level_160m.png" type="Texture" id=21]
+[ext_resource path="res://assets/level_170m.png" type="Texture" id=22]
+[ext_resource path="res://assets/level_180m.png" type="Texture" id=23]
+[ext_resource path="res://assets/level_190m.png" type="Texture" id=24]
+[ext_resource path="res://assets/level_200m.png" type="Texture" id=25]
+[ext_resource path="res://Player/Player.tscn" type="PackedScene" id=26]
+[ext_resource path="res://assets/Stage1.ogg" type="AudioStream" id=27]
+[ext_resource path="res://assets/sfx/TimeReduce.ogg" type="AudioStream" id=28]
+[ext_resource path="res://assets/sfx/GameOver.wav" type="AudioStream" id=29]
+[ext_resource path="res://assets/sfx/Clapping.wav" type="AudioStream" id=30]
+[ext_resource path="res://assets/sfx/HurtBall.wav" type="AudioStream" id=31]
+[ext_resource path="res://Items/CheckPoints.tscn" type="PackedScene" id=32]
+[ext_resource path="res://Items/Ramp/Ramp.tscn" type="PackedScene" id=33]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 5126.64, 0.107824 )
@@ -57,7 +59,10 @@ __meta__ = {
 "_edit_group_": true
 }
 
-[node name="Podium" parent="." instance=ExtResource( 3 )]
+[node name="Horse" parent="." instance=ExtResource( 3 )]
+position = Vector2( 113.961, 375.468 )
+
+[node name="Podium" parent="." instance=ExtResource( 4 )]
 position = Vector2( 10040, 378.21 )
 
 [node name="LevelContainer" type="Node2D" parent="."]
@@ -69,109 +74,110 @@ __meta__ = {
 [node name="level_120m" type="Sprite" parent="LevelContainer"]
 position = Vector2( 4060, 435 )
 scale = Vector2( 2, 2 )
-texture = ExtResource( 4 )
+texture = ExtResource( 5 )
 
 [node name="level_110m" type="Sprite" parent="LevelContainer"]
 position = Vector2( 4560, 435 )
 scale = Vector2( 2, 2 )
-texture = ExtResource( 5 )
+texture = ExtResource( 6 )
 
 [node name="level_100m" type="Sprite" parent="LevelContainer"]
 position = Vector2( 5060, 435 )
 scale = Vector2( 2, 2 )
-texture = ExtResource( 6 )
+texture = ExtResource( 7 )
 
 [node name="level_90m" type="Sprite" parent="LevelContainer"]
 position = Vector2( 5560, 434.337 )
 scale = Vector2( 2, 2 )
-texture = ExtResource( 7 )
+texture = ExtResource( 8 )
 
 [node name="level_80m" type="Sprite" parent="LevelContainer"]
 position = Vector2( 6060, 435 )
 scale = Vector2( 2, 2 )
-texture = ExtResource( 8 )
+texture = ExtResource( 9 )
 
 [node name="level_70m" type="Sprite" parent="LevelContainer"]
 position = Vector2( 6560, 435 )
 scale = Vector2( 2, 2 )
-texture = ExtResource( 9 )
+texture = ExtResource( 10 )
 
 [node name="level_60m" type="Sprite" parent="LevelContainer"]
 position = Vector2( 7060, 435 )
 scale = Vector2( 2, 2 )
-texture = ExtResource( 10 )
+texture = ExtResource( 11 )
 
 [node name="level_50m" type="Sprite" parent="LevelContainer"]
 position = Vector2( 7560, 435 )
 scale = Vector2( 2, 2 )
-texture = ExtResource( 11 )
+texture = ExtResource( 12 )
 
 [node name="level_40m" type="Sprite" parent="LevelContainer"]
 position = Vector2( 8060, 435 )
 scale = Vector2( 2, 2 )
-texture = ExtResource( 12 )
+texture = ExtResource( 13 )
 
 [node name="level_30m" type="Sprite" parent="LevelContainer"]
 position = Vector2( 8560, 435 )
 scale = Vector2( 2, 2 )
-texture = ExtResource( 13 )
+texture = ExtResource( 14 )
 
 [node name="level_20m" type="Sprite" parent="LevelContainer"]
 position = Vector2( 9060, 435 )
 scale = Vector2( 2, 2 )
-texture = ExtResource( 14 )
+texture = ExtResource( 15 )
 
 [node name="level_10m" type="Sprite" parent="LevelContainer"]
 position = Vector2( 9560, 435 )
 scale = Vector2( 2, 2 )
-texture = ExtResource( 15 )
+texture = ExtResource( 16 )
 
 [node name="level_00m" type="Sprite" parent="LevelContainer"]
 position = Vector2( 10060, 435 )
 scale = Vector2( 2, 2 )
-texture = ExtResource( 16 )
+texture = ExtResource( 17 )
 
 [node name="level_130m" type="Sprite" parent="LevelContainer"]
 position = Vector2( 3560, 435 )
 scale = Vector2( 2, 2 )
-texture = ExtResource( 17 )
+texture = ExtResource( 18 )
 
 [node name="level_140m" type="Sprite" parent="LevelContainer"]
 position = Vector2( 3060, 435 )
 scale = Vector2( 2, 2 )
-texture = ExtResource( 18 )
+texture = ExtResource( 19 )
 
 [node name="level_150m" type="Sprite" parent="LevelContainer"]
 position = Vector2( 2560, 435 )
 scale = Vector2( 2, 2 )
-texture = ExtResource( 19 )
+texture = ExtResource( 20 )
 
 [node name="level_160m" type="Sprite" parent="LevelContainer"]
 position = Vector2( 2060, 435 )
 scale = Vector2( 2, 2 )
-texture = ExtResource( 20 )
+texture = ExtResource( 21 )
 
 [node name="level_170m" type="Sprite" parent="LevelContainer"]
 position = Vector2( 1560, 435 )
 scale = Vector2( 2, 2 )
-texture = ExtResource( 21 )
+texture = ExtResource( 22 )
 
 [node name="level_180m" type="Sprite" parent="LevelContainer"]
 position = Vector2( 1060, 435 )
 scale = Vector2( 2, 2 )
-texture = ExtResource( 22 )
+texture = ExtResource( 23 )
 
 [node name="level_190m" type="Sprite" parent="LevelContainer"]
 position = Vector2( 560, 434.659 )
 scale = Vector2( 2, 2 )
-texture = ExtResource( 23 )
+texture = ExtResource( 24 )
 
 [node name="level_200m" type="Sprite" parent="LevelContainer"]
 position = Vector2( 60, 435 )
 scale = Vector2( 2, 2 )
-texture = ExtResource( 24 )
+texture = ExtResource( 25 )
 
 [node name="Floor" type="Area2D" parent="."]
+editor/display_folded = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Floor"]
 position = Vector2( 5079.5, 414.334 )
@@ -180,7 +186,8 @@ shape = SubResource( 1 )
 
 [node name="BallContainer" type="Node2D" parent="."]
 
-[node name="Player" parent="." instance=ExtResource( 25 )]
+[node name="Player" parent="." instance=ExtResource( 26 )]
+editor/display_folded = true
 position = Vector2( 107, 340 )
 scale = Vector2( 0.998518, 0.804541 )
 speed = 110
@@ -217,23 +224,22 @@ __meta__ = {
 shape = SubResource( 2 )
 
 [node name="Sounds" type="Node" parent="."]
-editor/display_folded = true
 
 [node name="LevelSound" type="AudioStreamPlayer" parent="Sounds"]
-stream = ExtResource( 26 )
+stream = ExtResource( 27 )
 autoplay = true
 
 [node name="ReduceTimeSound" type="AudioStreamPlayer" parent="Sounds"]
-stream = ExtResource( 27 )
-
-[node name="GameOverSound" type="AudioStreamPlayer" parent="Sounds"]
 stream = ExtResource( 28 )
 
-[node name="WinSound" type="AudioStreamPlayer" parent="Sounds"]
+[node name="GameOverSound" type="AudioStreamPlayer" parent="Sounds"]
 stream = ExtResource( 29 )
 
-[node name="HurtSound" type="AudioStreamPlayer" parent="Sounds"]
+[node name="WinSound" type="AudioStreamPlayer" parent="Sounds"]
 stream = ExtResource( 30 )
+
+[node name="HurtSound" type="AudioStreamPlayer" parent="Sounds"]
+stream = ExtResource( 31 )
 
 [node name="GoalSensor" type="Area2D" parent="."]
 editor/display_folded = true
@@ -247,10 +253,41 @@ __meta__ = {
 scale = Vector2( 0.44, 4.6 )
 shape = SubResource( 3 )
 
-[node name="CheckPoints" parent="." instance=ExtResource( 31 )]
+[node name="CheckPoints" parent="." instance=ExtResource( 32 )]
+editor/display_folded = true
+
+[node name="chkpt_190m" parent="CheckPoints" index="0"]
+position = Vector2( 640, 340 )
+
+[node name="chkpt_180m" parent="CheckPoints" index="1"]
+position = Vector2( 1140, 340 )
+
+[node name="chkpt_170m" parent="CheckPoints" index="2"]
+position = Vector2( 1640, 340 )
+
+[node name="chkpt_160m" parent="CheckPoints" index="3"]
+position = Vector2( 2140, 340 )
+
+[node name="chkpt_150m" parent="CheckPoints" index="4"]
+position = Vector2( 2640, 340 )
+
+[node name="chkpt_140m" parent="CheckPoints" index="5"]
+position = Vector2( 3140, 340 )
+
+[node name="chkpt_130m" parent="CheckPoints" index="6"]
+position = Vector2( 3640, 340 )
+
+[node name="chkpt_120m" parent="CheckPoints" index="7"]
+position = Vector2( 4140, 340 )
+
+[node name="chkpt_110m" parent="CheckPoints" index="8"]
+position = Vector2( 4640, 340 )
+
+[node name="chkpt_100m" parent="CheckPoints" index="9"]
+position = Vector2( 5140, 340 )
 
 [node name="chkpt_90m" parent="CheckPoints" index="10"]
-position = Vector2( 640, 340 )
+position = Vector2( 5640, 340 )
 
 [node name="CheckPoint70" type="Area2D" parent="CheckPoints/chkpt_90m" index="0"]
 editor/display_folded = true
@@ -263,7 +300,7 @@ position = Vector2( 0, -75 )
 shape = SubResource( 4 )
 
 [node name="chkpt_80m" parent="CheckPoints" index="11"]
-position = Vector2( 1140, 340 )
+position = Vector2( 6140, 340 )
 
 [node name="CheckPoint60" type="Area2D" parent="CheckPoints/chkpt_80m" index="0"]
 editor/display_folded = true
@@ -276,7 +313,7 @@ position = Vector2( 0, -75 )
 shape = SubResource( 4 )
 
 [node name="chkpt_70m" parent="CheckPoints" index="12"]
-position = Vector2( 1640, 340 )
+position = Vector2( 6640, 340 )
 
 [node name="CheckPoint50" type="Area2D" parent="CheckPoints/chkpt_70m" index="0"]
 editor/display_folded = true
@@ -289,7 +326,7 @@ position = Vector2( 0, -75 )
 shape = SubResource( 4 )
 
 [node name="chkpt_60m" parent="CheckPoints" index="13"]
-position = Vector2( 2140, 340 )
+position = Vector2( 7140, 340 )
 
 [node name="CheckPoint40" type="Area2D" parent="CheckPoints/chkpt_60m" index="0"]
 editor/display_folded = true
@@ -302,7 +339,7 @@ position = Vector2( 0, -75 )
 shape = SubResource( 4 )
 
 [node name="chkpt_50m" parent="CheckPoints" index="14"]
-position = Vector2( 2640, 340 )
+position = Vector2( 7640, 340 )
 
 [node name="CheckPoint30" type="Area2D" parent="CheckPoints/chkpt_50m" index="0"]
 editor/display_folded = true
@@ -315,7 +352,7 @@ position = Vector2( 0, -75 )
 shape = SubResource( 4 )
 
 [node name="chkpt_40m" parent="CheckPoints" index="15"]
-position = Vector2( 3060, 340 )
+position = Vector2( 8140, 340 )
 
 [node name="CheckPoint20" type="Area2D" parent="CheckPoints/chkpt_40m" index="0"]
 editor/display_folded = true
@@ -328,10 +365,318 @@ position = Vector2( 0, -75 )
 shape = SubResource( 4 )
 
 [node name="chkpt_30m" parent="CheckPoints" index="16"]
-position = Vector2( 3640, 340 )
+position = Vector2( 8640, 340 )
 
 [node name="chkpt_20m" parent="CheckPoints" index="17"]
-position = Vector2( 4140, 340 )
+position = Vector2( 9140, 340 )
+
+[node name="Bounce" type="Node2D" parent="."]
+editor/display_folded = true
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="190m" type="Node2D" parent="Bounce"]
+editor/display_folded = true
+position = Vector2( 707, 334.497 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Ramp" parent="Bounce/190m" instance=ExtResource( 33 )]
+editor/display_folded = true
+position = Vector2( 40, -20 )
+ramp_type = "Small"
+
+[node name="Ramp2" parent="Bounce/190m" instance=ExtResource( 33 )]
+editor/display_folded = true
+position = Vector2( 187.494, -35 )
+
+[node name="Area2D" parent="Bounce/190m/Ramp2" index="2"]
+editor/display_folded = true
+
+[node name="180m" type="Node2D" parent="Bounce"]
+editor/display_folded = true
+position = Vector2( 1217, 334.497 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Ramp" parent="Bounce/180m" instance=ExtResource( 33 )]
+editor/display_folded = true
+position = Vector2( 40, -35 )
+ramp_type = "Small"
+
+[node name="Ramp2" parent="Bounce/180m" instance=ExtResource( 33 )]
+editor/display_folded = true
+position = Vector2( 187.494, -20 )
+ramp_type = "Small"
+
+[node name="AnimatedSprite" parent="Bounce/180m/Ramp2" index="0"]
+animation = "small_bounce"
+
+[node name="Area2D" parent="Bounce/180m/Ramp2" index="2"]
+editor/display_folded = true
+
+[node name="170m" type="Node2D" parent="Bounce"]
+editor/display_folded = true
+position = Vector2( 1717, 334.497 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Ramp" parent="Bounce/170m" instance=ExtResource( 33 )]
+editor/display_folded = true
+position = Vector2( 40, -35 )
+ramp_type = "Small"
+
+[node name="Ramp2" parent="Bounce/170m" instance=ExtResource( 33 )]
+editor/display_folded = true
+position = Vector2( 187.494, -20 )
+
+[node name="160m" type="Node2D" parent="Bounce"]
+editor/display_folded = true
+position = Vector2( 2217, 334.497 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Ramp" parent="Bounce/160m" instance=ExtResource( 33 )]
+editor/display_folded = true
+position = Vector2( 40, -20 )
+
+[node name="Ramp2" parent="Bounce/160m" instance=ExtResource( 33 )]
+editor/display_folded = true
+position = Vector2( 187.494, -20 )
+ramp_type = "Small"
+
+[node name="150m" type="Node2D" parent="Bounce"]
+editor/display_folded = true
+position = Vector2( 2717, 334.497 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Ramp" parent="Bounce/150m" instance=ExtResource( 33 )]
+editor/display_folded = true
+position = Vector2( 40, -20 )
+
+[node name="Ramp2" parent="Bounce/150m" instance=ExtResource( 33 )]
+editor/display_folded = true
+position = Vector2( 187.494, -35 )
+ramp_type = "Small"
+
+[node name="140m" type="Node2D" parent="Bounce"]
+editor/display_folded = true
+position = Vector2( 3217, 334.497 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Ramp" parent="Bounce/140m" instance=ExtResource( 33 )]
+editor/display_folded = true
+position = Vector2( 40, -35 )
+ramp_type = "Small"
+
+[node name="Ramp2" parent="Bounce/140m" instance=ExtResource( 33 )]
+editor/display_folded = true
+position = Vector2( 187.494, -20 )
+ramp_type = "Small"
+
+[node name="130m" type="Node2D" parent="Bounce"]
+editor/display_folded = true
+position = Vector2( 3717, 334.497 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Ramp" parent="Bounce/130m" instance=ExtResource( 33 )]
+editor/display_folded = true
+position = Vector2( 40, -35 )
+ramp_type = "Small"
+
+[node name="Ramp2" parent="Bounce/130m" instance=ExtResource( 33 )]
+editor/display_folded = true
+position = Vector2( 187.494, -20 )
+
+[node name="120m" type="Node2D" parent="Bounce"]
+editor/display_folded = true
+position = Vector2( 4217, 334.497 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Ramp" parent="Bounce/120m" instance=ExtResource( 33 )]
+editor/display_folded = true
+position = Vector2( 40, -20 )
+
+[node name="Ramp2" parent="Bounce/120m" instance=ExtResource( 33 )]
+editor/display_folded = true
+position = Vector2( 187.494, -20 )
+ramp_type = "Small"
+
+[node name="110m" type="Node2D" parent="Bounce"]
+editor/display_folded = true
+position = Vector2( 4717, 334.497 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Ramp" parent="Bounce/110m" instance=ExtResource( 33 )]
+editor/display_folded = true
+position = Vector2( 40, -20 )
+ramp_type = "Small"
+
+[node name="Ramp2" parent="Bounce/110m" instance=ExtResource( 33 )]
+editor/display_folded = true
+position = Vector2( 187.494, -35 )
+
+[node name="100m" type="Node2D" parent="Bounce"]
+editor/display_folded = true
+position = Vector2( 5217, 334.497 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Ramp" parent="Bounce/100m" instance=ExtResource( 33 )]
+editor/display_folded = true
+position = Vector2( 40, -35 )
+ramp_type = "Small"
+
+[node name="Ramp2" parent="Bounce/100m" instance=ExtResource( 33 )]
+editor/display_folded = true
+position = Vector2( 187.494, -20 )
+ramp_type = "Small"
+
+[node name="90m" type="Node2D" parent="Bounce"]
+editor/display_folded = true
+position = Vector2( 5717, 334.497 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Ramp" parent="Bounce/90m" instance=ExtResource( 33 )]
+editor/display_folded = true
+position = Vector2( 40, -35 )
+ramp_type = "Small"
+
+[node name="Ramp2" parent="Bounce/90m" instance=ExtResource( 33 )]
+editor/display_folded = true
+position = Vector2( 187.494, -20 )
+
+[node name="80m" type="Node2D" parent="Bounce"]
+editor/display_folded = true
+position = Vector2( 6217, 334.497 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Ramp" parent="Bounce/80m" instance=ExtResource( 33 )]
+editor/display_folded = true
+position = Vector2( 40, -20 )
+
+[node name="Ramp2" parent="Bounce/80m" instance=ExtResource( 33 )]
+editor/display_folded = true
+position = Vector2( 187.494, -20 )
+ramp_type = "Small"
+
+[node name="70m" type="Node2D" parent="Bounce"]
+editor/display_folded = true
+position = Vector2( 6717, 334.497 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Ramp" parent="Bounce/70m" instance=ExtResource( 33 )]
+editor/display_folded = true
+position = Vector2( 40, -20 )
+ramp_type = "Small"
+
+[node name="Ramp2" parent="Bounce/70m" instance=ExtResource( 33 )]
+editor/display_folded = true
+position = Vector2( 187.494, -35 )
+
+[node name="60m" type="Node2D" parent="Bounce"]
+editor/display_folded = true
+position = Vector2( 7217, 334.497 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Ramp" parent="Bounce/60m" instance=ExtResource( 33 )]
+editor/display_folded = true
+position = Vector2( 40, -35 )
+ramp_type = "Small"
+
+[node name="Ramp2" parent="Bounce/60m" instance=ExtResource( 33 )]
+editor/display_folded = true
+position = Vector2( 187.494, -20 )
+ramp_type = "Small"
+
+[node name="50m" type="Node2D" parent="Bounce"]
+editor/display_folded = true
+position = Vector2( 7717, 334.497 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Ramp" parent="Bounce/50m" instance=ExtResource( 33 )]
+editor/display_folded = true
+position = Vector2( 40, -35 )
+ramp_type = "Small"
+
+[node name="Ramp2" parent="Bounce/50m" instance=ExtResource( 33 )]
+editor/display_folded = true
+position = Vector2( 187.494, -20 )
+
+[node name="40m" type="Node2D" parent="Bounce"]
+editor/display_folded = true
+position = Vector2( 8217, 334.497 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Ramp" parent="Bounce/40m" instance=ExtResource( 33 )]
+editor/display_folded = true
+position = Vector2( 40, -20 )
+
+[node name="Ramp2" parent="Bounce/40m" instance=ExtResource( 33 )]
+editor/display_folded = true
+position = Vector2( 187.494, -20 )
+ramp_type = "Small"
+
+[node name="30m" type="Node2D" parent="Bounce"]
+editor/display_folded = true
+position = Vector2( 8717, 334.497 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Ramp" parent="Bounce/30m" instance=ExtResource( 33 )]
+editor/display_folded = true
+position = Vector2( 40, -20 )
+ramp_type = "Small"
+
+[node name="Ramp2" parent="Bounce/30m" instance=ExtResource( 33 )]
+editor/display_folded = true
+position = Vector2( 187.494, -35 )
+
+[node name="20m" type="Node2D" parent="Bounce"]
+editor/display_folded = true
+position = Vector2( 9217, 334.497 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Ramp" parent="Bounce/20m" instance=ExtResource( 33 )]
+editor/display_folded = true
+position = Vector2( 40, -35 )
+ramp_type = "Small"
+
+[node name="Ramp2" parent="Bounce/20m" instance=ExtResource( 33 )]
+editor/display_folded = true
+position = Vector2( 187.494, -20 )
+ramp_type = "Small"
 [connection signal="body_entered" from="Floor" to="." method="_on_Floor_body_entered"]
 [connection signal="jumped" from="Player" to="." method="_on_Player_jumped"]
 [connection signal="lose" from="Player" to="." method="_on_Player_lose"]
@@ -351,3 +696,7 @@ position = Vector2( 4140, 340 )
 [editable path="Player"]
 
 [editable path="CheckPoints"]
+
+[editable path="Bounce/190m/Ramp2"]
+
+[editable path="Bounce/180m/Ramp2"]
