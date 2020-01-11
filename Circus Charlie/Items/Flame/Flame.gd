@@ -6,29 +6,23 @@ class_name FlameRing
 signal hurt
 signal appear
 signal disappear
+signal bonus
 
 var motion = Vector2.ZERO
-var can_move_bonus = false
 
 
 func _ready():
-	$Control/Label.visible = false
 	if $TimerMoveFlame.connect("timeout", self, "_on_TimerMoveFlame_timeout") != OK:
 		print("Error connecting timeout of MoveFlame")
-	if $TimerKillBonus.connect("timeout", self, "_on_TimerKillBonus_timeout") != OK:
-		print("Error connecting timeout of KillBonus")
 
 
 func _process(delta):
 	position += motion * delta
-	if can_move_bonus:
-		$Control/Label.rect_position.x += 2
 
 
 func bonus():
+	emit_signal("bonus", 500)
 	global.give_points(1000)
-	$Control/Label.visible = true
-	can_move_bonus = true
 	$BonusSound.play()
 	$SpriteBonus.visible = false
 	$TimerKillBonus.start()
@@ -57,10 +51,6 @@ func start(type):
 func stop():
 	$AnimatedSpriteLeft.stop()
 	$AnimatedSpriteRight.stop()
-
-
-func _on_TimerKillBonus_timeout():
-	$Control/Label.visible = false
 
 
 # warning-ignore:unused_argument

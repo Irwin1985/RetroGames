@@ -1,17 +1,19 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://Levels/Level1.gd" type="Script" id=1]
 [ext_resource path="res://Items/Flame/Flame.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Items/Boiler/Boiler.tscn" type="PackedScene" id=3]
 [ext_resource path="res://assets/level1.png" type="Texture" id=4]
-[ext_resource path="res://Items/Podium/Podium.tscn" type="PackedScene" id=5]
-[ext_resource path="res://Meters.tscn" type="PackedScene" id=6]
-[ext_resource path="res://Lion/Lion.tscn" type="PackedScene" id=7]
-[ext_resource path="res://assets/Stage1.ogg" type="AudioStream" id=8]
-[ext_resource path="res://assets/sfx/GameOver.wav" type="AudioStream" id=9]
-[ext_resource path="res://assets/sfx/Clapping.wav" type="AudioStream" id=10]
-[ext_resource path="res://assets/sfx/TimeReduce.ogg" type="AudioStream" id=11]
-[ext_resource path="res://Items/CheckPoints.tscn" type="PackedScene" id=12]
+[ext_resource path="res://assets/background.png" type="Texture" id=5]
+[ext_resource path="res://assets/audience2.png" type="Texture" id=6]
+[ext_resource path="res://Items/Podium/Podium.tscn" type="PackedScene" id=7]
+[ext_resource path="res://Meters.tscn" type="PackedScene" id=8]
+[ext_resource path="res://Lion/Lion.tscn" type="PackedScene" id=9]
+[ext_resource path="res://assets/Stage1.ogg" type="AudioStream" id=10]
+[ext_resource path="res://assets/sfx/GameOver.wav" type="AudioStream" id=11]
+[ext_resource path="res://assets/sfx/Clapping.wav" type="AudioStream" id=12]
+[ext_resource path="res://assets/sfx/TimeReduce.ogg" type="AudioStream" id=13]
+[ext_resource path="res://Items/CheckPoints.tscn" type="PackedScene" id=14]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 2650, 0.356628 )
@@ -25,6 +27,8 @@ single_flame = ExtResource( 2 )
 boiler = ExtResource( 3 )
 
 [node name="Control" type="Control" parent="."]
+editor/display_folded = true
+visible = false
 margin_right = 40.0
 margin_bottom = 40.0
 
@@ -32,6 +36,33 @@ margin_bottom = 40.0
 margin_right = 5247.0
 margin_bottom = 460.0
 texture = ExtResource( 4 )
+stretch_mode = 2
+
+[node name="Background" type="TextureRect" parent="."]
+margin_top = 12.0
+margin_right = 2700.0
+margin_bottom = 236.0
+rect_scale = Vector2( 2, 2 )
+texture = ExtResource( 5 )
+stretch_mode = 2
+
+[node name="Celebrating" type="Node2D" parent="Background"]
+visible = false
+
+[node name="Audience1" type="TextureRect" parent="Background/Celebrating"]
+margin_left = 2160.0
+margin_top = 56.0
+margin_right = 2384.0
+margin_bottom = 72.0
+texture = ExtResource( 6 )
+stretch_mode = 2
+
+[node name="Audience2" type="TextureRect" parent="Background/Celebrating"]
+margin_left = 2416.0
+margin_top = 56.0
+margin_right = 2640.0
+margin_bottom = 72.0
+texture = ExtResource( 6 )
 stretch_mode = 2
 
 [node name="Floor" type="StaticBody2D" parent="."]
@@ -63,10 +94,10 @@ __meta__ = {
 
 [node name="Items" type="Node2D" parent="."]
 
-[node name="Podium" parent="Items" instance=ExtResource( 5 )]
+[node name="Podium" parent="Items" instance=ExtResource( 7 )]
 position = Vector2( 5107, 379 )
 
-[node name="Meters" parent="Items" instance=ExtResource( 6 )]
+[node name="Meters" parent="Items" instance=ExtResource( 8 )]
 editor/display_folded = true
 
 [node name="1" parent="Items/Meters" index="1"]
@@ -101,7 +132,7 @@ position = Vector2( 5000, 0 )
 
 [node name="FlameContainer" type="Node2D" parent="."]
 
-[node name="Lion" parent="." instance=ExtResource( 7 )]
+[node name="Lion" parent="." instance=ExtResource( 9 )]
 editor/display_folded = true
 position = Vector2( 100, 394.147 )
 
@@ -118,19 +149,20 @@ limit_bottom = 460
 editor/display_folded = true
 
 [node name="LevelSound" type="AudioStreamPlayer" parent="Sounds"]
-stream = ExtResource( 8 )
+stream = ExtResource( 10 )
 autoplay = true
 
 [node name="GameOverSound" type="AudioStreamPlayer" parent="Sounds"]
-stream = ExtResource( 9 )
-
-[node name="WinSound" type="AudioStreamPlayer" parent="Sounds"]
-stream = ExtResource( 10 )
-
-[node name="ReduceTimeSound" type="AudioStreamPlayer" parent="Sounds"]
 stream = ExtResource( 11 )
 
-[node name="CheckPoints" parent="." instance=ExtResource( 12 )]
+[node name="WinSound" type="AudioStreamPlayer" parent="Sounds"]
+stream = ExtResource( 12 )
+
+[node name="ReduceTimeSound" type="AudioStreamPlayer" parent="Sounds"]
+stream = ExtResource( 13 )
+
+[node name="CheckPoints" parent="." instance=ExtResource( 14 )]
+editor/display_folded = true
 
 [node name="chkpt_90m" parent="CheckPoints" index="10"]
 position = Vector2( 640, 394.147 )

@@ -86,6 +86,27 @@ func update_stage():
 	$Stage/LabelStage.text = "%02d" % (global.current_level + 1)
 
 
+func show_bonus_points(pos : Vector2, points : int)->void:
+	var label_points = $LabelPoints.duplicate()
+	label_points.text = str(points)
+	label_points.rect_position = pos - (label_points.rect_size / 2)
+	label_points.visible = true
+	add_child(label_points)
+	yield(get_tree().create_timer(0.5),"timeout")
+	label_points.call_deferred("queue_free")
+
+
+func _on_game_label_timeout():
+	time_left -= time_delta
+	update_timer()
+	if time_left > (1000 - time_delta) and time_left <= 1000:
+		emit_signal("little_time_left")
+	elif time_left <= 0:
+		time_left = 0
+		game_timer.stop()
+		emit_signal("out_of_time")
+
+
 func give_bonus_start():
 	stop_time()
 	bonus_timer.start()
@@ -97,6 +118,7 @@ func bonus_giving_play():
 
 func is_giving_bonus():
 	return not bonus_timer.is_stopped()
+
 
 func _on_bonus_timeout():
 	add_time_to_score(10)
@@ -118,14 +140,3 @@ func add_time_to_score(value : int)->void:
 
 func _on_timer_label_timeout():
 	$PlayerScore/LabelPlayer.visible = !$PlayerScore/LabelPlayer.visible
-
-
-func _on_game_label_timeout():
-	time_left -= time_delta
-	update_timer()
-	if time_left > (1000 - time_delta) and time_left <= 1000:
-		emit_signal("little_time_left")
-	elif time_left <= 0:
-		time_left = 0
-		game_timer.stop()
-		emit_signal("out_of_time")
