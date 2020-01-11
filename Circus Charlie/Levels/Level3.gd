@@ -8,7 +8,7 @@ const SPAWN_BALL_INTERVAL = 1
 const PLAYER_MINIMAL_DISTANCE = 500
 
 var ball_index = -1
-var ball_pattern = [7, 4, 6, 3, 5, 6, 5, 4, 7, 3, 6, 5, 7, 3, 6]
+var ball_pattern = [6, 4, 6, 3, 5, 6, 3, 4, 6, 3, 6, 5, 6, 3, 6]
 var last_ball_name = ""
 var play_ball_hurt := false
 

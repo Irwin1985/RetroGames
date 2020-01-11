@@ -8,6 +8,7 @@ signal moved
 signal stopped
 signal jumped
 signal hurt_proceed
+signal bonus
 
 export (int) var speed
 export (bool) var can_jump
@@ -19,6 +20,9 @@ export (bool) var process_hurt = false
 export (String, "none", "Stage 1:Lion", "Stage 2:Monkey", "Stage 3:Balls", "Stage 4:Horse", "Stage 5:Swinging") var character_behaviour
 export (PackedScene) var Horse
 onready var fall_timer : Timer = Timer.new()
+onready var hide_bonus_timer : Timer = Timer.new()
+onready var bounce_life_timer : Timer = Timer.new()
+var bounced_total = 0
 var motion = Vector2()
 
 var hanging : bool = false
@@ -42,10 +46,8 @@ func _ready():
 		BonusLabel.visible = false
 	there_is_sound = get_node("Sounds") != null
 	set_sfx_volume()
-	if fall_timer.connect("timeout", self, "fall_down") != OK:
-		print("Error connecting timeout of fall_timer")
-	fall_timer.wait_time = 0.02
-	add_child(fall_timer)
+	set_timers()
+
 	if !can_jump:
 		set_physics_process(false)
 
@@ -79,9 +81,13 @@ func _physics_process(delta):
 			if Horse != null:
 				Horse.get_node("AnimatedSprite").speed_scale = 1
 			if Input.is_action_pressed("game_left"):
-				motion.x = speed - (60 * speed) / 100
+				motion.x = speed - (40 * speed) / 100
 				if Horse != null:
 					Horse.get_node("AnimatedSprite").speed_scale = 0.5
+			elif Input.is_action_pressed("game_right"):
+				motion.x = speed + (30 * speed) / 100
+				if Horse != null:
+					Horse.get_node("AnimatedSprite").speed_scale = 1.5
 
 		if is_on_floor():
 			jumping = false
@@ -99,7 +105,7 @@ func _physics_process(delta):
 					motion.x = speed
 				emit_signal("jumped", motion.x)
 			if character_behaviour == "Stage 4:Horse":
-				animate("ride")
+				$Charlie.animation = "ride"
 			if bonus_earned:
 				bonus_earned = false
 				BonusLabel.visible = true
@@ -117,6 +123,23 @@ func set_sfx_volume():
 	if there_is_sound:
 		for audio in $Sounds.get_children():
 			audio.volume_db = global.STANDARD_VOLUME
+
+
+func set_timers():
+	if fall_timer.connect("timeout", self, "fall_down") != OK:
+		print("Error connecting timeout of fall_timer")
+	fall_timer.wait_time = 0.02
+	add_child(fall_timer)
+	
+	# Bonus Timer (stage 4)
+	hide_bonus_timer.connect("timeout", self, "_on_hide_bonus_timer_timeout")
+	hide_bonus_timer.wait_time = 0.65
+	add_child(hide_bonus_timer)
+
+	# Bonus lifetime (stage 4)
+	bounce_life_timer.connect("timeout", self, "_on_bounce_life_timer_timeout")
+	bounce_life_timer.wait_time = 1
+	add_child(bounce_life_timer)
 
 
 func jump()->void:
@@ -200,6 +223,29 @@ func hit_and_fall()->void:
 func fall_down()->void:
 	if not lost:
 		position.y += 4
+
+
+func show_BonusLabel(new_val):
+	if bounce_life_timer.time_left > 0.00:
+		bounce_life_timer.wait_time = 1
+		bounced_total += new_val
+	else:
+		bounced_total = new_val
+	emit_signal("bonus", bounced_total)
+	BonusLabel.text = str(bounced_total)
+	BonusLabel.rect_position.y = 25
+	BonusLabel.show()
+	hide_bonus_timer.start()
+	bounce_life_timer.start()
+
+
+func _on_hide_bonus_timer_timeout():
+	BonusLabel.hide()
+
+
+func _on_bounce_life_timer_timeout():
+	bounced_total = 0
+
 
 func hurt()->void:
 	if not won and not lost:

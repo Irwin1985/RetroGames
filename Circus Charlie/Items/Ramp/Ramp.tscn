@@ -1,32 +1,20 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://Items/Ramp/Ramp.gd" type="Script" id=1]
-[ext_resource path="res://assets/small_ramp_02.png" type="Texture" id=2]
-[ext_resource path="res://assets/small_ramp_01.png" type="Texture" id=3]
-[ext_resource path="res://assets/ramp_02.png" type="Texture" id=4]
-[ext_resource path="res://assets/ramp_01.png" type="Texture" id=5]
-[ext_resource path="res://assets/sfx/spring.wav" type="AudioStream" id=6]
+[ext_resource path="res://assets/ramp_02.png" type="Texture" id=2]
+[ext_resource path="res://assets/ramp_01.png" type="Texture" id=3]
+[ext_resource path="res://assets/sfx/spring.wav" type="AudioStream" id=4]
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
 "frames": [ ExtResource( 2 ), ExtResource( 3 ), ExtResource( 2 ) ],
 "loop": false,
-"name": "small_bounce",
-"speed": 8.5
-}, {
-"frames": [ ExtResource( 4 ), ExtResource( 5 ), ExtResource( 4 ) ],
-"loop": false,
-"name": "big_bounce",
+"name": "bounce",
 "speed": 8.5
 }, {
 "frames": [ ExtResource( 2 ) ],
 "loop": true,
-"name": "small_idle",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 4 ) ],
-"loop": true,
-"name": "big_idle",
+"name": "idle",
 "speed": 5.0
 } ]
 
@@ -37,12 +25,16 @@ extents = Vector2( 48, 14 )
 extents = Vector2( 48, 2 )
 
 [node name="Ramp" type="StaticBody2D"]
+position = Vector2( 131.431, 58.694 )
 script = ExtResource( 1 )
+__meta__ = {
+"_edit_group_": true
+}
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 scale = Vector2( 2, 2 )
 frames = SubResource( 1 )
-animation = "small_idle"
+animation = "idle"
 playing = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -58,6 +50,6 @@ __meta__ = {
 shape = SubResource( 3 )
 
 [node name="RampSound" type="AudioStreamPlayer" parent="."]
-stream = ExtResource( 6 )
+stream = ExtResource( 4 )
 [connection signal="body_entered" from="Area2D" to="." method="_on_Area2D_body_entered"]
 [connection signal="body_exited" from="Area2D" to="." method="_on_Area2D_body_exited"]

@@ -131,7 +131,6 @@ position = Vector2( 4, -90 )
 position = Vector2( 4, -95 )
 
 [node name="Player" parent="." instance=ExtResource( 13 )]
-editor/display_folded = true
 position = Vector2( 140, 224.5 )
 scale = Vector2( 0.998518, 0.804541 )
 speed = 75
