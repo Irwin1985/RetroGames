@@ -1,13 +1,14 @@
 extends "res://Levels/level_base.gd"
+
 var track_horse_position := true
 var last_jump := false
 
 func _ready():
 	$Player.Horse = $Horse
-#	Test only = delete when test the whole game
-	global.play_first_sound = true
-	global.current_level = 3 # delete this line when compile the game
-#	Test only
+	if global.is_debug_mode:
+		global.play_first_sound = true
+		global.current_level = 3
+
 	if global.current_check_point_path != "":
 		var CheckPointNode: Position2D = get_node(global.current_check_point_path)
 		if CheckPointNode != null:
@@ -35,7 +36,7 @@ func _on_Player_bonus(bonus):
 
 
 func _on_Floor_body_entered(body):
-	if body.name == PLAYER_NAME:
+	if body.name == global.PLAYER_NAME:
 		game_over()
 		$Player/Sounds/FallSound.stop()
 		$Player/Sounds/HurtSound.play()
@@ -65,11 +66,11 @@ func _on_GameOverSound_finished():
 
 
 func _on_WinSound_finished():
-	WinSound_finished()
+	WinSound_finished($Player)
 
 
 func _on_GoalSensor_body_entered(body):
-	if body.name == PLAYER_NAME:
+	if body.name == global.PLAYER_NAME:
 		last_jump = true
 
 
@@ -84,12 +85,6 @@ func _on_Podium_player_detected():
 
 
 func _on_PlayerPodiumRule_body_entered(body):
-	if body.name == PLAYER_NAME:
+	if body.name == global.PLAYER_NAME:
 		$Podium/CollisionShape2D.queue_free()
 		$Podium/PodiumTop/CollisionShape2D.queue_free()
-
-
-
-
-
-

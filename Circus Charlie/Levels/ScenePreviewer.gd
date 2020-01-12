@@ -7,7 +7,7 @@ func _ready():
 		global.play_first_sound = true
 		$StageSound.play()
 
-	add_child(global.get_hud(false))
+	add_child(global.get_HudInstance(false))
 	
 	if !global.is_game_over:
 		$StageCaption/StageLabel.text = "STAGE 0" + str(global.current_level + 1)
@@ -21,4 +21,3 @@ func _ready():
 		yield(get_tree().create_timer(4), "timeout")
 		global.restart_game()
 		get_tree().call_deferred("change_scene", "res://Menu/Menu.tscn")
-

@@ -1,0 +1,22 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://assets/audience2.png" type="Texture" id=1]
+
+[node name="Celebrating" type="Node2D"]
+visible = false
+
+[node name="Audience1" type="TextureRect" parent="."]
+margin_left = 2160.0
+margin_top = 56.0
+margin_right = 2384.0
+margin_bottom = 72.0
+texture = ExtResource( 1 )
+stretch_mode = 2
+
+[node name="Audience2" type="TextureRect" parent="."]
+margin_left = 2416.0
+margin_top = 56.0
+margin_right = 2640.0
+margin_bottom = 72.0
+texture = ExtResource( 1 )
+stretch_mode = 2

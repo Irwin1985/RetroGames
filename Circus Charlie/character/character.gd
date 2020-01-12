@@ -19,18 +19,18 @@ export (bool) var slow_backward = false
 export (bool) var process_hurt = false
 export (String, "none", "Stage 1:Lion", "Stage 2:Monkey", "Stage 3:Balls", "Stage 4:Horse", "Stage 5:Swinging") var character_behaviour
 export (PackedScene) var Horse
-onready var fall_timer : Timer = Timer.new()
-onready var hide_bonus_timer : Timer = Timer.new()
-onready var bounce_life_timer : Timer = Timer.new()
+onready var fall_timer: Timer = Timer.new()
+onready var hide_bonus_timer: Timer = Timer.new()
+onready var bounce_life_timer: Timer = Timer.new()
 var bounced_total = 0
 var motion = Vector2()
 
-var hanging : bool = false
-var jumping : bool = false
-var hit : bool = false
-var lost : bool = false
-var won : bool = false
-var last_swing : Swing = null
+var hanging: bool = false
+var jumping: bool = false
+var hit: bool = false
+var lost: bool = false
+var won: bool = false
+var last_swing: Swing = null
 var sound_played = true
 var current_enemy_name = ""
 var is_hurt = false
@@ -62,7 +62,7 @@ func _physics_process(delta):
 			jump()
 	else:
 		motion.y += gravity * delta * 60
-		if !jumping and character_behaviour != "Stage 4:Horse":
+		if _can_process_inputs():
 			if Input.is_action_pressed("game_right"):
 				motion.x = speed
 				animate("run")
@@ -75,25 +75,15 @@ func _physics_process(delta):
 			else:
 				motion.x = 0
 				animate("idle")
-		elif character_behaviour == "Stage 4:Horse":
-			motion.x = speed
-			if Horse != null:
-				Horse.get_node("AnimatedSprite").speed_scale = 1
-			if Input.is_action_pressed("game_left"):
-				motion.x = speed - (40 * speed) / 100
-				if Horse != null:
-					Horse.get_node("AnimatedSprite").speed_scale = 0.5
-			elif Input.is_action_pressed("game_right"):
-				motion.x = speed + (30 * speed) / 100
-				if Horse != null:
-					Horse.get_node("AnimatedSprite").speed_scale = 1.5
+		else:
+			_process_behaviour()
 
 		if is_on_floor():
 			jumping = false
 			if Input.is_action_just_pressed("game_jump"):
 				motion.y = -jump_power
 				jump()
-				if character_behaviour != "Stage 4:Horse":
+				if _can_process_is_on_floor():
 					if Input.is_action_pressed("game_right"):
 						motion.x = speed
 					elif Input.is_action_pressed("game_left"):
@@ -101,10 +91,9 @@ func _physics_process(delta):
 					else:
 						motion.x = 0
 				else:
-					motion.x = speed
+					_process_is_on_floor_behaviour()
 				emit_signal("jumped", motion.x)
-			if character_behaviour == "Stage 4:Horse":
-				$Charlie.animation = "ride"
+
 			if bonus_earned:
 				bonus_earned = false
 				BonusLabel.visible = true
@@ -117,6 +106,58 @@ func _physics_process(delta):
 			emit_signal("stopped")
 
 		motion = move_and_slide(motion, Vector2.UP)
+
+
+func _process_behaviour():
+	match character_behaviour:
+		"Stage 1:Lion":
+			pass
+		"Stage 2:Monkey":
+			pass
+		"Stage 3:Balls":
+			pass
+		"Stage 4:Horse":
+			if not hit:
+				motion.x = speed
+				if Horse != null:
+					Horse.get_node("AnimatedSprite").speed_scale = 1
+				if Input.is_action_pressed("game_left"):
+					motion.x = speed - (40 * speed) / 100
+					if Horse != null:
+						Horse.get_node("AnimatedSprite").speed_scale = 0.5
+				elif Input.is_action_pressed("game_right"):
+					motion.x = speed + (30 * speed) / 100
+					if Horse != null:
+						Horse.get_node("AnimatedSprite").speed_scale = 1.5
+			else:
+				Horse.move_alone = true
+				$Sounds/FallSound.play()
+		"Stage 5:Swinging":
+			pass
+
+
+func _can_process_inputs():
+	return !jumping and character_behaviour != "Stage 4:Horse"
+
+
+func _can_process_is_on_floor():
+	return character_behaviour != "Stage 4:Horse"
+
+
+func _process_is_on_floor_behaviour():
+	match character_behaviour:
+		"Stage 1:Lion":
+			pass
+		"Stage 2:Monkey":
+			pass
+		"Stage 3:Balls":
+			pass
+		"Stage 4:Horse":
+			motion.x = speed
+			$Charlie.animation = "ride"
+		"Stage 5:Swinging":
+			pass
+
 
 func set_sfx_volume():
 	if there_is_sound:
@@ -141,17 +182,17 @@ func set_timers():
 	add_child(bounce_life_timer)
 
 
-func jump()->void:
+func jump() -> void:
 	jumping = true
 	$Sounds/JumpSound.play()
 	animate("jump")
 
 
-func animate(state : String)->void:
+func animate(state: String) -> void:
 	$AnimationPlayer.play(state)
 
 
-func take_swing(swing : Swing)->void:
+func take_swing(swing: Swing) -> void:
 	if last_swing != null and last_swing != swing:
 		last_swing.enable_bar()
 	hanging = true
@@ -163,7 +204,7 @@ func take_swing(swing : Swing)->void:
 	last_swing = swing
 	
 	
-func bounce_trampoline(bounciness : float = 620)->void:
+func bounce_trampoline(bounciness: float = 620) -> void:
 	if last_swing != null:
 		last_swing.enable_bar()
 		last_swing = null
@@ -175,7 +216,7 @@ func bounce_trampoline(bounciness : float = 620)->void:
 		motion = Vector2(0, -bounciness)
 
 
-func bounce_big_trampoline(trampoline : BigTrampoline, bounciness: float, bounce_in_center : bool = true)->void:
+func bounce_big_trampoline(trampoline: BigTrampoline, bounciness: float, bounce_in_center : bool = true) -> void:
 	jumping = true
 	if Input.is_action_pressed("game_left"):
 		motion = Vector2(-200, -500)
@@ -195,34 +236,45 @@ func bounce_big_trampoline(trampoline : BigTrampoline, bounciness: float, bounce
 		move_local_x(center_vector.x)
 
 
-func stop()->void:
+func stop() -> void:
 	set_physics_process(false)
 	$Charlie.stop()
 	$AnimationPlayer.stop()
 
 
-func hit_and_fall()->void:
+func hit_and_fall() -> void:
 	if not hit:
 		hit = true
 		emit_signal("hit")
-		if character_behaviour != "Stage 3:Balls" and character_behaviour != "Stage 4:Horse":
+		if _can_play_HurtSound():
 			$Sounds/HurtSound.play()
-		if character_behaviour != "Stage 2:Monkey" and character_behaviour != "Stage 3:Balls":
+		if _can_animate_jump():
 			$Charlie.set_animation("jump")
+
 		$Charlie.set_rotation(0)
 		stop()
-		if character_behaviour != "Stage 3:Balls" and character_behaviour != "Stage 4:Horse":
+		if _can_fall_down():
 			yield(get_tree().create_timer(0.8),"timeout")
 			$Sounds/FallSound.play()
 			fall_timer.start()
 		else:
-			if character_behaviour == "Stage 4:Horse":
-				Horse.move_alone = true
-				$Sounds/FallSound.play()
+			_process_behaviour()
 			fall_timer.start()
 
 
-func fall_down()->void:
+func _can_play_HurtSound():
+	return character_behaviour != "Stage 3:Balls" and character_behaviour != "Stage 4:Horse"
+
+
+func _can_animate_jump():
+	return character_behaviour != "Stage 2:Monkey" and character_behaviour != "Stage 3:Balls"
+
+
+func _can_fall_down():
+	return character_behaviour != "Stage 3:Balls" and character_behaviour != "Stage 4:Horse"
+
+
+func fall_down() -> void:
 	if not lost:
 		position.y += 4
 
@@ -252,7 +304,7 @@ func _on_bounce_life_timer_timeout():
 	bounced_total = 0
 
 
-func hurt()->void:
+func hurt() -> void:
 	if not won and not lost:
 		call_deferred("animate","hurt")
 		lose()

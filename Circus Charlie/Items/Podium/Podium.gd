@@ -3,19 +3,16 @@ class_name Podium
 
 signal player_detected
 
-const PLAYER_NAME = "Player"
-const LION_NAME = "Lion"
-
-var player : PhysicsBody2D = null
+var player: PhysicsBody2D = null
 var player_center_timer = Timer.new()
 
 
-func _on_PodiumTop_body_entered(body : PhysicsBody2D)->void:
-	if body.name == PLAYER_NAME or body.name == LION_NAME:
+func _on_PodiumTop_body_entered(body: PhysicsBody2D) -> void:
+	if body.name == global.PLAYER_NAME or body.name == global.LION_NAME:
 		body.win()
 
 
-func player_center(body : PhysicsBody2D)->void:
+func player_center(body: PhysicsBody2D) -> void:
 	player = body
 	var podium_level : Vector2 = position + Vector2.UP * 38
 	podium_level.x = player.get_position().x
@@ -27,7 +24,7 @@ func player_center(body : PhysicsBody2D)->void:
 	player_center_timer.start()
 
 
-func _on_player_center_timeout()->void:
+func _on_player_center_timeout() -> void:
 	var xdelta : float = (get_position() - player.get_position() ).x
 	if abs(xdelta) > 1:
 		var direction : Vector2 = Vector2(xdelta, 0).normalized()
@@ -35,6 +32,7 @@ func _on_player_center_timeout()->void:
 	else:
 		player_center_timer.stop()
 
+
 func _on_PlayerLoseSensor_body_entered(body):
-	if body.name == PLAYER_NAME or body.name == LION_NAME:
+	if body.name == global.PLAYER_NAME or body.name == global.LION_NAME:
 		emit_signal("player_detected")

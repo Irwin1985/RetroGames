@@ -1,11 +1,11 @@
 extends StaticBody2D
 
-const PLAYER_NAME = "Player"
 const STOMP_JUMP = -273
 onready var bounce_timer: Timer = Timer.new()
 onready var PlayerRef: KinematicBody2D = null
 var can_change_player_animation := false
 var player_animation := ""
+
 
 func _ready():
 	bounce_timer.wait_time = 0.2
@@ -20,7 +20,7 @@ func _process(delta):
 
 
 func _on_Area2D_body_entered(body):
-	if body.name == PLAYER_NAME:
+	if body.name == global.PLAYER_NAME:
 		$RampSound.play()
 		$AnimatedSprite.frame = 0
 		$AnimatedSprite.play("bounce")
@@ -33,12 +33,12 @@ func _on_Area2D_body_entered(body):
 
 
 func _on_Area2D_body_exited(body):
-	if body.name == PLAYER_NAME:
+	if body.name == global.PLAYER_NAME:
 		body.get_node("Charlie").animation = "jump"
 
 
 func _on_PlayerHurt_body_entered(body):
-	if body.name == PLAYER_NAME:
+	if body.name == global.PLAYER_NAME:
 		body.hit_and_fall()
 
 
@@ -47,5 +47,5 @@ func _on_bounce_timer_timeout():
 	can_change_player_animation = false
 
 func _on_PlayerDown_body_entered(body):
-	if body.name == PLAYER_NAME:
+	if body.name == global.PLAYER_NAME:
 		body.hit_and_fall()

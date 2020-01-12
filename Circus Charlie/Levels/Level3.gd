@@ -22,10 +22,10 @@ var AnimSprite :AnimatedSprite = null
 func _ready():
 	set_timer_env()
 	setBallInstance($PlayerBall)
-#	Test only = delete when test the whole game
-	global.play_first_sound = true
-	global.current_level = 2 # delete this line when compile the game
-#	Test only
+	if global.is_debug_mode:
+		global.play_first_sound = true
+		global.current_level = 2
+
 	if global.current_check_point_path != "":
 		var CheckPointNode: Position2D = get_node(global.current_check_point_path)
 		if CheckPointNode != null:
@@ -93,7 +93,7 @@ func _on_Player_jumped(motion):
 
 
 func _on_Floor_body_entered(body):
-	if body.name == PLAYER_NAME:
+	if body.name == global.PLAYER_NAME:
 		game_over()
 		if play_ball_hurt:
 			$Sounds/HurtSound.play()
@@ -138,7 +138,7 @@ func _on_Player_lose():
 
 
 func _on_GoalSensor_body_entered(body):
-	if body.name == PLAYER_NAME:
+	if body.name == global.PLAYER_NAME:
 		ball_timer.stop()
 		for ball in $BallContainer.get_children():
 			var offset = ball.position.x - $Player.position.x
@@ -151,7 +151,7 @@ func _on_GameOverSound_finished():
 
 
 func _on_WinSound_finished():
-	WinSound_finished()
+	WinSound_finished($Player)
 
 
 func _on_BallInstance_player_detected(BallInstanceRef : Area2D):
@@ -186,7 +186,7 @@ func _on_BallInstance_area_entered(area):
 			PlayerBall.orientation = -1
 			PlayerBall.speed = 160
 			area.can_move_itself = false
-		else: # Player's ball hits
+		else: # Player's ball causes the hit
 			AnimSprite.speed_scale = 3
 			PlayerBall.can_move_itself = true
 			PlayerBall.orientation = -1

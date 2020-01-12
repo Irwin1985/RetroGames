@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://assets/background.png" type="Texture" id=1]
+[ext_resource path="res://Levels/Celebrating.tscn" type="PackedScene" id=2]
+
+[node name="Background" type="TextureRect"]
+margin_top = 12.0
+margin_right = 2700.0
+margin_bottom = 236.0
+rect_scale = Vector2( 2, 2 )
+texture = ExtResource( 1 )
+stretch_mode = 2
+
+[node name="Celebrating" type="Node2D" parent="." instance=ExtResource( 2 )]
+editor/display_folded = true
+visible = false

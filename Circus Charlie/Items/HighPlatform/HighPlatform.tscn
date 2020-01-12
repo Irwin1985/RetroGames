@@ -4,7 +4,7 @@
 [ext_resource path="res://assets/highplatform.png" type="Texture" id=2]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 50, 5 )
+extents = Vector2( 50, 3.85779 )
 
 [node name="HighPlatform" type="Node2D"]
 position = Vector2( 2400, 316 )

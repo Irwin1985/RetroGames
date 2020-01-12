@@ -121,12 +121,8 @@ texture = ExtResource( 9 )
 [node name="HighPlatform" parent="." instance=ExtResource( 10 )]
 
 [node name="Player" parent="." instance=ExtResource( 11 )]
-editor/display_folded = true
 position = Vector2( 70.3243, 305.911 )
 gravity = 15
-
-[node name="Charlie" parent="Player" index="0"]
-frame = 1
 
 [node name="Camera2D" parent="Player" index="2"]
 offset = Vector2( 90, 0 )

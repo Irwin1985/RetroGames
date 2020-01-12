@@ -1,27 +1,32 @@
-extends Node2D
+extends "res://Levels/level_base.gd"
 
-const total_swings : int = 9
+const TOTAL_SWINGS: int = 9
 
 onready var platform_center_timer = Timer.new()
-onready var audience_timer = Timer.new()
-var hud : GameHUD = null
 
 
 func _ready():
-	randomize()
 	set_player_position()
-	global.can_pause = true
-	add_HUD()
-	var trampolines : PackedScene = preload("res://Items/Trampoline/trampoline.tscn")
-	var swings : PackedScene = preload("res://Items/Swing/swing.tscn")
-	for i in range (total_swings):
+	set_environment()
+	platform_center_timer.connect("timeout", self, "_on_platform_center_timeout")	
+	platform_center_timer.wait_time = 0.02
+	add_child(platform_center_timer)
+	audience_timer.connect("timeout", self, "_on_audience_timeout")	
+	audience_timer.wait_time = 0.05
+	add_child(audience_timer)
+
+
+func set_environment():
+	var Trampolines: PackedScene = preload("res://Items/Trampoline/trampoline.tscn")
+	var Swings: PackedScene = preload("res://Items/Swing/swing.tscn")
+	for i in range (TOTAL_SWINGS):
 		# Add Trampolines
-		if i < total_swings - 1: # Don't add the last one
-			var new_trampoline = trampolines.instance()
+		if i < TOTAL_SWINGS - 1: # Don't add the last one
+			var new_trampoline = Trampolines.instance()
 			new_trampoline.position = Vector2((i + 1) * 256, 396)
 			$EnvironmentObjects.add_child(new_trampoline)
 		# Add Swings
-		var new_swing = swings.instance()
+		var new_swing = Swings.instance()
 		new_swing.position = Vector2(i * 256 + 160, 124)
 		if i == global.check_point * 2:
 			new_swing.set_speed(0.9)
@@ -40,28 +45,11 @@ func _ready():
 		if new_swing.connect("first_grab", self, "_on_swing_first_grab") != OK:
 			print("Error connecting swing's first grab signal")
 		$EnvironmentObjects.add_child(new_swing)
-	platform_center_timer.connect("timeout", self, "_on_platform_center_timeout")	
-	platform_center_timer.wait_time = 0.02
-	add_child(platform_center_timer)
-	audience_timer.connect("timeout", self, "_on_audience_timeout")	
-	audience_timer.wait_time = 0.05
-	add_child(audience_timer)
-
-
-func add_HUD():
-	hud = global.get_hud()
-	if hud.connect("little_time_left", self, "_on_HUD_little_time_left") != OK:
-		print("Error connecting little_time_left")
-	if hud.connect("out_of_time", self, "_on_HUD_out_of_time") != OK:
-		print("Error connecting out_of_time")
-	if hud.connect("bonus_giving_finished", self, "_on_bonus_giving_finished") != OK:
-		print("Error connecting bonus_giving_finished")
-	add_child(hud)
 
 
 func set_player_position():
 	$Player.jumping = true
-	var checkpoint_pos : int = 0
+	var checkpoint_pos: int = 0
 	match global.check_point:
 		1, 2, 3:
 			checkpoint_pos = 512 * global.check_point
@@ -74,14 +62,14 @@ func set_player_position():
 
 
 func _on_swing_first_grab():
-	var player_pos : Vector2 = $Player.get_global_transform_with_canvas().get_origin()
+	var player_pos: Vector2 = $Player.get_global_transform_with_canvas().get_origin()
 	player_pos.y -= 40
 	hud.show_bonus_points(player_pos, 500)
 	global.give_points(500)
 
 
-func _on_Detector_body_entered(body : PhysicsBody2D)->void:
-	if body.name == "Player":
+func _on_Detector_body_entered(body: PhysicsBody2D) -> void:
+	if body.name == global.PLAYER_NAME:
 		body.hurt()
 
 
@@ -99,7 +87,6 @@ func _on_HUD_little_time_left():
 # Losing methods
 
 func _on_HUD_out_of_time():
-#	lose()
 	stop_items()
 	$Player.hit_and_fall()
 
@@ -110,7 +97,6 @@ func _on_Player_lose():
 
 func lose():
 	hud.stop_time()
-#	stop_items()
 	$Sounds/LevelSound.stop()
 	global.lose_life()
 	yield(get_tree().create_timer(0.66), "timeout")
@@ -127,18 +113,12 @@ func _on_GameOverSound_finished():
 func _on_Player_win():
 	for item in $EnvironmentObjects.get_children():
 		item.call_deferred("queue_free")
-#	var podium_level : Vector2 = $Items/Podium.position + Vector2.UP * 38
-#	podium_level.x = $Player.get_position().x
-#	$Player.set_position(podium_level)
-	hud.give_bonus_start()
+	player_won()
 	platform_center_timer.start()
-	audience_timer.start()
-	$Sounds/LevelSound.stop()
-	$Sounds/WinSound.play()
 
 
-func _on_platform_center_timeout()->void:
-	var xdelta : int = ($HighPlatform.get_position() - $Player.get_position() ).x
+func _on_platform_center_timeout() -> void:
+	var xdelta: int = ($HighPlatform.get_position() - $Player.get_position() ).x
 	if abs(xdelta) > 1:
 		var direction : Vector2 = Vector2(xdelta, 0).normalized()
 		$Player.set_position($Player.get_position() + direction)
@@ -146,21 +126,5 @@ func _on_platform_center_timeout()->void:
 		platform_center_timer.stop()
 
 
-func _on_audience_timeout()->void:
-	$Background/Celebrating.visible = not $Background/Celebrating.visible
-
-
-func _on_bonus_giving_finished():
-	if not $Sounds/WinSound.playing:
-		yield(get_tree().create_timer(0.5), "timeout")
-		global.start_next_level()
-
-
 func _on_WinSound_finished():
-	audience_timer.stop()
-	$Background/Celebrating.visible = false
-	if not hud.is_giving_bonus():
-		yield(get_tree().create_timer(0.5), "timeout")
-		global.start_next_level()
-	else:
-		hud.bonus_giving_play()
+	WinSound_finished($player)

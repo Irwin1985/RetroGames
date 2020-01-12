@@ -1,50 +1,62 @@
-[gd_scene load_steps=25 format=2]
+[gd_scene load_steps=27 format=2]
 
 [ext_resource path="res://Levels/Level2.gd" type="Script" id=1]
 [ext_resource path="res://Monkey/MonkeyBase.tscn" type="PackedScene" id=2]
-[ext_resource path="res://assets/level2.png" type="Texture" id=3]
-[ext_resource path="res://assets/level_0m.png" type="Texture" id=4]
-[ext_resource path="res://assets/level_10m.png" type="Texture" id=5]
-[ext_resource path="res://assets/level_20m.png" type="Texture" id=6]
-[ext_resource path="res://assets/level_30m.png" type="Texture" id=7]
-[ext_resource path="res://assets/level_40m.png" type="Texture" id=8]
-[ext_resource path="res://assets/level_50m.png" type="Texture" id=9]
-[ext_resource path="res://assets/level_60m.png" type="Texture" id=10]
-[ext_resource path="res://assets/level_70m.png" type="Texture" id=11]
-[ext_resource path="res://Items/HighPlatform/HighPlatform.tscn" type="PackedScene" id=12]
-[ext_resource path="res://Player/Player.tscn" type="PackedScene" id=13]
-[ext_resource path="res://assets/Stage2.ogg" type="AudioStream" id=14]
-[ext_resource path="res://assets/sfx/TimeReduce.ogg" type="AudioStream" id=15]
-[ext_resource path="res://assets/sfx/GameOver.wav" type="AudioStream" id=16]
-[ext_resource path="res://assets/sfx/Clapping.wav" type="AudioStream" id=17]
-[ext_resource path="res://Items/CheckPoints.tscn" type="PackedScene" id=18]
+[ext_resource path="res://Items/Background/Background.tscn" type="PackedScene" id=3]
+[ext_resource path="res://assets/background_level2.png" type="Texture" id=4]
+[ext_resource path="res://assets/level_0m.png" type="Texture" id=5]
+[ext_resource path="res://assets/level_10m.png" type="Texture" id=6]
+[ext_resource path="res://assets/level_20m.png" type="Texture" id=7]
+[ext_resource path="res://assets/level_30m.png" type="Texture" id=8]
+[ext_resource path="res://assets/level_40m.png" type="Texture" id=9]
+[ext_resource path="res://assets/level_50m.png" type="Texture" id=10]
+[ext_resource path="res://assets/level_60m.png" type="Texture" id=11]
+[ext_resource path="res://assets/level_70m.png" type="Texture" id=12]
+[ext_resource path="res://Items/HighPlatform/HighPlatform.tscn" type="PackedScene" id=13]
+[ext_resource path="res://Player/Player.tscn" type="PackedScene" id=14]
+[ext_resource path="res://assets/Stage2.ogg" type="AudioStream" id=15]
+[ext_resource path="res://assets/sfx/TimeReduce.ogg" type="AudioStream" id=16]
+[ext_resource path="res://assets/sfx/GameOver.wav" type="AudioStream" id=17]
+[ext_resource path="res://assets/sfx/Clapping.wav" type="AudioStream" id=18]
+[ext_resource path="res://Items/CheckPoints.tscn" type="PackedScene" id=19]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 1828, 2 )
+extents = Vector2( 1828, 5 )
 
 [sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 1828, 5 )
 
 [sub_resource type="RectangleShape2D" id=3]
-extents = Vector2( 2, 70.8109 )
+extents = Vector2( 50, 4.07245 )
+
+[sub_resource type="RectangleShape2D" id=7]
+extents = Vector2( 15, 10 )
 
 [sub_resource type="RectangleShape2D" id=4]
-extents = Vector2( 8.54028, 10 )
+extents = Vector2( 2, 70.8109 )
 
 [sub_resource type="RectangleShape2D" id=5]
+extents = Vector2( 8.54028, 10 )
 
 [sub_resource type="RectangleShape2D" id=6]
-extents = Vector2( 49.7246, 10 )
 
 [node name="Level2" type="Node2D"]
 script = ExtResource( 1 )
 Monkey = ExtResource( 2 )
 
-[node name="TextureRect" type="TextureRect" parent="."]
-margin_right = 3655.0
-margin_bottom = 460.0
-texture = ExtResource( 3 )
-stretch_mode = 2
+[node name="Background" parent="." instance=ExtResource( 3 )]
+margin_right = 1835.0
+texture = ExtResource( 4 )
+
+[node name="Celebrating" parent="Background" index="0"]
+editor/display_folded = false
+position = Vector2( -768, 81 )
+
+[node name="Audience1" parent="Background/Celebrating" index="0"]
+margin_left = 2297.0
+
+[node name="Audience2" parent="Background/Celebrating" index="1"]
+margin_right = 2603.0
 
 [node name="LevelContainer" type="Node2D" parent="."]
 editor/display_folded = true
@@ -52,42 +64,42 @@ editor/display_folded = true
 [node name="level_0m" type="Sprite" parent="LevelContainer"]
 position = Vector2( 3560, 435 )
 scale = Vector2( 2, 2 )
-texture = ExtResource( 4 )
+texture = ExtResource( 5 )
 
 [node name="level_10m" type="Sprite" parent="LevelContainer"]
 position = Vector2( 3060, 435 )
 scale = Vector2( 2, 2 )
-texture = ExtResource( 5 )
+texture = ExtResource( 6 )
 
 [node name="level_20m" type="Sprite" parent="LevelContainer"]
 position = Vector2( 2560, 435 )
 scale = Vector2( 2, 2 )
-texture = ExtResource( 6 )
+texture = ExtResource( 7 )
 
 [node name="level_30m" type="Sprite" parent="LevelContainer"]
 position = Vector2( 2060, 435 )
 scale = Vector2( 2, 2 )
-texture = ExtResource( 7 )
+texture = ExtResource( 8 )
 
 [node name="level_40m" type="Sprite" parent="LevelContainer"]
 position = Vector2( 1560, 435 )
 scale = Vector2( 2, 2 )
-texture = ExtResource( 8 )
+texture = ExtResource( 9 )
 
 [node name="level_50m" type="Sprite" parent="LevelContainer"]
 position = Vector2( 1060, 435 )
 scale = Vector2( 2, 2 )
-texture = ExtResource( 9 )
+texture = ExtResource( 10 )
 
 [node name="level_60m" type="Sprite" parent="LevelContainer"]
 position = Vector2( 560, 435 )
 scale = Vector2( 2, 2 )
-texture = ExtResource( 10 )
+texture = ExtResource( 11 )
 
 [node name="level_70m" type="Sprite" parent="LevelContainer"]
 position = Vector2( 60, 435 )
 scale = Vector2( 2, 2 )
-texture = ExtResource( 11 )
+texture = ExtResource( 12 )
 
 [node name="Floor" type="StaticBody2D" parent="."]
 editor/display_folded = true
@@ -96,7 +108,7 @@ __meta__ = {
 }
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Floor"]
-position = Vector2( 1828, 248.516 )
+position = Vector2( 1828, 234 )
 scale = Vector2( 0.998724, 0.782454 )
 shape = SubResource( 1 )
 
@@ -104,7 +116,7 @@ shape = SubResource( 1 )
 
 [node name="UnderFloor" type="StaticBody2D" parent="."]
 editor/display_folded = true
-position = Vector2( 0, 180 )
+position = Vector2( 0, 170 )
 __meta__ = {
 "_edit_group_": true
 }
@@ -117,48 +129,56 @@ disabled = true
 
 [node name="HurtFloor" type="Area2D" parent="."]
 editor/display_folded = true
+position = Vector2( 0, -10 )
+__meta__ = {
+"_edit_group_": true
+}
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HurtFloor"]
 position = Vector2( 1828, 428.516 )
 scale = Vector2( 0.998724, 0.782454 )
 shape = SubResource( 2 )
 
-[node name="HighPlatformOld" parent="." instance=ExtResource( 12 )]
-editor/display_folded = true
-visible = false
-position = Vector2( 3559, 291 )
+[node name="HighPlatform" parent="." instance=ExtResource( 13 )]
+position = Vector2( 3562, 288 )
+scale = Vector2( 1, 1.08 )
 
-[node name="PlatformTable" parent="HighPlatformOld" index="0"]
+[node name="PlatformTable" parent="HighPlatform" index="0"]
 editor/display_folded = true
+position = Vector2( 0, 2.5 )
 
-[node name="Sprite" parent="HighPlatformOld/PlatformTable" index="0"]
+[node name="Sprite" parent="HighPlatform/PlatformTable" index="0"]
 scale = Vector2( 2.5, 2.5 )
 
-[node name="CollisionShape2D" parent="HighPlatformOld/PlatformTable" index="1"]
+[node name="CollisionShape2D" parent="HighPlatform/PlatformTable" index="1"]
+position = Vector2( 1.509, -94 )
 disabled = true
 
-[node name="PlatformTop" parent="HighPlatformOld" index="1"]
+[node name="PlatformTop" parent="HighPlatform" index="1"]
 editor/display_folded = true
+position = Vector2( -1.99292, -9.72919 )
 
-[node name="CollisionShape2D2" parent="HighPlatformOld/PlatformTop" index="0"]
-position = Vector2( 3.20435, -99.276 )
-disabled = true
+[node name="CollisionShape2D2" parent="HighPlatform/PlatformTop" index="0"]
+position = Vector2( 3, -89 )
+shape = SubResource( 3 )
 
-[node name="Player" parent="." instance=ExtResource( 13 )]
-position = Vector2( 140, 222.5 )
-scale = Vector2( 0.998518, 0.804541 )
+[node name="Player" parent="." instance=ExtResource( 14 )]
+editor/display_folded = true
+position = Vector2( 140, 213 )
 speed = 75
-jump_power = 470
+jump_power = 448
 gravity = 15
 slow_backward = true
 process_hurt = true
 character_behaviour = "Stage 2:Monkey"
 
 [node name="Charlie" parent="Player" index="0"]
-scale = Vector2( 2, 2.5 )
 animation = "run"
 frame = 1
 playing = false
+
+[node name="CollisionShape2D" parent="Player" index="1"]
+shape = SubResource( 7 )
 
 [node name="Camera2D" parent="Player" index="2"]
 position = Vector2( -140, 0 )
@@ -166,7 +186,7 @@ anchor_mode = 0
 limit_left = 0
 limit_top = 0
 limit_right = 3655
-limit_bottom = 460
+limit_bottom = 443
 editor_draw_limits = true
 editor_draw_drag_margin = true
 
@@ -184,7 +204,7 @@ __meta__ = {
 }
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Walls/LeftWall"]
-shape = SubResource( 3 )
+shape = SubResource( 4 )
 
 [node name="RightWall" type="StaticBody2D" parent="Walls"]
 position = Vector2( 3642.65, 167.651 )
@@ -194,23 +214,23 @@ __meta__ = {
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Walls/RightWall"]
 scale = Vector2( 1.24004, 7.8 )
-shape = SubResource( 4 )
+shape = SubResource( 5 )
 
 [node name="Sounds" type="Node" parent="."]
 editor/display_folded = true
 
 [node name="LevelSound" type="AudioStreamPlayer" parent="Sounds"]
-stream = ExtResource( 14 )
+stream = ExtResource( 15 )
 autoplay = true
 
 [node name="ReduceTimeSound" type="AudioStreamPlayer" parent="Sounds"]
-stream = ExtResource( 15 )
-
-[node name="GameOverSound" type="AudioStreamPlayer" parent="Sounds"]
 stream = ExtResource( 16 )
 
-[node name="WinSound" type="AudioStreamPlayer" parent="Sounds"]
+[node name="GameOverSound" type="AudioStreamPlayer" parent="Sounds"]
 stream = ExtResource( 17 )
+
+[node name="WinSound" type="AudioStreamPlayer" parent="Sounds"]
+stream = ExtResource( 18 )
 
 [node name="GoalSensor" type="Area2D" parent="."]
 editor/display_folded = true
@@ -219,9 +239,9 @@ scale = Vector2( 1, 2.36 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="GoalSensor"]
 scale = Vector2( 0.44, 4.6 )
-shape = SubResource( 5 )
+shape = SubResource( 6 )
 
-[node name="CheckPoints" parent="." instance=ExtResource( 18 )]
+[node name="CheckPoints" parent="." instance=ExtResource( 19 )]
 editor/display_folded = true
 
 [node name="chkpt_60m" parent="CheckPoints" index="13"]
@@ -253,31 +273,6 @@ position = Vector2( 2640, 224.5 )
 
 [node name="CheckPoint20" parent="CheckPoints/chkpt_20m" index="0"]
 position = Vector2( 0, -100 )
-
-[node name="PlatformSensor" type="Area2D" parent="."]
-editor/display_folded = true
-position = Vector2( 3562.58, 178.433 )
-__meta__ = {
-"_edit_group_": true
-}
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="PlatformSensor"]
-scale = Vector2( 1, 0.360005 )
-shape = SubResource( 6 )
-
-[node name="HighPlatform" parent="." instance=ExtResource( 12 )]
-position = Vector2( 3559, 291 )
-
-[node name="Sprite" parent="HighPlatform/PlatformTable" index="0"]
-scale = Vector2( 2.5, 2.5 )
-
-[node name="CollisionShape2D" parent="HighPlatform/PlatformTable" index="1"]
-position = Vector2( 4, -100 )
-disabled = true
-
-[node name="CollisionShape2D2" parent="HighPlatform/PlatformTop" index="0"]
-position = Vector2( 4, -95 )
-disabled = true
 [connection signal="body_entered" from="HurtFloor" to="." method="_on_HurtFloor_body_entered"]
 [connection signal="lose" from="Player" to="." method="_on_Player_lose"]
 [connection signal="moved" from="Player" to="." method="_on_Player_moved"]
@@ -286,12 +281,13 @@ disabled = true
 [connection signal="finished" from="Sounds/GameOverSound" to="." method="_on_GameOverSound_finished"]
 [connection signal="finished" from="Sounds/WinSound" to="." method="_on_WinSound_finished"]
 [connection signal="body_entered" from="GoalSensor" to="." method="_on_GoalSensor_body_entered"]
-[connection signal="body_entered" from="PlatformSensor" to="." method="_on_PlatformSensor_body_entered"]
 
-[editable path="HighPlatformOld"]
+[editable path="Background"]
+
+[editable path="Background/Celebrating"]
+
+[editable path="HighPlatform"]
 
 [editable path="Player"]
 
 [editable path="CheckPoints"]
-
-[editable path="HighPlatform"]

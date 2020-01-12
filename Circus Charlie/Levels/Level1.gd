@@ -1,41 +1,23 @@
-extends Node2D
+extends "res://Levels/level_base.gd"
 
 export (PackedScene) var single_flame
 export (PackedScene) var boiler
 
-onready var audience_timer = Timer.new()
 var pos = Vector2(0, 0)
-var hud : GameHUD = null
 var last_flame = null
 var next_bonus_flame : int = 0
 
 func _ready():
-	randomize()
-#	Test only = delete when test the whole game
-	global.play_first_sound = true
-	global.current_level = 0 # delete this line when compile the game
-#	Test only
+	if global.is_debug_mode:
+		global.play_first_sound = true
+		global.current_level = 0
+
 	set_sfx_volume()
 	set_player_position()
-	global.can_pause = true
-	add_HUD()
-	next_bonus_flame = randi() % 5 + 4 # 4..8
+	next_bonus_flame = randi() % 5 + 4
 	spawn_boiler()
 	spawn_next_flame()
-	audience_timer.connect("timeout", self, "_on_audience_timeout")	
-	audience_timer.wait_time = 0.05
-	add_child(audience_timer)
 
-
-func add_HUD():
-	hud = global.get_hud()
-	if hud.connect("little_time_left", self, "_on_HUD_little_time_left") != OK:
-		print("Error connecting little_time_left")
-	if hud.connect("out_of_time", self, "_on_HUD_out_of_time") != OK:
-		print("Error connecting out_of_time")
-	if hud.connect("bonus_giving_finished", self, "_on_bonus_giving_finished") != OK:
-		print("Error connecting bonus_giving_finished")
-	add_child(hud)
 
 func set_sfx_volume():
 	for audio in $Sounds.get_children():
@@ -43,7 +25,6 @@ func set_sfx_volume():
 
 
 func set_player_position():
-	print(global.current_check_point_path)
 	if global.current_check_point_path != "":
 		var CheckPointNode: Position2D = get_node(global.current_check_point_path)
 		if CheckPointNode != null:
@@ -116,58 +97,21 @@ func stop_items():
 		flame.set_process(false)
 
 
-func _on_HUD_little_time_left():
-	$Sounds/LevelSound.pitch_scale = global.pitch_scale
-	$Sounds/LevelSound.stop()
-	$Sounds/LevelSound.play()
-
-
-func _on_HUD_out_of_time():
-	$Lion.lose()
-
-
 func _on_Lion_lose():
 	lose()
 
 
-func lose():
-	hud.stop_time()
-	stop_items()
-	$Sounds/LevelSound.stop()
-	global.lose_life()
-	yield(get_tree().create_timer(0.66), "timeout")
-	$Sounds/GameOverSound.play()
-
-
 func _on_GameOverSound_finished():
-	get_tree().call_deferred("change_scene","res://Levels/ScenePreviewer.tscn")
+	GameOverSound_finished()
 
 
 func _on_Lion_win():
 	for flame in $FlameContainer.get_children():
 		flame.call_deferred("queue_free")
-	hud.give_bonus_start()
+	stop_items()
+	player_won()
 	$Items/Podium.player_center($Lion)
-	audience_timer.start()
-	$Sounds/LevelSound.stop()
-	$Sounds/WinSound.play()
-
-
-func _on_audience_timeout()->void:
-	$Background/Celebrating.visible = not $Background/Celebrating.visible
-
-
-func _on_bonus_giving_finished():
-	if not $Sounds/WinSound.playing:
-		yield(get_tree().create_timer(0.5), "timeout")
-		global.start_next_level()
 
 
 func _on_WinSound_finished():
-	audience_timer.stop()
-	$Background/Celebrating.visible = false
-	if not hud.is_giving_bonus():
-		yield(get_tree().create_timer(0.5), "timeout")
-		global.start_next_level()
-	else:
-		hud.bonus_giving_play()
+	WinSound_finished($Lion)

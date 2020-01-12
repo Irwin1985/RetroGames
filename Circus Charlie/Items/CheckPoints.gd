@@ -1,8 +1,7 @@
 extends Node2D
-const PLAYER_NAME = "Player"
 
 func process_check_point(_name, node_path):
-	if _name == PLAYER_NAME or _name == "Lion":
+	if _name == global.PLAYER_NAME or _name == global.LION_NAME:
 		global.current_check_point_path = node_path
 
 

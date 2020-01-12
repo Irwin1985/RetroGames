@@ -3,14 +3,13 @@ extends Area2D
 signal hurt
 signal bonus
 
+const STANDARD_POINT = 200
+const BONUS_POINT = 5000
+
 var can_hide = false
 var bonus_counter = 0
 var bonus_total = 0
 var can_pickup = false
-
-const STANDARD_POINT = 200
-const BONUS_POINT = 5000
-
 onready var visibility = VisibilityNotifier2D.new()
 
 
@@ -30,10 +29,12 @@ func set_sfx_volume():
 func stop():
 	$AnimatedSprite.stop()
 
+
 func cancel_bonus():
 	can_pickup = false
 	$CoinSprite.visible = false
 	$AnimationPlayer.seek(0, true)
+
 
 func _on_visibility_screen_exited():
 	if can_hide:
@@ -49,11 +50,10 @@ func _on_AreaNotifier_body_entered(body):
 	bonus_counter += 1
 	if bonus_counter >= bonus_total:
 		call_deferred("activate_bonus")
-	if body.name == "Lion":
-#		if !can_hide:
-#			global.check_point += 1
+	if body.name == global.LION_NAME:
 		global.give_points(STANDARD_POINT)
 		can_hide = true
+
 
 func activate_bonus():
 	bonus_counter = 0
@@ -66,7 +66,7 @@ func activate_bonus():
 
 
 func _on_CoinArea2D_body_entered(body):
-	if body.name == "Lion" and can_pickup:
+	if body.name == global.LION_NAME and can_pickup:
 		cancel_bonus()
 		emit_signal("bonus", BONUS_POINT)
 		$AnimationPlayer.stop()

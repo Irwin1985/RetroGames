@@ -14,8 +14,6 @@ var time_delta = 10
 
 func _ready():
 	$PauseSound.volume_db = global.STANDARD_VOLUME
-#	hide_lives()
-#	update_lives(0)
 	update_stage()
 	create_timer()
 
@@ -52,41 +50,38 @@ func stop_time():
 
 
 func hide_lives():
-	$Lives/SpriteLive1.visible = false
-	$Lives/SpriteLive2.visible = false
-	$Lives/SpriteLive3.visible = false
+	for life in $Lives.get_children():
+		life.visible = false
 
 
 func update_score(score):
 	$PlayerScore/PlayerScore.text = "%06d" % score
+	if global.life_score_counter >= global.LIFE_SCORE_LIMIT:
+		global.life_score_counter = 0
+		$Sounds/LiveEarned.play()
+		global.lives += 1
+		update_lives(global.lives)
 
 
 func update_hi_score(score):
 	$HiScore/LabelHiScore.text = "%06d" % score
 
 
-func update_lives(lives: int)->void:
+func update_lives(lives: int) -> void:
 	hide_lives()
-	for l in lives:
-		match l:
-			0:
-				$Lives/SpriteLive3.visible = true
-			1:
-				$Lives/SpriteLive2.visible = true
-				$Lives/SpriteLive3.visible = true
-			2:
-				$Lives/SpriteLive1.visible = true
-				$Lives/SpriteLive2.visible = true
-				$Lives/SpriteLive3.visible = true
+	$Lives/SpriteLive1.visible = lives >= 1
+	$Lives/SpriteLive2.visible = lives >= 2
+	$Lives/SpriteLive3.visible = lives >= 3
 	$Lives/SpriteLife4.visible = lives >= 4
+	$Lives/SpriteLife5.visible = lives >= 5
+	$Lives/SpriteLife6.visible = lives >= 6
 
 
 func update_stage():
-#	$Stage/LabelStage.text = "0" + str(global.current_level + 1)
 	$Stage/LabelStage.text = "%02d" % (global.current_level + 1)
 
 
-func show_bonus_points(pos : Vector2, points : int)->void:
+func show_bonus_points(pos: Vector2, points: int) -> void:
 	var label_points = $LabelPoints.duplicate()
 	label_points.text = str(points)
 	label_points.rect_position = pos - (label_points.rect_size / 2)
@@ -128,7 +123,7 @@ func _on_bonus_timeout():
 		bonus_timer.stop()
 
 
-func add_time_to_score(value : int)->void:
+func add_time_to_score(value: int) -> void:
 	if time_left > value:
 		global.give_points(value)
 		time_left -= value

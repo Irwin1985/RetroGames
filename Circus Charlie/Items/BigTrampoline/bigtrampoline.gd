@@ -3,9 +3,9 @@ class_name BigTrampoline
 
 signal bonus_pick
 
-var give_points : bool = true
-var bounce_count : int = 0
-var checkpoint : int = 0
+var give_points: bool = true
+var bounce_count: int = 0
+var checkpoint: int = 0
 
 
 func put_bonus():
@@ -13,12 +13,12 @@ func put_bonus():
 	$Bonus/CollisionShape2D.set_disabled(false)
 
 
-func put_checkpoint(distance : int)->void:
+func put_checkpoint(distance: int) -> void:
 	checkpoint = distance
 
 
-func bounce_player(body : PhysicsBody2D)->void:
-	if body.name == "Player":
+func bounce_player(body: PhysicsBody2D) -> void:
+	if body.name == global.PLAYER_NAME:
 		if checkpoint != 0:
 			global.set_checkpoint(checkpoint)
 		if give_points:
@@ -38,12 +38,12 @@ func bounce_player(body : PhysicsBody2D)->void:
 	bounce_enabled = true
 
 
-func reset_bounces()->void:
+func reset_bounces() -> void:
 	bounce_count = 0
 
 
 func _on_Bonus_body_entered(body):
-	if body.name == "Player":
+	if body.name == global.PLAYER_NAME:
 		$Bonus.set_visible(false)
 		$Bonus/CollisionShape2D.call_deferred("set_disabled", true)
 		$Bonus/BonusSound.play()

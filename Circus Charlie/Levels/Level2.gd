@@ -1,43 +1,34 @@
-extends Node2D
+extends "res://Levels/level_base.gd"
 
 export (PackedScene) var Monkey
 
 const MONKEY_PADDING_SIZE = 28.4
-const MONKEY_TOP = 230
+const MONKEY_TOP = 216
 const CYAN_MONKEY_INDEX = 9
 const SPAWN_MONKEY_INTERVAL = 1
 const MONKEY_NORMAL_SPEED = 1
 const MONKEY_HIGH_SPEED = 2
-const PLAYER_NAME = "Player"
 const PLAYER_MINIMAL_DISTANCE = 500
-const BONUS_PER_WON_TIME = 10
 
-var hud : GameHUD = null
 var monkey_index = -1
 var monkey_pattern = [6.2, 10.2, 8.5, 10.1, 7.4, 11.8, 10.7, 5, 6.2, 10.2, 10.1, 10.7, 5, 4, 8.5]
 var show_cyan_monkey = false
 var last_monkey_name = ""
 
 onready var monkey_timer = Timer.new()
-onready var bonus_timer = Timer.new()
 onready var platform_center_timer = Timer.new()
-onready var audience_timer = Timer.new()
 onready var BlueMonkey: PackedScene = preload("res://Monkey/BlueMonkey.tscn")
 
+
 func _ready():
-	randomize()
-	add_HUD()
-	global.can_pause = true
-	$Sounds/LevelSound.volume_db = global.STANDARD_VOLUME
+	$Player/CollisionShape2D.shape.extents = Vector2(15, 9)
 	set_timer_env()
 	show_cyan_monkey = global.stage_2_first_time_lauched
-	set_bonus_timer()
 	
-#	Test only = delete when test the whole game
-	show_cyan_monkey = true # delete this line when compile the game
-	global.play_first_sound = true
-	global.current_level = 1 # delete this line when compile the game
-#	Test only
+	if global.is_debug_mode:
+		global.play_first_sound = true
+		global.current_level = 1
+	show_cyan_monkey = global.stage_2_first_time_lauched
 
 	if global.current_check_point_path != "":
 		var CheckPointNode: Position2D = get_node(global.current_check_point_path)
@@ -77,24 +68,6 @@ func spawn_monkey():
 	last_monkey_name = MonkeyInstance.name
 
 
-func add_HUD():
-	hud = global.get_hud()
-	if hud.connect("little_time_left", self, "_on_HUD_little_time_left") != OK:
-		print("Error connecting little_time_left")
-	if hud.connect("out_of_time", self, "_on_HUD_out_of_time") != OK:
-		print("Error connecting out_of_time")
-	if hud.connect("bonus_giving_finished", self, "_on_bonus_giving_finished") != OK:
-		print("Error connecting bonus_giving_finished")
-	add_child(hud)
-
-
-func set_bonus_timer():
-	bonus_timer.connect("timeout", self, "_on_bonus_timer_timeout", 
-		[], CONNECT_DEFERRED)
-	bonus_timer.wait_time = 0.02
-	add_child(bonus_timer)
-
-
 func get_monkey_index():
 	monkey_index += 1
 	if monkey_index > monkey_pattern.size() - 1:
@@ -106,12 +79,6 @@ func set_monkey_speed(new_speed):
 	for monkey in $MonkeyContainer.get_children():
 		if monkey != null:
 			monkey.playback_speed = new_speed
-
-
-func _on_bonus_giving_finished():
-	if not $Sounds/WinSound.playing:
-		yield(get_tree().create_timer(0.5), "timeout")
-		global.start_next_level()
 
 
 func set_timer_env():
@@ -126,11 +93,6 @@ func set_timer_env():
 	platform_center_timer.connect("timeout", self, "_on_platform_center_timeout")	
 	platform_center_timer.wait_time = 0.02
 	add_child(platform_center_timer)
-
-	# Audience Timer Settings
-	audience_timer.connect("timeout", self, "_on_audience_timeout")	
-	audience_timer.wait_time = 0.05
-	add_child(audience_timer)
 
 
 func _on_platform_center_timeout()->void:
@@ -151,15 +113,12 @@ func _on_Player_stopped():
 
 
 func _on_Player_win():
-	hud.give_bonus_start()
+	player_won()
 	platform_center_timer.start()
-	audience_timer.start()
-	$Sounds/LevelSound.stop()
-	$Sounds/WinSound.play()
 
 
 func _on_monkey_body_entered(body):
-	if body.name == PLAYER_NAME:
+	if body.name == global.PLAYER_NAME:
 		game_over()
 
 
@@ -203,7 +162,7 @@ func _on_MonkeyInstance_bonus_earned(bonus):
 
 
 func _on_HurtFloor_body_entered(body):
-	if body.name == PLAYER_NAME:
+	if body.name == global.PLAYER_NAME:
 		body.hurt()
 
 
@@ -211,16 +170,8 @@ func _on_Player_lose():
 	lose()
 
 
-func lose():
-	hud.stop_time()
-	$Sounds/LevelSound.stop()
-	global.lose_life()
-	yield(get_tree().create_timer(0.66), "timeout")
-	$Sounds/GameOverSound.play()
-
-
 func _on_GoalSensor_body_entered(body):
-	if body.name == PLAYER_NAME:
+	if body.name == global.PLAYER_NAME:
 		monkey_timer.stop()
 		for monkey in $MonkeyContainer.get_children():
 			var offset = monkey.position.x - $Player.position.x
@@ -229,26 +180,11 @@ func _on_GoalSensor_body_entered(body):
 
 
 func _on_GameOverSound_finished():
-	get_tree().call_deferred("change_scene","res://Levels/ScenePreviewer.tscn")
+	GameOverSound_finished()
 
 
 func _on_WinSound_finished():
-	audience_timer.stop()
-	if not hud.is_giving_bonus():
-		yield(get_tree().create_timer(0.5), "timeout")
-		global.start_next_level()
-	else:
-		hud.bonus_giving_play()
-
-
-func _on_HUD_little_time_left():
-	$Sounds/LevelSound.pitch_scale = global.pitch_scale
-	$Sounds/LevelSound.stop()
-	$Sounds/LevelSound.play()
-
-
-func _on_HUD_out_of_time():
-	$Player.lose()
+	WinSound_finished($Player)
 
 
 func _on_BlueMonkey_player_bonus():
@@ -256,6 +192,6 @@ func _on_BlueMonkey_player_bonus():
 
 
 func _on_PlatformSensor_body_entered(body):
-	if body.name == PLAYER_NAME:
+	if body.name == global.PLAYER_NAME:
 		$HighPlatform/PlatformTable/CollisionShape2D.disabled = false
 		$HighPlatform/PlatformTop/CollisionShape2D2.disabled = false

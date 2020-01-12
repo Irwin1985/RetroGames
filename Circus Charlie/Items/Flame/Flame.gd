@@ -1,12 +1,13 @@
 extends Area2D
-export (int) var speed
-
 class_name FlameRing
 
 signal hurt
 signal appear
 signal disappear
 signal bonus
+
+export (int) var speed
+const FLAME_POINTS = 100
 
 var motion = Vector2.ZERO
 
@@ -55,7 +56,7 @@ func stop():
 
 # warning-ignore:unused_argument
 func _on_Score_body_entered(body):
-	global.give_points(100)
+	global.give_points(FLAME_POINTS)
 
 
 func _on_TimerMoveFlame_timeout():
@@ -72,11 +73,11 @@ func _on_VisibilityNotifier2D_screen_exited():
 
 
 func _on_Bonus_body_entered(body):
-	if body.name == "Lion":
+	if body.name == global.LION_NAME:
 		bonus()
 
 
 func _on_BonusFlame_body_entered(body):
-	if body.name == "Lion":
+	if body.name == global.LION_NAME:
 		emit_signal("hurt")
 

@@ -3,9 +3,12 @@ extends Node
 const STANDARD_VOLUME = -10
 const STAGE_TWO_INDEX = 1
 const STAGE_THREE_INDEX = 1
+const LIFE_SCORE_LIMIT = 20000
+const PLAYER_NAME = "Player"
+const LION_NAME = "Lion"
 
-onready var hud_scene : PackedScene = preload("res://HUD/HUD.tscn")
-var hud : GameHUD = null
+onready var HudScene: PackedScene = preload("res://HUD/HUD.tscn")
+var HudInstance: GameHUD = null
 
 var level_change_timer = Timer.new()
 var stage_2_current_monkey_index = -1
@@ -14,6 +17,7 @@ var stage_3_current_ball_index = -1
 var stage_3_first_time_lauched = false
 
 var player_score: int = 0
+var life_score_counter := 0
 var hi_score: int = 0
 var lives: int = 4
 var is_game_over: bool = false
@@ -30,40 +34,41 @@ var can_pause: bool = false
 var check_point: int = 0
 var current_check_point_path := "" setget set_current_check_point_path
 var pitch_scale = 1.37
-
 onready var game_file: String = "user://score.save"
+var is_debug_mode := false
 
 
-func _ready()->void:
+func _ready() -> void:
 	OS.center_window()
 	load_game()
 
 
-func get_hud(in_level_hud : bool = true)->GameHUD:
-	hud = hud_scene.instance()
-	hud.update_score(player_score)
-	hud.update_hi_score(hi_score)
+func get_HudInstance(in_level_hud: bool = true) -> GameHUD:
+	HudInstance = HudScene.instance()
+	HudInstance.update_score(player_score)
+	HudInstance.update_hi_score(hi_score)
 	if in_level_hud:
-		hud.update_lives(lives - 1)
-		hud.begin_time()
+		HudInstance.update_lives(lives - 1)
+		HudInstance.begin_time()
 	else:
-		hud.update_lives(lives)
-	return hud
+		HudInstance.update_lives(lives)
+	return HudInstance
 
 
-func give_points(points : int)->void:
+func give_points(points: int) -> void:
 	player_score += points
-	hud.update_score(player_score)
+	life_score_counter += points
+	HudInstance.update_score(player_score)
 	if player_score > hi_score:
 		update_hi_score(player_score)
 
 
-func update_hi_score(score : int)->void:
+func update_hi_score(score: int) -> void:
 	hi_score = score
-	hud.update_hi_score(hi_score)
+	HudInstance.update_hi_score(hi_score)
 
 
-func set_checkpoint(value : int)->void:
+func set_checkpoint(value: int) -> void:
 	check_point = value
 
 
@@ -71,14 +76,6 @@ func check_update_hi_score():
 	if player_score > hi_score:
 		hi_score = player_score
 		save_game()
-
-
-func save_game():
-	var save_game = File.new()
-	save_game.open(game_file, File.WRITE)
-	json_obj["score"] = hi_score
-	save_game.store_string(to_json(json_obj))
-	save_game.close()
 
 
 func load_game():
@@ -91,12 +88,21 @@ func load_game():
 	load_game.close()
 
 
-func start_next_level()->void:
+func save_game():
+	var save_game = File.new()
+	save_game.open(game_file, File.WRITE)
+	json_obj["score"] = hi_score
+	save_game.store_string(to_json(json_obj))
+	save_game.close()
+
+
+func start_next_level() -> void:
 	current_level += 1
 	check_point = 0
-#	play_first_sound = true
+	current_check_point_path = ""
 	get_tree().call_deferred("change_scene", \
 			"res://Levels/ScenePreviewer.tscn")
+
 	if current_level == STAGE_TWO_INDEX:
 		stage_2_first_time_lauched = true
 		stage_2_current_monkey_index = 0
@@ -104,7 +110,6 @@ func start_next_level()->void:
 	if current_level == STAGE_THREE_INDEX:
 		stage_3_first_time_lauched = true
 		stage_3_current_ball_index = 0
-#	get_tree().change_scene("res://Levels/ScenePreviewer.tscn")
 
 
 func lose_life():
@@ -118,26 +123,26 @@ func game_over():
 	is_game_over = true
 	can_pause = false
 	play_first_sound = true
-	
+
+
 func restart_game():
 	player_score = 0
+	life_score_counter = 0
 	hi_score = 0
 	lives = 4
 	is_game_over = false
 	current_level = -1
 	can_pause = false
 	check_point = 0
+	current_check_point_path = ""
 	load_game()
 	play_first_sound = false
+
 
 func rand_bool():
 	randomize()
 	return bool(randi() % 2)
 
+
 func set_current_check_point_path(value):
 	current_check_point_path = value
-
-
-
-
-
