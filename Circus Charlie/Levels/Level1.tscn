@@ -102,7 +102,6 @@ position = Vector2( 5000, 0 )
 [node name="FlameContainer" type="Node2D" parent="."]
 
 [node name="Lion" parent="." instance=ExtResource( 7 )]
-editor/display_folded = true
 position = Vector2( 100, 394.147 )
 
 [node name="Camera2D" parent="Lion" index="1"]
@@ -111,6 +110,8 @@ limit_left = -90
 limit_top = 0
 limit_right = 5200
 limit_bottom = 460
+editor_draw_limits = true
+editor_draw_drag_margin = true
 
 [node name="SentinelsContainer" type="Node2D" parent="."]
 

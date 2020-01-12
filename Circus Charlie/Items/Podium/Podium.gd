@@ -1,13 +1,17 @@
 extends StaticBody2D
 class_name Podium
 
+signal player_detected
+
+const PLAYER_NAME = "Player"
+const LION_NAME = "Lion"
 
 var player : PhysicsBody2D = null
 var player_center_timer = Timer.new()
 
 
 func _on_PodiumTop_body_entered(body : PhysicsBody2D)->void:
-	if body.name == "Player" or body.name == "Lion":
+	if body.name == PLAYER_NAME or body.name == LION_NAME:
 		body.win()
 
 
@@ -30,3 +34,7 @@ func _on_player_center_timeout()->void:
 		player.set_position(player.get_position() + direction)
 	else:
 		player_center_timer.stop()
+
+func _on_PlayerLoseSensor_body_entered(body):
+	if body.name == PLAYER_NAME or body.name == LION_NAME:
+		emit_signal("player_detected")

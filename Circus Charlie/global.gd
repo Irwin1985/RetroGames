@@ -21,6 +21,7 @@ var json_obj = {}
 var stage = ["res://Levels/Level1.tscn", \
 			"res://Levels/Level2.tscn", \
 			"res://Levels/Level3.tscn", \
+			"res://Levels/Level4.tscn", \
 			"res://Levels/Level5.tscn", \
 			"res://Levels/LevelN.tscn"]
 var current_level: int = -1

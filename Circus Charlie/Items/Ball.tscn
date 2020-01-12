@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://Items/Ball.gd" type="Script" id=1]
 [ext_resource path="res://assets/ball_01.png" type="Texture" id=2]
@@ -20,6 +20,9 @@ radius = 24.3864
 [sub_resource type="RectangleShape2D" id=3]
 extents = Vector2( 24.1151, 3.91092 )
 
+[sub_resource type="RectangleShape2D" id=4]
+extents = Vector2( 28.8626, 2.02096 )
+
 [node name="Ball" type="Area2D" groups=[
 "ball",
 ]]
@@ -28,6 +31,7 @@ script = ExtResource( 1 )
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 scale = Vector2( 2, 2 )
 frames = SubResource( 1 )
+frame = 3
 playing = true
 
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
@@ -45,7 +49,18 @@ shape = SubResource( 3 )
 position = Vector2( 50, -110 )
 enabled = true
 cast_to = Vector2( 0, -50 )
+
+[node name="PlayerBonusSensor" type="Area2D" parent="."]
+position = Vector2( -0.270561, -47.2113 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerBonusSensor"]
+scale = Vector2( 0.760005, 2.44 )
+shape = SubResource( 4 )
 [connection signal="area_entered" from="." to="." method="_on_Ball_area_entered"]
 [connection signal="body_entered" from="." to="." method="_on_Ball_body_entered"]
 [connection signal="body_exited" from="." to="." method="_on_Ball_body_exited"]
 [connection signal="screen_exited" from="VisibilityNotifier2D" to="." method="_on_VisibilityNotifier2D_screen_exited"]
+[connection signal="body_entered" from="PlayerBonusSensor" to="." method="_on_PlayerBonusSensor_body_entered"]

@@ -8,7 +8,7 @@ const SPAWN_BALL_INTERVAL = 1
 const PLAYER_MINIMAL_DISTANCE = 500
 
 var ball_index = -1
-var ball_pattern = [6, 4, 6, 3, 5, 6, 3, 4, 6, 3, 6, 5, 6, 3, 6]
+var ball_pattern = [7.9, 4.4, 7.6, 3, 7.3, 3.4, 7.9, 3.8, 4.2, 6.8, 3, 7.1, 6.2, 7.5, 7.9, 7.6, 6.8, 7.8]
 var last_ball_name = ""
 var play_ball_hurt := false
 
@@ -49,6 +49,7 @@ func spawn_ball():
 	BallInstance.connect("screen_exited", self, "_on_BallInstance_screen_exited",[], CONNECT_DEFERRED)
 	BallInstance.connect("player_detected", self, "_on_BallInstance_player_detected",[], CONNECT_DEFERRED)
 	BallInstance.connect("bonus", self, "_on_BallInstance_bonus", [], CONNECT_DEFERRED)
+	BallInstance.connect("bonus_earned", self, "_on_BallInstance_bonus_earned")
 	
 	if $BallContainer.get_child_count() == 0:
 		ball_position = $Player.position.x + 360
@@ -75,7 +76,6 @@ func _on_Player_moved(motion):
 	if track_player_pos and PlayerBall != null:
 		AnimSprite.play("default", false if motion < 0 else true)
 		AnimSprite.speed_scale = 2
-		
 
 
 func _on_Player_stopped():
@@ -90,6 +90,7 @@ func _on_Player_jumped(motion):
 		PlayerBall.can_move_itself = false
 		AnimSprite.speed_scale = 3
 		PlayerBall.speed = 160
+
 
 func _on_Floor_body_entered(body):
 	if body.name == PLAYER_NAME:
@@ -107,6 +108,7 @@ func game_over():
 	ball_timer.stop()
 	hud.stop_time()
 
+
 func set_timer_env():
 	# Ball Timer Settings
 	ball_timer.wait_time = SPAWN_BALL_INTERVAL
@@ -115,12 +117,15 @@ func set_timer_env():
 	ball_timer.start()
 	add_child(ball_timer)
 
+
 func _on_Player_win():
 	player_won()
 	$Podium.player_center($Player)
 
+
 func _on_ball_timer_timeout():
 	spawn_ball()
+
 
 func _on_BallInstance_screen_exited(_ball: Area2D):
 	if _ball != null:
@@ -165,6 +170,10 @@ func _on_BallInstance_bonus():
 	$Player.bonus_earned = true
 
 
+func _on_BallInstance_bonus_earned(value):
+	global.give_points(value)
+
+
 func _on_BallInstance_hurt():
 	Player_hurt()
 
@@ -188,13 +197,9 @@ func _on_BallInstance_area_entered(area):
 			area.orientation = 1
 		Player_hurt()
 
+
 func Player_hurt():
 	play_ball_hurt = true
 	$Player/Sounds/HurtSound.play()
 	$Player.hit_and_fall()
 	track_player_pos = false
-
-
-
-
-

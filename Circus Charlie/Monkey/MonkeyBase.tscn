@@ -21,11 +21,13 @@ extents = Vector2( 3.13036, 6.84942 )
 
 [node name="MonkeyBase" type="Area2D"]
 script = ExtResource( 1 )
+__meta__ = {
+"_edit_group_": true
+}
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 scale = Vector2( 2, 2 )
 frames = SubResource( 1 )
-frame = 2
 playing = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -50,6 +52,11 @@ __meta__ = {
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="MonkeyBack"]
 shape = SubResource( 3 )
+
+[node name="PlayerBonusSensor" type="RayCast2D" parent="."]
+position = Vector2( 0, -60 )
+enabled = true
+cast_to = Vector2( 0, -100 )
 [connection signal="screen_entered" from="VisibilityNotifier2D" to="." method="_on_VisibilityNotifier2D_screen_entered"]
 [connection signal="screen_exited" from="VisibilityNotifier2D" to="." method="_on_VisibilityNotifier2D_screen_exited"]
 [connection signal="timeout" from="CyanMonkeyTimer" to="." method="_on_CyanMonkeyTimer_timeout"]

@@ -2,7 +2,7 @@ extends Node2D
 
 export (PackedScene) var Monkey
 
-const MONKEY_PADDING_SIZE = 32
+const MONKEY_PADDING_SIZE = 28.4
 const MONKEY_TOP = 230
 const CYAN_MONKEY_INDEX = 9
 const SPAWN_MONKEY_INTERVAL = 1
@@ -14,7 +14,7 @@ const BONUS_PER_WON_TIME = 10
 
 var hud : GameHUD = null
 var monkey_index = -1
-var monkey_pattern = [6, 9, 8, 9, 7, 10, 10, 5, 6, 9, 8, 10, 5, 4, 8]
+var monkey_pattern = [6.2, 10.2, 8.5, 10.1, 7.4, 11.8, 10.7, 5, 6.2, 10.2, 10.1, 10.7, 5, 4, 8.5]
 var show_cyan_monkey = false
 var last_monkey_name = ""
 
@@ -46,7 +46,35 @@ func _ready():
 
 	if global.stage_2_current_monkey_index >= 0:
 		monkey_index = global.stage_2_current_monkey_index - 1
+
 	spawn_monkey()
+
+
+func spawn_monkey():
+	var MonkeyInstance: Area2D = Monkey.instance()
+	var monkey_position = 0
+	
+	MonkeyInstance.name = "Enemy" + str(randi())
+	MonkeyInstance.connect("body_entered", self, "_on_monkey_body_entered", [], CONNECT_DEFERRED)
+	MonkeyInstance.connect("screen_exited", self, "_on_monkey_screen_exited", [], CONNECT_DEFERRED)
+	MonkeyInstance.connect("cyan_monkey_showed", self, "_on_MonkeyInstance_monkey_showed")
+	MonkeyInstance.connect("bonus_earned", self, "_on_MonkeyInstance_bonus_earned")
+
+	if $MonkeyContainer.get_child_count() == 0:
+		monkey_position = $Player.position.x + 360
+	else:
+		get_monkey_index()
+		monkey_position = $MonkeyContainer.get_child(
+				$MonkeyContainer.get_child_count() - 1).position.x
+		
+		monkey_position += monkey_pattern[monkey_index] * MONKEY_PADDING_SIZE
+		if monkey_index == CYAN_MONKEY_INDEX and show_cyan_monkey:
+			MonkeyInstance.enable_player_sensor()
+
+	MonkeyInstance.position = Vector2(monkey_position, MONKEY_TOP)
+	MonkeyInstance.move = true
+	$MonkeyContainer.add_child(MonkeyInstance)
+	last_monkey_name = MonkeyInstance.name
 
 
 func add_HUD():
@@ -65,34 +93,6 @@ func set_bonus_timer():
 		[], CONNECT_DEFERRED)
 	bonus_timer.wait_time = 0.02
 	add_child(bonus_timer)
-
-
-func spawn_monkey():
-	var MonkeyInstance: Area2D = Monkey.instance()
-	var monkey_position = 0
-	
-	MonkeyInstance.name = "Enemy" + str(randi())
-	MonkeyInstance.connect("body_entered", self, "_on_monkey_body_entered", 
-			[], CONNECT_DEFERRED)
-	MonkeyInstance.connect("screen_exited", self, "_on_monkey_screen_exited",
-			[], CONNECT_DEFERRED)
-	MonkeyInstance.connect("cyan_monkey_showed", self, "_on_MonkeyInstance_monkey_showed")
-
-	if $MonkeyContainer.get_child_count() == 0:
-		monkey_position = $Player.position.x + 360
-	else:
-		get_monkey_index()
-		monkey_position = $MonkeyContainer.get_child(
-				$MonkeyContainer.get_child_count() - 1).position.x
-		
-		monkey_position += monkey_pattern[monkey_index] * MONKEY_PADDING_SIZE
-		if monkey_index == CYAN_MONKEY_INDEX and show_cyan_monkey:
-			MonkeyInstance.enable_player_sensor()
-
-	MonkeyInstance.position = Vector2(monkey_position, MONKEY_TOP)
-	MonkeyInstance.move = true
-	$MonkeyContainer.add_child(MonkeyInstance)
-	last_monkey_name = MonkeyInstance.name
 
 
 func get_monkey_index():
@@ -183,8 +183,8 @@ func _on_MonkeyInstance_monkey_showed():
 	var BlueMonkeyInstance = BlueMonkey.instance()
 	BlueMonkeyInstance.connect("player_detected", self, "game_over", [], CONNECT_DEFERRED)
 	BlueMonkeyInstance.connect("player_bonus", self, "_on_BlueMonkey_player_bonus", [], CONNECT_DEFERRED)
-	BlueMonkeyInstance.position.x = $Player.position.x + 940
-	BlueMonkeyInstance.position.y = $Player.position.y
+	BlueMonkeyInstance.global_position.x = $Player.global_position.x + 430
+	BlueMonkeyInstance.position.y = MONKEY_TOP
 	add_child(BlueMonkeyInstance)
 
 
@@ -196,6 +196,10 @@ func _on_monkey_screen_exited(_monkey: Area2D):
 	if _monkey != null:
 		if _monkey.position.x < $Player.position.x:
 			_monkey.queue_free()
+
+
+func _on_MonkeyInstance_bonus_earned(bonus):
+	global.give_points(bonus)
 
 
 func _on_HurtFloor_body_entered(body):
@@ -251,8 +255,7 @@ func _on_BlueMonkey_player_bonus():
 	$Player.bonus_earned_for_jumping_cyan_monkey()
 
 
-
-
-
-
-
+func _on_PlatformSensor_body_entered(body):
+	if body.name == PLAYER_NAME:
+		$HighPlatform/PlatformTable/CollisionShape2D.disabled = false
+		$HighPlatform/PlatformTop/CollisionShape2D2.disabled = false

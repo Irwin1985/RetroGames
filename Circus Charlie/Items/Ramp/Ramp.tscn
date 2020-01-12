@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://Items/Ramp/Ramp.gd" type="Script" id=1]
 [ext_resource path="res://assets/ramp_02.png" type="Texture" id=2]
@@ -18,11 +18,14 @@ animations = [ {
 "speed": 5.0
 } ]
 
-[sub_resource type="RectangleShape2D" id=2]
-extents = Vector2( 48, 14 )
-
 [sub_resource type="RectangleShape2D" id=3]
 extents = Vector2( 48, 2 )
+
+[sub_resource type="RectangleShape2D" id=4]
+extents = Vector2( 3, 12 )
+
+[sub_resource type="RectangleShape2D" id=5]
+extents = Vector2( 48, 3 )
 
 [node name="Ramp" type="StaticBody2D"]
 position = Vector2( 131.431, 58.694 )
@@ -37,19 +40,39 @@ frames = SubResource( 1 )
 animation = "idle"
 playing = true
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource( 2 )
-
-[node name="Area2D" type="Area2D" parent="."]
+[node name="PlayerBounce" type="Area2D" parent="."]
+editor/display_folded = true
 position = Vector2( -0.0577545, -18.8138 )
 __meta__ = {
 "_edit_group_": true
 }
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerBounce"]
 shape = SubResource( 3 )
 
 [node name="RampSound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 4 )
-[connection signal="body_entered" from="Area2D" to="." method="_on_Area2D_body_entered"]
-[connection signal="body_exited" from="Area2D" to="." method="_on_Area2D_body_exited"]
+
+[node name="PlayerHurt" type="Area2D" parent="."]
+editor/display_folded = true
+position = Vector2( -52, 0 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerHurt"]
+shape = SubResource( 4 )
+
+[node name="PlayerDown" type="Area2D" parent="."]
+editor/display_folded = true
+position = Vector2( 0, 12 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerDown"]
+shape = SubResource( 5 )
+[connection signal="body_entered" from="PlayerBounce" to="." method="_on_Area2D_body_entered"]
+[connection signal="body_exited" from="PlayerBounce" to="." method="_on_Area2D_body_exited"]
+[connection signal="body_entered" from="PlayerHurt" to="." method="_on_PlayerHurt_body_entered"]
+[connection signal="body_entered" from="PlayerDown" to="." method="_on_PlayerDown_body_entered"]
