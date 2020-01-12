@@ -142,6 +142,8 @@ limit_left = -90
 limit_top = 0
 limit_right = 5200
 limit_bottom = 460
+editor_draw_limits = true
+editor_draw_drag_margin = true
 
 [node name="SentinelsContainer" type="Node2D" parent="."]
 

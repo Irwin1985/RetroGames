@@ -3,6 +3,7 @@ extends Area2D
 signal hurt
 signal cyan_monkey_showed
 signal screen_exited
+signal bonus_earned
 
 const PLAYER_NAME = "Player"
 const SPEED = 60
@@ -28,6 +29,11 @@ func _process(delta):
 			show_cyan_monkey = true
 			emit_signal("cyan_monkey_showed")
 
+	if $PlayerBonusSensor.is_colliding():
+		var collider = $PlayerBonusSensor.get_collider()
+		if collider.name == PLAYER_NAME:
+			$PlayerBonusSensor.enabled = false
+			emit_signal("bonus_earned", 100)
 
 func enable_player_sensor():
 	$PlayerSensor.cast_to = Vector2(RAYCAST_LENGTH, 0)

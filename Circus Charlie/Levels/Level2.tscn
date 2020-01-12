@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=2]
+[gd_scene load_steps=25 format=2]
 
 [ext_resource path="res://Levels/Level2.gd" type="Script" id=1]
 [ext_resource path="res://Monkey/MonkeyBase.tscn" type="PackedScene" id=2]
@@ -29,6 +29,12 @@ extents = Vector2( 1828, 5 )
 extents = Vector2( 2, 70.8109 )
 
 [sub_resource type="RectangleShape2D" id=4]
+extents = Vector2( 8.54028, 10 )
+
+[sub_resource type="RectangleShape2D" id=5]
+
+[sub_resource type="RectangleShape2D" id=6]
+extents = Vector2( 49.7246, 10 )
 
 [node name="Level2" type="Node2D"]
 script = ExtResource( 1 )
@@ -117,21 +123,29 @@ position = Vector2( 1828, 428.516 )
 scale = Vector2( 0.998724, 0.782454 )
 shape = SubResource( 2 )
 
-[node name="HighPlatform" parent="." instance=ExtResource( 12 )]
+[node name="HighPlatformOld" parent="." instance=ExtResource( 12 )]
 editor/display_folded = true
-position = Vector2( 3547.17, 293.991 )
+visible = false
+position = Vector2( 3559, 291 )
 
-[node name="Sprite" parent="HighPlatform/PlatformTable" index="0"]
+[node name="PlatformTable" parent="HighPlatformOld" index="0"]
+editor/display_folded = true
+
+[node name="Sprite" parent="HighPlatformOld/PlatformTable" index="0"]
 scale = Vector2( 2.5, 2.5 )
 
-[node name="CollisionShape2D" parent="HighPlatform/PlatformTable" index="1"]
-position = Vector2( 4, -90 )
+[node name="CollisionShape2D" parent="HighPlatformOld/PlatformTable" index="1"]
+disabled = true
 
-[node name="CollisionShape2D2" parent="HighPlatform/PlatformTop" index="0"]
-position = Vector2( 4, -95 )
+[node name="PlatformTop" parent="HighPlatformOld" index="1"]
+editor/display_folded = true
+
+[node name="CollisionShape2D2" parent="HighPlatformOld/PlatformTop" index="0"]
+position = Vector2( 3.20435, -99.276 )
+disabled = true
 
 [node name="Player" parent="." instance=ExtResource( 13 )]
-position = Vector2( 140, 224.5 )
+position = Vector2( 140, 222.5 )
 scale = Vector2( 0.998518, 0.804541 )
 speed = 75
 jump_power = 470
@@ -139,6 +153,12 @@ gravity = 15
 slow_backward = true
 process_hurt = true
 character_behaviour = "Stage 2:Monkey"
+
+[node name="Charlie" parent="Player" index="0"]
+scale = Vector2( 2, 2.5 )
+animation = "run"
+frame = 1
+playing = false
 
 [node name="Camera2D" parent="Player" index="2"]
 position = Vector2( -140, 0 )
@@ -149,6 +169,9 @@ limit_right = 3655
 limit_bottom = 460
 editor_draw_limits = true
 editor_draw_drag_margin = true
+
+[node name="Sounds" parent="Player" index="3"]
+editor/display_folded = true
 
 [node name="Walls" type="Node" parent="."]
 editor/display_folded = true
@@ -162,6 +185,16 @@ __meta__ = {
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Walls/LeftWall"]
 shape = SubResource( 3 )
+
+[node name="RightWall" type="StaticBody2D" parent="Walls"]
+position = Vector2( 3642.65, 167.651 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Walls/RightWall"]
+scale = Vector2( 1.24004, 7.8 )
+shape = SubResource( 4 )
 
 [node name="Sounds" type="Node" parent="."]
 editor/display_folded = true
@@ -186,7 +219,7 @@ scale = Vector2( 1, 2.36 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="GoalSensor"]
 scale = Vector2( 0.44, 4.6 )
-shape = SubResource( 4 )
+shape = SubResource( 5 )
 
 [node name="CheckPoints" parent="." instance=ExtResource( 18 )]
 editor/display_folded = true
@@ -220,6 +253,31 @@ position = Vector2( 2640, 224.5 )
 
 [node name="CheckPoint20" parent="CheckPoints/chkpt_20m" index="0"]
 position = Vector2( 0, -100 )
+
+[node name="PlatformSensor" type="Area2D" parent="."]
+editor/display_folded = true
+position = Vector2( 3562.58, 178.433 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlatformSensor"]
+scale = Vector2( 1, 0.360005 )
+shape = SubResource( 6 )
+
+[node name="HighPlatform" parent="." instance=ExtResource( 12 )]
+position = Vector2( 3559, 291 )
+
+[node name="Sprite" parent="HighPlatform/PlatformTable" index="0"]
+scale = Vector2( 2.5, 2.5 )
+
+[node name="CollisionShape2D" parent="HighPlatform/PlatformTable" index="1"]
+position = Vector2( 4, -100 )
+disabled = true
+
+[node name="CollisionShape2D2" parent="HighPlatform/PlatformTop" index="0"]
+position = Vector2( 4, -95 )
+disabled = true
 [connection signal="body_entered" from="HurtFloor" to="." method="_on_HurtFloor_body_entered"]
 [connection signal="lose" from="Player" to="." method="_on_Player_lose"]
 [connection signal="moved" from="Player" to="." method="_on_Player_moved"]
@@ -228,9 +286,12 @@ position = Vector2( 0, -100 )
 [connection signal="finished" from="Sounds/GameOverSound" to="." method="_on_GameOverSound_finished"]
 [connection signal="finished" from="Sounds/WinSound" to="." method="_on_WinSound_finished"]
 [connection signal="body_entered" from="GoalSensor" to="." method="_on_GoalSensor_body_entered"]
+[connection signal="body_entered" from="PlatformSensor" to="." method="_on_PlatformSensor_body_entered"]
 
-[editable path="HighPlatform"]
+[editable path="HighPlatformOld"]
 
 [editable path="Player"]
 
 [editable path="CheckPoints"]
+
+[editable path="HighPlatform"]

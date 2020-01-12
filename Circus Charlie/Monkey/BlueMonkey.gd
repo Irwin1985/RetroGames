@@ -3,6 +3,8 @@ extends KinematicBody2D
 signal player_detected
 signal player_bonus
 
+const PLAYER_NAME = "Player"
+
 export (int) var gravity_power = 40
 export (int) var jump_power = 500
 export (int) var speed = 200
@@ -25,8 +27,8 @@ func _physics_process(delta):
 			$AnimatedSprite.animation = "jump"
 			can_jump = true
 			velocity.y = -jump_power
+
 	if $PlayerSensor.is_colliding() and $MonkeySensor.is_colliding():
-		print($PlayerSensor.get_collider().name)
 		if $PlayerSensor.get_collider().name == "Player":
 			$PlayerSensor.enabled = false
 			$MonkeySensor.enabled = false
@@ -41,10 +43,11 @@ func _physics_process(delta):
 		velocity.y = start_pos
 		$AnimatedSprite.animation = "run"
 
+
 func process_collide():
 	for slide_idx in range(get_slide_count()):
 		var collider: KinematicCollision2D = get_slide_collision(slide_idx)
-		if collider.collider.name == "Player":
+		if collider.collider.name == PLAYER_NAME:
 			emit_signal("player_detected")
 			$AnimatedSprite.stop()
 			set_physics_process(false)

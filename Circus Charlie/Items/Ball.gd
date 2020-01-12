@@ -3,6 +3,7 @@ extends Area2D
 signal player_detected
 signal screen_exited
 signal bonus
+signal bonus_earned
 
 export (int) var speed = 10 setget set_speed
 
@@ -13,6 +14,7 @@ var is_player_entered := false
 var is_player_exited := false
 var orientation = -1
 var raycast_reached := false
+var player_touches := 0
 
 func _process(delta):
 	if can_move_itself:
@@ -53,3 +55,19 @@ func _on_Ball_body_exited(body):
 
 func _on_VisibilityNotifier2D_screen_exited():
 	emit_signal("screen_exited", self)
+
+
+func _on_PlayerBonusSensor_body_entered(body):
+	if body.name == PLAYER_NAME:
+		player_touches += 1
+		if player_touches == 1 and body.motion.y > 0:
+			emit_signal("bonus_earned", 100)
+
+
+
+
+
+
+
+
+

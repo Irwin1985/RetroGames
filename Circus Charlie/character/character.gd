@@ -56,7 +56,7 @@ func _physics_process(delta):
 	if hanging:
 		var pos_offset : Vector2 = Vector2(-18, 8)
 		position = last_swing.get_grab_bar_position() + pos_offset
-		if Input.is_action_pressed("game_jump"):
+		if Input.is_action_just_pressed("game_jump"):
 			hanging = false
 			motion = last_swing.get_tangential_speed()
 			jump()
@@ -76,7 +76,6 @@ func _physics_process(delta):
 				motion.x = 0
 				animate("idle")
 		elif character_behaviour == "Stage 4:Horse":
-			animate("ride" if !jumping else "jump")
 			motion.x = speed
 			if Horse != null:
 				Horse.get_node("AnimatedSprite").speed_scale = 1
@@ -91,7 +90,7 @@ func _physics_process(delta):
 
 		if is_on_floor():
 			jumping = false
-			if Input.is_action_pressed("game_jump"):
+			if Input.is_action_just_pressed("game_jump"):
 				motion.y = -jump_power
 				jump()
 				if character_behaviour != "Stage 4:Horse":
@@ -206,17 +205,20 @@ func hit_and_fall()->void:
 	if not hit:
 		hit = true
 		emit_signal("hit")
-		if character_behaviour != "Stage 3:Balls":
+		if character_behaviour != "Stage 3:Balls" and character_behaviour != "Stage 4:Horse":
 			$Sounds/HurtSound.play()
 		if character_behaviour != "Stage 2:Monkey" and character_behaviour != "Stage 3:Balls":
 			$Charlie.set_animation("jump")
 		$Charlie.set_rotation(0)
 		stop()
-		if character_behaviour != "Stage 3:Balls":
+		if character_behaviour != "Stage 3:Balls" and character_behaviour != "Stage 4:Horse":
 			yield(get_tree().create_timer(0.8),"timeout")
 			$Sounds/FallSound.play()
 			fall_timer.start()
 		else:
+			if character_behaviour == "Stage 4:Horse":
+				Horse.move_alone = true
+				$Sounds/FallSound.play()
 			fall_timer.start()
 
 
@@ -228,7 +230,10 @@ func fall_down()->void:
 func show_BonusLabel(new_val):
 	if bounce_life_timer.time_left > 0.00:
 		bounce_life_timer.wait_time = 1
-		bounced_total += new_val
+		if bounced_total > 0:
+			bounced_total += bounced_total
+		else:
+			bounced_total = new_val
 	else:
 		bounced_total = new_val
 	emit_signal("bonus", bounced_total)
