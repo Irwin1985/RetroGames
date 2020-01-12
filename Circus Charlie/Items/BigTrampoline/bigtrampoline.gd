@@ -44,7 +44,6 @@ func reset_bounces()->void:
 
 func _on_Bonus_body_entered(body):
 	if body.name == "Player":
-		print("Pick bonus")
 		$Bonus.set_visible(false)
 		$Bonus/CollisionShape2D.call_deferred("set_disabled", true)
 		$Bonus/BonusSound.play()

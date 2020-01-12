@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://Items/Boiler/Boiler.gd" type="Script" id=1]
 [ext_resource path="res://assets/boiler_01.png" type="Texture" id=2]
@@ -6,7 +6,6 @@
 [ext_resource path="res://assets/coin.png" type="Texture" id=4]
 [ext_resource path="res://assets/sfx/Bonus.wav" type="AudioStream" id=5]
 [ext_resource path="res://assets/sfx/CoinShow.wav" type="AudioStream" id=6]
-[ext_resource path="res://assets/ARCADECLASSIC.TTF" type="DynamicFontData" id=7]
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
@@ -22,18 +21,6 @@ extents = Vector2( 1.21812, 51.3237 )
 [sub_resource type="Animation" id=3]
 resource_name = "bonus"
 length = 0.5
-tracks/0/type = "value"
-tracks/0/path = NodePath("ControlBonus/LabelBonus:rect_position")
-tracks/0/interp = 2
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0, 0.5 ),
-"transitions": PoolRealArray( 1, 1 ),
-"update": 0,
-"values": [ Vector2( 0, 0 ), Vector2( 55, 0 ) ]
-}
 
 [sub_resource type="Animation" id=4]
 length = 1.75
@@ -65,10 +52,6 @@ tracks/1/keys = {
 
 [sub_resource type="CircleShape2D" id=5]
 radius = 2.06851
-
-[sub_resource type="DynamicFont" id=6]
-size = 20
-font_data = ExtResource( 7 )
 
 [node name="Boiler" type="Area2D" groups=[
 "obstacle",
@@ -115,17 +98,6 @@ stream = ExtResource( 5 )
 
 [node name="CoinShowSound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 6 )
-
-[node name="ControlBonus" type="Control" parent="."]
-margin_right = 40.0
-margin_bottom = 40.0
-
-[node name="LabelBonus" type="Label" parent="ControlBonus"]
-margin_left = 55.0
-margin_right = 99.0
-margin_bottom = 21.0
-custom_fonts/font = SubResource( 6 )
-text = "5000"
 [connection signal="body_entered" from="." to="." method="_on_Boiler_body_entered"]
 [connection signal="body_entered" from="AreaNotifier" to="." method="_on_AreaNotifier_body_entered"]
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]

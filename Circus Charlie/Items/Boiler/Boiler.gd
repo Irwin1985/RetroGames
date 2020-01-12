@@ -1,6 +1,7 @@
 extends Area2D
 
 signal hurt
+signal bonus
 
 var can_hide = false
 var bonus_counter = 0
@@ -18,7 +19,6 @@ func _ready():
 	visibility.connect("screen_exited", self, "_on_visibility_screen_exited")	
 	add_child(visibility)
 	$CoinSprite.visible = false
-	$ControlBonus/LabelBonus.hide()
 	bonus_total = ( randi() % 10 + 1 ) * 2
 
 
@@ -33,7 +33,6 @@ func stop():
 func cancel_bonus():
 	can_pickup = false
 	$CoinSprite.visible = false
-	$ControlBonus/LabelBonus.hide()
 	$AnimationPlayer.seek(0, true)
 
 func _on_visibility_screen_exited():
@@ -68,9 +67,8 @@ func activate_bonus():
 
 func _on_CoinArea2D_body_entered(body):
 	if body.name == "Lion" and can_pickup:
-		$ControlBonus.rect_position.y = $CoinSprite.position.y
 		cancel_bonus()
-		$ControlBonus/LabelBonus.show()
+		emit_signal("bonus", BONUS_POINT)
 		$AnimationPlayer.stop()
 		$CoinPickupSound.play()
 		$AnimationPlayer.play("bonus")

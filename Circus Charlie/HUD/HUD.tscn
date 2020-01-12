@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://HUD/HUD.gd" type="Script" id=1]
 [ext_resource path="res://assets/banner.png" type="Texture" id=2]
@@ -14,6 +14,11 @@ font_data = ExtResource( 3 )
 
 [sub_resource type="DynamicFont" id=2]
 size = 30
+font_data = ExtResource( 3 )
+
+[sub_resource type="DynamicFont" id=3]
+outline_size = 1
+outline_color = Color( 0.466667, 0.466667, 0.466667, 1 )
 font_data = ExtResource( 3 )
 
 [node name="HUD" type="CanvasLayer"]
@@ -175,3 +180,12 @@ stream = ExtResource( 6 )
 
 [node name="BonusGivingSound" type="AudioStreamPlayer" parent="Sounds"]
 stream = ExtResource( 7 )
+
+[node name="LabelPoints" type="Label" parent="."]
+visible = false
+margin_left = 240.0
+margin_top = 250.0
+margin_right = 267.0
+margin_bottom = 267.0
+custom_fonts/font = SubResource( 3 )
+text = "500"

@@ -35,6 +35,7 @@ func _ready():
 			if i % 2 != 0:
 				new_swing.reset_swing_position()
 			else:
+#warning-ignore: integer_division
 				new_swing.put_checkpoint(i/2)
 		if new_swing.connect("first_grab", self, "_on_swing_first_grab") != OK:
 			print("Error connecting swing's first grab signal")
@@ -73,6 +74,9 @@ func set_player_position():
 
 
 func _on_swing_first_grab():
+	var player_pos : Vector2 = $Player.get_global_transform_with_canvas().get_origin()
+	player_pos.y -= 40
+	hud.show_bonus_points(player_pos, 500)
 	global.give_points(500)
 
 

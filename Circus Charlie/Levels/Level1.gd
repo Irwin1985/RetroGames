@@ -3,6 +3,7 @@ extends Node2D
 export (PackedScene) var single_flame
 export (PackedScene) var boiler
 
+onready var audience_timer = Timer.new()
 var pos = Vector2(0, 0)
 var hud : GameHUD = null
 var last_flame = null
@@ -21,6 +22,9 @@ func _ready():
 	next_bonus_flame = randi() % 5 + 4 # 4..8
 	spawn_boiler()
 	spawn_next_flame()
+	audience_timer.connect("timeout", self, "_on_audience_timeout")	
+	audience_timer.wait_time = 0.05
+	add_child(audience_timer)
 
 
 func add_HUD():
@@ -65,6 +69,7 @@ func spawn_next_flame():
 	flame.connect("hurt", $Lion, "hurt")
 	flame.connect("appear", self, "_on_Flame_appear")
 	flame.connect("disappear", self, "_on_Flame_disappear")
+	flame.connect("bonus", self, "show_points_on_player")
 	$FlameContainer.call_deferred("add_child", flame)
 	
 	last_flame = flame
@@ -72,11 +77,18 @@ func spawn_next_flame():
 
 
 func spawn_boiler():
+	var CheckPointNode: Position2D
+	if global.current_check_point_path != "":
+		CheckPointNode = get_node(global.current_check_point_path)
+
 	for i in range(10):
-		var b = boiler.instance()
-		b.position = Vector2(545 + (500 * i), 379)
-		b.connect("hurt", $Lion, "hurt")
-		$BoilerContainer.add_child(b)
+		var bx : float = 545 + (500 * i)
+		if CheckPointNode == null or CheckPointNode.position.x < bx:
+			var b = boiler.instance()
+			b.position = Vector2(bx, 379)
+			b.connect("hurt", $Lion, "hurt")
+			b.connect("bonus", self, "show_points_on_player")
+			$BoilerContainer.add_child(b)
 
 
 func _on_Flame_appear(flame : FlameRing)->void:
@@ -87,6 +99,12 @@ func _on_Flame_appear(flame : FlameRing)->void:
 func _on_Flame_disappear(flame : FlameRing)->void:
 	if flame.position.x < $Lion.position.x:
 		flame.call_deferred("queue_free")
+
+
+func show_points_on_player(points: int):
+	var player_pos : Vector2 = $Lion.get_global_transform_with_canvas().get_origin()
+	player_pos.y -= 70
+	hud.show_bonus_points(player_pos, points)
 
 
 func stop_items():
@@ -130,8 +148,13 @@ func _on_Lion_win():
 		flame.call_deferred("queue_free")
 	hud.give_bonus_start()
 	$Items/Podium.player_center($Lion)
+	audience_timer.start()
 	$Sounds/LevelSound.stop()
 	$Sounds/WinSound.play()
+
+
+func _on_audience_timeout()->void:
+	$Background/Celebrating.visible = not $Background/Celebrating.visible
 
 
 func _on_bonus_giving_finished():
@@ -141,6 +164,8 @@ func _on_bonus_giving_finished():
 
 
 func _on_WinSound_finished():
+	audience_timer.stop()
+	$Background/Celebrating.visible = false
 	if not hud.is_giving_bonus():
 		yield(get_tree().create_timer(0.5), "timeout")
 		global.start_next_level()

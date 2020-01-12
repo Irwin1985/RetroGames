@@ -60,7 +60,11 @@ func set_player_position():
 
 func _on_Bonus_pick():
 	picked_bonuses += 1
-	global.give_points(400 + picked_bonuses * 100)
+	var bonus_points : int = 400 + picked_bonuses * 100
+	var player_pos : Vector2 = $Player.get_global_transform_with_canvas().get_origin()
+	player_pos.y -= 40
+	hud.show_bonus_points(player_pos, bonus_points)
+	global.give_points(bonus_points)
 
 
 func _on_Bounds_body_entered(body : PhysicsBody2D):
