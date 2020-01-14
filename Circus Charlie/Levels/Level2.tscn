@@ -1,24 +1,25 @@
-[gd_scene load_steps=27 format=2]
+[gd_scene load_steps=28 format=2]
 
 [ext_resource path="res://Levels/Level2.gd" type="Script" id=1]
 [ext_resource path="res://Monkey/MonkeyBase.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Items/Background/Background.tscn" type="PackedScene" id=3]
 [ext_resource path="res://assets/background_level2.png" type="Texture" id=4]
-[ext_resource path="res://assets/level_0m.png" type="Texture" id=5]
-[ext_resource path="res://assets/level_10m.png" type="Texture" id=6]
-[ext_resource path="res://assets/level_20m.png" type="Texture" id=7]
-[ext_resource path="res://assets/level_30m.png" type="Texture" id=8]
-[ext_resource path="res://assets/level_40m.png" type="Texture" id=9]
-[ext_resource path="res://assets/level_50m.png" type="Texture" id=10]
-[ext_resource path="res://assets/level_60m.png" type="Texture" id=11]
-[ext_resource path="res://assets/level_70m.png" type="Texture" id=12]
-[ext_resource path="res://Items/HighPlatform/HighPlatform.tscn" type="PackedScene" id=13]
-[ext_resource path="res://Player/Player.tscn" type="PackedScene" id=14]
-[ext_resource path="res://assets/Stage2.ogg" type="AudioStream" id=15]
-[ext_resource path="res://assets/sfx/TimeReduce.ogg" type="AudioStream" id=16]
-[ext_resource path="res://assets/sfx/GameOver.wav" type="AudioStream" id=17]
-[ext_resource path="res://assets/sfx/Clapping.wav" type="AudioStream" id=18]
-[ext_resource path="res://Items/CheckPoints.tscn" type="PackedScene" id=19]
+[ext_resource path="res://Items/ChannelInfo.tscn" type="PackedScene" id=5]
+[ext_resource path="res://assets/level_0m.png" type="Texture" id=6]
+[ext_resource path="res://assets/level_10m.png" type="Texture" id=7]
+[ext_resource path="res://assets/level_20m.png" type="Texture" id=8]
+[ext_resource path="res://assets/level_30m.png" type="Texture" id=9]
+[ext_resource path="res://assets/level_40m.png" type="Texture" id=10]
+[ext_resource path="res://assets/level_50m.png" type="Texture" id=11]
+[ext_resource path="res://assets/level_60m.png" type="Texture" id=12]
+[ext_resource path="res://assets/level_70m.png" type="Texture" id=13]
+[ext_resource path="res://Items/HighPlatform/HighPlatform.tscn" type="PackedScene" id=14]
+[ext_resource path="res://Player/Player.tscn" type="PackedScene" id=15]
+[ext_resource path="res://assets/Stage2.ogg" type="AudioStream" id=16]
+[ext_resource path="res://assets/sfx/TimeReduce.ogg" type="AudioStream" id=17]
+[ext_resource path="res://assets/sfx/GameOver.wav" type="AudioStream" id=18]
+[ext_resource path="res://assets/sfx/Clapping.wav" type="AudioStream" id=19]
+[ext_resource path="res://Items/CheckPoints.tscn" type="PackedScene" id=20]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 1828, 5 )
@@ -45,6 +46,7 @@ script = ExtResource( 1 )
 Monkey = ExtResource( 2 )
 
 [node name="Background" parent="." instance=ExtResource( 3 )]
+editor/display_folded = true
 margin_right = 1835.0
 texture = ExtResource( 4 )
 
@@ -58,48 +60,53 @@ margin_left = 2297.0
 [node name="Audience2" parent="Background/Celebrating" index="1"]
 margin_right = 2603.0
 
+[node name="ChannelInfo" parent="." instance=ExtResource( 5 )]
+editor/display_folded = true
+margin_left = 600.0
+margin_right = 640.0
+
 [node name="LevelContainer" type="Node2D" parent="."]
 editor/display_folded = true
 
 [node name="level_0m" type="Sprite" parent="LevelContainer"]
 position = Vector2( 3560, 435 )
 scale = Vector2( 2, 2 )
-texture = ExtResource( 5 )
+texture = ExtResource( 6 )
 
 [node name="level_10m" type="Sprite" parent="LevelContainer"]
 position = Vector2( 3060, 435 )
 scale = Vector2( 2, 2 )
-texture = ExtResource( 6 )
+texture = ExtResource( 7 )
 
 [node name="level_20m" type="Sprite" parent="LevelContainer"]
 position = Vector2( 2560, 435 )
 scale = Vector2( 2, 2 )
-texture = ExtResource( 7 )
+texture = ExtResource( 8 )
 
 [node name="level_30m" type="Sprite" parent="LevelContainer"]
 position = Vector2( 2060, 435 )
 scale = Vector2( 2, 2 )
-texture = ExtResource( 8 )
+texture = ExtResource( 9 )
 
 [node name="level_40m" type="Sprite" parent="LevelContainer"]
 position = Vector2( 1560, 435 )
 scale = Vector2( 2, 2 )
-texture = ExtResource( 9 )
+texture = ExtResource( 10 )
 
 [node name="level_50m" type="Sprite" parent="LevelContainer"]
 position = Vector2( 1060, 435 )
 scale = Vector2( 2, 2 )
-texture = ExtResource( 10 )
+texture = ExtResource( 11 )
 
 [node name="level_60m" type="Sprite" parent="LevelContainer"]
 position = Vector2( 560, 435 )
 scale = Vector2( 2, 2 )
-texture = ExtResource( 11 )
+texture = ExtResource( 12 )
 
 [node name="level_70m" type="Sprite" parent="LevelContainer"]
 position = Vector2( 60, 435 )
 scale = Vector2( 2, 2 )
-texture = ExtResource( 12 )
+texture = ExtResource( 13 )
 
 [node name="Floor" type="StaticBody2D" parent="."]
 editor/display_folded = true
@@ -139,7 +146,7 @@ position = Vector2( 1828, 428.516 )
 scale = Vector2( 0.998724, 0.782454 )
 shape = SubResource( 2 )
 
-[node name="HighPlatform" parent="." instance=ExtResource( 13 )]
+[node name="HighPlatform" parent="." instance=ExtResource( 14 )]
 position = Vector2( 3562, 288 )
 scale = Vector2( 1, 1.08 )
 
@@ -162,7 +169,7 @@ position = Vector2( -1.99292, -9.72919 )
 position = Vector2( 3, -89 )
 shape = SubResource( 3 )
 
-[node name="Player" parent="." instance=ExtResource( 14 )]
+[node name="Player" parent="." instance=ExtResource( 15 )]
 editor/display_folded = true
 position = Vector2( 140, 213 )
 speed = 75
@@ -174,7 +181,7 @@ character_behaviour = "Stage 2:Monkey"
 
 [node name="Charlie" parent="Player" index="0"]
 animation = "run"
-frame = 1
+speed_scale = 1.6
 playing = false
 
 [node name="CollisionShape2D" parent="Player" index="1"]
@@ -189,9 +196,6 @@ limit_right = 3655
 limit_bottom = 443
 editor_draw_limits = true
 editor_draw_drag_margin = true
-
-[node name="Sounds" parent="Player" index="3"]
-editor/display_folded = true
 
 [node name="Walls" type="Node" parent="."]
 editor/display_folded = true
@@ -220,17 +224,17 @@ shape = SubResource( 6 )
 editor/display_folded = true
 
 [node name="LevelSound" type="AudioStreamPlayer" parent="Sounds"]
-stream = ExtResource( 15 )
+stream = ExtResource( 16 )
 autoplay = true
 
 [node name="ReduceTimeSound" type="AudioStreamPlayer" parent="Sounds"]
-stream = ExtResource( 16 )
-
-[node name="GameOverSound" type="AudioStreamPlayer" parent="Sounds"]
 stream = ExtResource( 17 )
 
-[node name="WinSound" type="AudioStreamPlayer" parent="Sounds"]
+[node name="GameOverSound" type="AudioStreamPlayer" parent="Sounds"]
 stream = ExtResource( 18 )
+
+[node name="WinSound" type="AudioStreamPlayer" parent="Sounds"]
+stream = ExtResource( 19 )
 
 [node name="GoalSensor" type="Area2D" parent="."]
 editor/display_folded = true
@@ -241,7 +245,7 @@ scale = Vector2( 1, 2.36 )
 scale = Vector2( 0.44, 4.6 )
 shape = SubResource( 7 )
 
-[node name="CheckPoints" parent="." instance=ExtResource( 19 )]
+[node name="CheckPoints" parent="." instance=ExtResource( 20 )]
 editor/display_folded = true
 
 [node name="chkpt_60m" parent="CheckPoints" index="13"]
@@ -285,6 +289,8 @@ position = Vector2( 0, -100 )
 [editable path="Background"]
 
 [editable path="Background/Celebrating"]
+
+[editable path="ChannelInfo"]
 
 [editable path="HighPlatform"]
 

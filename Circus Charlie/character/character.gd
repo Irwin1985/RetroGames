@@ -20,7 +20,6 @@ export (bool) var process_hurt = false
 export (String, "none", "Stage 1:Lion", "Stage 2:Monkey", "Stage 3:Balls", "Stage 4:Horse", "Stage 5:Swinging") var character_behaviour
 export (PackedScene) var Horse
 onready var fall_timer: Timer = Timer.new()
-onready var hide_bonus_timer: Timer = Timer.new()
 onready var bounce_life_timer: Timer = Timer.new()
 var bounced_total = 0
 var motion = Vector2()
@@ -39,11 +38,8 @@ var there_is_sound := false
 var bonus_earned := false
 var BallScene: PackedScene = preload("res://Items/Ball.tscn")
 var BallReference: Area2D = null
-onready var BonusLabel: Label = get_node("GUI/BonusLabel")
 
 func _ready():
-	if BonusLabel != null:
-		BonusLabel.visible = false
 	there_is_sound = get_node("Sounds") != null
 	set_sfx_volume()
 	set_timers()
@@ -93,12 +89,6 @@ func _physics_process(delta):
 				else:
 					_process_is_on_floor_behaviour()
 				emit_signal("jumped", motion.x)
-
-			if bonus_earned:
-				bonus_earned = false
-				BonusLabel.visible = true
-				if not $Sounds/BonusSound.playing:
-					$Sounds/BonusSound.play()
 
 		if motion.x != 0:
 			emit_signal("moved", motion.x)
@@ -170,11 +160,6 @@ func set_timers():
 		print("Error connecting timeout of fall_timer")
 	fall_timer.wait_time = 0.02
 	add_child(fall_timer)
-	
-	# Bonus Timer (stage 4)
-	hide_bonus_timer.connect("timeout", self, "_on_hide_bonus_timer_timeout")
-	hide_bonus_timer.wait_time = 0.65
-	add_child(hide_bonus_timer)
 
 	# Bonus lifetime (stage 4)
 	bounce_life_timer.connect("timeout", self, "_on_bounce_life_timer_timeout")
@@ -189,6 +174,12 @@ func jump() -> void:
 
 
 func animate(state: String) -> void:
+	if state == "run" and character_behaviour == "Stage 3:Balls":
+		$Charlie.speed_scale = 1.5
+	elif state == "run back" and character_behaviour == "Stage 3:Balls":
+		$Charlie.speed_scale = 1.2
+	else:
+		$Charlie.speed_scale = 1
 	$AnimationPlayer.play(state)
 
 
@@ -292,15 +283,7 @@ func show_BonusLabel(new_val):
 	else:
 		bounced_total = new_val
 	emit_signal("bonus", bounced_total)
-	BonusLabel.text = str(bounced_total)
-	BonusLabel.rect_position.y = 25
-	BonusLabel.show()
-	hide_bonus_timer.start()
 	bounce_life_timer.start()
-
-
-func _on_hide_bonus_timer_timeout():
-	BonusLabel.hide()
 
 
 func _on_bounce_life_timer_timeout():
@@ -332,10 +315,6 @@ func win():
 		emit_signal("win")
 		animate("win")
 		set_physics_process(false)
-
-
-func _on_BonusSound_finished():
-	BonusLabel.visible = false
 
 
 func bonus_earned_for_jumping_cyan_monkey():

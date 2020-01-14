@@ -49,3 +49,6 @@ func _on_bounce_timer_timeout():
 func _on_PlayerDown_body_entered(body):
 	if body.name == global.PLAYER_NAME:
 		body.hit_and_fall()
+
+func _on_VisibilityNotifier2D_screen_exited():
+	call_deferred("queue_free")
