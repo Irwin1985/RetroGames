@@ -2,7 +2,7 @@
 
 [ext_resource path="res://Levels/Level3.gd" type="Script" id=1]
 [ext_resource path="res://Items/Ball.tscn" type="PackedScene" id=2]
-[ext_resource path="res://assets/background.png" type="Texture" id=3]
+[ext_resource path="res://Items/Background/Background.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Items/Podium/Podium.tscn" type="PackedScene" id=4]
 [ext_resource path="res://assets/level_0m.png" type="Texture" id=5]
 [ext_resource path="res://assets/level_10m.png" type="Texture" id=6]
@@ -22,7 +22,7 @@
 [ext_resource path="res://Items/CheckPoints.tscn" type="PackedScene" id=20]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 1828, 2 )
+extents = Vector2( 2070, 2 )
 
 [sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 15, 12.5 )
@@ -36,17 +36,35 @@ extents = Vector2( 2, 70.8109 )
 script = ExtResource( 1 )
 Ball = ExtResource( 2 )
 
-[node name="Background" type="TextureRect" parent="."]
-margin_left = -0.49826
-margin_top = 1.993
-margin_right = 2116.5
-margin_bottom = 225.993
-rect_scale = Vector2( 1.95, 2.05 )
-texture = ExtResource( 3 )
-stretch_mode = 2
+[node name="Background" parent="." instance=ExtResource( 3 )]
+editor/display_folded = true
+margin_top = 10.0
+margin_right = 2652.0
+margin_bottom = 234.0
+
+[node name="Audience1" parent="Background/Celebrating" index="0"]
+margin_left = 1731.0
+margin_right = 1872.0
+
+[node name="Audience2" parent="Background/Celebrating" index="1"]
+margin_left = 1904.0
+margin_right = 2074.0
 
 [node name="Podium" parent="." instance=ExtResource( 4 )]
+editor/display_folded = true
 position = Vector2( 4033.89, 378.21 )
+
+[node name="CollisionShape2D" parent="Podium" index="1"]
+position = Vector2( 0.727417, -13.8454 )
+scale = Vector2( 0.767765, 0.567309 )
+
+[node name="PodiumTop" parent="Podium" index="2"]
+editor/display_folded = false
+position = Vector2( 0.0426483, -34.1584 )
+scale = Vector2( 1, 0.28002 )
+
+[node name="CollisionShape2D" parent="Podium/PodiumTop" index="0"]
+scale = Vector2( 1, 3.24 )
 
 [node name="LevelContainer" type="Node2D" parent="."]
 editor/display_folded = true
@@ -97,9 +115,10 @@ scale = Vector2( 2, 2 )
 texture = ExtResource( 13 )
 
 [node name="Floor" type="Area2D" parent="."]
+editor/display_folded = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Floor"]
-position = Vector2( 1828, 414.907 )
+position = Vector2( 2070, 414.907 )
 scale = Vector2( 0.998194, 3.92001 )
 shape = SubResource( 1 )
 
@@ -272,6 +291,12 @@ position = Vector2( 0, -110 )
 [connection signal="area_entered" from="PlayerBall" to="." method="_on_PlayerBall_area_entered"]
 [connection signal="player_detected" from="PlayerBall" to="." method="_on_Ball_player_detected"]
 [connection signal="screen_exited" from="PlayerBall" to="." method="_on_ball_screen_exited"]
+
+[editable path="Background"]
+
+[editable path="Background/Celebrating"]
+
+[editable path="Podium"]
 
 [editable path="Player"]
 

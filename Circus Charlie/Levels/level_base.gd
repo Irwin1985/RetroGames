@@ -50,6 +50,7 @@ func _on_bonus_giving_finished():
 
 func player_won():
 	hud.give_bonus_start()
+	$Background/Celebrating.visible = true
 	audience_timer.start()
 	$Sounds/LevelSound.stop()
 	$Sounds/WinSound.play()
@@ -94,7 +95,6 @@ func _on_HUD_out_of_time():
 	if not found and get_node(LION_NAME) != null:
 		found = true
 		get_node(LION_NAME).lose()
-
 
 func _on_audience_timeout()->void:
 	$Background/Celebrating.visible = not $Background/Celebrating.visible

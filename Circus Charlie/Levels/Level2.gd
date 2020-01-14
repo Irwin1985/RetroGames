@@ -113,6 +113,8 @@ func _on_Player_stopped():
 
 
 func _on_Player_win():
+	for monkey in $MonkeyContainer.get_children():
+		monkey.call_deferred("queue_free")
 	player_won()
 	platform_center_timer.start()
 

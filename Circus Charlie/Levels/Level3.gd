@@ -8,7 +8,8 @@ const SPAWN_BALL_INTERVAL = 1
 const PLAYER_MINIMAL_DISTANCE = 500
 
 var ball_index = -1
-var ball_pattern = [7.9, 4.4, 7.6, 3, 7.3, 3.4, 7.9, 3.8, 4.2, 6.8, 3, 7.1, 6.2, 7.5, 7.9, 7.6, 6.8, 7.8]
+#var ball_pattern = [7.9, 4.4, 7.6, 3, 7.3, 3.4, 7.9, 3.8, 4.2, 6.8, 3, 7.1, 6.2, 7.5, 7.9, 7.6, 6.8, 7.8]
+var ball_pattern = [7.9, 4.4, 7.6, 3, 7.3, 3.4, 7.9, 3, 4.2, 6.8, 3, 7.1, 3.4, 7.5, 3, 7.6, 6.8, 3]
 var last_ball_name = ""
 var play_ball_hurt := false
 
@@ -116,11 +117,11 @@ func set_timer_env():
 		[], CONNECT_DEFERRED)
 	ball_timer.start()
 	add_child(ball_timer)
-
-
+	
 func _on_Player_win():
 	player_won()
 	$Podium.player_center($Player)
+	$Player.position.y = 333 # Adjust Player position
 
 
 func _on_ball_timer_timeout():
