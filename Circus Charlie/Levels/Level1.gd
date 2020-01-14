@@ -98,6 +98,7 @@ func stop_items():
 
 
 func _on_Lion_lose():
+	stop_items()
 	lose()
 
 
