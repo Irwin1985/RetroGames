@@ -203,6 +203,9 @@ func take_swing(swing: Swing) -> void:
 	$AnimationPlayer.seek(swing.get_swing_position())
 	last_swing = swing
 	
+
+func can_bounce()->bool:
+	return not hit and not lost and not won
 	
 func bounce_trampoline(bounciness: float = 620) -> void:
 	if last_swing != null:
@@ -219,12 +222,12 @@ func bounce_trampoline(bounciness: float = 620) -> void:
 func bounce_big_trampoline(trampoline: BigTrampoline, bounciness: float, bounce_in_center : bool = true) -> void:
 	jumping = true
 	if Input.is_action_pressed("game_left"):
-		motion = Vector2(-200, -500)
+		motion = Vector2(-200, -530)
 		trampoline.reset_bounces()
 		$AnimationPlayer.seek(1)
 		$AnimationPlayer.play_backwards("spin jump")
 	elif Input.is_action_pressed("game_right"):
-		motion = Vector2(200, -500)
+		motion = Vector2(200, -530)
 		trampoline.reset_bounces()
 		animate("spin jump")
 		$AnimationPlayer.seek(0)
