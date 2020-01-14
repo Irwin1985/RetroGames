@@ -1,21 +1,22 @@
-[gd_scene load_steps=22 format=2]
+[gd_scene load_steps=23 format=2]
 
 [ext_resource path="res://Levels/LevelN.gd" type="Script" id=1]
 [ext_resource path="res://assets/background.png" type="Texture" id=2]
-[ext_resource path="res://assets/level_70m.png" type="Texture" id=3]
-[ext_resource path="res://assets/level_60m.png" type="Texture" id=4]
-[ext_resource path="res://assets/level_50m.png" type="Texture" id=5]
-[ext_resource path="res://assets/level_40m.png" type="Texture" id=6]
-[ext_resource path="res://assets/level_30m.png" type="Texture" id=7]
-[ext_resource path="res://assets/level_20m.png" type="Texture" id=8]
-[ext_resource path="res://assets/level_10m.png" type="Texture" id=9]
-[ext_resource path="res://assets/level_0m.png" type="Texture" id=10]
-[ext_resource path="res://Items/Podium/Podium.tscn" type="PackedScene" id=11]
-[ext_resource path="res://assets/platform.png" type="Texture" id=12]
-[ext_resource path="res://assets/sfx/Circus4c.ogg" type="AudioStream" id=13]
-[ext_resource path="res://assets/sfx/GameOver.wav" type="AudioStream" id=14]
-[ext_resource path="res://assets/sfx/Clapping.wav" type="AudioStream" id=15]
-[ext_resource path="res://Player/Player.tscn" type="PackedScene" id=16]
+[ext_resource path="res://Levels/Celebrating.tscn" type="PackedScene" id=3]
+[ext_resource path="res://assets/level_70m.png" type="Texture" id=4]
+[ext_resource path="res://assets/level_60m.png" type="Texture" id=5]
+[ext_resource path="res://assets/level_50m.png" type="Texture" id=6]
+[ext_resource path="res://assets/level_40m.png" type="Texture" id=7]
+[ext_resource path="res://assets/level_30m.png" type="Texture" id=8]
+[ext_resource path="res://assets/level_20m.png" type="Texture" id=9]
+[ext_resource path="res://assets/level_10m.png" type="Texture" id=10]
+[ext_resource path="res://assets/level_0m.png" type="Texture" id=11]
+[ext_resource path="res://Items/Podium/Podium.tscn" type="PackedScene" id=12]
+[ext_resource path="res://assets/platform.png" type="Texture" id=13]
+[ext_resource path="res://assets/sfx/Circus4c.ogg" type="AudioStream" id=14]
+[ext_resource path="res://assets/sfx/GameOver.wav" type="AudioStream" id=15]
+[ext_resource path="res://assets/sfx/Clapping.wav" type="AudioStream" id=16]
+[ext_resource path="res://Player/Player.tscn" type="PackedScene" id=17]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 10, 125 )
@@ -65,8 +66,11 @@ position = Vector2( 1000, 220 )
 shape = SubResource( 4 )
 
 [node name="Ceiling" type="CollisionShape2D" parent="Background/Bounds"]
-position = Vector2( 1000, -25 )
+position = Vector2( 1000, 15 )
 shape = SubResource( 5 )
+
+[node name="Celebrating" parent="Background" instance=ExtResource( 3 )]
+position = Vector2( -768, 0 )
 
 [node name="Checkpoints" type="Node2D" parent="."]
 editor/display_folded = true
@@ -74,71 +78,71 @@ editor/display_folded = true
 [node name="level_70m" type="Sprite" parent="Checkpoints"]
 position = Vector2( 64, 440 )
 scale = Vector2( 2, 2 )
-texture = ExtResource( 3 )
+texture = ExtResource( 4 )
 
 [node name="level_60m" type="Sprite" parent="Checkpoints"]
 position = Vector2( 576, 440 )
 scale = Vector2( 2, 2 )
-texture = ExtResource( 4 )
+texture = ExtResource( 5 )
 
 [node name="level_50m" type="Sprite" parent="Checkpoints"]
 position = Vector2( 1088, 440 )
 scale = Vector2( 2, 2 )
-texture = ExtResource( 5 )
+texture = ExtResource( 6 )
 
 [node name="level_40m" type="Sprite" parent="Checkpoints"]
 position = Vector2( 1600, 440 )
 scale = Vector2( 2, 2 )
-texture = ExtResource( 6 )
+texture = ExtResource( 7 )
 
 [node name="level_30m" type="Sprite" parent="Checkpoints"]
 position = Vector2( 2112, 440 )
 scale = Vector2( 2, 2 )
-texture = ExtResource( 7 )
+texture = ExtResource( 8 )
 
 [node name="level_20m" type="Sprite" parent="Checkpoints"]
 position = Vector2( 2624, 440 )
 scale = Vector2( 2, 2 )
-texture = ExtResource( 8 )
+texture = ExtResource( 9 )
 
 [node name="level_10m" type="Sprite" parent="Checkpoints"]
 position = Vector2( 3136, 440 )
 scale = Vector2( 2, 2 )
-texture = ExtResource( 9 )
+texture = ExtResource( 10 )
 
 [node name="level_0m" type="Sprite" parent="Checkpoints"]
 position = Vector2( 3648, 440 )
 scale = Vector2( 2, 2 )
-texture = ExtResource( 10 )
+texture = ExtResource( 11 )
 
 [node name="Environment" type="Node2D" parent="."]
 
-[node name="Podium" parent="." instance=ExtResource( 11 )]
+[node name="Podium" parent="." instance=ExtResource( 12 )]
 position = Vector2( 3684, 388 )
 
 [node name="Sprite" type="Sprite" parent="."]
 position = Vector2( 3684, 388 )
 scale = Vector2( 2, 2 )
-texture = ExtResource( 12 )
+texture = ExtResource( 13 )
 
 [node name="Sounds" type="Node" parent="."]
 
 [node name="LevelSound" type="AudioStreamPlayer" parent="Sounds"]
-stream = ExtResource( 13 )
+stream = ExtResource( 14 )
 autoplay = true
 
 [node name="GameOverSound" type="AudioStreamPlayer" parent="Sounds"]
-stream = ExtResource( 14 )
-
-[node name="WinSound" type="AudioStreamPlayer" parent="Sounds"]
 stream = ExtResource( 15 )
 
-[node name="Player" parent="." instance=ExtResource( 16 )]
+[node name="WinSound" type="AudioStreamPlayer" parent="Sounds"]
+stream = ExtResource( 16 )
+
+[node name="Player" parent="." instance=ExtResource( 17 )]
 position = Vector2( 100, 250 )
 gravity = 20
 
-[node name="Charlie" parent="Player" index="0"]
-frame = 1
+[node name="CollisionShape2D" parent="Player" index="1"]
+scale = Vector2( 0.76, 1 )
 
 [node name="Camera2D" parent="Player" index="2"]
 offset = Vector2( 90, 0 )

@@ -19,22 +19,23 @@ func put_checkpoint(distance: int) -> void:
 
 func bounce_player(body: PhysicsBody2D) -> void:
 	if body.name == global.PLAYER_NAME:
-		if checkpoint != 0:
-			global.set_checkpoint(checkpoint)
-		if give_points:
-			give_points = false
-			global.give_points(20)
-		var bounciness : float = 1100
-		bounce_count += 1
-		if bounce_count == 1:
-			bounciness = 500
-		elif bounce_count == 2:
-			bounciness = 650
-		elif bounce_count == 3:
-			bounciness = 800
-		body.bounce_big_trampoline(self, bounciness)
-		$BounceSound.play()
-		yield(get_tree().create_timer(0.5), "timeout")
+		if body.can_bounce():
+			if checkpoint != 0:
+				global.set_checkpoint(checkpoint)
+			if give_points:
+				give_points = false
+				global.give_points(20)
+			var bounciness : float = 1100
+			bounce_count += 1
+			if bounce_count == 1:
+				bounciness = 500
+			elif bounce_count == 2:
+				bounciness = 650
+			elif bounce_count == 3:
+				bounciness = 800
+			body.bounce_big_trampoline(self, bounciness)
+			$BounceSound.play()
+			yield(get_tree().create_timer(0.5), "timeout")
 	bounce_enabled = true
 
 

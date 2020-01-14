@@ -82,7 +82,8 @@ func _on_Player_hit():
 
 
 func _on_HUD_out_of_time():
-	lose()
+	stop_items()
+	$Player.hit_and_fall()
 
 
 func _on_Player_lose():

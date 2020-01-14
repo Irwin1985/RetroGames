@@ -63,7 +63,7 @@ func set_player_position():
 
 func _on_swing_first_grab():
 	var player_pos: Vector2 = $Player.get_global_transform_with_canvas().get_origin()
-	player_pos.y -= 40
+	player_pos.x += 50
 	hud.show_bonus_points(player_pos, 500)
 	global.give_points(500)
 
@@ -93,14 +93,6 @@ func _on_HUD_out_of_time():
 
 func _on_Player_lose():
 	lose()
-
-
-func lose():
-	hud.stop_time()
-	$Sounds/LevelSound.stop()
-	global.lose_life()
-	yield(get_tree().create_timer(0.66), "timeout")
-	$Sounds/GameOverSound.play()
 
 
 func _on_GameOverSound_finished():
