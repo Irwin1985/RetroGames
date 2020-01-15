@@ -119,4 +119,4 @@ func _on_platform_center_timeout() -> void:
 
 
 func _on_WinSound_finished():
-	WinSound_finished($player)
+	WinSound_finished($Player)

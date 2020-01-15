@@ -162,7 +162,8 @@ func set_timers():
 	add_child(fall_timer)
 
 	# Bonus lifetime (stage 4)
-	bounce_life_timer.connect("timeout", self, "_on_bounce_life_timer_timeout")
+	if bounce_life_timer.connect("timeout", self, "_on_bounce_life_timer_timeout") != OK:
+		print("Error connecting bounce_life_timer")
 	bounce_life_timer.wait_time = 1
 	add_child(bounce_life_timer)
 
