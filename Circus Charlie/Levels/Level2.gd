@@ -5,6 +5,7 @@ export (PackedScene) var Monkey
 const MONKEY_PADDING_SIZE = 28.4
 const MONKEY_TOP = 216
 const CYAN_MONKEY_INDEX = 9
+const CYAN_MONKEY_BONUS_POINTS = 500
 const SPAWN_MONKEY_INTERVAL = 1
 const MONKEY_NORMAL_SPEED = 1
 const MONKEY_HIGH_SPEED = 2
@@ -18,7 +19,8 @@ var last_monkey_name = ""
 onready var monkey_timer = Timer.new()
 onready var platform_center_timer = Timer.new()
 onready var BlueMonkey: PackedScene = preload("res://Monkey/BlueMonkey.tscn")
-
+var bonus_earned := false
+var bonus_point := 0
 
 func _ready():
 	$Player/CollisionShape2D.shape.extents = Vector2(15, 9)
@@ -28,7 +30,6 @@ func _ready():
 	if global.is_debug_mode:
 		global.play_first_sound = true
 		global.current_level = 1
-	show_cyan_monkey = global.stage_2_first_time_lauched
 
 	if global.current_check_point_path != "":
 		var CheckPointNode: Position2D = get_node(global.current_check_point_path)
@@ -37,8 +38,18 @@ func _ready():
 
 	if global.stage_2_current_monkey_index >= 0:
 		monkey_index = global.stage_2_current_monkey_index - 1
-
 	spawn_monkey()
+
+
+func _process(delta):
+	if bonus_earned and $Player.is_on_floor():
+		bonus_earned = false
+		var player_pos : Vector2 = $Player.get_global_transform_with_canvas().get_origin()
+		player_pos.y -= 40
+		player_pos.x += 35
+		$Player/Sounds/BonusSound.play()
+		hud.show_bonus_points(player_pos, bonus_point)
+		bonus_point = 0
 
 
 func spawn_monkey():
@@ -113,6 +124,8 @@ func _on_Player_stopped():
 
 
 func _on_Player_win():
+	for monkey in $MonkeyContainer.get_children():
+		monkey.call_deferred("queue_free")
 	player_won()
 	platform_center_timer.start()
 
@@ -188,7 +201,8 @@ func _on_WinSound_finished():
 
 
 func _on_BlueMonkey_player_bonus():
-	$Player.bonus_earned_for_jumping_cyan_monkey()
+	bonus_earned = true
+	bonus_point = CYAN_MONKEY_BONUS_POINTS
 
 
 func _on_PlatformSensor_body_entered(body):

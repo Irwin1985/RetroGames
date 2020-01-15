@@ -4,11 +4,12 @@ export (PackedScene) var Ball
 
 const BALL_PADDING_SIZE = 32
 const BALL_TOP = 383
+const BALL_BONUS_POINTS = 500
 const SPAWN_BALL_INTERVAL = 1
 const PLAYER_MINIMAL_DISTANCE = 500
 
 var ball_index = -1
-var ball_pattern = [7.9, 4.4, 7.6, 3, 7.3, 3.4, 7.9, 3.8, 4.2, 6.8, 3, 7.1, 6.2, 7.5, 7.9, 7.6, 6.8, 7.8]
+var ball_pattern = [7.9, 4.4, 7.6, 3, 7.3, 3.4, 7.9, 3, 4.2, 6.8, 3, 7.1, 3.4, 7.5, 3, 7.6, 6.8, 3]
 var last_ball_name = ""
 var play_ball_hurt := false
 
@@ -17,7 +18,8 @@ onready var ball_timer = Timer.new()
 var track_player_pos := false
 var PlayerBall: Area2D = null
 var AnimSprite :AnimatedSprite = null
-
+var bonus_earned := false
+var bonus_point := 0
 
 func _ready():
 	set_timer_env()
@@ -40,6 +42,14 @@ func _process(delta):
 	if track_player_pos and PlayerBall != null:
 		PlayerBall.position.x = $Player.global_position.x
 
+	if bonus_earned and $Player.is_on_floor():
+		bonus_earned = false
+		var player_pos : Vector2 = $Player.get_global_transform_with_canvas().get_origin()
+		player_pos.y -= 40
+		player_pos.x += 35
+		$Player/Sounds/BonusSound.play()
+		hud.show_bonus_points(player_pos, bonus_point)
+		bonus_point = 0
 
 func spawn_ball():
 	var BallInstance: Area2D = Ball.instance()
@@ -116,11 +126,14 @@ func set_timer_env():
 		[], CONNECT_DEFERRED)
 	ball_timer.start()
 	add_child(ball_timer)
-
-
+	
 func _on_Player_win():
+	for ball in $BallContainer.get_children():
+		ball.call_deferred("queue_free")
+
 	player_won()
 	$Podium.player_center($Player)
+	$Player.position.y = 333 # Adjust Player position
 
 
 func _on_ball_timer_timeout():
@@ -167,7 +180,8 @@ func setBallInstance(BallRef : Area2D, track_player : bool = true):
 
 
 func _on_BallInstance_bonus():
-	$Player.bonus_earned = true
+	bonus_earned = true
+	bonus_point = BALL_BONUS_POINTS
 
 
 func _on_BallInstance_bonus_earned(value):

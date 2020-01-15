@@ -2,6 +2,8 @@ extends "res://Levels/level_base.gd"
 
 var track_horse_position := true
 var last_jump := false
+var bonus_earned := false
+var bonus_point := 0
 
 func _ready():
 	$Player.Horse = $Horse
@@ -30,9 +32,19 @@ func _process(delta):
 	if track_horse_position:
 		$Horse.position.x = $Player.global_position.x + 10
 
+	if bonus_earned:
+		bonus_earned = false
+		var player_pos : Vector2 = $Player.get_global_transform_with_canvas().get_origin()
+		player_pos.y += 10
+		player_pos.x += 35
+		hud.show_bonus_points(player_pos, bonus_point)
+		bonus_point = 0
+
 
 func _on_Player_bonus(bonus):
-	global.give_points(bonus)
+	bonus_earned = true
+	bonus_point = bonus
+#	global.give_points(bonus)
 
 
 func _on_Floor_body_entered(body):
@@ -55,6 +67,7 @@ func _on_Player_hit():
 func _on_Player_win():
 	player_won()
 	$Podium.player_center($Player)
+	$Player.position.y = 333
 
 
 func _on_Player_lose():
