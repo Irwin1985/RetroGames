@@ -1,13 +1,14 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://HUD/HUD.gd" type="Script" id=1]
 [ext_resource path="res://assets/banner.png" type="Texture" id=2]
 [ext_resource path="res://assets/ARCADECLASSIC.TTF" type="DynamicFontData" id=3]
-[ext_resource path="res://assets/live.png" type="Texture" id=4]
+[ext_resource path="res://assets/charlie_live.png" type="Texture" id=4]
 [ext_resource path="res://HUD/LabelPause.gd" type="Script" id=5]
 [ext_resource path="res://assets/sfx/pause.wav" type="AudioStream" id=6]
 [ext_resource path="res://assets/sfx/TimeReduce.ogg" type="AudioStream" id=7]
 [ext_resource path="res://assets/sfx/LiveEarned.wav" type="AudioStream" id=8]
+[ext_resource path="res://assets/sfx/bonus.wav" type="AudioStream" id=9]
 
 [sub_resource type="DynamicFont" id=1]
 size = 30
@@ -50,7 +51,7 @@ margin_right = 273.0
 margin_bottom = 46.0
 
 [node name="LabelBonus" type="Label" parent="Bonus"]
-modulate = Color( 0.901961, 0.0705882, 0.392157, 1 )
+modulate = Color( 0.831373, 0.117647, 0.254902, 1 )
 margin_left = 177.0
 margin_top = 30.0
 margin_right = 262.0
@@ -147,27 +148,33 @@ margin_right = 511.0
 margin_bottom = 73.0
 
 [node name="SpriteLive1" type="Sprite" parent="Lives"]
-position = Vector2( 53, 12 )
+position = Vector2( 53, 11 )
+scale = Vector2( 0.917, 0.833 )
 texture = ExtResource( 4 )
 
 [node name="SpriteLive2" type="Sprite" parent="Lives"]
-position = Vector2( 31, 12 )
+position = Vector2( 31, 11 )
+scale = Vector2( 0.917, 0.833 )
 texture = ExtResource( 4 )
 
 [node name="SpriteLive3" type="Sprite" parent="Lives"]
-position = Vector2( 9, 12 )
+position = Vector2( 9, 11 )
+scale = Vector2( 0.917, 0.833 )
 texture = ExtResource( 4 )
 
 [node name="SpriteLife4" type="Sprite" parent="Lives"]
-position = Vector2( -13, 12 )
+position = Vector2( -13, 11 )
+scale = Vector2( 0.917, 0.833 )
 texture = ExtResource( 4 )
 
 [node name="SpriteLife5" type="Sprite" parent="Lives"]
-position = Vector2( -35, 12 )
+position = Vector2( -35.5, 11 )
+scale = Vector2( 0.917, 0.833 )
 texture = ExtResource( 4 )
 
 [node name="SpriteLife6" type="Sprite" parent="Lives"]
-position = Vector2( -57, 12 )
+position = Vector2( -58, 11 )
+scale = Vector2( 0.916668, 0.833333 )
 texture = ExtResource( 4 )
 
 [node name="LabelPause" type="Label" parent="."]
@@ -180,18 +187,20 @@ custom_fonts/font = SubResource( 2 )
 text = "PAUSE"
 script = ExtResource( 5 )
 
-[node name="PauseSound" type="AudioStreamPlayer" parent="."]
+[node name="Sounds" type="Node" parent="."]
+
+[node name="PauseSound" type="AudioStreamPlayer" parent="Sounds"]
 pause_mode = 2
 stream = ExtResource( 6 )
-
-[node name="Sounds" type="Node" parent="."]
-editor/display_folded = true
 
 [node name="BonusGivingSound" type="AudioStreamPlayer" parent="Sounds"]
 stream = ExtResource( 7 )
 
 [node name="LiveEarned" type="AudioStreamPlayer" parent="Sounds"]
 stream = ExtResource( 8 )
+
+[node name="BonusSound" type="AudioStreamPlayer" parent="Sounds"]
+stream = ExtResource( 9 )
 
 [node name="LabelPoints" type="Label" parent="."]
 visible = false

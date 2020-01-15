@@ -24,7 +24,6 @@ func _process(delta):
 func bonus():
 	emit_signal("bonus", 500)
 	global.give_points(1000)
-	$BonusSound.play()
 	$SpriteBonus.visible = false
 	$TimerKillBonus.start()
 

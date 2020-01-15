@@ -1,4 +1,4 @@
-[gd_scene load_steps=41 format=2]
+[gd_scene load_steps=39 format=2]
 
 [ext_resource path="res://Levels/Level4.gd" type="Script" id=1]
 [ext_resource path="res://Items/Background/Background.tscn" type="PackedScene" id=2]
@@ -28,12 +28,10 @@
 [ext_resource path="res://assets/level_190m.png" type="Texture" id=26]
 [ext_resource path="res://assets/level_200m.png" type="Texture" id=27]
 [ext_resource path="res://assets/Stage1.ogg" type="AudioStream" id=28]
-[ext_resource path="res://assets/sfx/TimeReduce.ogg" type="AudioStream" id=29]
-[ext_resource path="res://assets/sfx/GameOver.wav" type="AudioStream" id=30]
-[ext_resource path="res://assets/sfx/Clapping.wav" type="AudioStream" id=31]
-[ext_resource path="res://assets/sfx/HurtBall.wav" type="AudioStream" id=32]
-[ext_resource path="res://Items/CheckPoints.tscn" type="PackedScene" id=33]
-[ext_resource path="res://Items/Ramp/Ramp.tscn" type="PackedScene" id=34]
+[ext_resource path="res://assets/sfx/GameOver.wav" type="AudioStream" id=29]
+[ext_resource path="res://assets/sfx/Clapping.wav" type="AudioStream" id=30]
+[ext_resource path="res://Items/CheckPoints.tscn" type="PackedScene" id=31]
+[ext_resource path="res://Items/Ramp/Ramp.tscn" type="PackedScene" id=32]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 15, 12.1 )
@@ -79,9 +77,6 @@ margin_right = 4040.0
 [node name="Horse" parent="." instance=ExtResource( 4 )]
 editor/display_folded = true
 position = Vector2( 120, 375 )
-
-[node name="AnimatedSprite" parent="Horse" index="0"]
-frame = 2
 
 [node name="Podium" parent="." instance=ExtResource( 5 )]
 editor/display_folded = true
@@ -256,23 +251,16 @@ __meta__ = {
 shape = SubResource( 3 )
 
 [node name="Sounds" type="Node" parent="."]
-editor/display_folded = true
 
 [node name="LevelSound" type="AudioStreamPlayer" parent="Sounds"]
 stream = ExtResource( 28 )
 autoplay = true
 
-[node name="ReduceTimeSound" type="AudioStreamPlayer" parent="Sounds"]
+[node name="GameOverSound" type="AudioStreamPlayer" parent="Sounds"]
 stream = ExtResource( 29 )
 
-[node name="GameOverSound" type="AudioStreamPlayer" parent="Sounds"]
-stream = ExtResource( 30 )
-
 [node name="WinSound" type="AudioStreamPlayer" parent="Sounds"]
-stream = ExtResource( 31 )
-
-[node name="HurtSound" type="AudioStreamPlayer" parent="Sounds"]
-stream = ExtResource( 32 )
+stream = ExtResource( 30 )
 
 [node name="GoalSensor" type="Area2D" parent="."]
 editor/display_folded = true
@@ -286,7 +274,7 @@ __meta__ = {
 scale = Vector2( 0.44, 4.6 )
 shape = SubResource( 4 )
 
-[node name="CheckPoints" parent="." instance=ExtResource( 33 )]
+[node name="CheckPoints" parent="." instance=ExtResource( 31 )]
 editor/display_folded = true
 
 [node name="chkpt_190m" parent="CheckPoints" index="0"]
@@ -416,11 +404,11 @@ __meta__ = {
 "_edit_group_": true
 }
 
-[node name="Ramp" parent="Bounce/190m" instance=ExtResource( 34 )]
+[node name="Ramp" parent="Bounce/190m" instance=ExtResource( 32 )]
 editor/display_folded = true
 position = Vector2( 40, -20 )
 
-[node name="Ramp2" parent="Bounce/190m" instance=ExtResource( 34 )]
+[node name="Ramp2" parent="Bounce/190m" instance=ExtResource( 32 )]
 editor/display_folded = true
 position = Vector2( 187.494, -35 )
 
@@ -431,11 +419,11 @@ __meta__ = {
 "_edit_group_": true
 }
 
-[node name="Ramp" parent="Bounce/180m" instance=ExtResource( 34 )]
+[node name="Ramp" parent="Bounce/180m" instance=ExtResource( 32 )]
 editor/display_folded = true
 position = Vector2( 40, -35 )
 
-[node name="Ramp2" parent="Bounce/180m" instance=ExtResource( 34 )]
+[node name="Ramp2" parent="Bounce/180m" instance=ExtResource( 32 )]
 editor/display_folded = true
 position = Vector2( 187.494, -20 )
 
@@ -446,11 +434,11 @@ __meta__ = {
 "_edit_group_": true
 }
 
-[node name="Ramp" parent="Bounce/170m" instance=ExtResource( 34 )]
+[node name="Ramp" parent="Bounce/170m" instance=ExtResource( 32 )]
 editor/display_folded = true
 position = Vector2( 40, -35 )
 
-[node name="Ramp2" parent="Bounce/170m" instance=ExtResource( 34 )]
+[node name="Ramp2" parent="Bounce/170m" instance=ExtResource( 32 )]
 editor/display_folded = true
 position = Vector2( 187.494, -20 )
 
@@ -461,11 +449,11 @@ __meta__ = {
 "_edit_group_": true
 }
 
-[node name="Ramp" parent="Bounce/160m" instance=ExtResource( 34 )]
+[node name="Ramp" parent="Bounce/160m" instance=ExtResource( 32 )]
 editor/display_folded = true
 position = Vector2( 40, -20 )
 
-[node name="Ramp2" parent="Bounce/160m" instance=ExtResource( 34 )]
+[node name="Ramp2" parent="Bounce/160m" instance=ExtResource( 32 )]
 editor/display_folded = true
 position = Vector2( 187.494, -20 )
 
@@ -476,11 +464,11 @@ __meta__ = {
 "_edit_group_": true
 }
 
-[node name="Ramp" parent="Bounce/150m" instance=ExtResource( 34 )]
+[node name="Ramp" parent="Bounce/150m" instance=ExtResource( 32 )]
 editor/display_folded = true
 position = Vector2( 40, -20 )
 
-[node name="Ramp2" parent="Bounce/150m" instance=ExtResource( 34 )]
+[node name="Ramp2" parent="Bounce/150m" instance=ExtResource( 32 )]
 editor/display_folded = true
 position = Vector2( 187.494, -35 )
 
@@ -491,11 +479,11 @@ __meta__ = {
 "_edit_group_": true
 }
 
-[node name="Ramp" parent="Bounce/140m" instance=ExtResource( 34 )]
+[node name="Ramp" parent="Bounce/140m" instance=ExtResource( 32 )]
 editor/display_folded = true
 position = Vector2( 40, -35 )
 
-[node name="Ramp2" parent="Bounce/140m" instance=ExtResource( 34 )]
+[node name="Ramp2" parent="Bounce/140m" instance=ExtResource( 32 )]
 editor/display_folded = true
 position = Vector2( 187.494, -20 )
 
@@ -506,11 +494,11 @@ __meta__ = {
 "_edit_group_": true
 }
 
-[node name="Ramp" parent="Bounce/130m" instance=ExtResource( 34 )]
+[node name="Ramp" parent="Bounce/130m" instance=ExtResource( 32 )]
 editor/display_folded = true
 position = Vector2( 40, -35 )
 
-[node name="Ramp2" parent="Bounce/130m" instance=ExtResource( 34 )]
+[node name="Ramp2" parent="Bounce/130m" instance=ExtResource( 32 )]
 editor/display_folded = true
 position = Vector2( 187.494, -20 )
 
@@ -521,11 +509,11 @@ __meta__ = {
 "_edit_group_": true
 }
 
-[node name="Ramp" parent="Bounce/120m" instance=ExtResource( 34 )]
+[node name="Ramp" parent="Bounce/120m" instance=ExtResource( 32 )]
 editor/display_folded = true
 position = Vector2( 40, -20 )
 
-[node name="Ramp2" parent="Bounce/120m" instance=ExtResource( 34 )]
+[node name="Ramp2" parent="Bounce/120m" instance=ExtResource( 32 )]
 editor/display_folded = true
 position = Vector2( 187.494, -20 )
 
@@ -536,11 +524,11 @@ __meta__ = {
 "_edit_group_": true
 }
 
-[node name="Ramp" parent="Bounce/110m" instance=ExtResource( 34 )]
+[node name="Ramp" parent="Bounce/110m" instance=ExtResource( 32 )]
 editor/display_folded = true
 position = Vector2( 40, -20 )
 
-[node name="Ramp2" parent="Bounce/110m" instance=ExtResource( 34 )]
+[node name="Ramp2" parent="Bounce/110m" instance=ExtResource( 32 )]
 editor/display_folded = true
 position = Vector2( 187.494, -35 )
 
@@ -551,11 +539,11 @@ __meta__ = {
 "_edit_group_": true
 }
 
-[node name="Ramp" parent="Bounce/100m" instance=ExtResource( 34 )]
+[node name="Ramp" parent="Bounce/100m" instance=ExtResource( 32 )]
 editor/display_folded = true
 position = Vector2( 40, -35 )
 
-[node name="Ramp2" parent="Bounce/100m" instance=ExtResource( 34 )]
+[node name="Ramp2" parent="Bounce/100m" instance=ExtResource( 32 )]
 editor/display_folded = true
 position = Vector2( 187.494, -20 )
 
@@ -566,11 +554,11 @@ __meta__ = {
 "_edit_group_": true
 }
 
-[node name="Ramp" parent="Bounce/90m" instance=ExtResource( 34 )]
+[node name="Ramp" parent="Bounce/90m" instance=ExtResource( 32 )]
 editor/display_folded = true
 position = Vector2( 40, -35 )
 
-[node name="Ramp2" parent="Bounce/90m" instance=ExtResource( 34 )]
+[node name="Ramp2" parent="Bounce/90m" instance=ExtResource( 32 )]
 editor/display_folded = true
 position = Vector2( 187.494, -20 )
 
@@ -581,11 +569,11 @@ __meta__ = {
 "_edit_group_": true
 }
 
-[node name="Ramp" parent="Bounce/80m" instance=ExtResource( 34 )]
+[node name="Ramp" parent="Bounce/80m" instance=ExtResource( 32 )]
 editor/display_folded = true
 position = Vector2( 40, -20 )
 
-[node name="Ramp2" parent="Bounce/80m" instance=ExtResource( 34 )]
+[node name="Ramp2" parent="Bounce/80m" instance=ExtResource( 32 )]
 editor/display_folded = true
 position = Vector2( 187.494, -20 )
 
@@ -596,11 +584,11 @@ __meta__ = {
 "_edit_group_": true
 }
 
-[node name="Ramp" parent="Bounce/70m" instance=ExtResource( 34 )]
+[node name="Ramp" parent="Bounce/70m" instance=ExtResource( 32 )]
 editor/display_folded = true
 position = Vector2( 40, -20 )
 
-[node name="Ramp2" parent="Bounce/70m" instance=ExtResource( 34 )]
+[node name="Ramp2" parent="Bounce/70m" instance=ExtResource( 32 )]
 editor/display_folded = true
 position = Vector2( 187.494, -35 )
 
@@ -611,11 +599,11 @@ __meta__ = {
 "_edit_group_": true
 }
 
-[node name="Ramp" parent="Bounce/60m" instance=ExtResource( 34 )]
+[node name="Ramp" parent="Bounce/60m" instance=ExtResource( 32 )]
 editor/display_folded = true
 position = Vector2( 40, -35 )
 
-[node name="Ramp2" parent="Bounce/60m" instance=ExtResource( 34 )]
+[node name="Ramp2" parent="Bounce/60m" instance=ExtResource( 32 )]
 editor/display_folded = true
 position = Vector2( 187.494, -20 )
 
@@ -626,11 +614,11 @@ __meta__ = {
 "_edit_group_": true
 }
 
-[node name="Ramp" parent="Bounce/50m" instance=ExtResource( 34 )]
+[node name="Ramp" parent="Bounce/50m" instance=ExtResource( 32 )]
 editor/display_folded = true
 position = Vector2( 40, -35 )
 
-[node name="Ramp2" parent="Bounce/50m" instance=ExtResource( 34 )]
+[node name="Ramp2" parent="Bounce/50m" instance=ExtResource( 32 )]
 editor/display_folded = true
 position = Vector2( 187.494, -20 )
 
@@ -641,11 +629,11 @@ __meta__ = {
 "_edit_group_": true
 }
 
-[node name="Ramp" parent="Bounce/40m" instance=ExtResource( 34 )]
+[node name="Ramp" parent="Bounce/40m" instance=ExtResource( 32 )]
 editor/display_folded = true
 position = Vector2( 40, -20 )
 
-[node name="Ramp2" parent="Bounce/40m" instance=ExtResource( 34 )]
+[node name="Ramp2" parent="Bounce/40m" instance=ExtResource( 32 )]
 editor/display_folded = true
 position = Vector2( 187.494, -20 )
 
@@ -656,11 +644,11 @@ __meta__ = {
 "_edit_group_": true
 }
 
-[node name="Ramp" parent="Bounce/30m" instance=ExtResource( 34 )]
+[node name="Ramp" parent="Bounce/30m" instance=ExtResource( 32 )]
 editor/display_folded = true
 position = Vector2( 40, -20 )
 
-[node name="Ramp2" parent="Bounce/30m" instance=ExtResource( 34 )]
+[node name="Ramp2" parent="Bounce/30m" instance=ExtResource( 32 )]
 editor/display_folded = true
 position = Vector2( 187.494, -35 )
 
@@ -671,11 +659,11 @@ __meta__ = {
 "_edit_group_": true
 }
 
-[node name="Ramp" parent="Bounce/20m" instance=ExtResource( 34 )]
+[node name="Ramp" parent="Bounce/20m" instance=ExtResource( 32 )]
 editor/display_folded = true
 position = Vector2( 40, -35 )
 
-[node name="Ramp2" parent="Bounce/20m" instance=ExtResource( 34 )]
+[node name="Ramp2" parent="Bounce/20m" instance=ExtResource( 32 )]
 editor/display_folded = true
 position = Vector2( 187.494, -20 )
 

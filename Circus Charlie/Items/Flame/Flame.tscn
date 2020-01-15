@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=2]
+[gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://Items/Flame/Flame.gd" type="Script" id=1]
 [ext_resource path="res://assets/big_flame_left.png" type="Texture" id=2]
@@ -10,7 +10,6 @@
 [ext_resource path="res://assets/bonus_flame_right.png" type="Texture" id=8]
 [ext_resource path="res://assets/bonus_flame_right_2.png" type="Texture" id=9]
 [ext_resource path="res://assets/money_bag.png" type="Texture" id=10]
-[ext_resource path="res://assets/sfx/Bonus.wav" type="AudioStream" id=11]
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
@@ -58,6 +57,7 @@ speed = 50
 scale = Vector2( 2, 2 )
 frames = SubResource( 1 )
 animation = "bonus_flame"
+frame = 1
 playing = true
 centered = false
 
@@ -67,6 +67,7 @@ scale = Vector2( 2, 2 )
 z_index = 1
 frames = SubResource( 2 )
 animation = "bonus_flame"
+frame = 1
 playing = true
 centered = false
 
@@ -93,9 +94,6 @@ shape = SubResource( 3 )
 [node name="HurtCollision" type="CollisionShape2D" parent="."]
 position = Vector2( 24, 125 )
 shape = SubResource( 4 )
-
-[node name="BonusSound" type="AudioStreamPlayer" parent="."]
-stream = ExtResource( 11 )
 
 [node name="TimerMoveFlame" type="Timer" parent="."]
 wait_time = 0.25

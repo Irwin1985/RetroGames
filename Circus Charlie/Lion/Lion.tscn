@@ -29,15 +29,15 @@ animations = [ {
 "name": "jump",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 5 ), ExtResource( 2 ) ],
-"loop": true,
-"name": "run_back",
-"speed": 3.5
-}, {
 "frames": [ ExtResource( 5 ), ExtResource( 4 ), ExtResource( 2 ) ],
 "loop": true,
 "name": "run",
 "speed": 7.0
+}, {
+"frames": [ ExtResource( 5 ), ExtResource( 2 ) ],
+"loop": true,
+"name": "run_back",
+"speed": 3.5
 } ]
 
 [sub_resource type="SpriteFrames" id=2]
@@ -62,15 +62,15 @@ animations = [ {
 "name": "jump",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 10 ), ExtResource( 6 ) ],
-"loop": true,
-"name": "run_back",
-"speed": 3.5
-}, {
 "frames": [ ExtResource( 6 ), ExtResource( 10 ) ],
 "loop": true,
 "name": "run",
 "speed": 7.0
+}, {
+"frames": [ ExtResource( 10 ), ExtResource( 6 ) ],
+"loop": true,
+"name": "run_back",
+"speed": 3.5
 } ]
 
 [sub_resource type="Animation" id=3]
@@ -292,7 +292,7 @@ tracks/2/keys = {
 "values": [ true ]
 }
 
-[node name="Lion" index="0" instance=ExtResource( 1 )]
+[node name="Lion" instance=ExtResource( 1 )]
 position = Vector2( 0, -0.0415783 )
 speed = 120
 jump_power = 375

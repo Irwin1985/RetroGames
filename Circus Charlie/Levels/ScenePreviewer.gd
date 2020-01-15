@@ -10,14 +10,14 @@ func _ready():
 	add_child(global.get_HudInstance(false))
 	
 	if !global.is_game_over:
-		$StageCaption/StageLabel.text = "STAGE 0" + str(global.current_level + 1)
+		$StageCaption/StageLabel.text = "STAGE  0" + str(global.current_level + 1)
 		yield(get_tree().create_timer(2), "timeout")
 		while get_tree().paused:
 			yield(get_tree().create_timer(0.25), "timeout")
 		get_tree().call_deferred("change_scene", \
 				global.stage[global.current_level])
 	else: # Game Over
-		$StageCaption/StageLabel.text = "GAME OVER"
+		$StageCaption/StageLabel.text = "GAME    OVER"
 		yield(get_tree().create_timer(4), "timeout")
 		global.restart_game()
 		get_tree().call_deferred("change_scene", "res://Menu/Menu.tscn")

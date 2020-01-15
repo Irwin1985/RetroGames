@@ -126,6 +126,7 @@ texture = ExtResource( 10 )
 [node name="HighPlatform" parent="." instance=ExtResource( 11 )]
 
 [node name="Player" parent="." instance=ExtResource( 12 )]
+editor/display_folded = true
 position = Vector2( 70.3243, 305.911 )
 gravity = 15
 

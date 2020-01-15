@@ -22,7 +22,6 @@ func _ready():
 
 
 func set_sfx_volume():
-	$CoinPickupSound.volume_db = global.STANDARD_VOLUME
 	$CoinShowSound.volume_db = global.STANDARD_VOLUME
 
 
@@ -70,7 +69,6 @@ func _on_CoinArea2D_body_entered(body):
 		cancel_bonus()
 		emit_signal("bonus", BONUS_POINT)
 		$AnimationPlayer.stop()
-		$CoinPickupSound.play()
 		$AnimationPlayer.play("bonus")
 		global.give_points(BONUS_POINT)
 

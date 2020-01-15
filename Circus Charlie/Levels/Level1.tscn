@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=2]
+[gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://Levels/Level1.gd" type="Script" id=1]
 [ext_resource path="res://Items/Flame/Flame.tscn" type="PackedScene" id=2]
@@ -11,9 +11,8 @@
 [ext_resource path="res://assets/Stage1.ogg" type="AudioStream" id=9]
 [ext_resource path="res://assets/sfx/GameOver.wav" type="AudioStream" id=10]
 [ext_resource path="res://assets/sfx/Clapping.wav" type="AudioStream" id=11]
-[ext_resource path="res://assets/sfx/TimeReduce.ogg" type="AudioStream" id=12]
-[ext_resource path="res://Items/CheckPoints.tscn" type="PackedScene" id=13]
-[ext_resource path="res://Items/ChannelInfo.tscn" type="PackedScene" id=14]
+[ext_resource path="res://Items/CheckPoints.tscn" type="PackedScene" id=12]
+[ext_resource path="res://Items/ChannelInfo.tscn" type="PackedScene" id=13]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 2650, 0.356628 )
@@ -123,7 +122,6 @@ editor_draw_drag_margin = true
 [node name="SentinelsContainer" type="Node2D" parent="."]
 
 [node name="Sounds" type="Node2D" parent="."]
-editor/display_folded = true
 
 [node name="LevelSound" type="AudioStreamPlayer" parent="Sounds"]
 stream = ExtResource( 9 )
@@ -135,10 +133,7 @@ stream = ExtResource( 10 )
 [node name="WinSound" type="AudioStreamPlayer" parent="Sounds"]
 stream = ExtResource( 11 )
 
-[node name="ReduceTimeSound" type="AudioStreamPlayer" parent="Sounds"]
-stream = ExtResource( 12 )
-
-[node name="CheckPoints" parent="." instance=ExtResource( 13 )]
+[node name="CheckPoints" parent="." instance=ExtResource( 12 )]
 editor/display_folded = true
 
 [node name="chkpt_90m" parent="CheckPoints" index="10"]
@@ -189,7 +184,7 @@ position = Vector2( 4140, 394.147 )
 [node name="CheckPoint20" parent="CheckPoints/chkpt_20m" index="0"]
 position = Vector2( 0, -100 )
 
-[node name="ChannelInfo" parent="." instance=ExtResource( 14 )]
+[node name="ChannelInfo" parent="." instance=ExtResource( 13 )]
 [connection signal="lose" from="Lion" to="." method="_on_Lion_lose"]
 [connection signal="win" from="Lion" to="." method="_on_Lion_win"]
 [connection signal="finished" from="Sounds/GameOverSound" to="." method="_on_GameOverSound_finished"]

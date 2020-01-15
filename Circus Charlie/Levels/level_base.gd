@@ -5,7 +5,6 @@ const LION_NAME =  "Lion"
 const BONUS_PER_WON_TIME = 10
 
 var hud : GameHUD = null
-onready var bonus_timer = Timer.new()
 onready var audience_timer = Timer.new()
 
 
@@ -13,28 +12,19 @@ func _ready():
 	randomize()
 	add_HUD()
 	global.can_pause = true
-	$Sounds/LevelSound.volume_db = global.STANDARD_VOLUME
+	$Sounds/LevelSound	.volume_db = global.STANDARD_VOLUME
 	set_timers()
 
 
 func add_HUD():
 	hud = global.get_HudInstance()
-	if hud.connect("little_time_left", self, "_on_HUD_little_time_left") != OK:
-		print("Error connecting little_time_left")
-	if hud.connect("out_of_time", self, "_on_HUD_out_of_time") != OK:
-		print("Error connecting out_of_time")
-	if hud.connect("bonus_giving_finished", self, "_on_bonus_giving_finished") != OK:
-		print("Error connecting bonus_giving_finished")
+	hud.connect("little_time_left", self, "_on_HUD_little_time_left")
+	hud.connect("out_of_time", self, "_on_HUD_out_of_time")
+	hud.connect("bonus_giving_finished", self, "_on_bonus_giving_finished")
 	add_child(hud)
 
 
 func set_timers():
-	# Bonus Timer Settings
-	bonus_timer.connect("timeout", self, "_on_bonus_timer_timeout", 
-			[], CONNECT_DEFERRED)
-	bonus_timer.wait_time = 0.02
-	add_child(bonus_timer)
-
 	# Audience Timer Settings
 	audience_timer.connect("timeout", self, "_on_audience_timeout",
 			[], CONNECT_DEFERRED)
@@ -70,10 +60,8 @@ func WinSound_finished(player):
 		player.get_node("Charlie").frame = 0
 	audience_timer.stop()
 	$Background/Celebrating.visible = false
-	if not hud.is_giving_bonus():
-		yield(get_tree().create_timer(0.5), "timeout")
-		global.start_next_level()
-	else:
+	
+	if hud.time_left > 0:
 		hud.bonus_giving_play()
 
 

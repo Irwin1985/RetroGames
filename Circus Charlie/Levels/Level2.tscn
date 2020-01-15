@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=2]
+[gd_scene load_steps=27 format=2]
 
 [ext_resource path="res://Levels/Level2.gd" type="Script" id=1]
 [ext_resource path="res://Monkey/MonkeyBase.tscn" type="PackedScene" id=2]
@@ -16,10 +16,9 @@
 [ext_resource path="res://Items/HighPlatform/HighPlatform.tscn" type="PackedScene" id=14]
 [ext_resource path="res://Player/Player.tscn" type="PackedScene" id=15]
 [ext_resource path="res://assets/Stage2.ogg" type="AudioStream" id=16]
-[ext_resource path="res://assets/sfx/TimeReduce.ogg" type="AudioStream" id=17]
-[ext_resource path="res://assets/sfx/GameOver.wav" type="AudioStream" id=18]
-[ext_resource path="res://assets/sfx/Clapping.wav" type="AudioStream" id=19]
-[ext_resource path="res://Items/CheckPoints.tscn" type="PackedScene" id=20]
+[ext_resource path="res://assets/sfx/GameOver.wav" type="AudioStream" id=17]
+[ext_resource path="res://assets/sfx/Clapping.wav" type="AudioStream" id=18]
+[ext_resource path="res://Items/CheckPoints.tscn" type="PackedScene" id=19]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 1828, 5 )
@@ -221,20 +220,16 @@ scale = Vector2( 1.24004, 7.8 )
 shape = SubResource( 6 )
 
 [node name="Sounds" type="Node" parent="."]
-editor/display_folded = true
 
 [node name="LevelSound" type="AudioStreamPlayer" parent="Sounds"]
 stream = ExtResource( 16 )
 autoplay = true
 
-[node name="ReduceTimeSound" type="AudioStreamPlayer" parent="Sounds"]
+[node name="GameOverSound" type="AudioStreamPlayer" parent="Sounds"]
 stream = ExtResource( 17 )
 
-[node name="GameOverSound" type="AudioStreamPlayer" parent="Sounds"]
-stream = ExtResource( 18 )
-
 [node name="WinSound" type="AudioStreamPlayer" parent="Sounds"]
-stream = ExtResource( 19 )
+stream = ExtResource( 18 )
 
 [node name="GoalSensor" type="Area2D" parent="."]
 editor/display_folded = true
@@ -245,7 +240,7 @@ scale = Vector2( 1, 2.36 )
 scale = Vector2( 0.44, 4.6 )
 shape = SubResource( 7 )
 
-[node name="CheckPoints" parent="." instance=ExtResource( 20 )]
+[node name="CheckPoints" parent="." instance=ExtResource( 19 )]
 editor/display_folded = true
 
 [node name="chkpt_60m" parent="CheckPoints" index="13"]

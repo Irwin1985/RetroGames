@@ -13,9 +13,13 @@ var time_left = 5000
 var time_delta = 10
 
 func _ready():
-	$PauseSound.volume_db = global.STANDARD_VOLUME
+	set_sfx_volume()
 	update_stage()
 	create_timer()
+
+func set_sfx_volume():
+	for audio in $Sounds.get_children():
+		audio.volume_db = global.STANDARD_VOLUME
 
 
 func create_timer():
@@ -86,6 +90,7 @@ func show_bonus_points(pos: Vector2, points: int) -> void:
 	label_points.text = str(points)
 	label_points.rect_position = pos - (label_points.rect_size / 2)
 	label_points.visible = true
+	$Sounds/BonusSound.play()
 	add_child(label_points)
 	yield(get_tree().create_timer(0.5),"timeout")
 	label_points.call_deferred("queue_free")

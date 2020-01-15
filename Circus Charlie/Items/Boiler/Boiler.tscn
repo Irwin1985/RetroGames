@@ -1,11 +1,10 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://Items/Boiler/Boiler.gd" type="Script" id=1]
 [ext_resource path="res://assets/boiler_01.png" type="Texture" id=2]
 [ext_resource path="res://assets/boiler_02.png" type="Texture" id=3]
 [ext_resource path="res://assets/coin.png" type="Texture" id=4]
-[ext_resource path="res://assets/sfx/Bonus.wav" type="AudioStream" id=5]
-[ext_resource path="res://assets/sfx/CoinShow.wav" type="AudioStream" id=6]
+[ext_resource path="res://assets/sfx/CoinShow.wav" type="AudioStream" id=5]
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
@@ -61,7 +60,6 @@ script = ExtResource( 1 )
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 scale = Vector2( 2, 2 )
 frames = SubResource( 1 )
-frame = 1
 playing = true
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
@@ -93,11 +91,8 @@ editor/display_folded = true
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CoinSprite/CoinArea2D"]
 shape = SubResource( 5 )
 
-[node name="CoinPickupSound" type="AudioStreamPlayer" parent="."]
-stream = ExtResource( 5 )
-
 [node name="CoinShowSound" type="AudioStreamPlayer" parent="."]
-stream = ExtResource( 6 )
+stream = ExtResource( 5 )
 [connection signal="body_entered" from="." to="." method="_on_Boiler_body_entered"]
 [connection signal="body_entered" from="AreaNotifier" to="." method="_on_AreaNotifier_body_entered"]
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]

@@ -49,6 +49,7 @@ func process_collide():
 		var collider: KinematicCollision2D = get_slide_collision(slide_idx)
 		if collider.collider.name == global.PLAYER_NAME:
 			emit_signal("player_detected")
+			collider.collider.hit_and_fall()
 			$AnimatedSprite.stop()
 			set_physics_process(false)
 
