@@ -56,6 +56,10 @@ func _physics_process(delta):
 			hanging = false
 			motion = last_swing.get_tangential_speed()
 			jump()
+		elif Input.is_action_pressed("game_right"):
+			last_swing.accelerate(1)
+		elif Input.is_action_pressed("game_left"):
+			last_swing.accelerate(-1)
 	else:
 		motion.y += gravity * delta * 60
 		if _can_process_inputs():
