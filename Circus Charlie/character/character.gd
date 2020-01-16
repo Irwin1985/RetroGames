@@ -56,6 +56,16 @@ func _physics_process(delta):
 			hanging = false
 			motion = last_swing.get_tangential_speed()
 			jump()
+		elif Input.is_action_pressed("game_right"):
+			last_swing.accelerate(delta / 8)
+			$AnimationPlayer.set_speed_scale(last_swing.get_speed())
+			$AnimationPlayer.play("swing")
+			$AnimationPlayer.seek(last_swing.get_swing_position())
+		elif Input.is_action_pressed("game_left"):
+			last_swing.accelerate(-delta / 8)
+			$AnimationPlayer.set_speed_scale(last_swing.get_speed())
+			$AnimationPlayer.play("swing")
+			$AnimationPlayer.seek(last_swing.get_swing_position())
 	else:
 		motion.y += gravity * delta * 60
 		if _can_process_inputs():
@@ -162,7 +172,8 @@ func set_timers():
 	add_child(fall_timer)
 
 	# Bonus lifetime (stage 4)
-	bounce_life_timer.connect("timeout", self, "_on_bounce_life_timer_timeout")
+	if bounce_life_timer.connect("timeout", self, "_on_bounce_life_timer_timeout") != OK:
+		print("Error connecting bounce_life_timer")
 	bounce_life_timer.wait_time = 1
 	add_child(bounce_life_timer)
 
