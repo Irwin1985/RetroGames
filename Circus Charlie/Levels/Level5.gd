@@ -22,23 +22,23 @@ func set_environment():
 	for i in range (TOTAL_SWINGS):
 		# Add Trampolines
 		if i < TOTAL_SWINGS - 1: # Don't add the last one
+		# Skip some trampolines on highest difficulty
 			var new_trampoline = Trampolines.instance()
 			new_trampoline.position = Vector2((i + 1) * 256, 396)
 			$EnvironmentObjects.add_child(new_trampoline)
 		# Add Swings
 		var new_swing = Swings.instance()
 		new_swing.position = Vector2(i * 256 + 160, 124)
-		if i == global.check_point * 2:
+		if i == min(global.check_point, 3) * 2:
 			new_swing.set_speed(0.85)
 			new_swing.already_grabbed = true
 		else:
-#			new_swing.set_speed(randf() * 0.3 + 0.85) # 0.85-1.15
-#			new_swing.set_speed(randf() * 0.2 + 0.75) # 0.75-0.95
-			new_swing.set_speed(randf() ) # 0-1
+			new_swing.set_speed(randf() * 0.2 + 0.75) # 0.75-0.95
 			# Used for difficulty settings 
-#			new_swing.set_speed(randf() * 0.6 + 0.7) # 0.7-1.3
-#			new_swing.set_speed(randf() * 0.9 + 0.55) # 0.55-1.45
-#			new_swing.set_speed(randf() * 1.2 + 0.4) # 0.4-1.6
+#			new_swing.set_speed(randf() * 0.25 + 0.70) # 0.70-0.95
+#			new_swing.set_speed(randf() * 0.30 + 0.70) # 0.70-1
+#			new_swing.set_speed(randf() * 0.35 + 0.65) # 0.65-1
+#			new_swing.set_speed(randf() * 0.40 + 0.60) # 0.60-1
 			if i % 2 != 0:
 				new_swing.reset_swing_position()
 			else:
@@ -51,13 +51,7 @@ func set_environment():
 
 func set_player_position():
 	$Player.jumping = true
-	var checkpoint_pos: int = 0
-	match global.check_point:
-		0, 1, 2, 3:
-			checkpoint_pos = 512 * global.check_point
-		_: # Every checkpoint after 20M goes to 20M
-			checkpoint_pos = 512 * 3
-	$Player.position.x += checkpoint_pos
+	$Player.position.x += min(global.check_point, 3) * 512
 	$Player.position.y -= 150
 
 

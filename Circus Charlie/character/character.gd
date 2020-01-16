@@ -57,9 +57,15 @@ func _physics_process(delta):
 			motion = last_swing.get_tangential_speed()
 			jump()
 		elif Input.is_action_pressed("game_right"):
-			last_swing.accelerate(1)
+			last_swing.accelerate(delta / 8)
+			$AnimationPlayer.set_speed_scale(last_swing.get_speed())
+			$AnimationPlayer.play("swing")
+			$AnimationPlayer.seek(last_swing.get_swing_position())
 		elif Input.is_action_pressed("game_left"):
-			last_swing.accelerate(-1)
+			last_swing.accelerate(-delta / 8)
+			$AnimationPlayer.set_speed_scale(last_swing.get_speed())
+			$AnimationPlayer.play("swing")
+			$AnimationPlayer.seek(last_swing.get_swing_position())
 	else:
 		motion.y += gravity * delta * 60
 		if _can_process_inputs():
