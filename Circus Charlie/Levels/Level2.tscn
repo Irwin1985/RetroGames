@@ -61,9 +61,9 @@ margin_right = 2603.0
 
 [node name="ChannelInfo" parent="." instance=ExtResource( 5 )]
 editor/display_folded = true
-margin_left = 600.0
+margin_left = 850.0
 margin_top = 68.0
-margin_right = 640.0
+margin_right = 890.0
 margin_bottom = 108.0
 
 [node name="LevelContainer" type="Node2D" parent="."]
@@ -225,16 +225,16 @@ shape = SubResource( 6 )
 
 [node name="LevelSound" type="AudioStreamPlayer" parent="Sounds"]
 stream = ExtResource( 16 )
-volume_db = -10.0
+volume_db = -30.0
 autoplay = true
 
 [node name="GameOverSound" type="AudioStreamPlayer" parent="Sounds"]
 stream = ExtResource( 17 )
-volume_db = -10.0
+volume_db = -30.0
 
 [node name="WinSound" type="AudioStreamPlayer" parent="Sounds"]
 stream = ExtResource( 18 )
-volume_db = -10.0
+volume_db = -30.0
 
 [node name="GoalSensor" type="Area2D" parent="."]
 editor/display_folded = true

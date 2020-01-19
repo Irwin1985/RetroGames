@@ -28,4 +28,5 @@ __meta__ = {
 
 [node name="BounceSound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 3 )
+volume_db = -30.0
 [connection signal="body_entered" from="." to="." method="_on_trampoline_body_entered"]

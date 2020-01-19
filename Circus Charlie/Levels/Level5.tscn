@@ -63,9 +63,9 @@ texture = ExtResource( 3 )
 stretch_mode = 2
 
 [node name="ChannelInfo" parent="." instance=ExtResource( 4 )]
-margin_left = 100.0
+margin_left = 250.0
 margin_top = 65.0
-margin_right = 140.0
+margin_right = 290.0
 margin_bottom = 105.0
 
 [node name="Limits" type="Node2D" parent="."]
@@ -143,16 +143,16 @@ limit_bottom = 460
 
 [node name="LevelSound" type="AudioStreamPlayer" parent="Sounds"]
 stream = ExtResource( 13 )
-volume_db = -10.0
+volume_db = -30.0
 autoplay = true
 
 [node name="GameOverSound" type="AudioStreamPlayer" parent="Sounds"]
 stream = ExtResource( 14 )
-volume_db = -10.0
+volume_db = -30.0
 
 [node name="WinSound" type="AudioStreamPlayer" parent="Sounds"]
 stream = ExtResource( 15 )
-volume_db = -10.0
+volume_db = -30.0
 [connection signal="body_entered" from="Limits/FloorDetector" to="." method="_on_Detector_body_entered"]
 [connection signal="lose" from="Player" to="." method="_on_Player_lose"]
 [connection signal="win" from="Player" to="." method="_on_Player_win"]

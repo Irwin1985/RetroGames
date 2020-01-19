@@ -99,6 +99,7 @@ func _on_GameOverSound_finished():
 
 func _on_Player_win():
 	player_won()
+	stop_items()
 	$Podium.player_center($Player)
 	$Player.position.y = 342 # Adjust Player position
 

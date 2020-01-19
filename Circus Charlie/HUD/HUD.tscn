@@ -250,19 +250,19 @@ editor/display_folded = true
 [node name="PauseSound" type="AudioStreamPlayer" parent="Sounds"]
 pause_mode = 2
 stream = ExtResource( 6 )
-volume_db = -10.0
+volume_db = -30.0
 
 [node name="BonusGivingSound" type="AudioStreamPlayer" parent="Sounds"]
 stream = ExtResource( 7 )
-volume_db = -10.0
+volume_db = -30.0
 
 [node name="LiveEarned" type="AudioStreamPlayer" parent="Sounds"]
 stream = ExtResource( 8 )
-volume_db = -10.0
+volume_db = -30.0
 
 [node name="BonusSound" type="AudioStreamPlayer" parent="Sounds"]
 stream = ExtResource( 9 )
-volume_db = -10.0
+volume_db = -30.0
 
 [node name="LabelPoints" type="Label" parent="."]
 visible = false
@@ -277,4 +277,16 @@ text = "500"
 visible = false
 margin_right = 40.0
 margin_bottom = 40.0
+
+[node name="AlphaVersionLabel" type="Label" parent="."]
+modulate = Color( 1, 1, 1, 0.12549 )
+margin_left = 10.0
+margin_top = 430.0
+margin_right = 194.0
+margin_bottom = 459.0
+custom_fonts/font = SubResource( 1 )
+text = "ALPHA VERSION"
+__meta__ = {
+"_edit_group_": true
+}
 [connection signal="paused_game" from="LabelPause" to="." method="_on_LabelPause_paused_game"]

@@ -52,6 +52,7 @@ shape = SubResource( 2 )
 
 [node name="RampSound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 4 )
+volume_db = -30.0
 
 [node name="PlayerHurt" type="Area2D" parent="."]
 editor/display_folded = true

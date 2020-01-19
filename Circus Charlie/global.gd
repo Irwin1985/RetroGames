@@ -6,6 +6,8 @@ const STAGE_THREE_INDEX = 1
 const LIFE_SCORE_LIMIT = 20000
 const PLAYER_NAME = "Player"
 const LION_NAME = "Lion"
+const IS_ALPHA_VERSION = true
+const LAST_LEVEL = 5
 
 onready var HudScene: PackedScene = preload("res://HUD/HUD.tscn")
 var HudInstance: GameHUD = null
@@ -36,7 +38,7 @@ var current_check_point_path := "" setget set_current_check_point_path
 var pitch_scale = 1.37
 onready var game_file: String = "user://score.save"
 var is_debug_mode := false
-
+var level_difficulty := 1 setget set_level_difficulty
 
 func _ready() -> void:
 	OS.center_window()
@@ -97,11 +99,12 @@ func save_game():
 
 
 func start_next_level() -> void:
+	if current_level == LAST_LEVEL:
+		level_difficulty += 1
 	current_level += 1
 	check_point = 0
 	current_check_point_path = ""
-	get_tree().call_deferred("change_scene", \
-			"res://Levels/ScenePreviewer.tscn")
+	get_tree().call_deferred("change_scene", "res://Levels/ScenePreviewer.tscn")
 
 	if current_level == STAGE_TWO_INDEX:
 		stage_2_first_time_lauched = true
@@ -146,3 +149,10 @@ func rand_bool():
 
 func set_current_check_point_path(value):
 	current_check_point_path = value
+
+
+func set_level_difficulty(new_value):
+	level_difficulty = new_value
+	current_level = -1
+	check_point = 0
+	current_check_point_path = ""

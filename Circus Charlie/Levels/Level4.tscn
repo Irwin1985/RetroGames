@@ -82,7 +82,7 @@ editor/display_folded = true
 position = Vector2( 120, 375 )
 
 [node name="AnimatedSprite" parent="Horse" index="0"]
-frame = 2
+frame = 0
 
 [node name="Podium" parent="." instance=ExtResource( 5 )]
 editor/display_folded = true
@@ -259,16 +259,16 @@ shape = SubResource( 3 )
 
 [node name="LevelSound" type="AudioStreamPlayer" parent="Sounds"]
 stream = ExtResource( 28 )
-volume_db = -10.0
+volume_db = -30.0
 autoplay = true
 
 [node name="GameOverSound" type="AudioStreamPlayer" parent="Sounds"]
 stream = ExtResource( 29 )
-volume_db = -10.0
+volume_db = -30.0
 
 [node name="WinSound" type="AudioStreamPlayer" parent="Sounds"]
 stream = ExtResource( 30 )
-volume_db = -10.0
+volume_db = -30.0
 
 [node name="GoalSensor" type="Area2D" parent="."]
 editor/display_folded = true

@@ -135,19 +135,20 @@ scale = Vector2( 2, 2 )
 texture = ExtResource( 14 )
 
 [node name="Sounds" type="Node" parent="."]
+editor/display_folded = true
 
 [node name="LevelSound" type="AudioStreamPlayer" parent="Sounds"]
 stream = ExtResource( 15 )
-volume_db = -10.0
+volume_db = -30.0
 autoplay = true
 
 [node name="GameOverSound" type="AudioStreamPlayer" parent="Sounds"]
 stream = ExtResource( 16 )
-volume_db = -10.0
+volume_db = -30.0
 
 [node name="WinSound" type="AudioStreamPlayer" parent="Sounds"]
 stream = ExtResource( 17 )
-volume_db = -10.0
+volume_db = -30.0
 
 [node name="Player" parent="." instance=ExtResource( 18 )]
 editor/display_folded = true

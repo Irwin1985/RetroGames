@@ -179,20 +179,20 @@ shape = SubResource( 3 )
 
 [node name="LevelSound" type="AudioStreamPlayer" parent="Sounds"]
 stream = ExtResource( 16 )
-volume_db = -10.0
+volume_db = -30.0
 autoplay = true
 
 [node name="GameOverSound" type="AudioStreamPlayer" parent="Sounds"]
 stream = ExtResource( 17 )
-volume_db = -10.0
+volume_db = -30.0
 
 [node name="WinSound" type="AudioStreamPlayer" parent="Sounds"]
 stream = ExtResource( 18 )
-volume_db = -10.0
+volume_db = -30.0
 
 [node name="HurtSound" type="AudioStreamPlayer" parent="Sounds"]
 stream = ExtResource( 19 )
-volume_db = -10.0
+volume_db = -30.0
 
 [node name="GoalSensor" type="Area2D" parent="."]
 editor/display_folded = true

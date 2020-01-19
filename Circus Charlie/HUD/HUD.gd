@@ -13,6 +13,7 @@ var time_left = 5000
 var time_delta = 10
 
 func _ready():
+	$AlphaVersionLabel.visible = global.IS_ALPHA_VERSION
 	set_sfx_volume()
 	update_stage()
 	create_timer()

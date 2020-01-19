@@ -10,6 +10,7 @@
 radius = 12.7785
 
 [node name="Big Trampoline" index="0" instance=ExtResource( 1 )]
+editor/display_folded = true
 position = Vector2( 100, 370 )
 script = ExtResource( 2 )
 
@@ -17,7 +18,11 @@ script = ExtResource( 2 )
 position = Vector2( 0, 16 )
 texture = ExtResource( 3 )
 
+[node name="BounceSound" parent="." index="2"]
+volume_db = -30.0
+
 [node name="Bonus" type="Area2D" parent="." index="3"]
+editor/display_folded = true
 visible = false
 position = Vector2( 0, -270 )
 
@@ -31,4 +36,5 @@ disabled = true
 
 [node name="BonusSound" type="AudioStreamPlayer" parent="Bonus" index="2"]
 stream = ExtResource( 5 )
+volume_db = -30.0
 [connection signal="body_entered" from="Bonus" to="." method="_on_Bonus_body_entered"]
