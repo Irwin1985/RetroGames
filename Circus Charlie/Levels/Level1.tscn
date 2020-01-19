@@ -123,17 +123,19 @@ editor_draw_drag_margin = true
 [node name="SentinelsContainer" type="Node2D" parent="."]
 
 [node name="Sounds" type="Node2D" parent="."]
-editor/display_folded = true
 
 [node name="LevelSound" type="AudioStreamPlayer" parent="Sounds"]
 stream = ExtResource( 9 )
+volume_db = -10.0
 autoplay = true
 
 [node name="GameOverSound" type="AudioStreamPlayer" parent="Sounds"]
 stream = ExtResource( 10 )
+volume_db = -10.0
 
 [node name="WinSound" type="AudioStreamPlayer" parent="Sounds"]
 stream = ExtResource( 11 )
+volume_db = -10.0
 
 [node name="CheckPoints" parent="." instance=ExtResource( 12 )]
 editor/display_folded = true
@@ -189,8 +191,6 @@ position = Vector2( 0, -100 )
 [node name="ChannelInfo" parent="." instance=ExtResource( 13 )]
 margin_top = 65.0
 margin_bottom = 105.0
-[connection signal="lose" from="Lion" to="." method="_on_Lion_lose"]
-[connection signal="win" from="Lion" to="." method="_on_Lion_win"]
 [connection signal="finished" from="Sounds/GameOverSound" to="." method="_on_GameOverSound_finished"]
 [connection signal="finished" from="Sounds/WinSound" to="." method="_on_WinSound_finished"]
 

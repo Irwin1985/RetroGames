@@ -143,13 +143,16 @@ limit_bottom = 460
 
 [node name="LevelSound" type="AudioStreamPlayer" parent="Sounds"]
 stream = ExtResource( 13 )
+volume_db = -10.0
 autoplay = true
 
 [node name="GameOverSound" type="AudioStreamPlayer" parent="Sounds"]
 stream = ExtResource( 14 )
+volume_db = -10.0
 
 [node name="WinSound" type="AudioStreamPlayer" parent="Sounds"]
 stream = ExtResource( 15 )
+volume_db = -10.0
 [connection signal="body_entered" from="Limits/FloorDetector" to="." method="_on_Detector_body_entered"]
 [connection signal="lose" from="Player" to="." method="_on_Player_lose"]
 [connection signal="win" from="Player" to="." method="_on_Player_win"]

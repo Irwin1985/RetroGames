@@ -19,6 +19,8 @@ export (bool) var slow_backward = false
 export (bool) var process_hurt = false
 export (String, "none", "Stage 1:Lion", "Stage 2:Monkey", "Stage 3:Balls", "Stage 4:Horse", "Stage 5:Swinging") var character_behaviour
 export (PackedScene) var Horse
+export (PackedScene) var Lion
+
 onready var fall_timer: Timer = Timer.new()
 onready var bounce_life_timer: Timer = Timer.new()
 var bounced_total = 0
@@ -112,6 +114,22 @@ func _process_behaviour():
 	match character_behaviour:
 		"Stage 1:Lion":
 			pass
+#			if not hit:
+#				motion.x = speed
+#				if Lion != null:
+#					Lion.get_node("AnimatedSprite").speed_scale = 1
+#				if Input.is_action_pressed("game_left"):
+#					motion.x = speed - (40 * speed) / 100
+#					$Charlie.speed_scale = 0.50
+#					if Lion != null:
+#						Lion.get_node("AnimatedSprite").speed_scale = 0.5
+#				elif Input.is_action_pressed("game_right"):
+#					motion.x = speed + (30 * speed) / 100
+#					if Lion != null:
+#						Lion.get_node("AnimatedSprite").speed_scale = 1.5
+#			else:
+#				Lion.move_alone = true
+#				$Sounds/FallSound.play()
 		"Stage 2:Monkey":
 			pass
 		"Stage 3:Balls":

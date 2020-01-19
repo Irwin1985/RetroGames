@@ -222,17 +222,19 @@ scale = Vector2( 1.24004, 7.8 )
 shape = SubResource( 6 )
 
 [node name="Sounds" type="Node" parent="."]
-editor/display_folded = true
 
 [node name="LevelSound" type="AudioStreamPlayer" parent="Sounds"]
 stream = ExtResource( 16 )
+volume_db = -10.0
 autoplay = true
 
 [node name="GameOverSound" type="AudioStreamPlayer" parent="Sounds"]
 stream = ExtResource( 17 )
+volume_db = -10.0
 
 [node name="WinSound" type="AudioStreamPlayer" parent="Sounds"]
 stream = ExtResource( 18 )
+volume_db = -10.0
 
 [node name="GoalSensor" type="Area2D" parent="."]
 editor/display_folded = true
