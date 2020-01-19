@@ -85,12 +85,13 @@ func update_stage():
 	$Stage/LabelStage.text = "%02d" % (global.current_level + 1)
 
 
-func show_bonus_points(pos: Vector2, points: int) -> void:
+func show_bonus_points(pos: Vector2, points: int, do_not_play_sound: bool = false) -> void:
 	var label_points = $LabelPoints.duplicate()
 	label_points.text = str(points)
 	label_points.rect_position = pos - (label_points.rect_size / 2)
 	label_points.visible = true
-	$Sounds/BonusSound.play()
+	if not do_not_play_sound:
+		$Sounds/BonusSound.play()
 	add_child(label_points)
 	yield(get_tree().create_timer(0.5),"timeout")
 	label_points.call_deferred("queue_free")

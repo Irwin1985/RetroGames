@@ -101,7 +101,6 @@ character_behaviour = "Stage 4:Horse"
 [node name="Charlie" parent="Player" index="0"]
 scale = Vector2( 2.005, 2.41 )
 animation = "ride"
-frame = 1
 
 [node name="CollisionShape2D" parent="Player" index="1"]
 shape = SubResource( 1 )

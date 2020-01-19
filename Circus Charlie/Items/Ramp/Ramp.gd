@@ -1,6 +1,7 @@
 extends StaticBody2D
 
-const STOMP_JUMP = -273
+#const STOMP_JUMP = -273
+const STOMP_JUMP = -250
 onready var bounce_timer: Timer = Timer.new()
 onready var PlayerRef: KinematicBody2D = null
 var can_change_player_animation := false
