@@ -52,9 +52,12 @@ margin_right = 2074.0
 
 [node name="ChannelInfo" parent="." instance=ExtResource( 4 )]
 margin_left = 900.0
+margin_top = 65.0
 margin_right = 940.0
+margin_bottom = 105.0
 
 [node name="Podium" parent="." instance=ExtResource( 5 )]
+editor/display_folded = true
 position = Vector2( 4033.89, 378.21 )
 
 [node name="CollisionShape2D" parent="Podium" index="1"]
@@ -141,6 +144,7 @@ character_behaviour = "Stage 3:Balls"
 [node name="Charlie" parent="Player" index="0"]
 scale = Vector2( 2.005, 2.5 )
 animation = "run_back"
+frame = 1
 
 [node name="CollisionShape2D" parent="Player" index="1"]
 shape = SubResource( 2 )
@@ -159,6 +163,7 @@ editor_draw_drag_margin = true
 editor/display_folded = true
 
 [node name="Walls" type="Node" parent="."]
+editor/display_folded = true
 
 [node name="LeftWall" type="StaticBody2D" parent="Walls"]
 editor/display_folded = true
@@ -171,6 +176,7 @@ __meta__ = {
 shape = SubResource( 3 )
 
 [node name="Sounds" type="Node" parent="."]
+editor/display_folded = true
 
 [node name="LevelSound" type="AudioStreamPlayer" parent="Sounds"]
 stream = ExtResource( 16 )

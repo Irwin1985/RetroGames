@@ -47,7 +47,6 @@ func _process(delta):
 		var player_pos : Vector2 = $Player.get_global_transform_with_canvas().get_origin()
 		player_pos.y -= 40
 		player_pos.x += 35
-		$Player/Sounds/BonusSound.play()
 		hud.show_bonus_points(player_pos, bonus_point)
 		bonus_point = 0
 

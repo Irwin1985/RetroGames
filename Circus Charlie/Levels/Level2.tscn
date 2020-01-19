@@ -62,7 +62,9 @@ margin_right = 2603.0
 [node name="ChannelInfo" parent="." instance=ExtResource( 5 )]
 editor/display_folded = true
 margin_left = 600.0
+margin_top = 68.0
 margin_right = 640.0
+margin_bottom = 108.0
 
 [node name="LevelContainer" type="Node2D" parent="."]
 editor/display_folded = true
@@ -220,6 +222,7 @@ scale = Vector2( 1.24004, 7.8 )
 shape = SubResource( 6 )
 
 [node name="Sounds" type="Node" parent="."]
+editor/display_folded = true
 
 [node name="LevelSound" type="AudioStreamPlayer" parent="Sounds"]
 stream = ExtResource( 16 )

@@ -64,7 +64,9 @@ stretch_mode = 2
 
 [node name="ChannelInfo" parent="." instance=ExtResource( 4 )]
 margin_left = 100.0
+margin_top = 65.0
 margin_right = 140.0
+margin_bottom = 105.0
 
 [node name="Limits" type="Node2D" parent="."]
 editor/display_folded = true

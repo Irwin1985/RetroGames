@@ -1,5 +1,7 @@
 extends Label
 
+signal paused_game
+
 onready var timer_pause = Timer.new()
 
 
@@ -16,7 +18,7 @@ func _input(event):
 			if !get_tree().paused:
 				visible = true
 				timer_pause.start()
-				get_node("..").get_node("PauseSound").play()
+				emit_signal("paused_game")
 				get_tree().paused = true
 			else:
 				get_tree().paused = false

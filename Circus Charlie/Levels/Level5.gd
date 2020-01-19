@@ -58,7 +58,7 @@ func set_player_position():
 func _on_swing_first_grab():
 	var player_pos: Vector2 = $Player.get_global_transform_with_canvas().get_origin()
 	player_pos.x += 50
-	hud.show_bonus_points(player_pos, 500)
+	hud.show_bonus_points(player_pos, 500, true)
 	global.give_points(500)
 
 

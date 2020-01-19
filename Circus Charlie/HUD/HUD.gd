@@ -141,3 +141,7 @@ func add_time_to_score(value: int) -> void:
 
 func _on_timer_label_timeout():
 	$PlayerScore/LabelPlayer.visible = !$PlayerScore/LabelPlayer.visible
+	$PlayerScore/PlayerSeparator.visible = $PlayerScore/PlayerSeparator.visible
+
+func _on_LabelPause_paused_game():
+	$Sounds/PauseSound.play()

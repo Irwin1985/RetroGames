@@ -67,6 +67,7 @@ __meta__ = {
 [node name="BoilerContainer" type="Node2D" parent="."]
 
 [node name="Items" type="Node2D" parent="."]
+editor/display_folded = true
 
 [node name="Podium" parent="Items" instance=ExtResource( 6 )]
 position = Vector2( 5107, 379 )
@@ -122,6 +123,7 @@ editor_draw_drag_margin = true
 [node name="SentinelsContainer" type="Node2D" parent="."]
 
 [node name="Sounds" type="Node2D" parent="."]
+editor/display_folded = true
 
 [node name="LevelSound" type="AudioStreamPlayer" parent="Sounds"]
 stream = ExtResource( 9 )
@@ -185,6 +187,8 @@ position = Vector2( 4140, 394.147 )
 position = Vector2( 0, -100 )
 
 [node name="ChannelInfo" parent="." instance=ExtResource( 13 )]
+margin_top = 65.0
+margin_bottom = 105.0
 [connection signal="lose" from="Lion" to="." method="_on_Lion_lose"]
 [connection signal="win" from="Lion" to="." method="_on_Lion_win"]
 [connection signal="finished" from="Sounds/GameOverSound" to="." method="_on_GameOverSound_finished"]

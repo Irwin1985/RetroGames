@@ -37,6 +37,7 @@ func _process(delta):
 		var player_pos : Vector2 = $Player.get_global_transform_with_canvas().get_origin()
 		player_pos.y += 10
 		player_pos.x += 35
+		global.give_points(bonus_point)
 		hud.show_bonus_points(player_pos, bonus_point, true)
 		bonus_point = 0
 

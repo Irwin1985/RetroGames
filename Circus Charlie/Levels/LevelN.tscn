@@ -77,7 +77,9 @@ position = Vector2( -768, 0 )
 
 [node name="ChannelInfo" parent="." instance=ExtResource( 4 )]
 margin_left = 700.0
+margin_top = 65.0
 margin_right = 740.0
+margin_bottom = 105.0
 
 [node name="Checkpoints" type="Node2D" parent="."]
 editor/display_folded = true
