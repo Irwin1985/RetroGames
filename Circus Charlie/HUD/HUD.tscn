@@ -250,15 +250,19 @@ editor/display_folded = true
 [node name="PauseSound" type="AudioStreamPlayer" parent="Sounds"]
 pause_mode = 2
 stream = ExtResource( 6 )
+volume_db = -10.0
 
 [node name="BonusGivingSound" type="AudioStreamPlayer" parent="Sounds"]
 stream = ExtResource( 7 )
+volume_db = -10.0
 
 [node name="LiveEarned" type="AudioStreamPlayer" parent="Sounds"]
 stream = ExtResource( 8 )
+volume_db = -10.0
 
 [node name="BonusSound" type="AudioStreamPlayer" parent="Sounds"]
 stream = ExtResource( 9 )
+volume_db = -10.0
 
 [node name="LabelPoints" type="Label" parent="."]
 visible = false

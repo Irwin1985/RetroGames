@@ -86,6 +86,7 @@ playing = true
 
 [node name="StartSound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 7 )
+volume_db = -10.0
 
 [node name="Timer" type="Timer" parent="."]
 one_shot = true

@@ -32,3 +32,4 @@ align = 1
 
 [node name="StageSound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 3 )
+volume_db = -10.0
