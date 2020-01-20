@@ -35,7 +35,9 @@ position = Vector2( -5.23858, -5.04911 )
 shape = SubResource( 2 )
 
 [node name="VisibilityNotifier2D" type="VisibilityNotifier2D" parent="."]
+position = Vector2( -60, 0 )
 scale = Vector2( 1.2, 1.04 )
+rect = Rect2( -10, -10, 60, 20 )
 
 [node name="PlayerSensor" type="RayCast2D" parent="."]
 position = Vector2( -21, 0 )
