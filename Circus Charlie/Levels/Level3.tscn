@@ -69,6 +69,7 @@ position = Vector2( 4051.97, 378.637 )
 position = Vector2( 0.516724, -8.71555 )
 scale = Vector2( 0.767765, 0.567309 )
 shape = SubResource( 1 )
+disabled = true
 
 [node name="PodiumTop" parent="Podium" index="2"]
 editor/display_folded = false
