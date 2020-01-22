@@ -26,7 +26,6 @@ func _ready():
 	$Player/CollisionShape2D.shape.extents = Vector2(15, 9)
 	set_timer_env()
 	show_cyan_monkey = global.stage_2_first_time_lauched
-	show_cyan_monkey = true
 	
 	if global.is_debug_mode:
 		global.play_first_sound = true
