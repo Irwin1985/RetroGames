@@ -129,7 +129,6 @@ func set_timer_env():
 func _on_Player_win():
 	for ball in $BallContainer.get_children():
 		ball.call_deferred("queue_free")
-
 	player_won()
 	$Podium.player_center($Player)
 	$Player.position.y = 333 # Adjust Player position

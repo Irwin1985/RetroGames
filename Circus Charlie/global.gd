@@ -1,6 +1,6 @@
 extends Node
 
-const STANDARD_VOLUME = -30
+const STANDARD_VOLUME = -20
 const STAGE_TWO_INDEX = 1
 const STAGE_THREE_INDEX = 1
 const LIFE_SCORE_LIMIT = 20000
@@ -37,7 +37,7 @@ var check_point: int = 0
 var current_check_point_path := "" setget set_current_check_point_path
 var pitch_scale = 1.37
 onready var game_file: String = "user://score.save"
-var is_debug_mode := false
+var is_debug_mode := true
 var level_difficulty := 1 setget set_level_difficulty
 
 func _ready() -> void:
@@ -99,20 +99,20 @@ func save_game():
 
 
 func start_next_level() -> void:
-	if current_level == LAST_LEVEL:
-		level_difficulty += 1
 	current_level += 1
 	check_point = 0
 	current_check_point_path = ""
+	match current_level:
+		STAGE_TWO_INDEX:
+			stage_2_first_time_lauched = true
+			stage_2_current_monkey_index = 0
+		STAGE_THREE_INDEX:
+			stage_3_first_time_lauched = true
+			stage_3_current_ball_index = 0
+		LAST_LEVEL:
+			level_difficulty += 1
+	
 	get_tree().call_deferred("change_scene", "res://Levels/ScenePreviewer.tscn")
-
-	if current_level == STAGE_TWO_INDEX:
-		stage_2_first_time_lauched = true
-		stage_2_current_monkey_index = 0
-
-	if current_level == STAGE_THREE_INDEX:
-		stage_3_first_time_lauched = true
-		stage_3_current_ball_index = 0
 
 
 func lose_life():

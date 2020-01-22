@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=2]
+[gd_scene load_steps=27 format=2]
 
 [ext_resource path="res://Levels/Level3.gd" type="Script" id=1]
 [ext_resource path="res://Items/Ball.tscn" type="PackedScene" id=2]
@@ -20,6 +20,12 @@
 [ext_resource path="res://assets/sfx/Clapping.wav" type="AudioStream" id=18]
 [ext_resource path="res://assets/sfx/HurtBall.wav" type="AudioStream" id=19]
 [ext_resource path="res://Items/CheckPoints.tscn" type="PackedScene" id=20]
+
+[sub_resource type="RectangleShape2D" id=5]
+extents = Vector2( 44.5142, 13.6028 )
+
+[sub_resource type="RectangleShape2D" id=6]
+extents = Vector2( 36.835, 11.0254 )
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 2070, 2 )
@@ -57,12 +63,12 @@ margin_right = 940.0
 margin_bottom = 105.0
 
 [node name="Podium" parent="." instance=ExtResource( 5 )]
-editor/display_folded = true
-position = Vector2( 4033.89, 378.21 )
+position = Vector2( 4051.97, 378.637 )
 
 [node name="CollisionShape2D" parent="Podium" index="1"]
-position = Vector2( 0.727417, -13.8454 )
+position = Vector2( 0.516724, -8.71555 )
 scale = Vector2( 0.767765, 0.567309 )
+shape = SubResource( 5 )
 
 [node name="PodiumTop" parent="Podium" index="2"]
 editor/display_folded = false
@@ -70,7 +76,12 @@ position = Vector2( 0.0426483, -34.1584 )
 scale = Vector2( 1, 0.28002 )
 
 [node name="CollisionShape2D" parent="Podium/PodiumTop" index="0"]
+position = Vector2( 0.595215, -14.8835 )
 scale = Vector2( 1, 3.24 )
+shape = SubResource( 6 )
+
+[node name="PlayerLoseSensor" parent="Podium" index="3"]
+editor/display_folded = true
 
 [node name="LevelContainer" type="Node2D" parent="."]
 editor/display_folded = true
@@ -132,7 +143,7 @@ shape = SubResource( 1 )
 
 [node name="Player" parent="." instance=ExtResource( 15 )]
 editor/display_folded = true
-position = Vector2( 107.303, 334.625 )
+position = Vector2( 3900, 333 )
 scale = Vector2( 0.998518, 0.804541 )
 speed = 110
 jump_power = 450
@@ -144,7 +155,6 @@ character_behaviour = "Stage 3:Balls"
 [node name="Charlie" parent="Player" index="0"]
 scale = Vector2( 2.005, 2.5 )
 animation = "run_back"
-frame = 1
 
 [node name="CollisionShape2D" parent="Player" index="1"]
 shape = SubResource( 2 )

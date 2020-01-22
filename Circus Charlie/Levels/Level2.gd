@@ -26,6 +26,7 @@ func _ready():
 	$Player/CollisionShape2D.shape.extents = Vector2(15, 9)
 	set_timer_env()
 	show_cyan_monkey = global.stage_2_first_time_lauched
+	show_cyan_monkey = true
 	
 	if global.is_debug_mode:
 		global.play_first_sound = true
@@ -126,6 +127,7 @@ func _on_Player_win():
 	for monkey in $MonkeyContainer.get_children():
 		monkey.call_deferred("queue_free")
 	player_won()
+	$Player.position.y = 164
 	platform_center_timer.start()
 
 
@@ -166,7 +168,7 @@ func _on_monkey_timer_timeout():
 func _on_monkey_screen_exited(_monkey: Area2D):
 	if _monkey != null:
 		if _monkey.position.x < $Player.position.x:
-			_monkey.queue_free()
+			_monkey.call_deferred("queue_free")
 
 
 func _on_MonkeyInstance_bonus_earned(bonus):

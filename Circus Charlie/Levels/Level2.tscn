@@ -27,7 +27,7 @@ extents = Vector2( 1828, 5 )
 extents = Vector2( 1828, 5 )
 
 [sub_resource type="RectangleShape2D" id=3]
-extents = Vector2( 50, 4.07245 )
+extents = Vector2( 42.1462, 6.2037 )
 
 [sub_resource type="RectangleShape2D" id=4]
 extents = Vector2( 15, 10 )
@@ -152,29 +152,28 @@ position = Vector2( 3562, 288 )
 scale = Vector2( 1, 1.08 )
 
 [node name="PlatformTable" parent="HighPlatform" index="0"]
-editor/display_folded = true
 position = Vector2( 0, 2.5 )
 
 [node name="Sprite" parent="HighPlatform/PlatformTable" index="0"]
 scale = Vector2( 2.5, 2.5 )
 
 [node name="CollisionShape2D" parent="HighPlatform/PlatformTable" index="1"]
+visible = false
 position = Vector2( 1.509, -94 )
 disabled = true
 
 [node name="PlatformTop" parent="HighPlatform" index="1"]
-editor/display_folded = true
 position = Vector2( -1.99292, -9.72919 )
 
 [node name="CollisionShape2D2" parent="HighPlatform/PlatformTop" index="0"]
-position = Vector2( 3, -89 )
+position = Vector2( 1.84668, -90.2708 )
 shape = SubResource( 3 )
 
 [node name="Player" parent="." instance=ExtResource( 15 )]
 editor/display_folded = true
-position = Vector2( 140, 213 )
+position = Vector2( 3480, 208 )
 speed = 75
-jump_power = 448
+jump_power = 445
 gravity = 15
 slow_backward = true
 process_hurt = true

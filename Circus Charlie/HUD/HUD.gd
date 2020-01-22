@@ -13,10 +13,10 @@ var time_left = 5000
 var time_delta = 10
 
 func _ready():
-	$AlphaVersionLabel.visible = global.IS_ALPHA_VERSION
 	set_sfx_volume()
 	update_stage()
 	create_timer()
+	$AlphaVersionLabel.visible = global.IS_ALPHA_VERSION
 
 func set_sfx_volume():
 	for audio in $Sounds.get_children():
@@ -25,19 +25,19 @@ func set_sfx_volume():
 
 func create_timer():
 	# Label Timer
-	label_timer.connect("timeout", self, "_on_timer_label_timeout")
+	label_timer.connect("timeout", self, "_on_timer_label_timeout", [], CONNECT_DEFERRED)
 	label_timer.wait_time = 0.5
 	label_timer.start()
 	add_child(label_timer)
 	
 	# Game Timer
-	game_timer.connect("timeout", self, "_on_game_label_timeout")
+	game_timer.connect("timeout", self, "_on_game_label_timeout", [], CONNECT_DEFERRED)
 	game_timer.wait_time = 0.3
 	add_child(game_timer)
 	update_timer()
 	
 	# Bonus to score timer
-	bonus_timer.connect("timeout", self, "_on_bonus_timeout")	
+	bonus_timer.connect("timeout", self, "_on_bonus_timeout", [], CONNECT_DEFERRED)
 	bonus_timer.wait_time = 0.02
 	add_child(bonus_timer)
 
