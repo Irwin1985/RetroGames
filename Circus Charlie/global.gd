@@ -18,6 +18,8 @@ var stage_2_first_time_lauched = false
 var stage_3_current_ball_index = -1
 var stage_3_first_time_lauched = false
 
+var level_pattern : int = 0
+
 var player_score: int = 0
 var life_score_counter := 0
 var hi_score: int = 0
@@ -101,6 +103,7 @@ func save_game():
 func start_next_level() -> void:
 	current_level += 1
 	check_point = 0
+	level_pattern = 0
 	current_check_point_path = ""
 	match current_level:
 		STAGE_TWO_INDEX:

@@ -6,6 +6,110 @@ export (PackedScene) var boiler
 var pos = Vector2(0, 0)
 var last_flame = null
 var next_bonus_flame : int = 0
+var patterns = [
+# Level 1
+	[
+		{ 'distance': 133, 'type': "big" },
+		{ 'distance': 180, 'type': "big" },
+		{ 'distance': 132, 'type': "big" },
+		{ 'distance': 212, 'type': "big" },
+		{ 'distance': 134, 'type': "big" },
+		{ 'distance': 228, 'type': "bonus" },
+		{ 'distance': 228, 'type': "big" },
+		{ 'distance': 132, 'type': "big" },
+		{ 'distance': 212, 'type': "big" },
+		{ 'distance': 199, 'type': "big" },
+		{ 'distance': 164, 'type': "big" },
+		{ 'distance': 148, 'type': "big" },
+		{ 'distance': 196, 'type': "big" },
+		{ 'distance': 212, 'type': "big" },
+		{ 'distance': 132, 'type': "big" },
+		{ 'distance': 228, 'type': "big" }
+	],
+# Level 6
+	[
+		{ 'distance': 147, 'type': "big" },
+		{ 'distance': 147, 'type': "big" },
+		{ 'distance': 235, 'type': "big" },
+		{ 'distance':6, 'type': "big" },
+		{ 'distance': 231, 'type': "bonus" },
+		{ 'distance': 115, 'type': "big" },
+		{ 'distance': 99, 'type': "big" },
+		{ 'distance': 138, 'type': "big" },
+		{ 'distance': 131, 'type': "bonus" },
+		{ 'distance': 111, 'type': "big" },
+		{ 'distance': 131, 'type': "big" },
+		{ 'distance': 147, 'type': "big" },
+		{ 'distance': 99, 'type': "big" },
+		{ 'distance': 143, 'type': "big" },
+		{ 'distance': 147, 'type': "bonus" },
+		{ 'distance': 96, 'type': "big" }
+	],
+# Level 11
+	[
+		{ 'distance': 83, 'type': "big" },
+		{ 'distance': 147, 'type': "bonus" },
+		{ 'distance': 147, 'type': "big" },
+		{ 'distance': 235, 'type': "big" },
+		{ 'distance':6, 'type': "big" },
+		{ 'distance': 232, 'type': "bonus" },
+		{ 'distance': 83, 'type': "big" },
+		{ 'distance': 148, 'type': "big" },
+		{ 'distance': 147, 'type': "big" },
+		{ 'distance': 95, 'type': "bonus" },
+		{ 'distance': 147, 'type': "big" },
+		{ 'distance': 96, 'type': "big" },
+		{ 'distance': 163, 'type': "big" },
+		{ 'distance': 234, 'type': "big" },
+		{ 'distance':6, 'type': "big" },
+		{ 'distance': 232, 'type': "big" }
+	],
+# Level 16 onwards
+	[
+		{ 'distance': 165, 'type': "big" },
+		{ 'distance': 164, 'type': "big" },
+		{ 'distance': 235, 'type': "bonus" },
+		{ 'distance':6, 'type': "big" },
+		{ 'distance': 232, 'type': "big" },
+		{ 'distance': 68, 'type': "bonus" },
+		{ 'distance': 180, 'type': "big" },
+		{ 'distance': 68, 'type': "big" },
+		{ 'distance': 179, 'type': "bonus" },
+		{ 'distance': 66, 'type': "big" },
+		{ 'distance': 245, 'type': "big" },
+		{ 'distance':6, 'type': "bonus" },
+		{ 'distance': 233, 'type': "big" },
+		{ 'distance': 68, 'type': "big" },
+		{ 'distance': 181, 'type': "big" },
+		{ 'distance': 68, 'type': "bonus" },
+		{ 'distance': 176, 'type': "big" }
+	],
+	#Test extreme difficulty
+	[
+		{ 'distance': 165, 'type': "big" },
+		{ 'distance': 40, 'type': "big" },
+		{ 'distance': 164, 'type': "big" },
+		{ 'distance':6, 'type': "bonus" },
+		{ 'distance':12, 'type': "big" },
+		{ 'distance': 232, 'type': "big" },
+		{ 'distance': 68, 'type': "bonus" },
+		{ 'distance': 180, 'type': "big" },
+		{ 'distance': 6, 'type': "big" },
+		{ 'distance': 68, 'type': "big" },
+		{ 'distance': 68, 'type': "bonus" },
+		{ 'distance': 66, 'type': "big" },
+		{ 'distance': 245, 'type': "bonus" },
+		{ 'distance':6, 'type': "bonus" },
+		{ 'distance': 120, 'type': "big" },
+		{ 'distance': 68, 'type': "big" },
+		{ 'distance': 120, 'type': "big" },
+		{ 'distance': 6, 'type': "big" },
+		{ 'distance': 6, 'type': "big" },
+		{ 'distance': 6, 'type': "big" },
+		{ 'distance': 68, 'type': "bonus" },
+		{ 'distance': 176, 'type': "big" }
+	]
+]
 
 func _ready():
 	if global.is_debug_mode:
@@ -33,19 +137,37 @@ func set_player_position():
 
 func spawn_next_flame():
 	var flame = single_flame.instance()
-	var rand = randi() % 4
+	var this_pattern = patterns[int(min(global.level_difficulty - 1, 3))]
+#	var this_pattern = patterns[4]
+	var this_flame = this_pattern[global.level_pattern]
+#	print(patterns[int(min(global.level_difficulty - 1, 4))][global.level_pattern]["distance"])
+#	print(len(patterns[int(min(global.level_difficulty - 1, 4))]))
+#	var rand = randi() % 4
+#
+#	if last_flame == null:
+#		pos = Vector2($Lion.position.x + 380, 184)
+#	else:
+#		pos = last_flame.position + Vector2.RIGHT * (380 if (rand / 2) * 2 == 0 else 300)
+#
+#	flame.position = pos
+#	if next_bonus_flame <= 0:
+#		next_bonus_flame = randi() % 12 + 4 # 4..15
+#		flame.start("bonus")
+#	else:
+#		flame.start("big")
 	
+#	next_bonus_flame -= 1
+
+	print(this_flame["distance"])
+	print(len(this_pattern))
+
 	if last_flame == null:
 		pos = Vector2($Lion.position.x + 380, 184)
 	else:
-		pos = last_flame.position + Vector2.RIGHT * (380 if (rand / 2) * 2 == 0 else 300)
+		pos = last_flame.position + Vector2.RIGHT * this_flame['distance'] * 2
 	
 	flame.position = pos
-	if next_bonus_flame <= 0:
-		next_bonus_flame = randi() % 12 + 4 # 4..15
-		flame.start("bonus")
-	else:
-		flame.start("big")
+	flame.start(this_flame["type"])
 	
 	flame.connect("hurt", $Lion, "hurt")
 	flame.connect("appear", self, "_on_Flame_appear")
@@ -54,7 +176,8 @@ func spawn_next_flame():
 	$FlameContainer.call_deferred("add_child", flame)
 	
 	last_flame = flame
-	next_bonus_flame -= 1
+	
+	global.level_pattern = (global.level_pattern + 1) % len(this_pattern)
 
 
 func spawn_boiler():
