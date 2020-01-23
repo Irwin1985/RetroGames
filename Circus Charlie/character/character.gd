@@ -122,10 +122,10 @@ func _process_behaviour():
 				if Horse != null:
 					Horse.get_node("AnimatedSprite").speed_scale = 1
 				if Input.is_action_pressed("game_left"):
-					motion.x = speed - (40 * speed) / 100
-					$Charlie.speed_scale = 0.50
+					motion.x = speed - (50 * speed) / 100
+					$Charlie.speed_scale = 0.4
 					if Horse != null:
-						Horse.get_node("AnimatedSprite").speed_scale = 0.5
+						Horse.get_node("AnimatedSprite").speed_scale = 0.4
 				elif Input.is_action_pressed("game_right"):
 					motion.x = speed + (30 * speed) / 100
 					if Horse != null:

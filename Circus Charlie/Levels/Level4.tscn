@@ -82,7 +82,7 @@ editor/display_folded = true
 position = Vector2( 120, 375 )
 
 [node name="AnimatedSprite" parent="Horse" index="0"]
-frame = 0
+frame = 2
 
 [node name="Podium" parent="." instance=ExtResource( 5 )]
 editor/display_folded = true
@@ -107,6 +107,7 @@ character_behaviour = "Stage 4:Horse"
 [node name="Charlie" parent="Player" index="0"]
 scale = Vector2( 2.005, 2.41 )
 animation = "ride"
+frame = 1
 
 [node name="CollisionShape2D" parent="Player" index="1"]
 shape = SubResource( 1 )

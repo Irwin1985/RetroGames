@@ -1,6 +1,6 @@
 extends Node
 
-const STANDARD_VOLUME = -20
+const STANDARD_VOLUME = -10
 const STAGE_TWO_INDEX = 1
 const STAGE_THREE_INDEX = 1
 const LIFE_SCORE_LIMIT = 20000

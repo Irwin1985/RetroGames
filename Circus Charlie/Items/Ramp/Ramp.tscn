@@ -37,7 +37,8 @@ __meta__ = {
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 scale = Vector2( 2, 2 )
 frames = SubResource( 1 )
-animation = "idle"
+animation = "bounce"
+frame = 2
 playing = true
 
 [node name="PlayerBounce" type="Area2D" parent="."]
