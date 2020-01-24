@@ -22,10 +22,17 @@ func set_environment():
 	for i in range (TOTAL_SWINGS):
 		# Add Trampolines
 		if i < TOTAL_SWINGS - 1: # Don't add the last one
-		# Skip some trampolines on highest difficulty
-			var new_trampoline = Trampolines.instance()
-			new_trampoline.position = Vector2((i + 1) * 256, 396)
-			$EnvironmentObjects.add_child(new_trampoline)
+			# Skip some trampolines on highest difficulty
+			var skip_trampoline : bool = false
+			if global.level_difficulty == 5:
+				if i == (TOTAL_SWINGS - 2): # Skip the one before the end
+					skip_trampoline = true
+				elif (randf() < .25): # Skip 25% of trampolines
+					skip_trampoline = true
+			if not skip_trampoline:
+				var new_trampoline = Trampolines.instance()
+				new_trampoline.position = Vector2((i + 1) * 256, 396)
+				$EnvironmentObjects.add_child(new_trampoline)
 		# Add Swings
 		var new_swing = Swings.instance()
 		new_swing.position = Vector2(i * 256 + 160, 124)
@@ -33,12 +40,21 @@ func set_environment():
 			new_swing.set_speed(0.85)
 			new_swing.already_grabbed = true
 		else:
-			new_swing.set_speed(randf() * 0.2 + 0.75) # 0.75-0.95
 			# Used for difficulty settings 
-#			new_swing.set_speed(randf() * 0.25 + 0.70) # 0.70-0.95
-#			new_swing.set_speed(randf() * 0.30 + 0.70) # 0.70-1
-#			new_swing.set_speed(randf() * 0.35 + 0.65) # 0.65-1
-#			new_swing.set_speed(randf() * 0.40 + 0.60) # 0.60-1
+			match global.level_difficulty:
+				1:
+					new_swing.set_speed(randf() * 0.2 + 0.75) # 0.75-0.95
+				2:
+					new_swing.set_speed(randf() * 0.25 + 0.70) # 0.70-0.95
+				3:
+					new_swing.set_speed(randf() * 0.35 + 0.65) # 0.65-1
+				4:
+					new_swing.set_speed(randf() * 0.45 + 0.55) # 0.60-1
+				5:
+					if (i == (TOTAL_SWINGS - 1)):
+						new_swing.set_speed(0) # Last swing
+					else:
+						new_swing.set_speed(randf()) # 0-1
 			if i % 2 != 0:
 				new_swing.reset_swing_position()
 			else:

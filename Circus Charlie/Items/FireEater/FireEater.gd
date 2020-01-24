@@ -16,6 +16,8 @@ func spit_fire() -> void:
 	fire_timer.wait_time = randf() * 1.75 + .75
 	state_machine.travel("Fire Spitting")
 	yield(get_tree().create_timer(0.2),"timeout")
+	if fire_timer.is_stopped():
+		return # Don't fire when stopped
 	var new_fire : Area2D = $Fire.duplicate()
 	new_fire.get_node("AnimationPlayer").play("Fire")
 	$Flames.add_child(new_fire)

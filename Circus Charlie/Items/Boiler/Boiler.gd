@@ -58,6 +58,8 @@ func activate_bonus():
 	bonus_counter = 0
 	bonus_total = ( randi() % 20 + 1 ) * 2
 	yield(get_tree().create_timer(0.5), "timeout")
+	if not $AnimatedSprite.is_playing():
+		return # Don't throw coin when stopped
 	can_pickup = true
 	$CoinShowSound.play()
 	$AnimationPlayer.play("coin")

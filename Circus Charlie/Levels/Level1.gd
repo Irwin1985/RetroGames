@@ -138,28 +138,7 @@ func set_player_position():
 func spawn_next_flame():
 	var flame = single_flame.instance()
 	var this_pattern = patterns[int(min(global.level_difficulty - 1, 3))]
-#	var this_pattern = patterns[4]
 	var this_flame = this_pattern[global.level_pattern]
-#	print(patterns[int(min(global.level_difficulty - 1, 4))][global.level_pattern]["distance"])
-#	print(len(patterns[int(min(global.level_difficulty - 1, 4))]))
-#	var rand = randi() % 4
-#
-#	if last_flame == null:
-#		pos = Vector2($Lion.position.x + 380, 184)
-#	else:
-#		pos = last_flame.position + Vector2.RIGHT * (380 if (rand / 2) * 2 == 0 else 300)
-#
-#	flame.position = pos
-#	if next_bonus_flame <= 0:
-#		next_bonus_flame = randi() % 12 + 4 # 4..15
-#		flame.start("bonus")
-#	else:
-#		flame.start("big")
-	
-#	next_bonus_flame -= 1
-
-	print(this_flame["distance"])
-	print(len(this_pattern))
 
 	if last_flame == null:
 		pos = Vector2($Lion.position.x + 380, 184)

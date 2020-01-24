@@ -21,21 +21,23 @@ func set_environment():
 		if i == next_bonus:
 			new_trampoline.put_bonus()
 			next_bonus += randi() % 3 + 2
-			if next_bonus > 20 and i < 19:
+			if next_bonus >= 19 and i < 19:
 				next_bonus = 20
 			if new_trampoline.connect("bonus_pick", self, "_on_Bonus_pick") != OK:
 				print("Error connecting bonus_pick of new trampoline")
+		#Trampolines with checkpoint
 		if i % 3 == 0:
 # warning-ignore:integer_division
 			new_trampoline.put_checkpoint(i / 3)
 		if i >= 3:
-			var random: int = randi() % 5
-			if random == 1 or random == 2:
+			var diff_weight : int = pow(2, global.level_difficulty)
+			var random: int = randi() % (1 + diff_weight * 2)
+			if random > 0 and random <= diff_weight:
 				var new_fire_eater: Node2D = Fire_eaters.instance()
 # warning-ignore:integer_division
 				new_fire_eater.position = Vector2(i * 512 / 3 + 185, 388)
 				$Environment.add_child(new_fire_eater)
-			elif random == 3 or random == 4:
+			elif random > diff_weight:
 				var new_juggler: Node2D = Jugglers.instance()
 # warning-ignore:integer_division
 				new_juggler.position = Vector2(i * 512 / 3 + 185, 388)
