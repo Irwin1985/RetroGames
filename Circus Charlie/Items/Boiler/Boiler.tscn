@@ -15,7 +15,7 @@ animations = [ {
 } ]
 
 [sub_resource type="RectangleShape2D" id=2]
-extents = Vector2( 1.21812, 51.3237 )
+extents = Vector2( 5, 100 )
 
 [sub_resource type="Animation" id=3]
 resource_name = "bonus"
@@ -60,16 +60,16 @@ script = ExtResource( 1 )
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 scale = Vector2( 2, 2 )
 frames = SubResource( 1 )
+frame = 1
 playing = true
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
 polygon = PoolVector2Array( -10.2073, 0.317158, 12.5387, -12.1654, 12.6137, 27.8558, -10.1677, 28.3565 )
 
 [node name="AreaNotifier" type="Area2D" parent="."]
-editor/display_folded = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AreaNotifier"]
-position = Vector2( -0.0915155, -103.933 )
+position = Vector2( 0, -100 )
 shape = SubResource( 2 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
