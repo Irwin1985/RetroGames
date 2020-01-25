@@ -1,5 +1,5 @@
 extends Node2D
-class_name PlatformFactory
+class_name RampFactory
 
 const ANIMATION_NAME: String = "bounce"
 const OFFSET: int = 8
@@ -8,7 +8,7 @@ var edge_textures = ["res://assets/ramp_open.png", "res://assets/ramp_closed.png
 var union_textures = ["res://assets/ramp_union_open.png", "res://assets/ramp_union_closed.png", "res://assets/ramp_union_open.png"]
 
 
-func create_animated_sprite(platform_number: int = 0) -> StaticBody2D:
+func create_platform(platform_number: int = 0) -> StaticBody2D:
 	# -------------------------------------------------------------------- #
 	# StaticBody2D (Ramp)
 	# -------------------------------------------------------------------- #
@@ -61,7 +61,7 @@ func create_animated_sprite(platform_number: int = 0) -> StaticBody2D:
 	PlayerBounce.add_child(PlayerBounceCollisionShape)
 	PlayerBounce.connect("body_entered", Ramp, "_on_Area2D_body_entered", [], CONNECT_DEFERRED)
 	PlayerBounce.connect("body_exited", Ramp, "_on_Area2D_body_exited", [], CONNECT_DEFERRED)
-	PlayerBounce.position = Vector2((platform_number * 8) - OFFSET, -18)
+	PlayerBounce.position = Vector2((platform_number * 8) - OFFSET, -20)
 	Ramp.add_child(PlayerBounce)
 
 	# -------------------------------------------------------------------- #
@@ -71,7 +71,7 @@ func create_animated_sprite(platform_number: int = 0) -> StaticBody2D:
 	PlayerHurt.name = "PlayerHurt"
 	var PlayerHurtCollisionShape: CollisionShape2D = CollisionShape2D.new()
 	var PlayerHurtShape: RectangleShape2D = RectangleShape2D.new()
-	PlayerHurtShape.extents = Vector2(3, 12)
+	PlayerHurtShape.extents = Vector2(3, 10)
 	PlayerHurtCollisionShape.shape = PlayerHurtShape
 	PlayerHurt.add_child(PlayerHurtCollisionShape)
 	PlayerHurt.connect("body_entered", Ramp, "_on_PlayerHurt_body_entered", [], CONNECT_DEFERRED)
@@ -107,29 +107,5 @@ func create_animated_sprite(platform_number: int = 0) -> StaticBody2D:
 	RampSound.name = "RampSound"
 	RampSound.stream = load("res://assets/sfx/spring.wav")
 	Ramp.add_child(RampSound)
+
 	return Ramp
-
-
-func _on_CreatePlatform_pressed():
-	var Par: Node2D = Node2D.new()
-	
-	var Ramp: StaticBody2D = create_animated_sprite(4)
-	Ramp.position = Vector2(0, 0)
-	Par.add_child(Ramp)
-
-	var Ramp2: StaticBody2D = create_animated_sprite()
-	Ramp2.position = Vector2(120, -100)
-	Par.add_child(Ramp2)
-
-	Par.position = Vector2(200, 300)
-	add_child(Par)
-	
-	
-	$Player.gravity = 15
-
-
-func _on_AnimatePlatform_pressed():
-	$AnimatedSprite.play()
-	$AnimatedSprite2.play()
-	$AnimatedSprite3.play()
-	pass

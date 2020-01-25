@@ -8,7 +8,7 @@ const PLAYER_NAME = "Player"
 const LION_NAME = "Lion"
 const IS_ALPHA_VERSION = true
 const LAST_LEVEL = 5
-
+enum {LEVEL_1 = 1, LEVEL_2 = 2, LEVEL_3 = 3, LEVEL_4 = 4}
 onready var HudScene: PackedScene = preload("res://HUD/HUD.tscn")
 var HudInstance: GameHUD = null
 
@@ -41,6 +41,7 @@ var pitch_scale = 1.37
 onready var game_file: String = "user://score.save"
 var is_debug_mode := true
 var level_difficulty := 1 setget set_level_difficulty
+var PlatformFactory: RampFactory
 
 
 func _ready() -> void:
@@ -160,3 +161,8 @@ func set_level_difficulty(new_value):
 	current_level = -1
 	check_point = 0
 	current_check_point_path = ""
+
+
+func create_platform(platform_number: int = 0) -> StaticBody2D:
+	PlatformFactory = RampFactory.new()
+	return PlatformFactory.create_platform(platform_number)

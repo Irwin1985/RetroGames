@@ -24,11 +24,6 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://HUD/HUD.gd"
 }, {
-"base": "Node2D",
-"class": "PlatformFactory",
-"language": "GDScript",
-"path": "res://tests/Tests.gd"
-}, {
 "base": "KinematicBody2D",
 "class": "Player",
 "language": "GDScript",
@@ -38,6 +33,11 @@ _global_script_classes=[ {
 "class": "Podium",
 "language": "GDScript",
 "path": "res://Items/Podium/Podium.gd"
+}, {
+"base": "Node2D",
+"class": "RampFactory",
+"language": "GDScript",
+"path": "res://Items/Ramp/PlatformFactory.gd"
 }, {
 "base": "Node2D",
 "class": "Swing",
@@ -53,9 +53,9 @@ _global_script_class_icons={
 "BigTrampoline": "",
 "FlameRing": "",
 "GameHUD": "",
-"PlatformFactory": "",
 "Player": "",
 "Podium": "",
+"RampFactory": "",
 "Swing": "",
 "Trampoline": ""
 }

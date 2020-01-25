@@ -1,4 +1,4 @@
-[gd_scene load_steps=39 format=2]
+[gd_scene load_steps=38 format=2]
 
 [ext_resource path="res://Levels/Level4.gd" type="Script" id=1]
 [ext_resource path="res://Items/Background/Background.tscn" type="PackedScene" id=2]
@@ -31,7 +31,6 @@
 [ext_resource path="res://assets/sfx/GameOver.wav" type="AudioStream" id=29]
 [ext_resource path="res://assets/sfx/Clapping.wav" type="AudioStream" id=30]
 [ext_resource path="res://Items/CheckPoints.tscn" type="PackedScene" id=31]
-[ext_resource path="res://Items/Ramp/Ramp.tscn" type="PackedScene" id=32]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 15, 12.1 )
@@ -82,7 +81,7 @@ editor/display_folded = true
 position = Vector2( 120, 375 )
 
 [node name="AnimatedSprite" parent="Horse" index="0"]
-frame = 2
+frame = 0
 
 [node name="Podium" parent="." instance=ExtResource( 5 )]
 editor/display_folded = true
@@ -107,7 +106,6 @@ character_behaviour = "Stage 4:Horse"
 [node name="Charlie" parent="Player" index="0"]
 scale = Vector2( 2.005, 2.41 )
 animation = "ride"
-frame = 1
 
 [node name="CollisionShape2D" parent="Player" index="1"]
 shape = SubResource( 1 )
@@ -257,6 +255,7 @@ __meta__ = {
 shape = SubResource( 3 )
 
 [node name="Sounds" type="Node" parent="."]
+editor/display_folded = true
 
 [node name="LevelSound" type="AudioStreamPlayer" parent="Sounds"]
 stream = ExtResource( 28 )
@@ -401,280 +400,9 @@ position = Vector2( 8640, 340 )
 position = Vector2( 0, 0 )
 
 [node name="Bounce" type="Node2D" parent="."]
-editor/display_folded = true
 __meta__ = {
 "_edit_group_": true
 }
-
-[node name="190m" type="Node2D" parent="Bounce"]
-editor/display_folded = true
-position = Vector2( 707, 334 )
-__meta__ = {
-"_edit_group_": true
-}
-
-[node name="Ramp" parent="Bounce/190m" instance=ExtResource( 32 )]
-editor/display_folded = true
-position = Vector2( 40, -20 )
-
-[node name="Ramp2" parent="Bounce/190m" instance=ExtResource( 32 )]
-editor/display_folded = true
-position = Vector2( 187.494, -35 )
-
-[node name="180m" type="Node2D" parent="Bounce"]
-editor/display_folded = true
-position = Vector2( 1217, 334 )
-__meta__ = {
-"_edit_group_": true
-}
-
-[node name="Ramp" parent="Bounce/180m" instance=ExtResource( 32 )]
-editor/display_folded = true
-position = Vector2( 40, -35 )
-
-[node name="Ramp2" parent="Bounce/180m" instance=ExtResource( 32 )]
-editor/display_folded = true
-position = Vector2( 187.494, -20 )
-
-[node name="170m" type="Node2D" parent="Bounce"]
-editor/display_folded = true
-position = Vector2( 1717, 334 )
-__meta__ = {
-"_edit_group_": true
-}
-
-[node name="Ramp" parent="Bounce/170m" instance=ExtResource( 32 )]
-editor/display_folded = true
-position = Vector2( 40, -35 )
-
-[node name="Ramp2" parent="Bounce/170m" instance=ExtResource( 32 )]
-editor/display_folded = true
-position = Vector2( 187.494, -20 )
-
-[node name="160m" type="Node2D" parent="Bounce"]
-editor/display_folded = true
-position = Vector2( 2217, 334 )
-__meta__ = {
-"_edit_group_": true
-}
-
-[node name="Ramp" parent="Bounce/160m" instance=ExtResource( 32 )]
-editor/display_folded = true
-position = Vector2( 40, -20 )
-
-[node name="Ramp2" parent="Bounce/160m" instance=ExtResource( 32 )]
-editor/display_folded = true
-position = Vector2( 187.494, -20 )
-
-[node name="150m" type="Node2D" parent="Bounce"]
-editor/display_folded = true
-position = Vector2( 2717, 334 )
-__meta__ = {
-"_edit_group_": true
-}
-
-[node name="Ramp" parent="Bounce/150m" instance=ExtResource( 32 )]
-editor/display_folded = true
-position = Vector2( 40, -20 )
-
-[node name="Ramp2" parent="Bounce/150m" instance=ExtResource( 32 )]
-editor/display_folded = true
-position = Vector2( 187.494, -35 )
-
-[node name="140m" type="Node2D" parent="Bounce"]
-editor/display_folded = true
-position = Vector2( 3217, 334 )
-__meta__ = {
-"_edit_group_": true
-}
-
-[node name="Ramp" parent="Bounce/140m" instance=ExtResource( 32 )]
-editor/display_folded = true
-position = Vector2( 40, -35 )
-
-[node name="Ramp2" parent="Bounce/140m" instance=ExtResource( 32 )]
-editor/display_folded = true
-position = Vector2( 187.494, -20 )
-
-[node name="130m" type="Node2D" parent="Bounce"]
-editor/display_folded = true
-position = Vector2( 3717, 334 )
-__meta__ = {
-"_edit_group_": true
-}
-
-[node name="Ramp" parent="Bounce/130m" instance=ExtResource( 32 )]
-editor/display_folded = true
-position = Vector2( 40, -35 )
-
-[node name="Ramp2" parent="Bounce/130m" instance=ExtResource( 32 )]
-editor/display_folded = true
-position = Vector2( 187.494, -20 )
-
-[node name="120m" type="Node2D" parent="Bounce"]
-editor/display_folded = true
-position = Vector2( 4217, 334 )
-__meta__ = {
-"_edit_group_": true
-}
-
-[node name="Ramp" parent="Bounce/120m" instance=ExtResource( 32 )]
-editor/display_folded = true
-position = Vector2( 40, -20 )
-
-[node name="Ramp2" parent="Bounce/120m" instance=ExtResource( 32 )]
-editor/display_folded = true
-position = Vector2( 187.494, -20 )
-
-[node name="110m" type="Node2D" parent="Bounce"]
-editor/display_folded = true
-position = Vector2( 4717, 334 )
-__meta__ = {
-"_edit_group_": true
-}
-
-[node name="Ramp" parent="Bounce/110m" instance=ExtResource( 32 )]
-editor/display_folded = true
-position = Vector2( 40, -20 )
-
-[node name="Ramp2" parent="Bounce/110m" instance=ExtResource( 32 )]
-editor/display_folded = true
-position = Vector2( 187.494, -35 )
-
-[node name="100m" type="Node2D" parent="Bounce"]
-editor/display_folded = true
-position = Vector2( 5217, 334 )
-__meta__ = {
-"_edit_group_": true
-}
-
-[node name="Ramp" parent="Bounce/100m" instance=ExtResource( 32 )]
-editor/display_folded = true
-position = Vector2( 40, -35 )
-
-[node name="Ramp2" parent="Bounce/100m" instance=ExtResource( 32 )]
-editor/display_folded = true
-position = Vector2( 187.494, -20 )
-
-[node name="90m" type="Node2D" parent="Bounce"]
-editor/display_folded = true
-position = Vector2( 5717, 334 )
-__meta__ = {
-"_edit_group_": true
-}
-
-[node name="Ramp" parent="Bounce/90m" instance=ExtResource( 32 )]
-editor/display_folded = true
-position = Vector2( 40, -35 )
-
-[node name="Ramp2" parent="Bounce/90m" instance=ExtResource( 32 )]
-editor/display_folded = true
-position = Vector2( 187.494, -20 )
-
-[node name="80m" type="Node2D" parent="Bounce"]
-editor/display_folded = true
-position = Vector2( 6217, 334 )
-__meta__ = {
-"_edit_group_": true
-}
-
-[node name="Ramp" parent="Bounce/80m" instance=ExtResource( 32 )]
-editor/display_folded = true
-position = Vector2( 40, -20 )
-
-[node name="Ramp2" parent="Bounce/80m" instance=ExtResource( 32 )]
-editor/display_folded = true
-position = Vector2( 187.494, -20 )
-
-[node name="70m" type="Node2D" parent="Bounce"]
-editor/display_folded = true
-position = Vector2( 6717, 334 )
-__meta__ = {
-"_edit_group_": true
-}
-
-[node name="Ramp" parent="Bounce/70m" instance=ExtResource( 32 )]
-editor/display_folded = true
-position = Vector2( 40, -20 )
-
-[node name="Ramp2" parent="Bounce/70m" instance=ExtResource( 32 )]
-editor/display_folded = true
-position = Vector2( 187.494, -35 )
-
-[node name="60m" type="Node2D" parent="Bounce"]
-editor/display_folded = true
-position = Vector2( 7217, 334 )
-__meta__ = {
-"_edit_group_": true
-}
-
-[node name="Ramp" parent="Bounce/60m" instance=ExtResource( 32 )]
-editor/display_folded = true
-position = Vector2( 40, -35 )
-
-[node name="Ramp2" parent="Bounce/60m" instance=ExtResource( 32 )]
-editor/display_folded = true
-position = Vector2( 187.494, -20 )
-
-[node name="50m" type="Node2D" parent="Bounce"]
-editor/display_folded = true
-position = Vector2( 7717, 334 )
-__meta__ = {
-"_edit_group_": true
-}
-
-[node name="Ramp" parent="Bounce/50m" instance=ExtResource( 32 )]
-editor/display_folded = true
-position = Vector2( 40, -35 )
-
-[node name="Ramp2" parent="Bounce/50m" instance=ExtResource( 32 )]
-editor/display_folded = true
-position = Vector2( 187.494, -20 )
-
-[node name="40m" type="Node2D" parent="Bounce"]
-editor/display_folded = true
-position = Vector2( 8217, 334 )
-__meta__ = {
-"_edit_group_": true
-}
-
-[node name="Ramp" parent="Bounce/40m" instance=ExtResource( 32 )]
-editor/display_folded = true
-position = Vector2( 40, -20 )
-
-[node name="Ramp2" parent="Bounce/40m" instance=ExtResource( 32 )]
-editor/display_folded = true
-position = Vector2( 187.494, -20 )
-
-[node name="30m" type="Node2D" parent="Bounce"]
-editor/display_folded = true
-position = Vector2( 8717, 334 )
-__meta__ = {
-"_edit_group_": true
-}
-
-[node name="Ramp" parent="Bounce/30m" instance=ExtResource( 32 )]
-editor/display_folded = true
-position = Vector2( 40, -20 )
-
-[node name="Ramp2" parent="Bounce/30m" instance=ExtResource( 32 )]
-editor/display_folded = true
-position = Vector2( 187.494, -35 )
-
-[node name="20m" type="Node2D" parent="Bounce"]
-editor/display_folded = true
-position = Vector2( 9217, 334 )
-__meta__ = {
-"_edit_group_": true
-}
-
-[node name="Ramp" parent="Bounce/20m" instance=ExtResource( 32 )]
-editor/display_folded = true
-position = Vector2( 40, -35 )
-
-[node name="Ramp2" parent="Bounce/20m" instance=ExtResource( 32 )]
-editor/display_folded = true
-position = Vector2( 187.494, -20 )
 
 [node name="PlayerPodiumRule" type="Area2D" parent="."]
 editor/display_folded = true
@@ -716,7 +444,3 @@ shape = SubResource( 6 )
 [editable path="Player"]
 
 [editable path="CheckPoints"]
-
-[editable path="Bounce/190m/Ramp2"]
-
-[editable path="Bounce/180m/Ramp2"]

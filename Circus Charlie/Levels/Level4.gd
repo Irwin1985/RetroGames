@@ -4,8 +4,11 @@ var track_horse_position := true
 var last_jump := false
 var bonus_earned := false
 var bonus_point := 0
+var platforms_positions = {"platforms":[{"level_1":{"offset":500,"start":670,"patterns":[{"ramp1":[40,-18,4],"ramp2":[170,-18,4]},{"ramp1":[40,-35,4],"ramp2":[200,-18,4]},{"ramp1":[40,-18,4],"ramp2":[170,-35,4]},{"ramp1":[40,-35,4],"ramp2":[170,-35,4]}]}},{"level_2":{"offset":500,"start":670,"patterns":[{"ramp1":[40,-18,2],"ramp2":[170,-35,4]},{"ramp1":[40,-35,2],"ramp2":[200,-18,2]},{"ramp1":[40,-35,2],"ramp2":[170,-18,4]},{"ramp1":[40,-18,4],"ramp2":[240,-18,2]}]}},{"level_3":{"offset":500,"start":630,"patterns":[{"ramp1":[40,-18,2],"ramp2":[250,-18,2]},{"ramp1":[100,-18,0],"ramp2":[230,-18,2]},{"ramp1":[65,-35,4],"ramp2":[220,-81,2]},{"ramp1":[100,-18,4],"ramp2":[230,-70,0]}]}},{"level_4":{"offset":500,"start":630,"patterns":[{"ramp1":[10,-18,0],"ramp2":[200,-18,0]},{"ramp1":[60,-18,0],"ramp2":[220,-35,2]},{"ramp1":[60,-18,4],"ramp2":[190,-81,0]},{"ramp1":[30,-18,4],"ramp2":[240,-18,4]}]}}]}
+
 
 func _ready():
+	draw_platforms()
 	$Player.Horse = $Horse
 	if global.is_debug_mode:
 		global.play_first_sound = true
@@ -102,3 +105,71 @@ func _on_PlayerPodiumRule_body_entered(body):
 	if body.name == global.PLAYER_NAME:
 		$Podium/CollisionShape2D.queue_free()
 		$Podium/PodiumTop/CollisionShape2D.queue_free()
+
+
+func draw_platforms():
+	var index = 0
+	var ramp_idx = 0
+	var level = get_level_difficulty()
+	var ramp_pair = [0, 1, 2, 3, 0, 1, 2, 3, 0, 1, 2, 3, 0, 1, 2, 3, 0, 1]
+	for pair in ramp_pair:
+		var RampParent: Node2D = Node2D.new()
+		RampParent.position = Vector2(level.start + (level.offset * index), 334)
+		index += 1
+
+		for ramp_idx in range(2):
+			var x_pos = 0
+			var y_pos = 0
+			var ramp_size = 0
+			if ramp_idx == 0:
+				x_pos = level.patterns[pair].ramp1[0]
+				y_pos = level.patterns[pair].ramp1[1]
+				ramp_size = level.patterns[pair].ramp1[2]
+			else:
+				x_pos = level.patterns[pair].ramp2[0]
+				y_pos = level.patterns[pair].ramp2[1]
+				ramp_size = level.patterns[pair].ramp2[2]
+
+			var Ramp: StaticBody2D = global.create_platform(ramp_size)
+			Ramp.position = Vector2(x_pos, y_pos)
+			RampParent.add_child(Ramp)
+		$Bounce.add_child(RampParent)
+
+#	for pair in level.pairs:
+#		var RampParent: Node2D = Node2D.new()
+#		RampParent.position = Vector2(670 + (level.offset * index), 334)
+#		index += 1
+#
+#		for ramp_idx in range(2):
+#			var x_pos = 0
+#			var y_pos = 0
+#			var ramp_size = 0
+#			if ramp_idx == 0:
+#				x_pos = level.patterns[pair].ramp1[0]
+#				y_pos = level.patterns[pair].ramp1[1]
+#				ramp_size = level.patterns[pair].ramp1[2]
+#			else:
+#				x_pos = level.patterns[pair].ramp2[0]
+#				y_pos = level.patterns[pair].ramp2[1]
+#				ramp_size = level.patterns[pair].ramp2[2]
+#
+#			var Ramp: StaticBody2D = global.create_platform(ramp_size)
+#			Ramp.position = Vector2(x_pos, y_pos)
+#			RampParent.add_child(Ramp)
+#		$Bounce.add_child(RampParent)
+
+
+func get_level_difficulty() -> Dictionary:
+	var level: Dictionary
+	match global.level_difficulty:
+		global.LEVEL_1:
+			level = platforms_positions.platforms[0].level_1
+		global.LEVEL_2:
+			level = platforms_positions.platforms[1].level_2
+		global.LEVEL_3:
+			level = platforms_positions.platforms[2].level_3
+		global.LEVEL_4:
+			level = platforms_positions.platforms[3].level_4
+		_:
+			level = platforms_positions.platforms[3].level_4
+	return level
