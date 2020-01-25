@@ -23,8 +23,12 @@ func _process(delta):
 func _on_Area2D_body_entered(body):
 	if body.name == global.PLAYER_NAME:
 		$RampSound.play()
-		$AnimatedSprite.frame = 0
-		$AnimatedSprite.play("bounce")
+		for anim in get_children():
+			if anim.is_in_group("animation"):
+				anim.frame = 0
+				anim.play("bounce")
+#		$AnimatedSprite.frame = 0
+#		$AnimatedSprite.play("bounce")
 		body.show_BonusLabel(100)
 		PlayerRef = body
 		player_animation = "bounce" if global.rand_bool() else "jump"

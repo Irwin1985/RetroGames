@@ -34,7 +34,9 @@ __meta__ = {
 "_edit_group_": true
 }
 
-[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+[node name="AnimatedSprite" type="AnimatedSprite" parent="." groups=[
+"animation",
+]]
 scale = Vector2( 2, 2 )
 frames = SubResource( 1 )
 animation = "bounce"
@@ -42,7 +44,6 @@ frame = 2
 playing = true
 
 [node name="PlayerBounce" type="Area2D" parent="."]
-editor/display_folded = true
 position = Vector2( -0.0577545, -18.8138 )
 __meta__ = {
 "_edit_group_": true

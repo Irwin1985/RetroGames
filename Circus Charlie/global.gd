@@ -42,6 +42,7 @@ onready var game_file: String = "user://score.save"
 var is_debug_mode := true
 var level_difficulty := 1 setget set_level_difficulty
 
+
 func _ready() -> void:
 	OS.center_window()
 	load_game()
