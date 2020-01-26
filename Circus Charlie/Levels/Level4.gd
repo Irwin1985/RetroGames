@@ -4,7 +4,7 @@ var track_horse_position := true
 var last_jump := false
 var bonus_earned := false
 var bonus_point := 0
-var platforms_positions = {"platforms":[{"level_1":{"offset":500,"start":670,"patterns":[{"ramp1":[40,-18,4],"ramp2":[170,-18,4]},{"ramp1":[40,-35,4],"ramp2":[200,-18,4]},{"ramp1":[40,-18,4],"ramp2":[170,-35,4]},{"ramp1":[40,-35,4],"ramp2":[170,-35,4]}]}},{"level_2":{"offset":500,"start":670,"patterns":[{"ramp1":[40,-18,2],"ramp2":[170,-35,4]},{"ramp1":[40,-35,2],"ramp2":[200,-18,2]},{"ramp1":[40,-35,2],"ramp2":[170,-18,4]},{"ramp1":[40,-18,4],"ramp2":[240,-18,2]}]}},{"level_3":{"offset":500,"start":630,"patterns":[{"ramp1":[40,-18,2],"ramp2":[250,-18,2]},{"ramp1":[100,-18,0],"ramp2":[230,-18,2]},{"ramp1":[65,-35,4],"ramp2":[220,-81,2]},{"ramp1":[100,-18,4],"ramp2":[230,-70,0]}]}},{"level_4":{"offset":500,"start":630,"patterns":[{"ramp1":[10,-18,0],"ramp2":[200,-18,0]},{"ramp1":[60,-18,0],"ramp2":[220,-35,2]},{"ramp1":[60,-18,4],"ramp2":[190,-81,0]},{"ramp1":[30,-18,4],"ramp2":[240,-18,4]}]}}]}
+var platforms_positions = {"platforms":[{"level_1":{"offset":500,"start":670,"patterns":[{"ramp1":[40,-18,4],"ramp2":[170,-18,4]},{"ramp1":[40,-35,4],"ramp2":[200,-18,4]},{"ramp1":[40,-18,4],"ramp2":[170,-35,4]},{"ramp1":[40,-35,4],"ramp2":[170,-35,4]}]}},{"level_2":{"offset":500,"start":670,"patterns":[{"ramp1":[40,-18,2],"ramp2":[170,-35,4]},{"ramp1":[40,-35,2],"ramp2":[200,-18,2]},{"ramp1":[40,-35,2],"ramp2":[170,-18,4]},{"ramp1":[40,-18,4],"ramp2":[240,-18,2]}]}},{"level_3":{"offset":500,"start":630,"patterns":[{"ramp1":[40,-18,2],"ramp2":[250,-18,2]},{"ramp1":[100,-18,0],"ramp2":[230,-18,2]},{"ramp1":[65,-35,4],"ramp2":[220,-81,2]},{"ramp1":[100,-18,4],"ramp2":[230,-35,0]}]}},{"level_4":{"offset":500,"start":630,"patterns":[{"ramp1":[10,-18,0],"ramp2":[200,-18,0]},{"ramp1":[60,-18,0],"ramp2":[220,-35,2]},{"ramp1":[60,-18,4],"ramp2":[190,-81,0]},{"ramp1":[30,-18,4],"ramp2":[240,-18,4]}]}}]}
 
 
 func _ready():
@@ -65,6 +65,7 @@ func game_over():
 
 
 func _on_Player_hit():
+	$Sounds/LevelSound.stop()
 	track_horse_position = false
 
 
@@ -88,6 +89,8 @@ func _on_WinSound_finished():
 
 func _on_GoalSensor_body_entered(body):
 	if body.name == global.PLAYER_NAME:
+		$Horse.move_alone = true
+		$Player.motion.x = $Player.speed - (50 * $Player.speed) / 100
 		last_jump = true
 
 

@@ -20,3 +20,4 @@ current = true
 
 [node name="HurtSound" type="AudioStreamPlayer" parent="Sounds"]
 stream = ExtResource( 2 )
+volume_db = -30.0

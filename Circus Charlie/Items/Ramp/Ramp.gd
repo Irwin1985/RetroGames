@@ -1,12 +1,11 @@
 extends StaticBody2D
 
-#const STOMP_JUMP = -273
 const STOMP_JUMP = -250
 onready var bounce_timer: Timer = Timer.new()
 onready var PlayerRef: KinematicBody2D = null
 var can_change_player_animation := false
 var player_animation := ""
-
+var detect_collision := true
 
 func _ready():
 	bounce_timer.wait_time = 0.2
@@ -21,14 +20,13 @@ func _process(delta):
 
 
 func _on_Area2D_body_entered(body):
-	if body.name == global.PLAYER_NAME:
+	if body.name == global.PLAYER_NAME and not body.hit and detect_collision:
+		$PlayerHurt.get_node("CollisionShape2D").disabled = true
 		$RampSound.play()
 		for anim in get_children():
 			if anim.is_in_group("animation"):
 				anim.frame = 0
 				anim.play("bounce")
-#		$AnimatedSprite.frame = 0
-#		$AnimatedSprite.play("bounce")
 		body.show_BonusLabel(100)
 		PlayerRef = body
 		player_animation = "bounce" if global.rand_bool() else "jump"
@@ -44,6 +42,7 @@ func _on_Area2D_body_exited(body):
 
 func _on_PlayerHurt_body_entered(body):
 	if body.name == global.PLAYER_NAME:
+		detect_collision = false
 		body.hit_and_fall()
 
 
@@ -52,7 +51,7 @@ func _on_bounce_timer_timeout():
 	can_change_player_animation = false
 
 func _on_PlayerDown_body_entered(body):
-	if body.name == global.PLAYER_NAME:
+	if body.name == global.PLAYER_NAME and not body.hit and detect_collision:
 		body.hit_and_fall()
 
 func _on_VisibilityNotifier2D_screen_exited():

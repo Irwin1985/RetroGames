@@ -4,15 +4,15 @@
 [ext_resource path="res://assets/walk_02.png" type="Texture" id=2]
 [ext_resource path="res://assets/walk_01.png" type="Texture" id=3]
 [ext_resource path="res://assets/die.png" type="Texture" id=4]
-[ext_resource path="res://assets/jump_01.png" type="Texture" id=5]
-[ext_resource path="res://assets/win_01.png" type="Texture" id=6]
-[ext_resource path="res://assets/win_02.png" type="Texture" id=7]
-[ext_resource path="res://assets/swinging_03.png" type="Texture" id=8]
-[ext_resource path="res://assets/swinging_05.png" type="Texture" id=9]
-[ext_resource path="res://assets/swinging_02.png" type="Texture" id=10]
-[ext_resource path="res://assets/swinging_01.png" type="Texture" id=11]
-[ext_resource path="res://assets/stand_01.png" type="Texture" id=12]
-[ext_resource path="res://assets/stand_02.png" type="Texture" id=13]
+[ext_resource path="res://assets/swinging_02.png" type="Texture" id=5]
+[ext_resource path="res://assets/swinging_03.png" type="Texture" id=6]
+[ext_resource path="res://assets/swinging_05.png" type="Texture" id=7]
+[ext_resource path="res://assets/stand_01.png" type="Texture" id=8]
+[ext_resource path="res://assets/stand_02.png" type="Texture" id=9]
+[ext_resource path="res://assets/swinging_01.png" type="Texture" id=10]
+[ext_resource path="res://assets/win_01.png" type="Texture" id=11]
+[ext_resource path="res://assets/win_02.png" type="Texture" id=12]
+[ext_resource path="res://assets/jump_01.png" type="Texture" id=13]
 [ext_resource path="res://assets/walk_03.png" type="Texture" id=14]
 [ext_resource path="res://assets/sfx/PlayerJump.wav" type="AudioStream" id=15]
 [ext_resource path="res://assets/sfx/FallingDown.wav" type="AudioStream" id=16]
@@ -34,40 +34,40 @@ animations = [ {
 "name": "hurt",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 5 ) ],
-"loop": true,
-"name": "jump",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 6 ), ExtResource( 7 ) ],
-"loop": true,
-"name": "win",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 8 ), ExtResource( 8 ), ExtResource( 9 ), ExtResource( 10 ), ExtResource( 11 ), ExtResource( 10 ), ExtResource( 9 ), ExtResource( 8 ), ExtResource( 8 ), ExtResource( 8 ) ],
-"loop": true,
-"name": "swing",
-"speed": 2.5
-}, {
-"frames": [ ExtResource( 10 ), ExtResource( 8 ), ExtResource( 9 ) ],
+"frames": [ ExtResource( 5 ), ExtResource( 6 ), ExtResource( 7 ) ],
 "loop": true,
 "name": "spin jump",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 12 ), ExtResource( 13 ) ],
+"frames": [ ExtResource( 8 ), ExtResource( 9 ) ],
 "loop": true,
 "name": "ride",
 "speed": 8.0
 }, {
-"frames": [ ExtResource( 2 ), ExtResource( 3 ) ],
+"frames": [ ExtResource( 6 ), ExtResource( 6 ), ExtResource( 7 ), ExtResource( 5 ), ExtResource( 10 ), ExtResource( 5 ), ExtResource( 7 ), ExtResource( 6 ), ExtResource( 6 ), ExtResource( 6 ) ],
 "loop": true,
-"name": "run_back",
-"speed": 3.0
+"name": "swing",
+"speed": 2.5
+}, {
+"frames": [ ExtResource( 11 ), ExtResource( 12 ) ],
+"loop": true,
+"name": "win",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 13 ) ],
+"loop": true,
+"name": "jump",
+"speed": 5.0
 }, {
 "frames": [ ExtResource( 2 ), ExtResource( 3 ), ExtResource( 14 ) ],
 "loop": true,
 "name": "run",
 "speed": 4.0
+}, {
+"frames": [ ExtResource( 2 ), ExtResource( 3 ) ],
+"loop": true,
+"name": "run_back",
+"speed": 3.0
 } ]
 
 [sub_resource type="RectangleShape2D" id=2]
@@ -306,11 +306,16 @@ position = Vector2( 1.29591, 0 )
 scale = Vector2( 0.760002, 2.4 )
 shape = SubResource( 2 )
 
+[node name="HurtSound" parent="Sounds" index="0"]
+volume_db = -30.0
+
 [node name="JumpSound" type="AudioStreamPlayer" parent="Sounds" index="1"]
 stream = ExtResource( 15 )
+volume_db = -30.0
 
 [node name="FallSound" type="AudioStreamPlayer" parent="Sounds" index="2"]
 stream = ExtResource( 16 )
+volume_db = -30.0
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." index="4"]
 anims/hurt = SubResource( 3 )

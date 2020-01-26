@@ -1,4 +1,4 @@
-[gd_scene load_steps=38 format=2]
+[gd_scene load_steps=37 format=2]
 
 [ext_resource path="res://Levels/Level4.gd" type="Script" id=1]
 [ext_resource path="res://Items/Background/Background.tscn" type="PackedScene" id=2]
@@ -42,9 +42,6 @@ extents = Vector2( 5126.64, 0.107824 )
 extents = Vector2( 2, 70.8109 )
 
 [sub_resource type="RectangleShape2D" id=4]
-
-[sub_resource type="RectangleShape2D" id=5]
-extents = Vector2( 5, 120 )
 
 [sub_resource type="RectangleShape2D" id=6]
 extents = Vector2( 8.00684, 15.4359 )
@@ -106,6 +103,7 @@ character_behaviour = "Stage 4:Horse"
 [node name="Charlie" parent="Player" index="0"]
 scale = Vector2( 2.005, 2.41 )
 animation = "ride"
+frame = 1
 
 [node name="CollisionShape2D" parent="Player" index="1"]
 shape = SubResource( 1 )
@@ -286,118 +284,58 @@ shape = SubResource( 4 )
 editor/display_folded = true
 
 [node name="chkpt_190m" parent="CheckPoints" index="0"]
-position = Vector2( 640, 340 )
+position = Vector2( 640, 334 )
 
 [node name="chkpt_180m" parent="CheckPoints" index="1"]
-position = Vector2( 1140, 340 )
+position = Vector2( 1140, 334 )
 
 [node name="chkpt_170m" parent="CheckPoints" index="2"]
-position = Vector2( 1640, 340 )
+position = Vector2( 1640, 334 )
 
 [node name="chkpt_160m" parent="CheckPoints" index="3"]
-position = Vector2( 2140, 340 )
+position = Vector2( 2140, 334 )
 
 [node name="chkpt_150m" parent="CheckPoints" index="4"]
-position = Vector2( 2640, 340 )
+position = Vector2( 2640, 334 )
 
 [node name="chkpt_140m" parent="CheckPoints" index="5"]
-position = Vector2( 3140, 340 )
+position = Vector2( 3140, 334 )
 
 [node name="chkpt_130m" parent="CheckPoints" index="6"]
-position = Vector2( 3640, 340 )
+position = Vector2( 3640, 334 )
 
 [node name="chkpt_120m" parent="CheckPoints" index="7"]
-position = Vector2( 4140, 340 )
+position = Vector2( 4140, 334 )
 
 [node name="chkpt_110m" parent="CheckPoints" index="8"]
-position = Vector2( 4640, 340 )
+position = Vector2( 4640, 334 )
 
 [node name="chkpt_100m" parent="CheckPoints" index="9"]
-position = Vector2( 5140, 340 )
+position = Vector2( 5140, 334 )
 
 [node name="chkpt_90m" parent="CheckPoints" index="10"]
-position = Vector2( 5640, 340 )
-
-[node name="CheckPoint70" type="Area2D" parent="CheckPoints/chkpt_90m" index="0"]
-editor/display_folded = true
-__meta__ = {
-"_edit_group_": true
-}
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="CheckPoints/chkpt_90m/CheckPoint70"]
-position = Vector2( 0, -75 )
-shape = SubResource( 5 )
+position = Vector2( 5640, 334 )
 
 [node name="chkpt_80m" parent="CheckPoints" index="11"]
-position = Vector2( 6140, 340 )
-
-[node name="CheckPoint60" type="Area2D" parent="CheckPoints/chkpt_80m" index="0"]
-editor/display_folded = true
-__meta__ = {
-"_edit_group_": true
-}
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="CheckPoints/chkpt_80m/CheckPoint60"]
-position = Vector2( 0, -75 )
-shape = SubResource( 5 )
+position = Vector2( 6140, 334 )
 
 [node name="chkpt_70m" parent="CheckPoints" index="12"]
-position = Vector2( 6640, 340 )
-
-[node name="CheckPoint50" type="Area2D" parent="CheckPoints/chkpt_70m" index="0"]
-editor/display_folded = true
-__meta__ = {
-"_edit_group_": true
-}
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="CheckPoints/chkpt_70m/CheckPoint50"]
-position = Vector2( 0, -75 )
-shape = SubResource( 5 )
+position = Vector2( 6640, 334 )
 
 [node name="chkpt_60m" parent="CheckPoints" index="13"]
-position = Vector2( 7140, 340 )
-
-[node name="CheckPoint40" type="Area2D" parent="CheckPoints/chkpt_60m" index="0"]
-editor/display_folded = true
-__meta__ = {
-"_edit_group_": true
-}
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="CheckPoints/chkpt_60m/CheckPoint40"]
-position = Vector2( 0, -75 )
-shape = SubResource( 5 )
+position = Vector2( 7140, 334 )
 
 [node name="chkpt_50m" parent="CheckPoints" index="14"]
-position = Vector2( 7640, 340 )
-
-[node name="CheckPoint30" type="Area2D" parent="CheckPoints/chkpt_50m" index="0"]
-editor/display_folded = true
-__meta__ = {
-"_edit_group_": true
-}
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="CheckPoints/chkpt_50m/CheckPoint30"]
-position = Vector2( 0, -75 )
-shape = SubResource( 5 )
+position = Vector2( 7640, 334 )
 
 [node name="chkpt_40m" parent="CheckPoints" index="15"]
-position = Vector2( 8140, 340 )
-
-[node name="CheckPoint20" type="Area2D" parent="CheckPoints/chkpt_40m" index="0"]
-editor/display_folded = true
-__meta__ = {
-"_edit_group_": true
-}
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="CheckPoints/chkpt_40m/CheckPoint20"]
-position = Vector2( 0, -75 )
-shape = SubResource( 5 )
+position = Vector2( 8140, 334 )
 
 [node name="chkpt_30m" parent="CheckPoints" index="16"]
-position = Vector2( 8640, 340 )
+position = Vector2( 8640, 334 )
 
 [node name="chkpt_20m" parent="CheckPoints" index="17"]
-position = Vector2( 0, 0 )
+position = Vector2( -50, 334 )
 
 [node name="Bounce" type="Node2D" parent="."]
 __meta__ = {
@@ -418,19 +356,11 @@ shape = SubResource( 6 )
 [connection signal="hit" from="Player" to="." method="_on_Player_hit"]
 [connection signal="jumped" from="Player" to="." method="_on_Player_jumped"]
 [connection signal="lose" from="Player" to="." method="_on_Player_lose"]
-[connection signal="moved" from="Player" to="." method="_on_Player_moved"]
-[connection signal="stopped" from="Player" to="." method="_on_Player_stopped"]
 [connection signal="win" from="Player" to="." method="_on_Player_win"]
 [connection signal="body_entered" from="Floor" to="." method="_on_Floor_body_entered"]
 [connection signal="finished" from="Sounds/GameOverSound" to="." method="_on_GameOverSound_finished"]
 [connection signal="finished" from="Sounds/WinSound" to="." method="_on_WinSound_finished"]
 [connection signal="body_entered" from="GoalSensor" to="." method="_on_GoalSensor_body_entered"]
-[connection signal="body_entered" from="CheckPoints/chkpt_90m/CheckPoint70" to="." method="_on_CheckPoint70_body_entered"]
-[connection signal="body_entered" from="CheckPoints/chkpt_80m/CheckPoint60" to="." method="_on_CheckPoint60_body_entered"]
-[connection signal="body_entered" from="CheckPoints/chkpt_70m/CheckPoint50" to="." method="_on_CheckPoint50_body_entered"]
-[connection signal="body_entered" from="CheckPoints/chkpt_60m/CheckPoint40" to="." method="_on_CheckPoint40_body_entered"]
-[connection signal="body_entered" from="CheckPoints/chkpt_50m/CheckPoint30" to="." method="_on_CheckPoint30_body_entered"]
-[connection signal="body_entered" from="CheckPoints/chkpt_40m/CheckPoint20" to="." method="_on_CheckPoint20_body_entered"]
 [connection signal="body_entered" from="PlayerPodiumRule" to="." method="_on_PlayerPodiumRule_body_entered"]
 
 [editable path="Background"]

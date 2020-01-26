@@ -292,7 +292,7 @@ tracks/2/keys = {
 "values": [ true ]
 }
 
-[node name="Lion" instance=ExtResource( 1 )]
+[node name="Lion" index="0" instance=ExtResource( 1 )]
 position = Vector2( 0, -0.0415783 )
 speed = 120
 jump_power = 375
@@ -323,8 +323,12 @@ position = Vector2( 0.914316, 15.3418 )
 scale = Vector2( 0.484778, 0.0670093 )
 polygon = PoolVector2Array( -22.642, -20.1584, 25.3995, -19.2462, 25.3995, 8.57654, -22.5159, 9.48875 )
 
+[node name="HurtSound" parent="Sounds" index="0"]
+volume_db = -30.0
+
 [node name="JumpSound" type="AudioStreamPlayer" parent="Sounds" index="1"]
 stream = ExtResource( 11 )
+volume_db = -30.0
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." index="6"]
 anims/hurt = SubResource( 3 )

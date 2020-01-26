@@ -21,7 +21,7 @@ export (String, "none", "Stage 1:Lion", "Stage 2:Monkey", "Stage 3:Balls", "Stag
 export (PackedScene) var Horse
 onready var fall_timer: Timer = Timer.new()
 onready var bounce_life_timer: Timer = Timer.new()
-var bounced_total = 0
+var bounced_total = 0 setget set_bounced_total
 var motion = Vector2()
 
 var hanging: bool = false
@@ -50,7 +50,7 @@ func _ready():
 
 func _physics_process(delta):
 	if hanging:
-		var pos_offset : Vector2 = Vector2(-18, 8)
+		var pos_offset: Vector2 = Vector2(-18, 8)
 		position = last_swing.get_grab_bar_position() + pos_offset
 		if Input.is_action_just_pressed("game_jump"):
 			hanging = false
@@ -117,19 +117,17 @@ func _process_behaviour():
 		"Stage 3:Balls":
 			pass
 		"Stage 4:Horse":
-			if not hit:
-				motion.x = speed
-				if Horse != null:
-					Horse.get_node("AnimatedSprite").speed_scale = 1
-				if Input.is_action_pressed("game_left"):
+			if not hit and Horse != null:
+				if !Horse.move_alone:
+					motion.x = speed
+				Horse.get_node("AnimatedSprite").speed_scale = 1
+				if Input.is_action_pressed("game_left") and !Horse.move_alone:
 					motion.x = speed - (50 * speed) / 100
 					$Charlie.speed_scale = 0.4
-					if Horse != null:
-						Horse.get_node("AnimatedSprite").speed_scale = 0.4
-				elif Input.is_action_pressed("game_right"):
+					Horse.get_node("AnimatedSprite").speed_scale = 0.4
+				elif Input.is_action_pressed("game_right") and !Horse.move_alone:
 					motion.x = speed + (30 * speed) / 100
-					if Horse != null:
-						Horse.get_node("AnimatedSprite").speed_scale = 1.5
+					Horse.get_node("AnimatedSprite").speed_scale = 1.5
 			else:
 				Horse.move_alone = true
 				$Sounds/FallSound.play()
@@ -154,8 +152,9 @@ func _process_is_on_floor_behaviour():
 		"Stage 3:Balls":
 			pass
 		"Stage 4:Horse":
-			motion.x = speed
-			$Charlie.animation = "ride"
+			if Horse != null and !Horse.move_alone:
+				motion.x = speed
+				$Charlie.animation = "ride"
 		"Stage 5:Swinging":
 			pass
 
@@ -336,3 +335,8 @@ func bonus_earned_for_jumping_cyan_monkey():
 func create_ball_scene(ball_position):
 	BallReference = BallScene.instance()
 	add_child(BallReference)
+
+func set_bounced_total(new_val):
+	bounced_total = new_val
+	if new_val >= 800:
+		bounced_total = 800

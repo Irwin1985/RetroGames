@@ -81,11 +81,11 @@ expand = true
 [node name="AnimatedSprite" type="AnimatedSprite" parent="Portrait"]
 position = Vector2( 250, 166 )
 frames = SubResource( 2 )
-frame = 1
 playing = true
 
 [node name="StartSound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 7 )
+volume_db = -30.0
 
 [node name="Timer" type="Timer" parent="."]
 one_shot = true

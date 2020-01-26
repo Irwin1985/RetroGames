@@ -3,6 +3,7 @@ class_name RampFactory
 
 const ANIMATION_NAME: String = "bounce"
 const OFFSET: int = 8
+const PLATFORM_OFFSET = 16
 
 var edge_textures = ["res://assets/ramp_open.png", "res://assets/ramp_closed.png", "res://assets/ramp_open.png"]
 var union_textures = ["res://assets/ramp_union_open.png", "res://assets/ramp_union_closed.png", "res://assets/ramp_union_open.png"]
@@ -56,7 +57,7 @@ func create_platform(platform_number: int = 0) -> StaticBody2D:
 	PlayerBounce.name = "PlayerBounce"
 	var PlayerBounceCollisionShape: CollisionShape2D = CollisionShape2D.new()
 	var PlayerBounceShape: RectangleShape2D = RectangleShape2D.new()
-	PlayerBounceShape.extents = Vector2((platform_number * 16) / 2, 3)
+	PlayerBounceShape.extents = Vector2(((platform_number * 16) - PLATFORM_OFFSET) / 2, 3)
 	PlayerBounceCollisionShape.shape = PlayerBounceShape
 	PlayerBounce.add_child(PlayerBounceCollisionShape)
 	PlayerBounce.connect("body_entered", Ramp, "_on_Area2D_body_entered", [], CONNECT_DEFERRED)
@@ -70,8 +71,10 @@ func create_platform(platform_number: int = 0) -> StaticBody2D:
 	var PlayerHurt: Area2D = Area2D.new()
 	PlayerHurt.name = "PlayerHurt"
 	var PlayerHurtCollisionShape: CollisionShape2D = CollisionShape2D.new()
+	PlayerHurtCollisionShape.name = "CollisionShape2D"
 	var PlayerHurtShape: RectangleShape2D = RectangleShape2D.new()
-	PlayerHurtShape.extents = Vector2(3, 10)
+#	PlayerHurtShape.extents = Vector2(3, 10)
+	PlayerHurtShape.extents = Vector2(3, 4)
 	PlayerHurtCollisionShape.shape = PlayerHurtShape
 	PlayerHurt.add_child(PlayerHurtCollisionShape)
 	PlayerHurt.connect("body_entered", Ramp, "_on_PlayerHurt_body_entered", [], CONNECT_DEFERRED)
@@ -84,9 +87,10 @@ func create_platform(platform_number: int = 0) -> StaticBody2D:
 	var PlayerDown: Area2D = Area2D.new()
 	PlayerDown.name = "PlayerDown"
 	var PlayerDownCollisionShape: CollisionShape2D = CollisionShape2D.new()
+	PlayerDownCollisionShape.name = "CollisionShape2D"
 	PlayerDownCollisionShape.position.x = 0
 	var PlayerDownShape: RectangleShape2D = RectangleShape2D.new()
-	PlayerDownShape.extents = Vector2((platform_number * 16) / 2, 3)
+	PlayerDownShape.extents = Vector2(((platform_number * 16) - PLATFORM_OFFSET) / 2, 3)
 	PlayerDownCollisionShape.shape = PlayerDownShape
 	PlayerDown.add_child(PlayerDownCollisionShape)
 	PlayerDown.connect("body_entered", Ramp, "_on_PlayerDown_body_entered", [], CONNECT_DEFERRED)
@@ -106,6 +110,7 @@ func create_platform(platform_number: int = 0) -> StaticBody2D:
 	var RampSound: AudioStreamPlayer = AudioStreamPlayer.new()
 	RampSound.name = "RampSound"
 	RampSound.stream = load("res://assets/sfx/spring.wav")
+	RampSound.volume_db = global.STANDARD_VOLUME
 	Ramp.add_child(RampSound)
 
 	return Ramp
