@@ -24,6 +24,14 @@ func _input(event):
 				get_tree().paused = false
 				visible = false
 				timer_pause.stop()
+		elif event.is_action_pressed("ui_cancel"):
+			if !get_tree().paused:
+				visible = true
+				timer_pause.start()
+				emit_signal("paused_game")
+				get_tree().paused = true
+			else:
+				get_tree().call_deferred("change_scene", "res://Menu/Menu.tscn")
 
 
 func _on_timer_pause_timeout():

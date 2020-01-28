@@ -16,6 +16,11 @@ func _ready():
 	set_sfx_volume()
 	update_stage()
 	create_timer()
+	if global.game_mode == global.FREE_MODE:
+		$FreeMode.set_visible(true)
+		$HiScore.set_visible(false)
+		$PlayerScore.set_visible(false)
+		$Lives.set_visible(false)
 	$AlphaVersionLabel.visible = global.IS_ALPHA_VERSION
 
 func set_sfx_volume():
