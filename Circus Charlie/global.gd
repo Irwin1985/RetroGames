@@ -8,11 +8,12 @@ const PLAYER_NAME = "Player"
 const LION_NAME = "Lion"
 const IS_ALPHA_VERSION = true
 const LAST_LEVEL = 5
-enum {LEVEL_1 = 1, LEVEL_2 = 2, LEVEL_3 = 3, LEVEL_4 = 4}
+enum {LEVEL_1 = 1, LEVEL_2 = 2, LEVEL_3 = 3, LEVEL_4 = 4} 
+#Game modes
+enum {CLASSIC_MODE = 1, FREE_MODE = 2, CHALLENGE_MODE = 3, ENDURANCE_MODE = 4}
 onready var HudScene: PackedScene = preload("res://HUD/HUD.tscn")
 var HudInstance: GameHUD = null
 
-var level_change_timer = Timer.new()
 var stage_2_current_monkey_index = -1
 var stage_2_first_time_lauched = false
 var stage_3_current_ball_index = -1
@@ -37,11 +38,13 @@ var play_first_sound: bool = false
 var can_pause: bool = false
 var check_point: int = 0
 var current_check_point_path := "" setget set_current_check_point_path
-var pitch_scale = 1.37
+var pitch_scale : float = 1.37
 onready var game_file: String = "user://score.save"
 var is_debug_mode := true
 var level_difficulty := 1 setget set_level_difficulty
 var PlatformFactory: RampFactory
+
+var game_mode: int = FREE_MODE
 
 
 func _ready() -> void:
@@ -62,16 +65,18 @@ func get_HudInstance(in_level_hud: bool = true) -> GameHUD:
 
 
 func give_points(points: int) -> void:
-	player_score += points
-	life_score_counter += points
-	HudInstance.update_score(player_score)
-	if player_score > hi_score:
-		update_hi_score(player_score)
+	if game_mode != FREE_MODE:
+		player_score += points
+		life_score_counter += points
+		HudInstance.update_score(player_score)
+		if player_score > hi_score:
+			update_hi_score(player_score)
 
 
 func update_hi_score(score: int) -> void:
-	hi_score = score
-	HudInstance.update_hi_score(hi_score)
+	if game_mode != FREE_MODE:
+		hi_score = score
+		HudInstance.update_hi_score(hi_score)
 
 
 func set_checkpoint(value: int) -> void:
@@ -79,7 +84,7 @@ func set_checkpoint(value: int) -> void:
 
 
 func check_update_hi_score():
-	if player_score > hi_score:
+	if player_score > hi_score and game_mode != FREE_MODE:
 		hi_score = player_score
 		save_game()
 
@@ -102,6 +107,14 @@ func save_game():
 	save_game.close()
 
 
+func start_classic_mode()-> void:
+	game_mode = CLASSIC_MODE
+	start_next_level()
+
+func start_free_mode()->void:
+	game_mode = FREE_MODE
+	start_next_level()
+
 func start_next_level() -> void:
 	current_level += 1
 	check_point = 0
@@ -119,11 +132,16 @@ func start_next_level() -> void:
 	
 	get_tree().call_deferred("change_scene", "res://Levels/ScenePreviewer.tscn")
 
+func show_level()->void:
+	get_tree().call_deferred("change_scene", \
+		stage[current_level % 5])
+
 
 func lose_life():
-	global.lives -= 1
-	if global.lives <= 0:
-		game_over()
+	if game_mode != FREE_MODE:
+		global.lives -= 1
+		if global.lives <= 0:
+			game_over()
 
 
 func game_over():

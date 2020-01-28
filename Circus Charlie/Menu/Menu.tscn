@@ -10,6 +10,7 @@
 
 [sub_resource type="DynamicFont" id=1]
 size = 30
+extra_spacing_space = 13
 font_data = ExtResource( 2 )
 
 [sub_resource type="SpriteFrames" id=2]
@@ -48,47 +49,90 @@ margin_top = 267.0
 margin_right = 500.0
 margin_bottom = 298.0
 custom_fonts/font = SubResource( 1 )
-text = "BY      IRWIN RODRIGUEZ"
+text = "BY IRWIN RODRIGUEZ"
 align = 1
 autowrap = true
 
 [node name="PlayLabel" type="Label" parent="Portrait"]
-margin_top = 329.0
+margin_top = 300.0
 margin_right = 500.0
-margin_bottom = 360.0
+margin_bottom = 331.0
 custom_fonts/font = SubResource( 1 )
-text = "PLAY   SELECT"
+text = "PLAY SELECT"
 align = 1
 autowrap = true
 
-[node name="SelectLabel" type="Label" parent="Portrait"]
-margin_top = 366.0
-margin_right = 500.0
-margin_bottom = 397.0
-custom_fonts/font = SubResource( 1 )
-text = "1   PLAYER"
-align = 1
-autowrap = true
-
-[node name="TextureRect" type="TextureRect" parent="Portrait/SelectLabel"]
-margin_left = 144.0
-margin_top = 10.0
-margin_right = 180.0
-margin_bottom = 28.0
+[node name="SelectHand" type="TextureRect" parent="Portrait"]
+margin_left = 124.0
+margin_top = 348.0
+margin_right = 160.0
+margin_bottom = 366.0
 texture = ExtResource( 3 )
 expand = true
+
+[node name="ClassicMode" type="Label" parent="Portrait"]
+margin_left = 171.0
+margin_top = 336.0
+margin_right = 500.0
+margin_bottom = 367.0
+custom_fonts/font = SubResource( 1 )
+text = "Classic Mode"
+autowrap = true
+
+[node name="FreeMode" type="Label" parent="Portrait"]
+margin_left = 171.0
+margin_top = 354.0
+margin_right = 500.0
+margin_bottom = 385.0
+custom_fonts/font = SubResource( 1 )
+text = "Free Mode"
+autowrap = true
+
+[node name="ChallengeMode" type="Label" parent="Portrait"]
+margin_left = 171.0
+margin_top = 372.0
+margin_right = 500.0
+margin_bottom = 403.0
+custom_fonts/font = SubResource( 1 )
+text = "Challenge Mode"
+autowrap = true
+
+[node name="EnduranceMode" type="Label" parent="Portrait"]
+margin_left = 171.0
+margin_top = 390.0
+margin_right = 500.0
+margin_bottom = 421.0
+custom_fonts/font = SubResource( 1 )
+text = "Endurance Mode"
+autowrap = true
+
+[node name="Options" type="Label" parent="Portrait"]
+margin_left = 171.0
+margin_top = 408.0
+margin_right = 500.0
+margin_bottom = 473.0
+custom_fonts/font = SubResource( 1 )
+text = "Options
+"
+autowrap = true
+
+[node name="Exit" type="Label" parent="Portrait"]
+margin_left = 171.0
+margin_top = 426.0
+margin_right = 500.0
+margin_bottom = 491.0
+custom_fonts/font = SubResource( 1 )
+text = "Exit
+"
+autowrap = true
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="Portrait"]
 position = Vector2( 250, 166 )
 frames = SubResource( 2 )
+frame = 1
 playing = true
 
 [node name="StartSound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 7 )
 volume_db = -30.0
-
-[node name="Timer" type="Timer" parent="."]
-one_shot = true
-autostart = true
 [connection signal="finished" from="StartSound" to="." method="_on_StartSound_finished"]
-[connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]

@@ -1,37 +1,62 @@
 extends Control
 
-var enter_counter = 0
-var counter = 0
+var selected_option : int = 0
+onready var options = [
+		$Portrait/ClassicMode,
+		$Portrait/FreeMode,
+		$Portrait/ChallengeMode,
+		$Portrait/EnduranceMode,
+		$Portrait/Options,
+		$Portrait/Exit
+	]
+
+var blink_timer = Timer.new()
+var start_timer = Timer.new()
 
 
 func _ready():
 	$StartSound.volume_db = global.STANDARD_VOLUME
 	$Portrait.hide()
-	set_process(false)
+	
+	# Blink Timer
+	blink_timer.connect("timeout", self, "_blink_timeout", [], CONNECT_DEFERRED)
+	blink_timer.wait_time = 0.2
+	add_child(blink_timer)
+	
+	# Start Timer
+	start_timer.connect("timeout", self, "_start_timeout", [], CONNECT_DEFERRED)
+	start_timer.wait_time = 1
+	start_timer.start()
+	add_child(start_timer)
 
 
-func _input(event):
-	if Input.is_action_pressed("ui_accept"):
-		enter_counter += 1
-		match enter_counter:
-			1:
-				$Timer.stop()
-				$Portrait.show()
-			2:
-				$StartSound.play()
-				set_process(true)
-
-func _process(delta):
-	counter += delta
-	if counter >= 0.2:
-		counter = 0
-		$Portrait/SelectLabel.visible = !$Portrait/SelectLabel.visible
+func _blink_timeout()->void:
+	options[selected_option].visible = !options[selected_option].visible
 
 
-func _on_Timer_timeout():
-	enter_counter += 1
+func _start_timeout()->void:
 	$Portrait.show()
 
 
+func _input(event):
+	if event.is_action_pressed("ui_accept"):
+		blink_timer.start()
+		$StartSound.play()
+	elif event.is_action_pressed("ui_down"):
+		selected_option = (selected_option + 1) % len(options)
+		move_hand()
+	elif event.is_action_pressed("ui_up"):
+		selected_option = (selected_option - 1) % len(options)
+		move_hand()
+
+
+func move_hand()->void:
+	$Portrait/SelectHand.rect_position.y = \
+			options[selected_option].rect_position.y + 12
+
+
 func _on_StartSound_finished():
-	global.start_next_level()
+	if selected_option != 1:
+		global.start_classic_mode()
+	elif selected_option == 1:
+		global.start_free_mode()

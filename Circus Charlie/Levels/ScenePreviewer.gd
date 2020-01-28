@@ -14,8 +14,7 @@ func _ready():
 		yield(get_tree().create_timer(2), "timeout")
 		while get_tree().paused:
 			yield(get_tree().create_timer(0.25), "timeout")
-		get_tree().call_deferred("change_scene", \
-				global.stage[global.current_level])
+		global.show_level()
 	else: # Game Over
 		$StageCaption/StageLabel.text = "GAME    OVER"
 		yield(get_tree().create_timer(4), "timeout")
