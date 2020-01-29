@@ -1,6 +1,13 @@
 extends Control
 
+const HAND_Y_OFFSET = 12
+
+enum option {CLASSIC_MODE, FREE_MODE, CHALLENGE_MODE, ENDURANCE_MODE, OPTIONS, EXIT}
+
 var selected_option : int = 0
+var blink_timer = Timer.new()
+var start_timer = Timer.new()
+
 onready var options = [
 		$Portrait/ClassicMode,
 		$Portrait/FreeMode,
@@ -9,9 +16,6 @@ onready var options = [
 		$Portrait/Options,
 		$Portrait/Exit
 	]
-
-var blink_timer = Timer.new()
-var start_timer = Timer.new()
 
 
 func _ready():
@@ -26,15 +30,15 @@ func _ready():
 	# Start Timer
 	start_timer.connect("timeout", self, "_start_timeout", [], CONNECT_DEFERRED)
 	start_timer.wait_time = 1
-	start_timer.start()
 	add_child(start_timer)
+	start_timer.start()
 
 
-func _blink_timeout()->void:
+func _blink_timeout() -> void:
 	options[selected_option].visible = !options[selected_option].visible
 
 
-func _start_timeout()->void:
+func _start_timeout() -> void:
 	$Portrait.show()
 
 
@@ -50,13 +54,22 @@ func _input(event):
 		move_hand()
 
 
-func move_hand()->void:
+func move_hand() -> void:
 	$Portrait/SelectHand.rect_position.y = \
-			options[selected_option].rect_position.y + 12
+			options[selected_option].rect_position.y + HAND_Y_OFFSET
 
 
 func _on_StartSound_finished():
-	if selected_option != 1:
-		global.start_classic_mode()
-	elif selected_option == 1:
-		global.start_free_mode()
+	match selected_option:
+		option.CLASSIC_MODE:
+			global.start_classic_mode()
+		option.FREE_MODE:
+			global.start_free_mode()
+		option.CHALLENGE_MODE:
+			pass
+		option.ENDURANCE_MODE:
+			pass
+		option.OPTIONS:
+			pass
+		option.EXIT:
+			get_tree().quit()

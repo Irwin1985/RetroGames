@@ -45,12 +45,10 @@ script = ExtResource( 1 )
 Monkey = ExtResource( 2 )
 
 [node name="Background" parent="." instance=ExtResource( 3 )]
-editor/display_folded = true
 margin_right = 1835.0
 texture = ExtResource( 4 )
 
 [node name="Celebrating" parent="Background" index="0"]
-editor/display_folded = false
 position = Vector2( -768, 81 )
 
 [node name="Audience1" parent="Background/Celebrating" index="0"]
@@ -60,14 +58,12 @@ margin_left = 2297.0
 margin_right = 2603.0
 
 [node name="ChannelInfo" parent="." instance=ExtResource( 5 )]
-editor/display_folded = true
 margin_left = 850.0
 margin_top = 68.0
 margin_right = 890.0
 margin_bottom = 108.0
 
 [node name="LevelContainer" type="Node2D" parent="."]
-editor/display_folded = true
 
 [node name="level_0m" type="Sprite" parent="LevelContainer"]
 position = Vector2( 3560, 435 )
@@ -110,7 +106,6 @@ scale = Vector2( 2, 2 )
 texture = ExtResource( 13 )
 
 [node name="Floor" type="StaticBody2D" parent="."]
-editor/display_folded = true
 __meta__ = {
 "_edit_group_": true
 }
@@ -123,7 +118,6 @@ shape = SubResource( 1 )
 [node name="MonkeyContainer" type="Node2D" parent="."]
 
 [node name="UnderFloor" type="StaticBody2D" parent="."]
-editor/display_folded = true
 position = Vector2( 0, 170 )
 __meta__ = {
 "_edit_group_": true
@@ -136,7 +130,6 @@ shape = SubResource( 2 )
 disabled = true
 
 [node name="HurtFloor" type="Area2D" parent="."]
-editor/display_folded = true
 position = Vector2( 0, -10 )
 __meta__ = {
 "_edit_group_": true
@@ -148,12 +141,10 @@ scale = Vector2( 0.998724, 0.782454 )
 shape = SubResource( 2 )
 
 [node name="HighPlatform" parent="." instance=ExtResource( 14 )]
-editor/display_folded = true
 position = Vector2( 3562, 288 )
 scale = Vector2( 1, 1.08 )
 
 [node name="PlatformTable" parent="HighPlatform" index="0"]
-editor/display_folded = true
 position = Vector2( 0, 2.5 )
 
 [node name="Sprite" parent="HighPlatform/PlatformTable" index="0"]
@@ -172,7 +163,6 @@ position = Vector2( 1.84668, -90.2708 )
 shape = SubResource( 3 )
 
 [node name="Player" parent="." instance=ExtResource( 15 )]
-editor/display_folded = true
 position = Vector2( 140, 208 )
 speed = 75
 jump_power = 445
@@ -200,10 +190,8 @@ editor_draw_limits = true
 editor_draw_drag_margin = true
 
 [node name="Walls" type="Node" parent="."]
-editor/display_folded = true
 
 [node name="LeftWall" type="StaticBody2D" parent="Walls"]
-editor/display_folded = true
 position = Vector2( 28, 142 )
 __meta__ = {
 "_edit_group_": true
@@ -223,7 +211,6 @@ scale = Vector2( 1.24004, 7.8 )
 shape = SubResource( 6 )
 
 [node name="Sounds" type="Node" parent="."]
-editor/display_folded = true
 
 [node name="LevelSound" type="AudioStreamPlayer" parent="Sounds"]
 stream = ExtResource( 16 )
@@ -239,7 +226,6 @@ stream = ExtResource( 18 )
 volume_db = -30.0
 
 [node name="GoalSensor" type="Area2D" parent="."]
-editor/display_folded = true
 position = Vector2( 3237.23, 129.252 )
 scale = Vector2( 1, 2.36 )
 
@@ -248,7 +234,6 @@ scale = Vector2( 0.44, 4.6 )
 shape = SubResource( 7 )
 
 [node name="CheckPoints" parent="." instance=ExtResource( 19 )]
-editor/display_folded = true
 
 [node name="chkpt_60m" parent="CheckPoints" index="13"]
 position = Vector2( 640, 224.5 )

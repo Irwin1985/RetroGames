@@ -46,7 +46,6 @@ texture = ExtResource( 2 )
 stretch_mode = 2
 
 [node name="Walls" type="StaticBody2D" parent="Background"]
-editor/display_folded = true
 
 [node name="Left" type="CollisionShape2D" parent="Background/Walls"]
 position = Vector2( 0, 100 )
@@ -80,7 +79,6 @@ margin_right = 740.0
 margin_bottom = 105.0
 
 [node name="Checkpoints" type="Node2D" parent="."]
-editor/display_folded = true
 
 [node name="level_70m" type="Sprite" parent="Checkpoints"]
 position = Vector2( 64, 440 )
@@ -133,7 +131,6 @@ scale = Vector2( 2, 2 )
 texture = ExtResource( 14 )
 
 [node name="Sounds" type="Node" parent="."]
-editor/display_folded = true
 
 [node name="LevelSound" type="AudioStreamPlayer" parent="Sounds"]
 stream = ExtResource( 15 )
@@ -149,7 +146,6 @@ stream = ExtResource( 17 )
 volume_db = -30.0
 
 [node name="Player" parent="." instance=ExtResource( 18 )]
-editor/display_folded = true
 position = Vector2( 100, 250 )
 gravity = 20
 

@@ -43,19 +43,15 @@ extents = Vector2( 2, 70.8109 )
 
 [sub_resource type="RectangleShape2D" id=4]
 
-[sub_resource type="RectangleShape2D" id=6]
+[sub_resource type="RectangleShape2D" id=5]
 extents = Vector2( 8.00684, 15.4359 )
 
 [node name="Level4" type="Node2D"]
 script = ExtResource( 1 )
 
 [node name="Background" parent="." instance=ExtResource( 2 )]
-editor/display_folded = true
 margin_right = 5070.0
 rect_scale = Vector2( 2.00733, 1.99855 )
-
-[node name="Celebrating" parent="Background" index="0"]
-editor/display_folded = false
 
 [node name="Audience1" parent="Background/Celebrating" index="0"]
 margin_left = 4719.71
@@ -74,23 +70,16 @@ margin_right = 4040.0
 margin_bottom = 105.0
 
 [node name="Horse" parent="." instance=ExtResource( 4 )]
-editor/display_folded = true
 position = Vector2( 120, 375 )
 
-[node name="AnimatedSprite" parent="Horse" index="0"]
-frame = 0
-
 [node name="Podium" parent="." instance=ExtResource( 5 )]
-editor/display_folded = true
 position = Vector2( 10040, 378.21 )
 
 [node name="PlayerLoseSensor" parent="Podium" index="3"]
-editor/display_folded = true
 position = Vector2( 90.0246, -105.698 )
 scale = Vector2( 1, 1.88 )
 
 [node name="Player" parent="." instance=ExtResource( 6 )]
-editor/display_folded = true
 position = Vector2( 114.151, 343.674 )
 scale = Vector2( 0.998518, 0.804541 )
 speed = 250
@@ -103,7 +92,6 @@ character_behaviour = "Stage 4:Horse"
 [node name="Charlie" parent="Player" index="0"]
 scale = Vector2( 2.005, 2.41 )
 animation = "ride"
-frame = 1
 
 [node name="CollisionShape2D" parent="Player" index="1"]
 shape = SubResource( 1 )
@@ -119,7 +107,6 @@ editor_draw_limits = true
 editor_draw_drag_margin = true
 
 [node name="LevelContainer" type="Node2D" parent="."]
-editor/display_folded = true
 __meta__ = {
 "_edit_group_": true
 }
@@ -230,7 +217,6 @@ scale = Vector2( 2, 2 )
 texture = ExtResource( 27 )
 
 [node name="Floor" type="Area2D" parent="."]
-editor/display_folded = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Floor"]
 position = Vector2( 5079.5, 414.334 )
@@ -240,10 +226,8 @@ shape = SubResource( 2 )
 [node name="BallContainer" type="Node2D" parent="."]
 
 [node name="Walls" type="Node" parent="."]
-editor/display_folded = true
 
 [node name="LeftWall" type="StaticBody2D" parent="Walls"]
-editor/display_folded = true
 position = Vector2( 28, 142 )
 __meta__ = {
 "_edit_group_": true
@@ -253,7 +237,6 @@ __meta__ = {
 shape = SubResource( 3 )
 
 [node name="Sounds" type="Node" parent="."]
-editor/display_folded = true
 
 [node name="LevelSound" type="AudioStreamPlayer" parent="Sounds"]
 stream = ExtResource( 28 )
@@ -269,7 +252,6 @@ stream = ExtResource( 30 )
 volume_db = -30.0
 
 [node name="GoalSensor" type="Area2D" parent="."]
-editor/display_folded = true
 position = Vector2( 9609.18, 294.764 )
 scale = Vector2( 1, 2.36 )
 __meta__ = {
@@ -281,7 +263,6 @@ scale = Vector2( 0.44, 4.6 )
 shape = SubResource( 4 )
 
 [node name="CheckPoints" parent="." instance=ExtResource( 31 )]
-editor/display_folded = true
 
 [node name="chkpt_190m" parent="CheckPoints" index="0"]
 position = Vector2( 640, 334 )
@@ -343,14 +324,13 @@ __meta__ = {
 }
 
 [node name="PlayerPodiumRule" type="Area2D" parent="."]
-editor/display_folded = true
 position = Vector2( 9995.64, 379.725 )
 __meta__ = {
 "_edit_group_": true
 }
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerPodiumRule"]
-shape = SubResource( 6 )
+shape = SubResource( 5 )
 [connection signal="player_detected" from="Podium" to="." method="_on_Podium_player_detected"]
 [connection signal="bonus" from="Player" to="." method="_on_Player_bonus"]
 [connection signal="hit" from="Player" to="." method="_on_Player_hit"]
