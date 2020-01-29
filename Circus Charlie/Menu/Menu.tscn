@@ -52,6 +52,9 @@ custom_fonts/font = SubResource( 1 )
 text = "BY IRWIN RODRIGUEZ"
 align = 1
 autowrap = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="PlayLabel" type="Label" parent="Portrait"]
 margin_top = 300.0
@@ -129,7 +132,6 @@ autowrap = true
 [node name="AnimatedSprite" type="AnimatedSprite" parent="Portrait"]
 position = Vector2( 250, 166 )
 frames = SubResource( 2 )
-frame = 1
 playing = true
 
 [node name="StartSound" type="AudioStreamPlayer" parent="."]
