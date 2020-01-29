@@ -188,7 +188,6 @@ __meta__ = {
 
 [node name="Lives" type="Control" parent="."]
 editor/display_folded = true
-visible = false
 margin_left = 348.0
 margin_top = 46.0
 margin_right = 470.0

@@ -17,6 +17,7 @@ onready var options = [
 		$Portrait/Exit
 	]
 
+var blink_timer = Timer.new()
 
 func _ready():
 	$StartSound.volume_db = global.STANDARD_VOLUME
@@ -28,18 +29,12 @@ func _ready():
 	add_child(blink_timer)
 	
 	# Start Timer
-	start_timer.connect("timeout", self, "_start_timeout", [], CONNECT_DEFERRED)
-	start_timer.wait_time = 1
-	add_child(start_timer)
-	start_timer.start()
+	yield(get_tree().create_timer(1), "timeout")
+	$Portrait.show()
 
 
 func _blink_timeout() -> void:
 	options[selected_option].visible = !options[selected_option].visible
-
-
-func _start_timeout() -> void:
-	$Portrait.show()
 
 
 func _input(event):

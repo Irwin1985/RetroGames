@@ -2,8 +2,8 @@ extends Area2D
 
 signal hurt
 signal bonus
+signal jump_over
 
-const STANDARD_POINT = 200
 const BONUS_POINT = 5000
 
 var can_hide = false
@@ -50,7 +50,7 @@ func _on_AreaNotifier_body_entered(body):
 	if bonus_counter >= bonus_total:
 		call_deferred("activate_bonus")
 	if body.name == global.LION_NAME:
-		global.give_points(STANDARD_POINT)
+		emit_signal("jump_over")
 		can_hide = true
 
 

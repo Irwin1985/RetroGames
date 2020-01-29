@@ -5,9 +5,9 @@ signal hurt
 signal appear
 signal disappear
 signal bonus
+signal jump_through
 
 export (int) var speed
-const FLAME_POINTS = 100
 
 var motion = Vector2.ZERO
 
@@ -55,7 +55,7 @@ func stop():
 
 # warning-ignore:unused_argument
 func _on_Score_body_entered(body):
-	global.give_points(FLAME_POINTS)
+	emit_signal("jump_through")
 
 
 func _on_TimerMoveFlame_timeout():
