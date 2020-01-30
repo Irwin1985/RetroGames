@@ -186,19 +186,28 @@ func spawn_boiler():
 	if global.current_check_point_path != "":
 		CheckPointNode = get_node(global.current_check_point_path)
 
+	var first_boiler_after_checkpoint = true
 	for i in range(10):
 		var bx : float = 545 + (500 * i)
 		if CheckPointNode == null or CheckPointNode.position.x < bx:
-			var b = boiler.instance()
-			b.position = Vector2(bx, 379)
-			b.connect("hurt", $Lion, "hurt")
-			b.connect("bonus", self, "show_points_on_player")
-			b.connect("jump_over", self, "jump_boiler")
-			$BoilerContainer.add_child(b)
+			if first_boiler_after_checkpoint:
+				first_boiler_after_checkpoint = false
+			else:
+				var b = boiler.instance()
+				b.position = Vector2(bx, 379)
+				b.connect("hurt", $Lion, "hurt")
+				b.connect("bonus", self, "show_points_on_player")
+				b.connect("jump_over", self, "jump_boiler")
+				$BoilerContainer.add_child(b)
 
 
 func jump_boiler()->void:
 	jumped_boilers += 1
+
+
+func _on_Boiler_disappear(boiler: Boiler)->void:
+	if boiler.position.x < $Lion.position.x:
+		boiler.call_deferred("queue_free")
 
 
 func _on_Flame_appear(flame : FlameRing)->void:

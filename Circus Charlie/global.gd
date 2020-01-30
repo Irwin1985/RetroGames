@@ -109,10 +109,12 @@ func save_game():
 
 func start_classic_mode()-> void:
 	game_mode = CLASSIC_MODE
+	restart_game()
 	start_next_level()
 
 func start_free_mode()->void:
 	game_mode = FREE_MODE
+	restart_game()
 	start_next_level()
 
 func start_next_level() -> void:

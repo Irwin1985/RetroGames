@@ -6,7 +6,6 @@ enum option {CLASSIC_MODE, FREE_MODE, CHALLENGE_MODE, ENDURANCE_MODE, OPTIONS, E
 
 var selected_option : int = 0
 var blink_timer = Timer.new()
-var start_timer = Timer.new()
 
 onready var options = [
 		$Portrait/ClassicMode,
@@ -16,8 +15,6 @@ onready var options = [
 		$Portrait/Options,
 		$Portrait/Exit
 	]
-
-var blink_timer = Timer.new()
 
 func _ready():
 	$StartSound.volume_db = global.STANDARD_VOLUME
