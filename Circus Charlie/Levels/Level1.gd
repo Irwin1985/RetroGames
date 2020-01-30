@@ -134,7 +134,7 @@ func _ready():
 func landed_safe()->void:
 	if jumped_boilers == 1 and jumped_flames == 2:
 		global.give_points(500)
-		show_points_on_player(500)
+		show_points_on_player(500, false)
 	else:
 		global.give_points(jumped_boilers * BOILER_POINTS + jumped_flames * FLAME_POINTS)
 	jumped_boilers = 0
@@ -229,10 +229,10 @@ func _on_Flame_disappear(flame : FlameRing)->void:
 				f.position.x -= screen_gap
 
 
-func show_points_on_player(points: int):
+func show_points_on_player(points: int, play_sound:bool = true):
 	var player_pos : Vector2 = $Lion.get_global_transform_with_canvas().get_origin()
 	player_pos.y -= 70
-	hud.show_bonus_points(player_pos, points)
+	hud.show_bonus_points(player_pos, points, not play_sound)
 
 
 func stop_items():
