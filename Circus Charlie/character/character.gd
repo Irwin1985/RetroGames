@@ -9,6 +9,7 @@ signal stopped
 signal jumped
 signal hurt_proceed
 signal bonus
+signal land
 
 export (int) var speed
 export (bool) var can_jump
@@ -85,7 +86,9 @@ func _physics_process(delta):
 			_process_behaviour()
 
 		if is_on_floor():
-			jumping = false
+			if jumping:
+				emit_signal("land")
+				jumping = false
 			if Input.is_action_just_pressed("game_jump"):
 				motion.y = -jump_power
 				jump()

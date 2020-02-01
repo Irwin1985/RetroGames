@@ -135,7 +135,6 @@ autowrap = true
 [node name="AnimatedSprite" type="AnimatedSprite" parent="Portrait"]
 position = Vector2( 250, 166 )
 frames = SubResource( 2 )
-frame = 2
 playing = true
 
 [node name="StartSound" type="AudioStreamPlayer" parent="."]

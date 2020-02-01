@@ -2,13 +2,13 @@
 
 [ext_resource path="res://character/character.tscn" type="PackedScene" id=1]
 [ext_resource path="res://assets/lion_03.png" type="Texture" id=2]
-[ext_resource path="res://assets/lion_04.png" type="Texture" id=3]
-[ext_resource path="res://assets/lion_01.png" type="Texture" id=4]
+[ext_resource path="res://assets/lion_01.png" type="Texture" id=3]
+[ext_resource path="res://assets/lion_04.png" type="Texture" id=4]
 [ext_resource path="res://assets/lion_02.png" type="Texture" id=5]
 [ext_resource path="res://assets/stand_01.png" type="Texture" id=6]
-[ext_resource path="res://assets/die.png" type="Texture" id=7]
-[ext_resource path="res://assets/win_01.png" type="Texture" id=8]
-[ext_resource path="res://assets/win_02.png" type="Texture" id=9]
+[ext_resource path="res://assets/win_01.png" type="Texture" id=7]
+[ext_resource path="res://assets/win_02.png" type="Texture" id=8]
+[ext_resource path="res://assets/die.png" type="Texture" id=9]
 [ext_resource path="res://assets/stand_02.png" type="Texture" id=10]
 [ext_resource path="res://assets/sfx/LionJump.wav" type="AudioStream" id=11]
 
@@ -21,15 +21,15 @@ animations = [ {
 }, {
 "frames": [ ExtResource( 3 ) ],
 "loop": true,
-"name": "hurt",
+"name": "jump",
 "speed": 5.0
 }, {
 "frames": [ ExtResource( 4 ) ],
 "loop": true,
-"name": "jump",
+"name": "hurt",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 5 ), ExtResource( 4 ), ExtResource( 2 ) ],
+"frames": [ ExtResource( 5 ), ExtResource( 3 ), ExtResource( 2 ) ],
 "loop": true,
 "name": "run",
 "speed": 7.0
@@ -47,12 +47,7 @@ animations = [ {
 "name": "idle",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 7 ) ],
-"loop": true,
-"name": "hurt",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 8 ), ExtResource( 9 ) ],
+"frames": [ ExtResource( 7 ), ExtResource( 8 ) ],
 "loop": true,
 "name": "win",
 "speed": 3.5
@@ -60,6 +55,11 @@ animations = [ {
 "frames": [ ExtResource( 6 ) ],
 "loop": true,
 "name": "jump",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 9 ) ],
+"loop": true,
+"name": "hurt",
 "speed": 5.0
 }, {
 "frames": [ ExtResource( 6 ), ExtResource( 10 ) ],
@@ -155,6 +155,9 @@ tracks/1/keys = {
 }
 
 [sub_resource type="Animation" id=6]
+length = 0.28
+loop = true
+step = 0.14
 tracks/0/type = "value"
 tracks/0/path = NodePath("Charlie:animation")
 tracks/0/interp = 1
@@ -201,10 +204,37 @@ tracks/3/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 1,
-"values": [ true ]
+"values": [ false ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("Charlie:offset")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0, 0.14 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ Vector2( 0, 0 ), Vector2( 1, 0 ) ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath("Charlie:frame")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0, 0.14 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ 0, 1 ]
 }
 
 [sub_resource type="Animation" id=7]
+length = 0.56
+loop = true
+step = 0.14
 tracks/0/type = "value"
 tracks/0/path = NodePath("Charlie:playing")
 tracks/0/interp = 1
@@ -215,7 +245,7 @@ tracks/0/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 1,
-"values": [ true ]
+"values": [ false ]
 }
 tracks/1/type = "value"
 tracks/1/path = NodePath("Charlie:animation")
@@ -252,6 +282,30 @@ tracks/3/keys = {
 "transitions": PoolRealArray( 1 ),
 "update": 1,
 "values": [ true ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("Charlie:frame")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0, 0.28 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ 0, 1 ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath("Charlie:offset")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0, 0.28 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ Vector2( 1, 0 ), Vector2( 0, 0 ) ]
 }
 
 [sub_resource type="Animation" id=8]
@@ -301,15 +355,16 @@ use_charlie = true
 [node name="LionSprite" type="AnimatedSprite" parent="." index="0"]
 scale = Vector2( 2, 2 )
 frames = SubResource( 1 )
-animation = "idle"
+animation = "run_back"
+frame = 1
 playing = true
 
 [node name="Charlie" type="AnimatedSprite" parent="." index="2"]
 position = Vector2( 0, -40 )
 scale = Vector2( 2, 2 )
 frames = SubResource( 2 )
-animation = "idle"
-playing = true
+animation = "run_back"
+offset = Vector2( 1, 0 )
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="." index="3"]
 position = Vector2( -19.5791, 29.5206 )
@@ -322,9 +377,6 @@ polygon = PoolVector2Array( 13.0688, -20.3877, 19.4818, -20.3486, 22.0775, -19.2
 position = Vector2( 0.914316, 15.3418 )
 scale = Vector2( 0.484778, 0.0670093 )
 polygon = PoolVector2Array( -22.642, -20.1584, 25.3995, -19.2462, 25.3995, 8.57654, -22.5159, 9.48875 )
-
-[node name="HurtSound" parent="Sounds" index="0"]
-volume_db = -30.0
 
 [node name="JumpSound" type="AudioStreamPlayer" parent="Sounds" index="1"]
 stream = ExtResource( 11 )

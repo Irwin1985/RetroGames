@@ -31,6 +31,7 @@ func _input(event):
 				emit_signal("paused_game")
 				get_tree().paused = true
 			else:
+				get_tree().paused = false
 				get_tree().call_deferred("change_scene", "res://Menu/Menu.tscn")
 
 

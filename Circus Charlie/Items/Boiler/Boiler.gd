@@ -1,12 +1,13 @@
 extends Area2D
+class_name Boiler
 
 signal hurt
 signal bonus
+signal jump_over
+signal disappear
 
-const STANDARD_POINT = 200
 const BONUS_POINT = 5000
 
-var can_hide = false
 var bonus_counter = 0
 var bonus_total = 0
 var can_pickup = false
@@ -36,8 +37,7 @@ func cancel_bonus():
 
 
 func _on_visibility_screen_exited():
-	if can_hide:
-		queue_free()
+	emit_signal("disappear", self)
 
 
 # warning-ignore:unused_argument
@@ -50,8 +50,7 @@ func _on_AreaNotifier_body_entered(body):
 	if bonus_counter >= bonus_total:
 		call_deferred("activate_bonus")
 	if body.name == global.LION_NAME:
-		global.give_points(STANDARD_POINT)
-		can_hide = true
+		emit_signal("jump_over")
 
 
 func activate_bonus():

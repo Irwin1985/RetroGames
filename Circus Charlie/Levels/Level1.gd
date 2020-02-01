@@ -3,9 +3,16 @@ extends "res://Levels/level_base.gd"
 export (PackedScene) var single_flame
 export (PackedScene) var boiler
 
+const FLAME_POINTS = 100
+const BOILER_POINTS = 200
+
 var pos = Vector2(0, 0)
 var last_flame = null
 var next_bonus_flame : int = 0
+
+var jumped_flames : int = 0
+var jumped_boilers : int = 0
+
 var patterns = [
 # Level 1
 	[
@@ -121,6 +128,17 @@ func _ready():
 	next_bonus_flame = randi() % 5 + 4
 	spawn_boiler()
 	spawn_next_flame()
+	$Lion.connect("land", self, "landed_safe")
+
+
+func landed_safe()->void:
+	if jumped_boilers == 1 and jumped_flames == 2:
+		global.give_points(500)
+		show_points_on_player(500, false)
+	else:
+		global.give_points(jumped_boilers * BOILER_POINTS + jumped_flames * FLAME_POINTS)
+	jumped_boilers = 0
+	jumped_flames = 0
 
 
 func set_sfx_volume():
@@ -152,6 +170,7 @@ func spawn_next_flame():
 	flame.connect("appear", self, "_on_Flame_appear")
 	flame.connect("disappear", self, "_on_Flame_disappear")
 	flame.connect("bonus", self, "show_points_on_player")
+	flame.connect("jump_through", self, "jump_flame")
 	$FlameContainer.call_deferred("add_child", flame)
 	
 	last_flame = flame
@@ -159,19 +178,36 @@ func spawn_next_flame():
 	global.level_pattern = (global.level_pattern + 1) % len(this_pattern)
 
 
+func jump_flame()->void:
+	jumped_flames += 1
+
 func spawn_boiler():
 	var CheckPointNode: Position2D
 	if global.current_check_point_path != "":
 		CheckPointNode = get_node(global.current_check_point_path)
 
+	var first_boiler_after_checkpoint = true
 	for i in range(10):
 		var bx : float = 545 + (500 * i)
 		if CheckPointNode == null or CheckPointNode.position.x < bx:
-			var b = boiler.instance()
-			b.position = Vector2(bx, 379)
-			b.connect("hurt", $Lion, "hurt")
-			b.connect("bonus", self, "show_points_on_player")
-			$BoilerContainer.add_child(b)
+			if first_boiler_after_checkpoint:
+				first_boiler_after_checkpoint = false
+			else:
+				var b = boiler.instance()
+				b.position = Vector2(bx, 379)
+				b.connect("hurt", $Lion, "hurt")
+				b.connect("bonus", self, "show_points_on_player")
+				b.connect("jump_over", self, "jump_boiler")
+				$BoilerContainer.add_child(b)
+
+
+func jump_boiler()->void:
+	jumped_boilers += 1
+
+
+func _on_Boiler_disappear(boiler: Boiler)->void:
+	if boiler.position.x < $Lion.position.x:
+		boiler.call_deferred("queue_free")
 
 
 func _on_Flame_appear(flame : FlameRing)->void:
@@ -182,12 +218,30 @@ func _on_Flame_appear(flame : FlameRing)->void:
 func _on_Flame_disappear(flame : FlameRing)->void:
 	if flame.position.x < $Lion.position.x:
 		flame.call_deferred("queue_free")
+	else:
+		# Bring flames closer when walking backwards
+		var all_away : bool = true
+		var closest_flame : FlameRing = null
+		for f in $FlameContainer.get_children():
+			if f.position.x > $Lion.position.x + 400:
+				if closest_flame == null:
+					closest_flame = f
+				else:
+					if f.position.x < closest_flame.position.x:
+						closest_flame = f
+			else:
+				all_away = false
+				break
+		if all_away and closest_flame != null:
+			var screen_gap : float = closest_flame.position.x - ($Lion.position.x + 400)
+			for f in $FlameContainer.get_children():
+				f.position.x -= screen_gap
 
 
-func show_points_on_player(points: int):
+func show_points_on_player(points: int, play_sound:bool = true):
 	var player_pos : Vector2 = $Lion.get_global_transform_with_canvas().get_origin()
 	player_pos.y -= 70
-	hud.show_bonus_points(player_pos, points)
+	hud.show_bonus_points(player_pos, points, not play_sound)
 
 
 func stop_items():
