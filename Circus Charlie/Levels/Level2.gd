@@ -29,7 +29,6 @@ func _ready():
 	
 	if global.is_debug_mode:
 		global.play_first_sound = true
-		global.current_level = 1
 
 	if global.current_check_point_path != "":
 		var CheckPointNode: Position2D = get_node(global.current_check_point_path)

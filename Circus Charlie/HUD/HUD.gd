@@ -103,6 +103,10 @@ func show_bonus_points(pos: Vector2, points: int, do_not_play_sound: bool = fals
 	label_points.call_deferred("queue_free")
 
 
+func set_time(game_time : int) -> void:
+	time_left = game_time
+	update_timer()
+
 func _on_game_label_timeout():
 	time_left -= time_delta
 	update_timer()

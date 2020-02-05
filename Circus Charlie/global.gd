@@ -61,6 +61,8 @@ func get_HudInstance(in_level_hud: bool = true) -> GameHUD:
 		HudInstance.begin_time()
 	else:
 		HudInstance.update_lives(lives)
+	if game_mode != CHALLENGE_MODE and current_level >= 21:
+		HudInstance.set_time(4000)
 	return HudInstance
 
 
@@ -107,36 +109,59 @@ func save_game():
 	save_game.close()
 
 
-func start_classic_mode()-> void:
+func start_classic_mode(level : int)-> void:
 	game_mode = CLASSIC_MODE
-	restart_game()
-	start_next_level()
+	restart_game(level)
 
-func start_free_mode()->void:
+func start_free_mode(level : int)->void:
 	game_mode = FREE_MODE
-	restart_game()
-	start_next_level()
+	restart_game(level)
+
+
+func restart_game(first_level: int = 0):
+	player_score = 0
+	life_score_counter = 0
+	hi_score = 0
+	lives = 4
+	is_game_over = false
+	current_level = first_level
+	can_pause = false
+	load_game()
+	play_first_sound = false
+	start_level()
+
 
 func start_next_level() -> void:
-	current_level += 1
+	if game_mode == CHALLENGE_MODE:
+		set_level_difficulty(level_difficulty + 1)
+	else:
+		current_level += 1
+	start_level()
+
+
+func start_level() -> void:
 	check_point = 0
 	level_pattern = 0
 	current_check_point_path = ""
-	match current_level:
+	match current_level % LAST_LEVEL:
 		STAGE_TWO_INDEX:
 			stage_2_first_time_lauched = true
 			stage_2_current_monkey_index = 0
 		STAGE_THREE_INDEX:
 			stage_3_first_time_lauched = true
 			stage_3_current_ball_index = 0
-		LAST_LEVEL:
-			level_difficulty += 1
-	
+	if game_mode != CHALLENGE_MODE:
+# warning-ignore: integer_division
+		set_level_difficulty(current_level / LAST_LEVEL + 1)
 	get_tree().call_deferred("change_scene", "res://Levels/ScenePreviewer.tscn")
 
+
 func show_level()->void:
-	get_tree().call_deferred("change_scene", \
-		stage[current_level % 5])
+	if game_mode == CHALLENGE_MODE:
+		get_tree().call_deferred("change_scene", stage[current_level])
+	else:
+		get_tree().call_deferred("change_scene", \
+			stage[current_level % LAST_LEVEL])
 
 
 func lose_life():
@@ -153,20 +178,6 @@ func game_over():
 	play_first_sound = true
 
 
-func restart_game():
-	player_score = 0
-	life_score_counter = 0
-	hi_score = 0
-	lives = 4
-	is_game_over = false
-	current_level = -1
-	can_pause = false
-	check_point = 0
-	current_check_point_path = ""
-	load_game()
-	play_first_sound = false
-
-
 func rand_bool():
 	randomize()
 	return bool(randi() % 2)
@@ -177,8 +188,10 @@ func set_current_check_point_path(value):
 
 
 func set_level_difficulty(new_value):
-	level_difficulty = new_value
-	current_level = -1
+	if game_mode == CHALLENGE_MODE:
+		level_difficulty = int(min(5, new_value))
+	else:
+		level_difficulty = int(min(4, new_value))
 	check_point = 0
 	current_check_point_path = ""
 
