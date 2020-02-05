@@ -119,10 +119,6 @@ var patterns = [
 ]
 
 func _ready():
-	if global.is_debug_mode:
-		global.play_first_sound = true
-		global.current_level = 0
-
 	set_sfx_volume()
 	set_player_position()
 	next_bonus_flame = randi() % 5 + 4

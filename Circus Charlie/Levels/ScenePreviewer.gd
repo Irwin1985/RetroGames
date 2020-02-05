@@ -10,7 +10,20 @@ func _ready():
 	add_child(global.get_HudInstance(false))
 	
 	if !global.is_game_over:
-		$StageCaption/StageLabel.text = "STAGE  0" + str(global.current_level + 1)
+		if global.game_mode == global.CHALLENGE_MODE:
+			match global.level_difficulty:
+				1:
+					$StageCaption/StageLabel.text = "EASY"
+				2:
+					$StageCaption/StageLabel.text = "NORMAL"
+				3:
+					$StageCaption/StageLabel.text = "HARD"
+				4:
+					$StageCaption/StageLabel.text = "HARDER"
+				5:
+					$StageCaption/StageLabel.text = "EXTREME"
+		else:
+			$StageCaption/StageLabel.text = "STAGE  %02d" % (global.current_level + 1)
 		yield(get_tree().create_timer(2), "timeout")
 		while get_tree().paused:
 			yield(get_tree().create_timer(0.25), "timeout")

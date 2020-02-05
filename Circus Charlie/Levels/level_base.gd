@@ -20,7 +20,7 @@ func add_HUD():
 	hud = global.get_HudInstance()
 	hud.connect("little_time_left", self, "_on_HUD_little_time_left")
 	hud.connect("out_of_time", self, "_on_HUD_out_of_time")
-	hud.connect("bonus_giving_finished", self, "_on_bonus_giving_finished")
+	hud.connect("bonus_giving_finished", self, "start_next_level_on_condition")
 	add_child(hud)
 
 
@@ -30,12 +30,6 @@ func set_timers():
 			[], CONNECT_DEFERRED)
 	audience_timer.wait_time = 0.05
 	add_child(audience_timer)
-
-
-func _on_bonus_giving_finished():
-	if not $Sounds/WinSound.playing:
-		yield(get_tree().create_timer(0.5), "timeout")
-		global.start_next_level()
 
 
 func player_won():
@@ -63,6 +57,14 @@ func WinSound_finished(player):
 	
 	if hud.time_left > 0:
 		hud.bonus_giving_play()
+	else:
+		start_next_level_on_condition()
+
+
+func start_next_level_on_condition():
+	if not $Sounds/WinSound.playing:
+		yield(get_tree().create_timer(0.5), "timeout")
+		global.start_next_level()
 
 
 func GameOverSound_finished():
