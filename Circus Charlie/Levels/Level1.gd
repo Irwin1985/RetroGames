@@ -151,11 +151,11 @@ func set_player_position():
 
 func spawn_next_flame():
 	var flame = single_flame.instance()
-	var this_pattern = patterns[int(min(global.level_difficulty - 1, 3))]
+	var this_pattern = patterns[int(min(global.level_difficulty - 1, 4))]
 	var this_flame = this_pattern[global.level_pattern]
 
 	if last_flame == null:
-		pos = Vector2($Lion.position.x + 380, 184)
+		pos = Vector2($Lion.position.x + 480, 184)
 	else:
 		pos = last_flame.position + Vector2.RIGHT * this_flame['distance'] * 2
 	

@@ -46,10 +46,30 @@ var PlatformFactory: RampFactory
 
 var game_mode: int = FREE_MODE
 
+var KEY_CHALLENGE_MODE : String = "CHALLENGE_MODE"
+var KEY_ENDURANCE_MODE : String = "ENDURANCE_MODE"
+var KEY_CHALLENGE_LEVEL1 : String = "CHALLENGE_LEVEL_1"
+var KEY_CHALLENGE_LEVEL2 : String = "CHALLENGE_LEVEL_2"
+var KEY_CHALLENGE_LEVEL3 : String = "CHALLENGE_LEVEL_3"
+var KEY_CHALLENGE_LEVEL4 : String = "CHALLENGE_LEVEL_4"
+var KEY_CHALLENGE_LEVEL5 : String = "CHALLENGE_LEVEL_5"
+var KEY_CHALLENGE_LEVELN : String = "CHALLENGE_LEVEL_N"
+
+var unlockables = {}
+
 
 func _ready() -> void:
 	OS.center_window()
 	load_game()
+	unlockables[KEY_CHALLENGE_LEVEL1] = true
+	unlockables[KEY_CHALLENGE_LEVEL2] = true
+	unlockables[KEY_CHALLENGE_LEVEL3] = true
+	unlockables[KEY_CHALLENGE_LEVEL4] = true
+	unlockables[KEY_CHALLENGE_LEVEL5] = true
+
+
+func is_unlocked(key : String)-> bool:
+	return unlockables.has(key) and unlockables[key]
 
 
 func get_HudInstance(in_level_hud: bool = true) -> GameHUD:
@@ -113,8 +133,15 @@ func start_classic_mode(level : int)-> void:
 	game_mode = CLASSIC_MODE
 	restart_game(level)
 
+
 func start_free_mode(level : int)->void:
 	game_mode = FREE_MODE
+	restart_game(level)
+
+
+func start_challenge_mode(level : int)->void:
+	game_mode = CHALLENGE_MODE
+	level_difficulty = 1
 	restart_game(level)
 
 

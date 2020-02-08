@@ -21,6 +21,8 @@ func _ready():
 		$HiScore.set_visible(false)
 		$PlayerScore.set_visible(false)
 		$Lives.set_visible(false)
+	elif global.game_mode == global.CHALLENGE_MODE:
+		$Stage.set_visible(false)
 	$AlphaVersionLabel.visible = global.IS_ALPHA_VERSION
 
 func set_sfx_volume():
