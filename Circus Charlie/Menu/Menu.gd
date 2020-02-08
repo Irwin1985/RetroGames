@@ -93,7 +93,7 @@ func _on_StartSound_finished():
 		option.FREE_MODE:
 			global.start_free_mode(level_select - 1)
 		option.CHALLENGE_MODE:
-			pass
+			get_tree().call_deferred("change_scene", "res://Menu/ChallengeMenu.tscn")
 		option.ENDURANCE_MODE:
 			pass
 		option.OPTIONS:

@@ -116,6 +116,7 @@ text = "Free Mode"
 uppercase = true
 
 [node name="PlayerScore" type="Control" parent="."]
+editor/display_folded = true
 margin_left = 20.0
 margin_top = 15.0
 margin_right = 175.0
