@@ -9,7 +9,120 @@ const SPAWN_BALL_INTERVAL = 1
 const PLAYER_MINIMAL_DISTANCE = 500
 
 var ball_index = -1
-var ball_pattern = [7.9, 4.4, 7.6, 3, 7.3, 3.4, 7.9, 3, 4.2, 6.8, 3, 7.1, 3.4, 7.5, 3, 7.6, 6.8, 3]
+#var ball_pattern = [7.9, 4.4, 7.6, 3, 7.3, 3.4, 7.9, 3, 4.2, 6.8, 3, 7.1, 3.4, 7.5, 3, 7.6, 6.8, 3]
+var ball_pattern: Array = []
+var level_dif: Dictionary = \
+{
+  "level_1": [
+	8.3,	# 1
+	4.7,	# 2
+	8.4,	# 3
+	3,		# 4
+	7.1,	# 5
+	5.4,	# 6
+	8.3,	# 7
+	3.5,	# 8
+	4.2,	# 9
+	8.1,	# 10
+	3.5,	# 11
+	7.1,	# 12
+	4.8,	# 13
+	6, 		# 14
+	7.7,	# 15
+	3,		# 16
+	8.3,	# 17
+	4.2,	# 18
+	8.3,	# 19
+	3,		# 20
+	7.1,	# 21
+	5.4		# 22
+  ],
+  "level_2": [
+	4.4,	# 1
+	5.2,	# 2
+	5.5,	# 3
+	3.7,	# 4
+	5.1,	# 5
+	7.7,	# 6
+	4.2,	# 7
+	5.7,	# 8
+	5.7,	# 9
+	3.8,	# 10
+	4.9,	# 11
+	7.7,	# 12
+	4.3,	# 13
+	5.2, 	# 14
+	4.9,	# 15
+	5.5,	# 16
+	4.1,	# 17
+	5.4,	# 18
+	5.8,	# 19
+	4.0,	# 20
+	5.2,	# 21
+	7.4,	# 22
+	4.4,	# 23
+	5.5,	# 24
+	5.0,	# 25
+	3.8,	# 26
+	5.0		# 27
+  ],
+  "level_3": [
+	3.8,	# 1
+	3.7,	# 2
+	8.8,	# 3
+	4.3,	# 4
+	3.8,	# 5
+	4.5,	# 6
+	8.8,	# 7
+	3.8,	# 8
+	3.8,	# 9
+	5.6,	# 10
+	7.6,	# 11
+	3.8,	# 12
+	3.7,	# 13
+	8.9, 	# 14
+	5.2,	# 15
+	3.7,	# 16
+	4.5,	# 17
+	8.1,	# 18
+	4.8,	# 19
+	3.7,	# 20
+	4.5,	# 21
+	8.1,	# 22
+	5.0,	# 23
+	3.7,	# 24
+	4.5,	# 25
+	8.1		# 26
+  ],
+  "level_4": [
+	3.8,	# 1
+	3.7,	# 2
+	8.7,	# 3
+	4.4,	# 4
+	3.8,	# 5
+	5.0,	# 6
+	8.5,	# 7
+	4.6,	# 8
+	3.8,	# 9
+	4.6,	# 10
+	8.2,	# 11
+	4.4,	# 12
+	3.2,	# 13
+	5.2, 	# 14
+	8.8,	# 15
+	3.9,	# 16
+	3.8,	# 17
+	5.2,	# 18
+	7.9,	# 19
+	4.4,	# 20
+	4.0,	# 21
+	4.5,	# 22
+	8.0,	# 23
+	4.9,	# 24
+	3.5,	# 25
+	5.1		# 26
+  ]
+}
 var last_ball_name = ""
 var play_ball_hurt := false
 
@@ -22,6 +135,7 @@ var bonus_earned := false
 var bonus_point := 0
 
 func _ready():
+	ball_pattern = get_level_difficulty()
 	set_timer_env()
 	setBallInstance($PlayerBall)
 	if global.is_debug_mode:
@@ -122,8 +236,8 @@ func set_timer_env():
 	ball_timer.wait_time = SPAWN_BALL_INTERVAL
 	ball_timer.connect("timeout", self, "_on_ball_timer_timeout",
 		[], CONNECT_DEFERRED)
-	ball_timer.start()
 	add_child(ball_timer)
+	ball_timer.start()
 	
 func _on_Player_win():
 	for ball in $BallContainer.get_children():
@@ -214,3 +328,19 @@ func Player_hurt():
 	$Player/Sounds/HurtSound.play()
 	$Player.hit_and_fall()
 	track_player_pos = false
+
+
+func get_level_difficulty() -> Array:
+	var level: Array
+	match global.level_difficulty:
+		global.LEVEL_1:
+			level = level_dif["level_1"]
+		global.LEVEL_2:
+			level = level_dif["level_2"]
+		global.LEVEL_3:
+			level = level_dif["level_3"]
+		global.LEVEL_4:
+			level = level_dif["level_4"]
+		_:
+			level = level_dif["level_4"]
+	return level

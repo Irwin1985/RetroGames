@@ -95,8 +95,8 @@ func set_timer_env():
 	monkey_timer.wait_time = SPAWN_MONKEY_INTERVAL
 	monkey_timer.connect("timeout", self, "_on_monkey_timer_timeout",
 		[], CONNECT_DEFERRED)
-	monkey_timer.start()
 	add_child(monkey_timer)
+	monkey_timer.start()
 
 	# Platform Center Timer Settings
 	platform_center_timer.connect("timeout", self, "_on_platform_center_timeout")	
