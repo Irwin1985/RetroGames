@@ -66,6 +66,7 @@ func _ready() -> void:
 	unlockables[KEY_CHALLENGE_LEVEL3] = true
 	unlockables[KEY_CHALLENGE_LEVEL4] = true
 	unlockables[KEY_CHALLENGE_LEVEL5] = true
+	unlockables[KEY_CHALLENGE_LEVELN] = true
 
 
 func is_unlocked(key : String)-> bool:

@@ -1,0 +1,33 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://Control/TouchMenu.gd" type="Script" id=1]
+[ext_resource path="res://Control/left.png" type="Texture" id=2]
+[ext_resource path="res://Control/left_pressed.png" type="Texture" id=3]
+[ext_resource path="res://Control/start.png" type="Texture" id=4]
+[ext_resource path="res://Control/start_pressed.png" type="Texture" id=5]
+[ext_resource path="res://Control/right.png" type="Texture" id=6]
+[ext_resource path="res://Control/right_pressed.png" type="Texture" id=7]
+
+[node name="TouchMenu" type="CanvasLayer"]
+script = ExtResource( 1 )
+
+[node name="Controls" type="Node2D" parent="."]
+modulate = Color( 1, 1, 1, 0.25098 )
+
+[node name="Up" type="TouchScreenButton" parent="Controls"]
+position = Vector2( 25.1148, 140.87 )
+normal = ExtResource( 2 )
+pressed = ExtResource( 3 )
+action = "ui_up"
+
+[node name="Start" type="TouchScreenButton" parent="Controls"]
+position = Vector2( 373.494, 384.044 )
+normal = ExtResource( 4 )
+pressed = ExtResource( 5 )
+action = "ui_accept"
+
+[node name="Down" type="TouchScreenButton" parent="Controls"]
+position = Vector2( 28.8846, 325.737 )
+normal = ExtResource( 6 )
+pressed = ExtResource( 7 )
+action = "ui_down"

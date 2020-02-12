@@ -200,6 +200,8 @@ parameters/playback = SubResource( 15 )
 visible = false
 position = Vector2( 0, -100 )
 rotation = 6.28319
+collision_layer = 2
+collision_mask = 0
 
 [node name="Sprite" type="Sprite" parent="Knife"]
 texture = ExtResource( 4 )
@@ -214,4 +216,4 @@ shape = SubResource( 16 )
 anims/juggle = SubResource( 17 )
 
 [node name="Knives" type="Node2D" parent="."]
-[connection signal="body_entered" from="Knife" to="." method="_on_Knife_body_entered"]
+[connection signal="area_entered" from="Knife" to="." method="_on_Knife_area_entered"]

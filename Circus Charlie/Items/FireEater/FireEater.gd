@@ -31,8 +31,8 @@ func stop():
 	$AnimationTree.set_active(false)
 	for fire in $Flames.get_children():
 		fire.get_node("AnimationPlayer").stop()
-	
 
-func _on_Fire_body_entered(body : PhysicsBody2D) -> void:
-	if body.name == global.PLAYER_NAME:
-		body.hit_and_fall()
+
+func _on_Fire_area_entered(area : Area2D) -> void:
+	if area.get_parent().name == global.PLAYER_NAME:
+		area.get_parent().hit_and_fall()
