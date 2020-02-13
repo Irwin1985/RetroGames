@@ -187,6 +187,26 @@ __meta__ = {
 "_edit_group_": true
 }
 
+[node name="Difficulty" type="Control" parent="."]
+visible = false
+margin_top = 15.0
+margin_right = 85.0
+margin_bottom = 55.0
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Desc" type="Label" parent="Difficulty"]
+margin_left = 348.0
+margin_top = 10.0
+margin_right = 471.0
+margin_bottom = 41.0
+custom_fonts/font = SubResource( 1 )
+text = "Extreme"
+__meta__ = {
+"_edit_group_": true
+}
+
 [node name="Lives" type="Control" parent="."]
 editor/display_folded = true
 margin_left = 348.0

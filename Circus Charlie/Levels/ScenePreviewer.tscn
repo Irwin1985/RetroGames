@@ -6,6 +6,7 @@
 
 [sub_resource type="DynamicFont" id=1]
 size = 30
+extra_spacing_space = 13
 font_data = ExtResource( 2 )
 
 [node name="ScenePreviewer" type="Control"]

@@ -61,14 +61,13 @@ var unlockables = {}
 func _ready() -> void:
 	OS.center_window()
 	load_game()
-	unlockables[KEY_CHALLENGE_LEVEL1] = true
-	unlockables[KEY_CHALLENGE_LEVEL2] = true
-	unlockables[KEY_CHALLENGE_LEVEL3] = true
-	unlockables[KEY_CHALLENGE_LEVEL4] = true
-	unlockables[KEY_CHALLENGE_LEVEL5] = true
 
 
-func is_unlocked(key : String)-> bool:
+func unlock(key : String) -> void:
+	unlockables[key] = true
+
+
+func is_unlocked(key : String) -> bool:
 	return unlockables.has(key) and unlockables[key]
 
 
@@ -118,6 +117,8 @@ func load_game():
 	load_game.open(game_file, File.READ)
 	json_obj = parse_json(load_game.get_as_text())
 	hi_score = json_obj["score"]
+	if json_obj.has("unlockables"):
+		unlockables = json_obj["unlockables"]
 	load_game.close()
 
 
@@ -125,6 +126,7 @@ func save_game():
 	var save_game = File.new()
 	save_game.open(game_file, File.WRITE)
 	json_obj["score"] = hi_score
+	json_obj["unlockables"] = unlockables
 	save_game.store_string(to_json(json_obj))
 	save_game.close()
 

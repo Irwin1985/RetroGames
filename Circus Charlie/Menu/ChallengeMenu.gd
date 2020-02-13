@@ -38,3 +38,10 @@ func _on_Level5_button_down():
 
 func _on_LevelN_button_down():
 	global.start_challenge_mode(5)
+
+
+func _input(event):
+	if event.is_action_pressed("ui_cancel"):
+		get_tree().call_deferred("change_scene", "res://Menu/Menu.tscn")
+	elif event.is_action_pressed("ui_accept"):
+		pass
