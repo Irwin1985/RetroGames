@@ -21,8 +21,21 @@ func _ready():
 		$HiScore.set_visible(false)
 		$PlayerScore.set_visible(false)
 		$Lives.set_visible(false)
+		
 	elif global.game_mode == global.CHALLENGE_MODE:
 		$Stage.set_visible(false)
+		$Difficulty.set_visible(true)
+		match global.level_difficulty:
+			1:
+				$Difficulty/Desc.text = "EASY"
+			2:
+				$Difficulty/Desc.text = "NORMAL"
+			3:
+				$Difficulty/Desc.text = "HARD"
+			4:
+				$Difficulty/Desc.text = "HARDER"
+			5:
+				$Difficulty/Desc.text = "EXTREME"
 	$AlphaVersionLabel.visible = global.IS_ALPHA_VERSION
 
 func set_sfx_volume():
