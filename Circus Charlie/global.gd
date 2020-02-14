@@ -107,7 +107,6 @@ func set_checkpoint(value: int) -> void:
 func check_update_hi_score():
 	if player_score > hi_score and game_mode != FREE_MODE:
 		hi_score = player_score
-		save_game()
 
 
 func load_game():
@@ -202,6 +201,7 @@ func lose_life():
 
 func game_over():
 	check_update_hi_score()
+	save_game()
 	is_game_over = true
 	can_pause = false
 	play_first_sound = true
