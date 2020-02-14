@@ -1,39 +1,25 @@
-[gd_scene load_steps=43 format=2]
+[gd_scene load_steps=26 format=2]
 
 [ext_resource path="res://Menu/ChallengeMenu.gd" type="Script" id=1]
 [ext_resource path="res://assets/title_01.png" type="Texture" id=2]
 [ext_resource path="res://assets/title_02.png" type="Texture" id=3]
 [ext_resource path="res://assets/title_03.png" type="Texture" id=4]
-[ext_resource path="res://assets/lion_03.png" type="Texture" id=5]
-[ext_resource path="res://assets/lion_02.png" type="Texture" id=6]
-[ext_resource path="res://assets/lion_01.png" type="Texture" id=7]
-[ext_resource path="res://assets/chn1.png" type="Texture" id=8]
-[ext_resource path="res://assets/chn1s.png" type="Texture" id=9]
-[ext_resource path="res://assets/star1.png" type="Texture" id=10]
-[ext_resource path="res://assets/star2.png" type="Texture" id=11]
-[ext_resource path="res://assets/star3.png" type="Texture" id=12]
-[ext_resource path="res://assets/monkey_01.png" type="Texture" id=13]
-[ext_resource path="res://assets/monkey_02.png" type="Texture" id=14]
-[ext_resource path="res://assets/monkey_03.png" type="Texture" id=15]
-[ext_resource path="res://assets/chn2.png" type="Texture" id=16]
-[ext_resource path="res://assets/chn2s.png" type="Texture" id=17]
-[ext_resource path="res://assets/ball_01.png" type="Texture" id=18]
-[ext_resource path="res://assets/ball_02.png" type="Texture" id=19]
-[ext_resource path="res://assets/ball_03.png" type="Texture" id=20]
-[ext_resource path="res://assets/ball_04.png" type="Texture" id=21]
-[ext_resource path="res://assets/chn3.png" type="Texture" id=22]
-[ext_resource path="res://assets/chn3s.png" type="Texture" id=23]
-[ext_resource path="res://assets/horse_03.png" type="Texture" id=24]
-[ext_resource path="res://assets/horse_01.png" type="Texture" id=25]
-[ext_resource path="res://assets/horse_02.png" type="Texture" id=26]
-[ext_resource path="res://assets/chn4.png" type="Texture" id=27]
-[ext_resource path="res://assets/chn4s.png" type="Texture" id=28]
-[ext_resource path="res://assets/swing.png" type="Texture" id=29]
-[ext_resource path="res://assets/chn5.png" type="Texture" id=30]
-[ext_resource path="res://assets/chn5s.png" type="Texture" id=31]
-[ext_resource path="res://assets/big trampoline.png" type="Texture" id=32]
-[ext_resource path="res://assets/chnns.png" type="Texture" id=33]
-[ext_resource path="res://assets/chnn.png" type="Texture" id=34]
+[ext_resource path="res://assets/cursor_hand.png" type="Texture" id=5]
+[ext_resource path="res://assets/ch1.png" type="Texture" id=6]
+[ext_resource path="res://assets/ch1s.png" type="Texture" id=7]
+[ext_resource path="res://assets/star1.png" type="Texture" id=8]
+[ext_resource path="res://assets/star2.png" type="Texture" id=9]
+[ext_resource path="res://assets/star3.png" type="Texture" id=10]
+[ext_resource path="res://assets/ch2.png" type="Texture" id=11]
+[ext_resource path="res://assets/ch2s.png" type="Texture" id=12]
+[ext_resource path="res://assets/ch3.png" type="Texture" id=13]
+[ext_resource path="res://assets/ch3s.png" type="Texture" id=14]
+[ext_resource path="res://assets/ch4.png" type="Texture" id=15]
+[ext_resource path="res://assets/ch4s.png" type="Texture" id=16]
+[ext_resource path="res://assets/ch5.png" type="Texture" id=17]
+[ext_resource path="res://assets/ch5s.png" type="Texture" id=18]
+[ext_resource path="res://assets/chn.png" type="Texture" id=19]
+[ext_resource path="res://assets/chns.png" type="Texture" id=20]
 
 [sub_resource type="AnimatedTexture" id=1]
 frames = 3
@@ -47,55 +33,23 @@ frame_2/delay_sec = 0.0
 [sub_resource type="DynamicFontData" id=2]
 font_path = "res://assets/ARCADECLASSIC.TTF"
 
-[sub_resource type="DynamicFont" id=3]
+[sub_resource type="DynamicFont" id=6]
+size = 32
 extra_spacing_space = 13
 font_data = SubResource( 2 )
 
-[sub_resource type="AnimatedTexture" id=4]
-frames = 3
-fps = 7.0
-frame_0/texture = ExtResource( 5 )
-frame_1/texture = ExtResource( 6 )
-frame_1/delay_sec = 0.0
-frame_2/texture = ExtResource( 7 )
-frame_2/delay_sec = 0.0
+[sub_resource type="DynamicFont" id=3]
+size = 14
+extra_spacing_space = 13
+font_data = SubResource( 2 )
 
 [sub_resource type="AnimatedTexture" id=5]
 frames = 3
 fps = 8.0
-frame_0/texture = ExtResource( 10 )
-frame_1/texture = ExtResource( 11 )
+frame_0/texture = ExtResource( 8 )
+frame_1/texture = ExtResource( 9 )
 frame_1/delay_sec = 0.0
-frame_2/texture = ExtResource( 12 )
-frame_2/delay_sec = 0.0
-
-[sub_resource type="AnimatedTexture" id=6]
-frames = 3
-fps = 7.0
-frame_0/texture = ExtResource( 13 )
-frame_1/texture = ExtResource( 14 )
-frame_1/delay_sec = 0.0
-frame_2/texture = ExtResource( 15 )
-frame_2/delay_sec = 0.0
-
-[sub_resource type="AnimatedTexture" id=7]
-frames = 4
-fps = 7.0
-frame_0/texture = ExtResource( 18 )
-frame_1/texture = ExtResource( 19 )
-frame_1/delay_sec = 0.0
-frame_2/texture = ExtResource( 20 )
-frame_2/delay_sec = 0.0
-frame_3/texture = ExtResource( 21 )
-frame_3/delay_sec = 0.0
-
-[sub_resource type="AnimatedTexture" id=8]
-frames = 3
-fps = 7.0
-frame_0/texture = ExtResource( 25 )
-frame_1/texture = ExtResource( 26 )
-frame_1/delay_sec = 0.0
-frame_2/texture = ExtResource( 24 )
+frame_2/texture = ExtResource( 10 )
 frame_2/delay_sec = 0.0
 
 [node name="ChallengeMenu" type="MarginContainer"]
@@ -133,85 +87,94 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="LevelContainer" type="VBoxContainer" parent="NinePatchRect/MarginContainer"]
-margin_right = 524.0
+margin_right = 440.0
 margin_bottom = 400.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
+alignment = 1
 
 [node name="Title" type="Label" parent="NinePatchRect/MarginContainer/LevelContainer"]
-margin_right = 524.0
-margin_bottom = 17.0
-custom_fonts/font = SubResource( 3 )
+margin_right = 440.0
+margin_bottom = 33.0
+custom_fonts/font = SubResource( 6 )
 text = "Challenge Mode"
 align = 1
 
 [node name="TopLevels" type="HBoxContainer" parent="NinePatchRect/MarginContainer/LevelContainer"]
-margin_top = 21.0
-margin_right = 524.0
+editor/display_folded = true
+margin_top = 37.0
+margin_right = 440.0
 margin_bottom = 198.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
+alignment = 1
 
-[node name="Level1" type="VBoxContainer" parent="NinePatchRect/MarginContainer/LevelContainer/TopLevels"]
+[node name="Level1" type="HBoxContainer" parent="NinePatchRect/MarginContainer/LevelContainer/TopLevels"]
 editor/display_folded = true
 visible = false
-margin_right = 524.0
-margin_bottom = 177.0
-rect_min_size = Vector2( 128, 0 )
+margin_left = 158.0
+margin_right = 293.0
+margin_bottom = 164.0
+alignment = 1
+
+[node name="Hand" type="TextureRect" parent="NinePatchRect/MarginContainer/LevelContainer/TopLevels/Level1"]
+margin_right = 35.0
+margin_bottom = 164.0
+texture = ExtResource( 5 )
+stretch_mode = 4
+
+[node name="Block" type="VBoxContainer" parent="NinePatchRect/MarginContainer/LevelContainer/TopLevels/Level1"]
+margin_left = 39.0
+margin_right = 135.0
+margin_bottom = 164.0
+rect_min_size = Vector2( 96, 0 )
 size_flags_horizontal = 3
 size_flags_vertical = 3
+alignment = 1
 
-[node name="TextureButton" type="TextureButton" parent="NinePatchRect/MarginContainer/LevelContainer/TopLevels/Level1"]
-visible = false
-margin_right = 420.0
-margin_bottom = 54.0
-size_flags_horizontal = 3
-size_flags_vertical = 3
-texture_normal = ExtResource( 5 )
-texture_focused = SubResource( 4 )
-expand = true
-stretch_mode = 5
-
-[node name="TextureRect" type="TextureRect" parent="NinePatchRect/MarginContainer/LevelContainer/TopLevels/Level1"]
-margin_right = 128.0
-margin_bottom = 128.0
-rect_min_size = Vector2( 128, 128 )
+[node name="Unselected" type="TextureRect" parent="NinePatchRect/MarginContainer/LevelContainer/TopLevels/Level1/Block"]
+margin_top = 4.0
+margin_right = 96.0
+margin_bottom = 116.0
+rect_min_size = Vector2( 96, 112 )
 size_flags_horizontal = 0
 size_flags_vertical = 0
-texture = ExtResource( 8 )
+texture = ExtResource( 6 )
 stretch_mode = 6
 
-[node name="Selected" type="TextureRect" parent="NinePatchRect/MarginContainer/LevelContainer/TopLevels/Level1"]
+[node name="Selected" type="TextureRect" parent="NinePatchRect/MarginContainer/LevelContainer/TopLevels/Level1/Block"]
 visible = false
-margin_top = 132.0
-margin_right = 128.0
-margin_bottom = 260.0
-rect_min_size = Vector2( 128, 128 )
+margin_top = 116.0
+margin_right = 96.0
+margin_bottom = 228.0
+rect_min_size = Vector2( 96, 112 )
 size_flags_horizontal = 0
 size_flags_vertical = 0
-texture = ExtResource( 9 )
+texture = ExtResource( 7 )
 stretch_mode = 6
 
-[node name="Label" type="Label" parent="NinePatchRect/MarginContainer/LevelContainer/TopLevels/Level1"]
-margin_top = 132.0
-margin_right = 524.0
-margin_bottom = 149.0
-size_flags_vertical = 1
+[node name="Label" type="Label" parent="NinePatchRect/MarginContainer/LevelContainer/TopLevels/Level1/Block"]
+margin_top = 120.0
+margin_right = 96.0
+margin_bottom = 135.0
+rect_min_size = Vector2( 96, 0 )
+size_flags_horizontal = 0
+size_flags_vertical = 0
 custom_fonts/font = SubResource( 3 )
 text = "Fire Rings"
 align = 1
 autowrap = true
 
-[node name="Stars" type="HBoxContainer" parent="NinePatchRect/MarginContainer/LevelContainer/TopLevels/Level1"]
+[node name="Stars" type="HBoxContainer" parent="NinePatchRect/MarginContainer/LevelContainer/TopLevels/Level1/Block"]
 editor/display_folded = true
-margin_top = 153.0
-margin_right = 524.0
-margin_bottom = 173.0
+margin_top = 139.0
+margin_right = 96.0
+margin_bottom = 159.0
 rect_min_size = Vector2( 0, 20 )
 alignment = 1
 
-[node name="Star1" type="TextureRect" parent="NinePatchRect/MarginContainer/LevelContainer/TopLevels/Level1/Stars"]
-margin_right = 101.0
+[node name="Star1" type="TextureRect" parent="NinePatchRect/MarginContainer/LevelContainer/TopLevels/Level1/Block/Stars"]
+margin_right = 16.0
 margin_bottom = 20.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -219,9 +182,9 @@ texture = SubResource( 5 )
 expand = true
 stretch_mode = 6
 
-[node name="Star2" type="TextureRect" parent="NinePatchRect/MarginContainer/LevelContainer/TopLevels/Level1/Stars"]
-margin_left = 105.0
-margin_right = 206.0
+[node name="Star2" type="TextureRect" parent="NinePatchRect/MarginContainer/LevelContainer/TopLevels/Level1/Block/Stars"]
+margin_left = 20.0
+margin_right = 36.0
 margin_bottom = 20.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -229,9 +192,9 @@ texture = SubResource( 5 )
 expand = true
 stretch_mode = 6
 
-[node name="Star3" type="TextureRect" parent="NinePatchRect/MarginContainer/LevelContainer/TopLevels/Level1/Stars"]
-margin_left = 210.0
-margin_right = 311.0
+[node name="Star3" type="TextureRect" parent="NinePatchRect/MarginContainer/LevelContainer/TopLevels/Level1/Block/Stars"]
+margin_left = 40.0
+margin_right = 56.0
 margin_bottom = 20.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -239,9 +202,9 @@ texture = SubResource( 5 )
 expand = true
 stretch_mode = 6
 
-[node name="Star4" type="TextureRect" parent="NinePatchRect/MarginContainer/LevelContainer/TopLevels/Level1/Stars"]
-margin_left = 315.0
-margin_right = 416.0
+[node name="Star4" type="TextureRect" parent="NinePatchRect/MarginContainer/LevelContainer/TopLevels/Level1/Block/Stars"]
+margin_left = 60.0
+margin_right = 76.0
 margin_bottom = 20.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -249,9 +212,9 @@ texture = SubResource( 5 )
 expand = true
 stretch_mode = 6
 
-[node name="Star5" type="TextureRect" parent="NinePatchRect/MarginContainer/LevelContainer/TopLevels/Level1/Stars"]
-margin_left = 420.0
-margin_right = 524.0
+[node name="Star5" type="TextureRect" parent="NinePatchRect/MarginContainer/LevelContainer/TopLevels/Level1/Block/Stars"]
+margin_left = 80.0
+margin_right = 96.0
 margin_bottom = 20.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -259,64 +222,66 @@ texture = SubResource( 5 )
 expand = true
 stretch_mode = 6
 
-[node name="Level2" type="VBoxContainer" parent="NinePatchRect/MarginContainer/LevelContainer/TopLevels"]
+[node name="Level2" type="HBoxContainer" parent="NinePatchRect/MarginContainer/LevelContainer/TopLevels"]
 editor/display_folded = true
 visible = false
-margin_left = 264.0
-margin_right = 524.0
-margin_bottom = 177.0
+margin_left = 158.0
+margin_right = 293.0
+margin_bottom = 164.0
+
+[node name="Hand" type="TextureRect" parent="NinePatchRect/MarginContainer/LevelContainer/TopLevels/Level2"]
+margin_right = 35.0
+margin_bottom = 164.0
+texture = ExtResource( 5 )
+stretch_mode = 4
+
+[node name="Block" type="VBoxContainer" parent="NinePatchRect/MarginContainer/LevelContainer/TopLevels/Level2"]
+margin_left = 39.0
+margin_right = 135.0
+margin_bottom = 164.0
+rect_min_size = Vector2( 96, 0 )
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="TextureButton" type="TextureButton" parent="NinePatchRect/MarginContainer/LevelContainer/TopLevels/Level2"]
-visible = false
-margin_right = 420.0
-size_flags_horizontal = 3
-size_flags_vertical = 3
-texture_normal = ExtResource( 13 )
-texture_focused = SubResource( 6 )
-expand = true
-stretch_mode = 5
-
-[node name="TextureRect3" type="TextureRect" parent="NinePatchRect/MarginContainer/LevelContainer/TopLevels/Level2"]
-margin_right = 128.0
-margin_bottom = 128.0
-rect_min_size = Vector2( 128, 128 )
+[node name="Unselected" type="TextureRect" parent="NinePatchRect/MarginContainer/LevelContainer/TopLevels/Level2/Block"]
+margin_right = 96.0
+margin_bottom = 112.0
+rect_min_size = Vector2( 96, 112 )
 size_flags_horizontal = 0
 size_flags_vertical = 0
-texture = ExtResource( 16 )
+texture = ExtResource( 11 )
 stretch_mode = 6
 
-[node name="Selected" type="TextureRect" parent="NinePatchRect/MarginContainer/LevelContainer/TopLevels/Level2"]
+[node name="Selected" type="TextureRect" parent="NinePatchRect/MarginContainer/LevelContainer/TopLevels/Level2/Block"]
 visible = false
-margin_top = 136.0
-margin_right = 128.0
-margin_bottom = 264.0
-rect_min_size = Vector2( 128, 128 )
+margin_top = 116.0
+margin_right = 96.0
+margin_bottom = 228.0
+rect_min_size = Vector2( 96, 112 )
 size_flags_horizontal = 0
 size_flags_vertical = 0
-texture = ExtResource( 17 )
+texture = ExtResource( 12 )
 stretch_mode = 6
 
-[node name="Label2" type="Label" parent="NinePatchRect/MarginContainer/LevelContainer/TopLevels/Level2"]
-margin_top = 132.0
-margin_right = 260.0
-margin_bottom = 149.0
+[node name="Label2" type="Label" parent="NinePatchRect/MarginContainer/LevelContainer/TopLevels/Level2/Block"]
+margin_top = 116.0
+margin_right = 96.0
+margin_bottom = 131.0
 size_flags_vertical = 1
 custom_fonts/font = SubResource( 3 )
 text = "Tight Rope"
 align = 1
 autowrap = true
 
-[node name="Stars" type="HBoxContainer" parent="NinePatchRect/MarginContainer/LevelContainer/TopLevels/Level2"]
+[node name="Stars" type="HBoxContainer" parent="NinePatchRect/MarginContainer/LevelContainer/TopLevels/Level2/Block"]
 editor/display_folded = true
-margin_top = 153.0
-margin_right = 260.0
-margin_bottom = 173.0
+margin_top = 135.0
+margin_right = 96.0
+margin_bottom = 155.0
 rect_min_size = Vector2( 0, 20 )
 
-[node name="Star1" type="TextureRect" parent="NinePatchRect/MarginContainer/LevelContainer/TopLevels/Level2/Stars"]
-margin_right = 48.0
+[node name="Star1" type="TextureRect" parent="NinePatchRect/MarginContainer/LevelContainer/TopLevels/Level2/Block/Stars"]
+margin_right = 16.0
 margin_bottom = 20.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -324,9 +289,9 @@ texture = SubResource( 5 )
 expand = true
 stretch_mode = 6
 
-[node name="Star2" type="TextureRect" parent="NinePatchRect/MarginContainer/LevelContainer/TopLevels/Level2/Stars"]
-margin_left = 52.0
-margin_right = 100.0
+[node name="Star2" type="TextureRect" parent="NinePatchRect/MarginContainer/LevelContainer/TopLevels/Level2/Block/Stars"]
+margin_left = 20.0
+margin_right = 36.0
 margin_bottom = 20.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -334,9 +299,9 @@ texture = SubResource( 5 )
 expand = true
 stretch_mode = 6
 
-[node name="Star3" type="TextureRect" parent="NinePatchRect/MarginContainer/LevelContainer/TopLevels/Level2/Stars"]
-margin_left = 104.0
-margin_right = 152.0
+[node name="Star3" type="TextureRect" parent="NinePatchRect/MarginContainer/LevelContainer/TopLevels/Level2/Block/Stars"]
+margin_left = 40.0
+margin_right = 56.0
 margin_bottom = 20.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -344,9 +309,9 @@ texture = SubResource( 5 )
 expand = true
 stretch_mode = 6
 
-[node name="Star4" type="TextureRect" parent="NinePatchRect/MarginContainer/LevelContainer/TopLevels/Level2/Stars"]
-margin_left = 156.0
-margin_right = 204.0
+[node name="Star4" type="TextureRect" parent="NinePatchRect/MarginContainer/LevelContainer/TopLevels/Level2/Block/Stars"]
+margin_left = 60.0
+margin_right = 76.0
 margin_bottom = 20.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -354,9 +319,9 @@ texture = SubResource( 5 )
 expand = true
 stretch_mode = 6
 
-[node name="Star5" type="TextureRect" parent="NinePatchRect/MarginContainer/LevelContainer/TopLevels/Level2/Stars"]
-margin_left = 208.0
-margin_right = 260.0
+[node name="Star5" type="TextureRect" parent="NinePatchRect/MarginContainer/LevelContainer/TopLevels/Level2/Block/Stars"]
+margin_left = 80.0
+margin_right = 96.0
 margin_bottom = 20.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -364,64 +329,65 @@ texture = SubResource( 5 )
 expand = true
 stretch_mode = 6
 
-[node name="Level3" type="VBoxContainer" parent="NinePatchRect/MarginContainer/LevelContainer/TopLevels"]
-editor/display_folded = true
+[node name="Level3" type="HBoxContainer" parent="NinePatchRect/MarginContainer/LevelContainer/TopLevels"]
 visible = false
-margin_left = 352.0
-margin_right = 524.0
-margin_bottom = 177.0
+margin_left = 228.0
+margin_right = 363.0
+margin_bottom = 164.0
+
+[node name="Hand" type="TextureRect" parent="NinePatchRect/MarginContainer/LevelContainer/TopLevels/Level3"]
+margin_right = 35.0
+margin_bottom = 164.0
+texture = ExtResource( 5 )
+stretch_mode = 4
+
+[node name="Block" type="VBoxContainer" parent="NinePatchRect/MarginContainer/LevelContainer/TopLevels/Level3"]
+margin_left = 39.0
+margin_right = 135.0
+margin_bottom = 164.0
+rect_min_size = Vector2( 96, 0 )
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="TextureButton" type="TextureButton" parent="NinePatchRect/MarginContainer/LevelContainer/TopLevels/Level3"]
-visible = false
-margin_right = 420.0
-size_flags_horizontal = 3
-size_flags_vertical = 3
-texture_normal = ExtResource( 18 )
-texture_focused = SubResource( 7 )
-expand = true
-stretch_mode = 5
-
-[node name="TextureRect4" type="TextureRect" parent="NinePatchRect/MarginContainer/LevelContainer/TopLevels/Level3"]
-margin_right = 128.0
-margin_bottom = 128.0
-rect_min_size = Vector2( 128, 128 )
+[node name="Unselected" type="TextureRect" parent="NinePatchRect/MarginContainer/LevelContainer/TopLevels/Level3/Block"]
+margin_right = 96.0
+margin_bottom = 112.0
+rect_min_size = Vector2( 96, 112 )
 size_flags_horizontal = 0
 size_flags_vertical = 0
-texture = ExtResource( 22 )
+texture = ExtResource( 13 )
 stretch_mode = 6
 
-[node name="Selected" type="TextureRect" parent="NinePatchRect/MarginContainer/LevelContainer/TopLevels/Level3"]
+[node name="Selected" type="TextureRect" parent="NinePatchRect/MarginContainer/LevelContainer/TopLevels/Level3/Block"]
 visible = false
-margin_top = 132.0
-margin_right = 128.0
-margin_bottom = 260.0
-rect_min_size = Vector2( 128, 128 )
+margin_top = 116.0
+margin_right = 96.0
+margin_bottom = 228.0
+rect_min_size = Vector2( 96, 112 )
 size_flags_horizontal = 0
 size_flags_vertical = 0
-texture = ExtResource( 23 )
+texture = ExtResource( 14 )
 stretch_mode = 6
 
-[node name="Label3" type="Label" parent="NinePatchRect/MarginContainer/LevelContainer/TopLevels/Level3"]
-margin_top = 132.0
-margin_right = 172.0
-margin_bottom = 149.0
+[node name="Label3" type="Label" parent="NinePatchRect/MarginContainer/LevelContainer/TopLevels/Level3/Block"]
+margin_top = 116.0
+margin_right = 96.0
+margin_bottom = 131.0
 size_flags_vertical = 1
 custom_fonts/font = SubResource( 3 )
 text = "Ball Walk"
 align = 1
 autowrap = true
 
-[node name="Stars2" type="HBoxContainer" parent="NinePatchRect/MarginContainer/LevelContainer/TopLevels/Level3"]
+[node name="Stars" type="HBoxContainer" parent="NinePatchRect/MarginContainer/LevelContainer/TopLevels/Level3/Block"]
 editor/display_folded = true
-margin_top = 153.0
-margin_right = 172.0
-margin_bottom = 173.0
+margin_top = 135.0
+margin_right = 96.0
+margin_bottom = 155.0
 rect_min_size = Vector2( 0, 20 )
 
-[node name="Star1" type="TextureRect" parent="NinePatchRect/MarginContainer/LevelContainer/TopLevels/Level3/Stars2"]
-margin_right = 31.0
+[node name="Star1" type="TextureRect" parent="NinePatchRect/MarginContainer/LevelContainer/TopLevels/Level3/Block/Stars"]
+margin_right = 16.0
 margin_bottom = 20.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -429,9 +395,9 @@ texture = SubResource( 5 )
 expand = true
 stretch_mode = 6
 
-[node name="Star2" type="TextureRect" parent="NinePatchRect/MarginContainer/LevelContainer/TopLevels/Level3/Stars2"]
-margin_left = 35.0
-margin_right = 66.0
+[node name="Star2" type="TextureRect" parent="NinePatchRect/MarginContainer/LevelContainer/TopLevels/Level3/Block/Stars"]
+margin_left = 20.0
+margin_right = 36.0
 margin_bottom = 20.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -439,9 +405,9 @@ texture = SubResource( 5 )
 expand = true
 stretch_mode = 6
 
-[node name="Star3" type="TextureRect" parent="NinePatchRect/MarginContainer/LevelContainer/TopLevels/Level3/Stars2"]
-margin_left = 70.0
-margin_right = 101.0
+[node name="Star3" type="TextureRect" parent="NinePatchRect/MarginContainer/LevelContainer/TopLevels/Level3/Block/Stars"]
+margin_left = 40.0
+margin_right = 56.0
 margin_bottom = 20.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -449,9 +415,9 @@ texture = SubResource( 5 )
 expand = true
 stretch_mode = 6
 
-[node name="Star4" type="TextureRect" parent="NinePatchRect/MarginContainer/LevelContainer/TopLevels/Level3/Stars2"]
-margin_left = 105.0
-margin_right = 136.0
+[node name="Star4" type="TextureRect" parent="NinePatchRect/MarginContainer/LevelContainer/TopLevels/Level3/Block/Stars"]
+margin_left = 60.0
+margin_right = 76.0
 margin_bottom = 20.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -459,9 +425,9 @@ texture = SubResource( 5 )
 expand = true
 stretch_mode = 6
 
-[node name="Star5" type="TextureRect" parent="NinePatchRect/MarginContainer/LevelContainer/TopLevels/Level3/Stars2"]
-margin_left = 140.0
-margin_right = 172.0
+[node name="Star5" type="TextureRect" parent="NinePatchRect/MarginContainer/LevelContainer/TopLevels/Level3/Block/Stars"]
+margin_left = 80.0
+margin_right = 96.0
 margin_bottom = 20.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -471,68 +437,75 @@ stretch_mode = 6
 
 [node name="BottomLevels" type="HBoxContainer" parent="NinePatchRect/MarginContainer/LevelContainer"]
 margin_top = 202.0
-margin_right = 524.0
-margin_bottom = 379.0
+margin_right = 440.0
+margin_bottom = 363.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
+alignment = 1
 
-[node name="Level4" type="VBoxContainer" parent="NinePatchRect/MarginContainer/LevelContainer/BottomLevels"]
+[node name="Level4" type="HBoxContainer" parent="NinePatchRect/MarginContainer/LevelContainer/BottomLevels"]
 editor/display_folded = true
 visible = false
-margin_right = 524.0
-margin_bottom = 177.0
+margin_left = 158.0
+margin_right = 293.0
+margin_bottom = 164.0
+
+[node name="Hand" type="TextureRect" parent="NinePatchRect/MarginContainer/LevelContainer/BottomLevels/Level4"]
+margin_right = 35.0
+margin_bottom = 164.0
+texture = ExtResource( 5 )
+stretch_mode = 4
+
+[node name="Block" type="VBoxContainer" parent="NinePatchRect/MarginContainer/LevelContainer/BottomLevels/Level4"]
+margin_left = 39.0
+margin_right = 135.0
+margin_bottom = 164.0
+rect_min_size = Vector2( 96, 0 )
 size_flags_horizontal = 3
 size_flags_vertical = 3
+alignment = 1
 
-[node name="TextureButton" type="TextureButton" parent="NinePatchRect/MarginContainer/LevelContainer/BottomLevels/Level4"]
-visible = false
-margin_right = 420.0
-size_flags_horizontal = 3
-size_flags_vertical = 3
-texture_normal = ExtResource( 24 )
-texture_focused = SubResource( 8 )
-expand = true
-stretch_mode = 5
-
-[node name="TextureRect5" type="TextureRect" parent="NinePatchRect/MarginContainer/LevelContainer/BottomLevels/Level4"]
-margin_right = 128.0
-margin_bottom = 128.0
-rect_min_size = Vector2( 128, 128 )
+[node name="Unselected" type="TextureRect" parent="NinePatchRect/MarginContainer/LevelContainer/BottomLevels/Level4/Block"]
+margin_top = 4.0
+margin_right = 96.0
+margin_bottom = 116.0
+rect_min_size = Vector2( 96, 112 )
 size_flags_horizontal = 0
 size_flags_vertical = 0
-texture = ExtResource( 27 )
+texture = ExtResource( 15 )
 stretch_mode = 6
 
-[node name="Selected" type="TextureRect" parent="NinePatchRect/MarginContainer/LevelContainer/BottomLevels/Level4"]
+[node name="Selected" type="TextureRect" parent="NinePatchRect/MarginContainer/LevelContainer/BottomLevels/Level4/Block"]
 visible = false
-margin_top = 132.0
-margin_right = 128.0
-margin_bottom = 260.0
-rect_min_size = Vector2( 128, 128 )
+margin_top = 116.0
+margin_right = 96.0
+margin_bottom = 228.0
+rect_min_size = Vector2( 96, 112 )
 size_flags_horizontal = 0
 size_flags_vertical = 0
-texture = ExtResource( 28 )
+texture = ExtResource( 16 )
 stretch_mode = 6
 
-[node name="Label4" type="Label" parent="NinePatchRect/MarginContainer/LevelContainer/BottomLevels/Level4"]
-margin_top = 132.0
-margin_right = 524.0
-margin_bottom = 149.0
+[node name="Label4" type="Label" parent="NinePatchRect/MarginContainer/LevelContainer/BottomLevels/Level4/Block"]
+margin_top = 120.0
+margin_right = 96.0
+margin_bottom = 135.0
 size_flags_vertical = 1
 custom_fonts/font = SubResource( 3 )
 text = "Horseback"
 align = 1
 autowrap = true
 
-[node name="Stars3" type="HBoxContainer" parent="NinePatchRect/MarginContainer/LevelContainer/BottomLevels/Level4"]
+[node name="Stars" type="HBoxContainer" parent="NinePatchRect/MarginContainer/LevelContainer/BottomLevels/Level4/Block"]
 editor/display_folded = true
-margin_top = 153.0
-margin_right = 524.0
-margin_bottom = 173.0
+margin_top = 139.0
+margin_right = 96.0
+margin_bottom = 159.0
 rect_min_size = Vector2( 0, 20 )
+alignment = 1
 
-[node name="Star1" type="TextureRect" parent="NinePatchRect/MarginContainer/LevelContainer/BottomLevels/Level4/Stars3"]
-margin_right = 101.0
+[node name="Star1" type="TextureRect" parent="NinePatchRect/MarginContainer/LevelContainer/BottomLevels/Level4/Block/Stars"]
+margin_right = 16.0
 margin_bottom = 20.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -540,9 +513,9 @@ texture = SubResource( 5 )
 expand = true
 stretch_mode = 6
 
-[node name="Star2" type="TextureRect" parent="NinePatchRect/MarginContainer/LevelContainer/BottomLevels/Level4/Stars3"]
-margin_left = 105.0
-margin_right = 206.0
+[node name="Star2" type="TextureRect" parent="NinePatchRect/MarginContainer/LevelContainer/BottomLevels/Level4/Block/Stars"]
+margin_left = 20.0
+margin_right = 36.0
 margin_bottom = 20.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -550,9 +523,9 @@ texture = SubResource( 5 )
 expand = true
 stretch_mode = 6
 
-[node name="Star3" type="TextureRect" parent="NinePatchRect/MarginContainer/LevelContainer/BottomLevels/Level4/Stars3"]
-margin_left = 210.0
-margin_right = 311.0
+[node name="Star3" type="TextureRect" parent="NinePatchRect/MarginContainer/LevelContainer/BottomLevels/Level4/Block/Stars"]
+margin_left = 40.0
+margin_right = 56.0
 margin_bottom = 20.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -560,9 +533,9 @@ texture = SubResource( 5 )
 expand = true
 stretch_mode = 6
 
-[node name="Star4" type="TextureRect" parent="NinePatchRect/MarginContainer/LevelContainer/BottomLevels/Level4/Stars3"]
-margin_left = 315.0
-margin_right = 416.0
+[node name="Star4" type="TextureRect" parent="NinePatchRect/MarginContainer/LevelContainer/BottomLevels/Level4/Block/Stars"]
+margin_left = 60.0
+margin_right = 76.0
 margin_bottom = 20.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -570,9 +543,9 @@ texture = SubResource( 5 )
 expand = true
 stretch_mode = 6
 
-[node name="Star5" type="TextureRect" parent="NinePatchRect/MarginContainer/LevelContainer/BottomLevels/Level4/Stars3"]
-margin_left = 420.0
-margin_right = 524.0
+[node name="Star5" type="TextureRect" parent="NinePatchRect/MarginContainer/LevelContainer/BottomLevels/Level4/Block/Stars"]
+margin_left = 80.0
+margin_right = 96.0
 margin_bottom = 20.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -580,49 +553,51 @@ texture = SubResource( 5 )
 expand = true
 stretch_mode = 6
 
-[node name="Level5" type="VBoxContainer" parent="NinePatchRect/MarginContainer/LevelContainer/BottomLevels"]
+[node name="Level5" type="HBoxContainer" parent="NinePatchRect/MarginContainer/LevelContainer/BottomLevels"]
 editor/display_folded = true
 visible = false
-margin_left = 264.0
-margin_right = 524.0
-margin_bottom = 177.0
+margin_left = 228.0
+margin_right = 363.0
+margin_bottom = 173.0
+
+[node name="Hand" type="TextureRect" parent="NinePatchRect/MarginContainer/LevelContainer/BottomLevels/Level5"]
+margin_right = 35.0
+margin_bottom = 173.0
+texture = ExtResource( 5 )
+stretch_mode = 4
+
+[node name="Block" type="VBoxContainer" parent="NinePatchRect/MarginContainer/LevelContainer/BottomLevels/Level5"]
+margin_left = 39.0
+margin_right = 135.0
+margin_bottom = 173.0
+rect_min_size = Vector2( 96, 0 )
 size_flags_horizontal = 3
 size_flags_vertical = 3
+alignment = 1
 
-[node name="TextureButton" type="TextureButton" parent="NinePatchRect/MarginContainer/LevelContainer/BottomLevels/Level5"]
-visible = false
-margin_right = 218.0
-margin_bottom = 128.0
-size_flags_horizontal = 3
-size_flags_vertical = 3
-texture_normal = ExtResource( 29 )
-texture_focused = ExtResource( 29 )
-expand = true
-stretch_mode = 5
-
-[node name="TextureRect6" type="TextureRect" parent="NinePatchRect/MarginContainer/LevelContainer/BottomLevels/Level5"]
-margin_right = 128.0
-margin_bottom = 128.0
-rect_min_size = Vector2( 128, 128 )
+[node name="Unselected" type="TextureRect" parent="NinePatchRect/MarginContainer/LevelContainer/BottomLevels/Level5/Block"]
+margin_right = 96.0
+margin_bottom = 112.0
+rect_min_size = Vector2( 96, 112 )
 size_flags_horizontal = 0
 size_flags_vertical = 0
-texture = ExtResource( 30 )
+texture = ExtResource( 17 )
 stretch_mode = 6
 
-[node name="Selected" type="TextureRect" parent="NinePatchRect/MarginContainer/LevelContainer/BottomLevels/Level5"]
+[node name="Selected" type="TextureRect" parent="NinePatchRect/MarginContainer/LevelContainer/BottomLevels/Level5/Block"]
 visible = false
-margin_top = 136.0
-margin_right = 128.0
-margin_bottom = 264.0
-rect_min_size = Vector2( 128, 128 )
+margin_top = 116.0
+margin_right = 96.0
+margin_bottom = 228.0
+rect_min_size = Vector2( 96, 112 )
 size_flags_horizontal = 0
 size_flags_vertical = 0
-texture = ExtResource( 31 )
+texture = ExtResource( 18 )
 stretch_mode = 6
 
-[node name="Label5" type="Label" parent="NinePatchRect/MarginContainer/LevelContainer/BottomLevels/Level5"]
-margin_top = 132.0
-margin_right = 260.0
+[node name="Label5" type="Label" parent="NinePatchRect/MarginContainer/LevelContainer/BottomLevels/Level5/Block"]
+margin_top = 116.0
+margin_right = 96.0
 margin_bottom = 149.0
 size_flags_vertical = 1
 custom_fonts/font = SubResource( 3 )
@@ -630,15 +605,15 @@ text = "Flying Trapeze"
 align = 1
 autowrap = true
 
-[node name="Stars4" type="HBoxContainer" parent="NinePatchRect/MarginContainer/LevelContainer/BottomLevels/Level5"]
+[node name="Stars" type="HBoxContainer" parent="NinePatchRect/MarginContainer/LevelContainer/BottomLevels/Level5/Block"]
 editor/display_folded = true
 margin_top = 153.0
-margin_right = 260.0
+margin_right = 96.0
 margin_bottom = 173.0
 rect_min_size = Vector2( 0, 20 )
 
-[node name="Star1" type="TextureRect" parent="NinePatchRect/MarginContainer/LevelContainer/BottomLevels/Level5/Stars4"]
-margin_right = 48.0
+[node name="Star1" type="TextureRect" parent="NinePatchRect/MarginContainer/LevelContainer/BottomLevels/Level5/Block/Stars"]
+margin_right = 16.0
 margin_bottom = 20.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -646,9 +621,9 @@ texture = SubResource( 5 )
 expand = true
 stretch_mode = 6
 
-[node name="Star2" type="TextureRect" parent="NinePatchRect/MarginContainer/LevelContainer/BottomLevels/Level5/Stars4"]
-margin_left = 52.0
-margin_right = 100.0
+[node name="Star2" type="TextureRect" parent="NinePatchRect/MarginContainer/LevelContainer/BottomLevels/Level5/Block/Stars"]
+margin_left = 20.0
+margin_right = 36.0
 margin_bottom = 20.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -656,9 +631,9 @@ texture = SubResource( 5 )
 expand = true
 stretch_mode = 6
 
-[node name="Star3" type="TextureRect" parent="NinePatchRect/MarginContainer/LevelContainer/BottomLevels/Level5/Stars4"]
-margin_left = 104.0
-margin_right = 152.0
+[node name="Star3" type="TextureRect" parent="NinePatchRect/MarginContainer/LevelContainer/BottomLevels/Level5/Block/Stars"]
+margin_left = 40.0
+margin_right = 56.0
 margin_bottom = 20.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -666,9 +641,9 @@ texture = SubResource( 5 )
 expand = true
 stretch_mode = 6
 
-[node name="Star4" type="TextureRect" parent="NinePatchRect/MarginContainer/LevelContainer/BottomLevels/Level5/Stars4"]
-margin_left = 156.0
-margin_right = 204.0
+[node name="Star4" type="TextureRect" parent="NinePatchRect/MarginContainer/LevelContainer/BottomLevels/Level5/Block/Stars"]
+margin_left = 60.0
+margin_right = 76.0
 margin_bottom = 20.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -676,9 +651,9 @@ texture = SubResource( 5 )
 expand = true
 stretch_mode = 6
 
-[node name="Star5" type="TextureRect" parent="NinePatchRect/MarginContainer/LevelContainer/BottomLevels/Level5/Stars4"]
-margin_left = 208.0
-margin_right = 260.0
+[node name="Star5" type="TextureRect" parent="NinePatchRect/MarginContainer/LevelContainer/BottomLevels/Level5/Block/Stars"]
+margin_left = 80.0
+margin_right = 96.0
 margin_bottom = 20.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -686,64 +661,67 @@ texture = SubResource( 5 )
 expand = true
 stretch_mode = 6
 
-[node name="LevelN" type="VBoxContainer" parent="NinePatchRect/MarginContainer/LevelContainer/BottomLevels"]
-editor/display_folded = true
+[node name="LevelN" type="HBoxContainer" parent="NinePatchRect/MarginContainer/LevelContainer/BottomLevels"]
 visible = false
-margin_left = 352.0
-margin_right = 524.0
-margin_bottom = 177.0
+margin_left = 297.0
+margin_right = 432.0
+margin_bottom = 173.0
+
+[node name="Hand" type="TextureRect" parent="NinePatchRect/MarginContainer/LevelContainer/BottomLevels/LevelN"]
+margin_right = 35.0
+margin_bottom = 173.0
+texture = ExtResource( 5 )
+stretch_mode = 4
+
+[node name="Block" type="VBoxContainer" parent="NinePatchRect/MarginContainer/LevelContainer/BottomLevels/LevelN"]
+margin_left = 39.0
+margin_right = 135.0
+margin_bottom = 173.0
+rect_min_size = Vector2( 96, 0 )
 size_flags_horizontal = 3
 size_flags_vertical = 3
+alignment = 1
 
-[node name="TextureButton" type="TextureButton" parent="NinePatchRect/MarginContainer/LevelContainer/BottomLevels/LevelN"]
-margin_right = 172.0
-size_flags_horizontal = 3
-size_flags_vertical = 3
-texture_normal = ExtResource( 32 )
-expand = true
-stretch_mode = 5
-
-[node name="TextureRect7" type="TextureRect" parent="NinePatchRect/MarginContainer/LevelContainer/BottomLevels/LevelN"]
-margin_top = 4.0
-margin_right = 128.0
-margin_bottom = 132.0
-rect_min_size = Vector2( 128, 128 )
+[node name="Unselected" type="TextureRect" parent="NinePatchRect/MarginContainer/LevelContainer/BottomLevels/LevelN/Block"]
+margin_top = 9.0
+margin_right = 96.0
+margin_bottom = 121.0
+rect_min_size = Vector2( 96, 112 )
 size_flags_horizontal = 0
 size_flags_vertical = 0
-texture = ExtResource( 33 )
+texture = ExtResource( 19 )
 stretch_mode = 6
 
-[node name="Selected" type="TextureRect" parent="NinePatchRect/MarginContainer/LevelContainer/BottomLevels/LevelN"]
+[node name="Selected" type="TextureRect" parent="NinePatchRect/MarginContainer/LevelContainer/BottomLevels/LevelN/Block"]
 visible = false
-margin_left = 198.0
-margin_top = -181.0
-margin_right = 326.0
-margin_bottom = -53.0
-rect_min_size = Vector2( 128, 128 )
+margin_top = 116.0
+margin_right = 96.0
+margin_bottom = 228.0
+rect_min_size = Vector2( 96, 112 )
 size_flags_horizontal = 0
 size_flags_vertical = 0
-texture = ExtResource( 34 )
+texture = ExtResource( 20 )
 stretch_mode = 6
 
-[node name="Label6" type="Label" parent="NinePatchRect/MarginContainer/LevelContainer/BottomLevels/LevelN"]
-margin_top = 136.0
-margin_right = 172.0
-margin_bottom = 153.0
+[node name="Label6" type="Label" parent="NinePatchRect/MarginContainer/LevelContainer/BottomLevels/LevelN/Block"]
+margin_top = 125.0
+margin_right = 96.0
+margin_bottom = 140.0
 size_flags_vertical = 1
 custom_fonts/font = SubResource( 3 )
 text = "Trampoline"
 align = 1
 autowrap = true
 
-[node name="Stars5" type="HBoxContainer" parent="NinePatchRect/MarginContainer/LevelContainer/BottomLevels/LevelN"]
+[node name="Stars" type="HBoxContainer" parent="NinePatchRect/MarginContainer/LevelContainer/BottomLevels/LevelN/Block"]
 editor/display_folded = true
-margin_top = 157.0
-margin_right = 172.0
-margin_bottom = 177.0
+margin_top = 144.0
+margin_right = 96.0
+margin_bottom = 164.0
 rect_min_size = Vector2( 0, 20 )
 
-[node name="Star1" type="TextureRect" parent="NinePatchRect/MarginContainer/LevelContainer/BottomLevels/LevelN/Stars5"]
-margin_right = 31.0
+[node name="Star1" type="TextureRect" parent="NinePatchRect/MarginContainer/LevelContainer/BottomLevels/LevelN/Block/Stars"]
+margin_right = 16.0
 margin_bottom = 20.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -751,9 +729,9 @@ texture = SubResource( 5 )
 expand = true
 stretch_mode = 6
 
-[node name="Star2" type="TextureRect" parent="NinePatchRect/MarginContainer/LevelContainer/BottomLevels/LevelN/Stars5"]
-margin_left = 35.0
-margin_right = 66.0
+[node name="Star2" type="TextureRect" parent="NinePatchRect/MarginContainer/LevelContainer/BottomLevels/LevelN/Block/Stars"]
+margin_left = 20.0
+margin_right = 36.0
 margin_bottom = 20.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -761,9 +739,9 @@ texture = SubResource( 5 )
 expand = true
 stretch_mode = 6
 
-[node name="Star3" type="TextureRect" parent="NinePatchRect/MarginContainer/LevelContainer/BottomLevels/LevelN/Stars5"]
-margin_left = 70.0
-margin_right = 101.0
+[node name="Star3" type="TextureRect" parent="NinePatchRect/MarginContainer/LevelContainer/BottomLevels/LevelN/Block/Stars"]
+margin_left = 40.0
+margin_right = 56.0
 margin_bottom = 20.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -771,9 +749,9 @@ texture = SubResource( 5 )
 expand = true
 stretch_mode = 6
 
-[node name="Star4" type="TextureRect" parent="NinePatchRect/MarginContainer/LevelContainer/BottomLevels/LevelN/Stars5"]
-margin_left = 105.0
-margin_right = 136.0
+[node name="Star4" type="TextureRect" parent="NinePatchRect/MarginContainer/LevelContainer/BottomLevels/LevelN/Block/Stars"]
+margin_left = 60.0
+margin_right = 76.0
 margin_bottom = 20.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -781,9 +759,9 @@ texture = SubResource( 5 )
 expand = true
 stretch_mode = 6
 
-[node name="Star5" type="TextureRect" parent="NinePatchRect/MarginContainer/LevelContainer/BottomLevels/LevelN/Stars5"]
-margin_left = 140.0
-margin_right = 172.0
+[node name="Star5" type="TextureRect" parent="NinePatchRect/MarginContainer/LevelContainer/BottomLevels/LevelN/Block/Stars"]
+margin_left = 80.0
+margin_right = 96.0
 margin_bottom = 20.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -791,16 +769,23 @@ texture = SubResource( 5 )
 expand = true
 stretch_mode = 6
 
-[node name="Back" type="Label" parent="NinePatchRect/MarginContainer/LevelContainer"]
-margin_top = 383.0
-margin_right = 524.0
+[node name="Back" type="HBoxContainer" parent="NinePatchRect/MarginContainer/LevelContainer"]
+margin_top = 367.0
+margin_right = 440.0
 margin_bottom = 400.0
-custom_fonts/font = SubResource( 3 )
+alignment = 1
+
+[node name="Hand" type="TextureRect" parent="NinePatchRect/MarginContainer/LevelContainer/Back"]
+margin_left = 164.0
+margin_right = 199.0
+margin_bottom = 33.0
+texture = ExtResource( 5 )
+stretch_mode = 4
+
+[node name="Back" type="Label" parent="NinePatchRect/MarginContainer/LevelContainer/Back"]
+margin_left = 203.0
+margin_right = 275.0
+margin_bottom = 33.0
+custom_fonts/font = SubResource( 6 )
 text = "Back"
 align = 1
-[connection signal="button_down" from="NinePatchRect/MarginContainer/LevelContainer/TopLevels/Level1/TextureButton" to="." method="_on_Level1_button_down"]
-[connection signal="button_down" from="NinePatchRect/MarginContainer/LevelContainer/TopLevels/Level2/TextureButton" to="." method="_on_Level2_button_down"]
-[connection signal="button_down" from="NinePatchRect/MarginContainer/LevelContainer/TopLevels/Level3/TextureButton" to="." method="_on_Level3_button_down"]
-[connection signal="button_down" from="NinePatchRect/MarginContainer/LevelContainer/BottomLevels/Level4/TextureButton" to="." method="_on_Level4_button_down"]
-[connection signal="button_down" from="NinePatchRect/MarginContainer/LevelContainer/BottomLevels/Level5/TextureButton" to="." method="_on_Level5_button_down"]
-[connection signal="button_down" from="NinePatchRect/MarginContainer/LevelContainer/BottomLevels/LevelN/TextureButton" to="." method="_on_LevelN_button_down"]
