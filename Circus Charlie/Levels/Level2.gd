@@ -12,7 +12,85 @@ const MONKEY_HIGH_SPEED = 2
 const PLAYER_MINIMAL_DISTANCE = 500
 
 var monkey_index = -1
-var monkey_pattern = [6.2, 10.2, 8.5, 10.1, 7.4, 11.8, 10.7, 5, 6.2, 10.2, 10.1, 10.7, 5, 4, 8.5]
+#var monkey_pattern = [6.2, 10.2, 8.5, 10.1, 7.4, 11.8, 10.7, 5, 6.2, 10.2, 10.1, 10.7, 5, 4, 8.5]
+var monkey_pattern: Array = []
+
+# Start
+var test_index = 14
+var level_dif: Dictionary = \
+{
+  "level_1": [
+	6.2,	# 1
+	10.2,	# 2
+	8.5,	# 3
+	10.1,	# 4
+	7.4,	# 5
+	11.8,	# 6
+	10.7,	# 7
+	5,		# 8
+	6.2,	# 9
+	10.2,	# 10
+	10.1,	# 11
+	10.7,	# 12
+	5,		# 13
+	4,		# 14
+	8.5		# 15
+  ],
+  "level_2": [
+	6.2,	# 1
+	10.2,	# 2
+	8.5,	# 3
+	10.1,	# 4
+	7.4,	# 5
+	11.8,	# 6
+	10.7,	# 7
+	5,		# 8
+	6.2,	# 9
+	10.2,	# 10
+	10.1,	# 11
+	10.7,	# 12
+	5,		# 13
+	4,		# 14
+	8.5		# 15
+  ],
+  "level_3": [
+	6.2,	# 1
+	10.2,	# 2
+	8.5,	# 3
+	10.1,	# 4
+	7.4,	# 5
+	11.8,	# 6
+	10.7,	# 7
+	5,		# 8
+	6.2,	# 9
+	10.2,	# 10
+	10.1,	# 11
+	10.7,	# 12
+	5,		# 13
+	4,		# 14
+	8.5		# 15
+  ],
+  "level_4": [
+	6.2,	# 1
+	10.2,	# 2
+	8.5,	# 3
+	10.1,	# 4
+	7.4,	# 5
+	11.8,	# 6
+	10.7,	# 7
+	5,		# 8
+	6.2,	# 9
+	10.2,	# 10
+	10.1,	# 11
+	10.7,	# 12
+	5,		# 13
+	4,		# 14
+	8.5		# 15
+  ]
+}
+# End
+
+
 var show_cyan_monkey = false
 var last_monkey_name = ""
 
@@ -23,6 +101,7 @@ var bonus_earned := false
 var bonus_point := 0
 
 func _ready():
+	monkey_pattern = get_level_difficulty()
 	$Player/CollisionShape2D.shape.extents = Vector2(15, 9)
 	set_timer_env()
 	show_cyan_monkey = global.stage_2_first_time_lauched
@@ -37,6 +116,8 @@ func _ready():
 
 	if global.stage_2_current_monkey_index >= 0:
 		monkey_index = global.stage_2_current_monkey_index - 1
+	# just for test purposes
+	# monkey_index = test_index - 1
 	spawn_monkey()
 
 
@@ -208,3 +289,19 @@ func _on_PlatformSensor_body_entered(body):
 	if body.name == global.PLAYER_NAME:
 		$HighPlatform/PlatformTable/CollisionShape2D.disabled = false
 		$HighPlatform/PlatformTop/CollisionShape2D2.disabled = false
+
+
+func get_level_difficulty() -> Array:
+	var level: Array
+	match global.level_difficulty:
+		global.LEVEL_1:
+			level = level_dif["level_1"]
+		global.LEVEL_2:
+			level = level_dif["level_2"]
+		global.LEVEL_3:
+			level = level_dif["level_3"]
+		global.LEVEL_4:
+			level = level_dif["level_4"]
+		_:
+			level = level_dif["level_4"]
+	return level
