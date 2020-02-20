@@ -3,6 +3,9 @@ class_name Trampoline
 
 var bounce_enabled: bool = true
 
+func _ready():
+	$BounceSound.volume_db = global.STANDARD_VOLUME
+
 
 func _on_trampoline_body_entered(body: PhysicsBody2D) -> void:
 	if body.name == global.PLAYER_NAME and bounce_enabled:

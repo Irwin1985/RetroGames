@@ -45,6 +45,7 @@ var level_difficulty := 1 setget set_level_difficulty
 var PlatformFactory: RampFactory
 
 var game_mode: int = FREE_MODE
+var game_win: bool = false
 
 var KEY_CHALLENGE_MODE : String = "CHALLENGE_MODE"
 var KEY_ENDURANCE_MODE : String = "ENDURANCE_MODE"
@@ -69,6 +70,34 @@ func unlock(key : String) -> void:
 
 func is_unlocked(key : String) -> bool:
 	return unlockables.has(key) and unlockables[key]
+
+
+func unlock_star() -> void:
+	var key: String
+	match current_level:
+		0:
+			key = KEY_CHALLENGE_LEVEL1
+		1:
+			key = KEY_CHALLENGE_LEVEL2
+		2:
+			key = KEY_CHALLENGE_LEVEL3
+		3:
+			key = KEY_CHALLENGE_LEVEL4
+		4: 
+			key = KEY_CHALLENGE_LEVEL5
+		5:
+			key = KEY_CHALLENGE_LEVELN
+	key = "STARS_" + key
+	if not unlockables.has(key) or unlockables[key] < level_difficulty:
+		unlockables[key] = level_difficulty
+
+
+func unlocked_stars(level_key : String) -> int:
+	var key : String = "STARS_" + level_key
+	var stars : int = 0
+	if unlockables.has(key):
+		stars = unlockables[key]
+	return stars
 
 
 func get_HudInstance(in_level_hud: bool = true) -> GameHUD:
@@ -152,6 +181,7 @@ func restart_game(first_level: int = 0):
 	hi_score = 0
 	lives = 4
 	is_game_over = false
+	game_win = false
 	current_level = first_level
 	can_pause = false
 	load_game()
@@ -161,6 +191,9 @@ func restart_game(first_level: int = 0):
 
 func start_next_level() -> void:
 	if game_mode == CHALLENGE_MODE:
+		unlock_star()
+		if level_difficulty == 5:
+			game_win = true
 		set_level_difficulty(level_difficulty + 1)
 	else:
 		current_level += 1
