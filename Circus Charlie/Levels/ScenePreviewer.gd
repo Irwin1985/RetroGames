@@ -11,17 +11,20 @@ func _ready():
 	
 	if !global.is_game_over:
 		if global.game_mode == global.CHALLENGE_MODE:
-			match global.level_difficulty:
-				1:
-					$StageCaption/StageLabel.text = "EASY"
-				2:
-					$StageCaption/StageLabel.text = "NORMAL"
-				3:
-					$StageCaption/StageLabel.text = "HARD"
-				4:
-					$StageCaption/StageLabel.text = "HARDER"
-				5:
-					$StageCaption/StageLabel.text = "EXTREME"
+			if global.game_win:
+				$StageCaption/StageLabel.text = "Congratulations!\nYou Win!"
+			else:
+				match global.level_difficulty:
+					1:
+						$StageCaption/StageLabel.text = "EASY"
+					2:
+						$StageCaption/StageLabel.text = "NORMAL"
+					3:
+						$StageCaption/StageLabel.text = "HARD"
+					4:
+						$StageCaption/StageLabel.text = "HARDER"
+					5:
+						$StageCaption/StageLabel.text = "EXTREME"
 		else:
 			$StageCaption/StageLabel.text = "STAGE %02d" % (global.current_level + 1)
 			if global.game_mode == global.CLASSIC_MODE:
@@ -41,7 +44,10 @@ func _ready():
 		yield(get_tree().create_timer(2), "timeout")
 		while get_tree().paused:
 			yield(get_tree().create_timer(0.25), "timeout")
-		global.show_level()
+		if not global.game_win:
+			global.show_level()
+		else:
+			get_tree().call_deferred("change_scene", "res://Menu/ChallengeMenu.tscn")
 	else: # Game Over
 		$StageCaption/StageLabel.text = "GAME OVER"
 		yield(get_tree().create_timer(4), "timeout")

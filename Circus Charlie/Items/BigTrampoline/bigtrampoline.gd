@@ -8,6 +8,10 @@ var bounce_count: int = 0
 var checkpoint: int = 0
 
 
+func _ready():
+	$Bonus/BonusSound.volume_db = global.STANDARD_VOLUME
+
+
 func put_bonus():
 	$Bonus.set_visible(true)
 	$Bonus/CollisionShape2D.set_disabled(false)

@@ -56,10 +56,13 @@ func _input(event):
 				move_hand()
 			elif event.is_action_pressed("ui_up"):
 				selected_option = (selected_option - 1) % len(options)
+				if selected_option < 0:
+					selected_option += len(options)
 				move_hand()
 			elif event.is_action_pressed("debug_mode"):
 				if selected_option == option.CLASSIC_MODE:
 					$Portrait/FreeMode/LevelSelect.visible = true
+					$Portrait/FreeMode/LevelSelect.text = "LEVEL %02d" % level_select
 					menu = menu_type.SELECT_LEVEL
 		menu_type.SELECT_LEVEL:
 			if event.is_action_pressed("ui_accept"):
@@ -95,8 +98,12 @@ func _on_StartSound_finished():
 		option.CHALLENGE_MODE:
 			get_tree().call_deferred("change_scene", "res://Menu/ChallengeMenu.tscn")
 		option.ENDURANCE_MODE:
+			menu = menu_type.MAIN_MENU
+			blink_timer.stop()
 			pass
 		option.OPTIONS:
+			menu = menu_type.MAIN_MENU
+			blink_timer.stop()
 			pass
 		option.EXIT:
 			get_tree().quit()

@@ -3,10 +3,10 @@
 [ext_resource path="res://Control/TouchMenu.gd" type="Script" id=1]
 [ext_resource path="res://Control/start.png" type="Texture" id=2]
 [ext_resource path="res://Control/start_pressed.png" type="Texture" id=3]
-[ext_resource path="res://Control/left.png" type="Texture" id=4]
-[ext_resource path="res://Control/left_pressed.png" type="Texture" id=5]
-[ext_resource path="res://Control/right.png" type="Texture" id=6]
-[ext_resource path="res://Control/right_pressed.png" type="Texture" id=7]
+[ext_resource path="res://Control/up.png" type="Texture" id=4]
+[ext_resource path="res://Control/up_pressed.png" type="Texture" id=5]
+[ext_resource path="res://Control/down.png" type="Texture" id=6]
+[ext_resource path="res://Control/down_pressed.png" type="Texture" id=7]
 
 [node name="TouchMenu" type="CanvasLayer"]
 script = ExtResource( 1 )

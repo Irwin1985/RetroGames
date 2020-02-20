@@ -33,12 +33,12 @@ frame_2/delay_sec = 0.0
 [sub_resource type="DynamicFontData" id=2]
 font_path = "res://assets/ARCADECLASSIC.TTF"
 
-[sub_resource type="DynamicFont" id=6]
+[sub_resource type="DynamicFont" id=3]
 size = 32
 extra_spacing_space = 13
 font_data = SubResource( 2 )
 
-[sub_resource type="DynamicFont" id=3]
+[sub_resource type="DynamicFont" id=4]
 size = 14
 extra_spacing_space = 13
 font_data = SubResource( 2 )
@@ -96,12 +96,11 @@ alignment = 1
 [node name="Title" type="Label" parent="NinePatchRect/MarginContainer/LevelContainer"]
 margin_right = 440.0
 margin_bottom = 33.0
-custom_fonts/font = SubResource( 6 )
+custom_fonts/font = SubResource( 3 )
 text = "Challenge Mode"
 align = 1
 
 [node name="TopLevels" type="HBoxContainer" parent="NinePatchRect/MarginContainer/LevelContainer"]
-editor/display_folded = true
 margin_top = 37.0
 margin_right = 440.0
 margin_bottom = 198.0
@@ -111,31 +110,30 @@ alignment = 1
 
 [node name="Level1" type="HBoxContainer" parent="NinePatchRect/MarginContainer/LevelContainer/TopLevels"]
 editor/display_folded = true
-visible = false
-margin_left = 158.0
-margin_right = 293.0
-margin_bottom = 164.0
+margin_left = 152.0
+margin_right = 287.0
+margin_bottom = 161.0
 alignment = 1
 
 [node name="Hand" type="TextureRect" parent="NinePatchRect/MarginContainer/LevelContainer/TopLevels/Level1"]
 margin_right = 35.0
-margin_bottom = 164.0
+margin_bottom = 161.0
 texture = ExtResource( 5 )
 stretch_mode = 4
 
 [node name="Block" type="VBoxContainer" parent="NinePatchRect/MarginContainer/LevelContainer/TopLevels/Level1"]
 margin_left = 39.0
 margin_right = 135.0
-margin_bottom = 164.0
+margin_bottom = 161.0
 rect_min_size = Vector2( 96, 0 )
 size_flags_horizontal = 3
 size_flags_vertical = 3
 alignment = 1
 
 [node name="Unselected" type="TextureRect" parent="NinePatchRect/MarginContainer/LevelContainer/TopLevels/Level1/Block"]
-margin_top = 4.0
+margin_top = 3.0
 margin_right = 96.0
-margin_bottom = 116.0
+margin_bottom = 115.0
 rect_min_size = Vector2( 96, 112 )
 size_flags_horizontal = 0
 size_flags_vertical = 0
@@ -154,22 +152,22 @@ texture = ExtResource( 7 )
 stretch_mode = 6
 
 [node name="Label" type="Label" parent="NinePatchRect/MarginContainer/LevelContainer/TopLevels/Level1/Block"]
-margin_top = 120.0
+margin_top = 119.0
 margin_right = 96.0
-margin_bottom = 135.0
+margin_bottom = 134.0
 rect_min_size = Vector2( 96, 0 )
 size_flags_horizontal = 0
 size_flags_vertical = 0
-custom_fonts/font = SubResource( 3 )
+custom_fonts/font = SubResource( 4 )
 text = "Fire Rings"
 align = 1
 autowrap = true
 
 [node name="Stars" type="HBoxContainer" parent="NinePatchRect/MarginContainer/LevelContainer/TopLevels/Level1/Block"]
 editor/display_folded = true
-margin_top = 139.0
+margin_top = 138.0
 margin_right = 96.0
-margin_bottom = 159.0
+margin_bottom = 158.0
 rect_min_size = Vector2( 0, 20 )
 alignment = 1
 
@@ -236,6 +234,7 @@ texture = ExtResource( 5 )
 stretch_mode = 4
 
 [node name="Block" type="VBoxContainer" parent="NinePatchRect/MarginContainer/LevelContainer/TopLevels/Level2"]
+editor/display_folded = true
 margin_left = 39.0
 margin_right = 135.0
 margin_bottom = 164.0
@@ -268,13 +267,12 @@ margin_top = 116.0
 margin_right = 96.0
 margin_bottom = 131.0
 size_flags_vertical = 1
-custom_fonts/font = SubResource( 3 )
+custom_fonts/font = SubResource( 4 )
 text = "Tight Rope"
 align = 1
 autowrap = true
 
 [node name="Stars" type="HBoxContainer" parent="NinePatchRect/MarginContainer/LevelContainer/TopLevels/Level2/Block"]
-editor/display_folded = true
 margin_top = 135.0
 margin_right = 96.0
 margin_bottom = 155.0
@@ -330,6 +328,7 @@ expand = true
 stretch_mode = 6
 
 [node name="Level3" type="HBoxContainer" parent="NinePatchRect/MarginContainer/LevelContainer/TopLevels"]
+editor/display_folded = true
 visible = false
 margin_left = 228.0
 margin_right = 363.0
@@ -374,7 +373,7 @@ margin_top = 116.0
 margin_right = 96.0
 margin_bottom = 131.0
 size_flags_vertical = 1
-custom_fonts/font = SubResource( 3 )
+custom_fonts/font = SubResource( 4 )
 text = "Ball Walk"
 align = 1
 autowrap = true
@@ -491,7 +490,7 @@ margin_top = 120.0
 margin_right = 96.0
 margin_bottom = 135.0
 size_flags_vertical = 1
-custom_fonts/font = SubResource( 3 )
+custom_fonts/font = SubResource( 4 )
 text = "Horseback"
 align = 1
 autowrap = true
@@ -600,7 +599,7 @@ margin_top = 116.0
 margin_right = 96.0
 margin_bottom = 149.0
 size_flags_vertical = 1
-custom_fonts/font = SubResource( 3 )
+custom_fonts/font = SubResource( 4 )
 text = "Flying Trapeze"
 align = 1
 autowrap = true
@@ -708,7 +707,7 @@ margin_top = 125.0
 margin_right = 96.0
 margin_bottom = 140.0
 size_flags_vertical = 1
-custom_fonts/font = SubResource( 3 )
+custom_fonts/font = SubResource( 4 )
 text = "Trampoline"
 align = 1
 autowrap = true
@@ -786,6 +785,6 @@ stretch_mode = 4
 margin_left = 203.0
 margin_right = 275.0
 margin_bottom = 33.0
-custom_fonts/font = SubResource( 6 )
+custom_fonts/font = SubResource( 3 )
 text = "Back"
 align = 1

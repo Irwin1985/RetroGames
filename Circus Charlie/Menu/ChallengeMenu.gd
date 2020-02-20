@@ -13,6 +13,7 @@ var selectable = [false, false, false, false, false, false, true]
 var selected: int = 0
 
 func _ready():
+# Show unlocked levels
 	if global.is_unlocked(global.KEY_CHALLENGE_LEVEL1):
 		level1.visible = true
 		selectable[0] = true
@@ -32,7 +33,25 @@ func _ready():
 	if global.is_unlocked(global.KEY_CHALLENGE_LEVELN):
 		leveln.visible = true
 		selectable[5] = true
+
+# Show unlocked stars
+	show_stars(level1, global.KEY_CHALLENGE_LEVEL1)
+	show_stars(level2, global.KEY_CHALLENGE_LEVEL2)
+	show_stars(level3, global.KEY_CHALLENGE_LEVEL3)
+	show_stars(level4, global.KEY_CHALLENGE_LEVEL4)
+	show_stars(level5, global.KEY_CHALLENGE_LEVEL5)
+	show_stars(leveln, global.KEY_CHALLENGE_LEVELN)
 	move_cursor()
+
+func show_stars(level: Node, challenge_key: String) -> void:
+	var unlocked_stars : int = global.unlocked_stars(challenge_key)
+	var star_count : int = 0
+	for star in level.get_node("Block/Stars").get_children():
+		star_count += 1
+		if star_count <= unlocked_stars:
+			star.visible = true
+		else:
+			star.visible = false
 
 
 func move_cursor():
