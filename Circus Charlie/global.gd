@@ -8,6 +8,24 @@ const PLAYER_NAME = "Player"
 const LION_NAME = "Lion"
 const IS_ALPHA_VERSION = true
 const LAST_LEVEL = 5
+
+const KEY_CLASSIC_MODE : String = "CLASSIC_MODE"
+const KEY_CHALLENGE_MODE : String = "CHALLENGE_MODE"
+const KEY_ENDURANCE_MODE : String = "ENDURANCE_MODE"
+const KEY_CHALLENGE_LEVEL1 : String = "CHALLENGE_LEVEL_1"
+const KEY_CHALLENGE_LEVEL2 : String = "CHALLENGE_LEVEL_2"
+const KEY_CHALLENGE_LEVEL3 : String = "CHALLENGE_LEVEL_3"
+const KEY_CHALLENGE_LEVEL4 : String = "CHALLENGE_LEVEL_4"
+const KEY_CHALLENGE_LEVEL5 : String = "CHALLENGE_LEVEL_5"
+const KEY_CHALLENGE_LEVELN : String = "CHALLENGE_LEVEL_N"
+
+const CHALLENGE_KEYS = [KEY_CHALLENGE_LEVEL1, 
+		KEY_CHALLENGE_LEVEL2,
+		KEY_CHALLENGE_LEVEL3,
+		KEY_CHALLENGE_LEVEL4,
+		KEY_CHALLENGE_LEVEL5,
+		KEY_CHALLENGE_LEVELN]
+
 enum {LEVEL_1 = 1, LEVEL_2 = 2, LEVEL_3 = 3, LEVEL_4 = 4} 
 #Game modes
 enum {CLASSIC_MODE = 1, FREE_MODE = 2, CHALLENGE_MODE = 3, ENDURANCE_MODE = 4}
@@ -24,6 +42,16 @@ var level_pattern : int = 0
 var player_score: int = 0
 var life_score_counter := 0
 var hi_score: int = 0
+var hiscores = {
+	KEY_CLASSIC_MODE: 0,
+	KEY_CHALLENGE_LEVEL1: 0,
+	KEY_CHALLENGE_LEVEL2: 0,
+	KEY_CHALLENGE_LEVEL3: 0,
+	KEY_CHALLENGE_LEVEL4: 0,
+	KEY_CHALLENGE_LEVEL5: 0,
+	KEY_CHALLENGE_LEVELN: 0,
+	KEY_ENDURANCE_MODE: 0
+}
 var lives: int = 4
 var is_game_over: bool = false
 var json_obj = {}
@@ -47,15 +75,6 @@ var PlatformFactory: RampFactory
 var game_mode: int = FREE_MODE
 var game_win: bool = false
 
-var KEY_CHALLENGE_MODE : String = "CHALLENGE_MODE"
-var KEY_ENDURANCE_MODE : String = "ENDURANCE_MODE"
-var KEY_CHALLENGE_LEVEL1 : String = "CHALLENGE_LEVEL_1"
-var KEY_CHALLENGE_LEVEL2 : String = "CHALLENGE_LEVEL_2"
-var KEY_CHALLENGE_LEVEL3 : String = "CHALLENGE_LEVEL_3"
-var KEY_CHALLENGE_LEVEL4 : String = "CHALLENGE_LEVEL_4"
-var KEY_CHALLENGE_LEVEL5 : String = "CHALLENGE_LEVEL_5"
-var KEY_CHALLENGE_LEVELN : String = "CHALLENGE_LEVEL_N"
-
 var unlockables = {}
 
 
@@ -73,20 +92,7 @@ func is_unlocked(key : String) -> bool:
 
 
 func unlock_star() -> void:
-	var key: String
-	match current_level:
-		0:
-			key = KEY_CHALLENGE_LEVEL1
-		1:
-			key = KEY_CHALLENGE_LEVEL2
-		2:
-			key = KEY_CHALLENGE_LEVEL3
-		3:
-			key = KEY_CHALLENGE_LEVEL4
-		4: 
-			key = KEY_CHALLENGE_LEVEL5
-		5:
-			key = KEY_CHALLENGE_LEVELN
+	var key: String = CHALLENGE_KEYS[current_level]
 	key = "STARS_" + key
 	if not unlockables.has(key) or unlockables[key] < level_difficulty:
 		unlockables[key] = level_difficulty
@@ -136,6 +142,12 @@ func set_checkpoint(value: int) -> void:
 func check_update_hi_score():
 	if player_score > hi_score and game_mode != FREE_MODE:
 		hi_score = player_score
+	if game_mode == CLASSIC_MODE:
+		hiscores[KEY_CLASSIC_MODE] = hi_score
+	elif game_mode == CHALLENGE_MODE:
+		hiscores[CHALLENGE_KEYS[current_level]] = hi_score
+	elif game_mode == ENDURANCE_MODE:
+		hiscores[KEY_ENDURANCE_MODE] = hi_score
 
 
 func load_game():
@@ -144,16 +156,19 @@ func load_game():
 		save_game()
 	load_game.open(game_file, File.READ)
 	json_obj = parse_json(load_game.get_as_text())
-	hi_score = json_obj["score"]
+	hiscores[KEY_CLASSIC_MODE] = json_obj["score"]
 	if json_obj.has("unlockables"):
 		unlockables = json_obj["unlockables"]
+	if json_obj.has("hiscores"):
+		hiscores = json_obj["hiscores"]
 	load_game.close()
 
 
 func save_game():
 	var save_game = File.new()
 	save_game.open(game_file, File.WRITE)
-	json_obj["score"] = hi_score
+	json_obj["hiscores"] = hiscores
+	json_obj["score"] = hiscores[KEY_CLASSIC_MODE]
 	json_obj["unlockables"] = unlockables
 	save_game.store_string(to_json(json_obj))
 	save_game.close()
@@ -161,6 +176,7 @@ func save_game():
 
 func start_classic_mode(level : int)-> void:
 	game_mode = CLASSIC_MODE
+	hi_score = hiscores[KEY_CLASSIC_MODE]
 	restart_game(level)
 
 
@@ -171,6 +187,10 @@ func start_free_mode(level : int)->void:
 
 func start_challenge_mode(level : int)->void:
 	game_mode = CHALLENGE_MODE
+	print(level)
+	print(CHALLENGE_KEYS[level])
+	print(hiscores[CHALLENGE_KEYS[level]])
+	hi_score = hiscores[CHALLENGE_KEYS[level]]
 	level_difficulty = 1
 	restart_game(level)
 
@@ -178,7 +198,6 @@ func start_challenge_mode(level : int)->void:
 func restart_game(first_level: int = 0):
 	player_score = 0
 	life_score_counter = 0
-	hi_score = 0
 	lives = 4
 	is_game_over = false
 	game_win = false
@@ -194,6 +213,8 @@ func start_next_level() -> void:
 		unlock_star()
 		if level_difficulty == 5:
 			game_win = true
+			check_update_hi_score()
+			global.save_game()
 		set_level_difficulty(level_difficulty + 1)
 	else:
 		current_level += 1
