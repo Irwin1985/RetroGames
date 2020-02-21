@@ -32,6 +32,7 @@ func _input(event):
 				get_tree().paused = true
 			else:
 				get_tree().paused = false
+				global.check_update_hi_score()
 				global.save_game()
 				get_tree().call_deferred("change_scene", "res://Menu/Menu.tscn")
 
