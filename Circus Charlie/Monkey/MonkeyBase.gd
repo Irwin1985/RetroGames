@@ -6,12 +6,13 @@ signal screen_exited
 signal bonus_earned
 
 const SPEED = 60
-const RAYCAST_LENGTH = -180
+#const RAYCAST_LENGTH = -180
+const RAYCAST_LENGTH = -190
 
 var move = false
 var playback_speed = 1 setget set_playback_speed
 var show_cyan_monkey = false
-
+var total_cyan_monkey: int = 0
 
 func _ready():
 	$AnimatedSprite.play()
@@ -27,7 +28,7 @@ func _process(delta):
 		var collider = $PlayerSensor.get_collider()
 		if collider.name == global.PLAYER_NAME and !show_cyan_monkey:
 			show_cyan_monkey = true
-			emit_signal("cyan_monkey_showed")
+			emit_signal("cyan_monkey_showed", total_cyan_monkey)
 
 	if $PlayerBonusSensor.is_colliding():
 		var collider = $PlayerBonusSensor.get_collider()

@@ -33,7 +33,6 @@ onready var HudScene: PackedScene = preload("res://HUD/HUD.tscn")
 var HudInstance: GameHUD = null
 
 var stage_2_current_monkey_index = -1
-var stage_2_first_time_lauched = false
 var stage_3_current_ball_index = -1
 var stage_3_first_time_lauched = false
 
@@ -227,7 +226,6 @@ func start_level() -> void:
 	current_check_point_path = ""
 	match current_level % LAST_LEVEL:
 		STAGE_TWO_INDEX:
-			stage_2_first_time_lauched = true
 			stage_2_current_monkey_index = 0
 		STAGE_THREE_INDEX:
 			stage_3_first_time_lauched = true

@@ -4,110 +4,104 @@ export (PackedScene) var Monkey
 
 const MONKEY_PADDING_SIZE = 28.4
 const MONKEY_TOP = 216
-const CYAN_MONKEY_INDEX = 9
 const CYAN_MONKEY_BONUS_POINTS = 500
 const SPAWN_MONKEY_INTERVAL = 1
 const MONKEY_NORMAL_SPEED = 1
 const MONKEY_HIGH_SPEED = 2
 const PLAYER_MINIMAL_DISTANCE = 500
+#const MONKEY_LEFT_MARGIN = 430
+const MONKEY_LEFT_MARGIN = 410
+const MONKEY_FIRST_LEFT_MARGIN = 360
+const ONE_MONKEY = 1
+const TWO_MONKEYS = 2
+
+onready var MonkeyIndexRules: MonkeyRules
 
 var monkey_index = -1
-#var monkey_pattern = [6.2, 10.2, 8.5, 10.1, 7.4, 11.8, 10.7, 5, 6.2, 10.2, 10.1, 10.7, 5, 4, 8.5]
 var monkey_pattern: Array = []
 
-# Start
-var test_index = 14
 var level_dif: Dictionary = \
 {
   "level_1": [
-	6.2,	# 1
-	10.2,	# 2
-	8.5,	# 3
-	10.1,	# 4
-	7.4,	# 5
-	11.8,	# 6
-	10.7,	# 7
-	5,		# 8
-	6.2,	# 9
-	10.2,	# 10
-	10.1,	# 11
-	10.7,	# 12
-	5,		# 13
-	4,		# 14
-	8.5		# 15
-  ],
+	6.2,
+	10.2,
+	8.5,
+	10.1,
+	7.4,
+	11.8,
+	10.7,
+	5,
+	6.2,
+	10.2,
+	10.1,
+	10.7,
+	5,
+	4,
+	8.5],
   "level_2": [
-	6.2,	# 1
-	10.2,	# 2
-	8.5,	# 3
-	10.1,	# 4
-	7.4,	# 5
-	11.8,	# 6
-	10.7,	# 7
-	5,		# 8
-	6.2,	# 9
-	10.2,	# 10
-	10.1,	# 11
-	10.7,	# 12
-	5,		# 13
-	4,		# 14
-	8.5		# 15
-  ],
+	6,
+	4.7,
+	12,
+	4.1,
+	12,
+	4.1,
+	3.6,
+	9.5,
+	13.5,
+	5,
+	3.6,
+	8.9,
+	6.2,
+	4.9,
+	11.8],
   "level_3": [
-	6.2,	# 1
-	10.2,	# 2
-	8.5,	# 3
-	10.1,	# 4
-	7.4,	# 5
-	11.8,	# 6
-	10.7,	# 7
-	5,		# 8
-	6.2,	# 9
-	10.2,	# 10
-	10.1,	# 11
-	10.7,	# 12
-	5,		# 13
-	4,		# 14
-	8.5		# 15
-  ],
+	9.8,
+	13.5,
+	3.5,
+	4.5,
+	10.0,
+	8.0,
+	6.8,
+	9.8,
+	13.5,
+	3.5,
+	8.0,
+	9.8,
+	13.5,
+	3.5,
+	4.5],
   "level_4": [
-	6.2,	# 1
-	10.2,	# 2
-	8.5,	# 3
-	10.1,	# 4
-	7.4,	# 5
-	11.8,	# 6
-	10.7,	# 7
-	5,		# 8
-	6.2,	# 9
-	10.2,	# 10
-	10.1,	# 11
-	10.7,	# 12
-	5,		# 13
-	4,		# 14
-	8.5		# 15
-  ]
+	9.8,
+	13.7,
+	9.8,
+	13.7,
+	9.8,
+	3.5,
+	13.7,
+	9.8,
+	13.7,
+	9.8,
+	13.7,
+	9.8,
+	6.8,
+	1.28,
+	13.7]
 }
-# End
 
-
-var show_cyan_monkey = false
 var last_monkey_name = ""
-
 onready var monkey_timer = Timer.new()
 onready var platform_center_timer = Timer.new()
 onready var BlueMonkey: PackedScene = preload("res://Monkey/BlueMonkey.tscn")
+
 var bonus_earned := false
 var bonus_point := 0
 
+
 func _ready():
+	MonkeyIndexRules = MonkeyRules.new()
 	monkey_pattern = get_level_difficulty()
 	$Player/CollisionShape2D.shape.extents = Vector2(15, 9)
 	set_timer_env()
-	show_cyan_monkey = global.stage_2_first_time_lauched
-	
-	if global.is_debug_mode:
-		global.play_first_sound = true
 
 	if global.current_check_point_path != "":
 		var CheckPointNode: Position2D = get_node(global.current_check_point_path)
@@ -116,8 +110,7 @@ func _ready():
 
 	if global.stage_2_current_monkey_index >= 0:
 		monkey_index = global.stage_2_current_monkey_index - 1
-	# just for test purposes
-	# monkey_index = test_index - 1
+
 	spawn_monkey()
 
 
@@ -142,14 +135,14 @@ func spawn_monkey():
 	MonkeyInstance.connect("bonus_earned", self, "_on_MonkeyInstance_bonus_earned")
 
 	if $MonkeyContainer.get_child_count() == 0:
-		monkey_position = $Player.position.x + 360
+		monkey_position = $Player.position.x + MONKEY_FIRST_LEFT_MARGIN
 	else:
-		get_monkey_index()
+		MonkeyInstance.total_cyan_monkey = get_monkey_index()
 		monkey_position = $MonkeyContainer.get_child(
 				$MonkeyContainer.get_child_count() - 1).position.x
 		
 		monkey_position += monkey_pattern[monkey_index] * MONKEY_PADDING_SIZE
-		if monkey_index == CYAN_MONKEY_INDEX and show_cyan_monkey:
+		if MonkeyInstance.total_cyan_monkey > 0:
 			MonkeyInstance.enable_player_sensor()
 
 	MonkeyInstance.position = Vector2(monkey_position, MONKEY_TOP)
@@ -158,11 +151,14 @@ func spawn_monkey():
 	last_monkey_name = MonkeyInstance.name
 
 
-func get_monkey_index():
+func get_monkey_index() -> int:
+	var total_cyan_monkey = 0
 	monkey_index += 1
 	if monkey_index > monkey_pattern.size() - 1:
-		show_cyan_monkey = global.rand_bool()
 		monkey_index = 0
+	MonkeyIndexRules.current_monkey_index = monkey_index
+	total_cyan_monkey = MonkeyIndexRules.update_cyan_monkey()
+	return total_cyan_monkey
 
 
 func set_monkey_speed(new_speed):
@@ -185,7 +181,7 @@ func set_timer_env():
 	add_child(platform_center_timer)
 
 
-func _on_platform_center_timeout()->void:
+func _on_platform_center_timeout() -> void:
 	var xdelta : int = ($HighPlatform.get_position() - $Player.get_position() ).x
 	if abs(xdelta) > 1:
 		var direction : Vector2 = Vector2(xdelta, 0).normalized()
@@ -231,13 +227,43 @@ func game_over():
 	$UnderFloor/CollisionShape2D.disabled = false
 
 
-func _on_MonkeyInstance_monkey_showed():
-	var BlueMonkeyInstance = BlueMonkey.instance()
-	BlueMonkeyInstance.connect("player_detected", self, "game_over", [], CONNECT_DEFERRED)
-	BlueMonkeyInstance.connect("player_bonus", self, "_on_BlueMonkey_player_bonus", [], CONNECT_DEFERRED)
-	BlueMonkeyInstance.global_position.x = $Player.global_position.x + 430
-	BlueMonkeyInstance.position.y = MONKEY_TOP
-	add_child(BlueMonkeyInstance)
+func _on_MonkeyInstance_monkey_showed(total_monkeys: int) -> void:
+	var left_margin = MONKEY_LEFT_MARGIN
+	match total_monkeys:
+		ONE_MONKEY:
+#			if global.level_difficulty == global.LEVEL_2:
+#				left_margin = 400
+			var FirstMonkey = create_cyan_monkey()
+			FirstMonkey.global_position.x = $Player.global_position.x + MONKEY_LEFT_MARGIN
+			if FirstMonkey.global_position.x < $Walls/RightWall.global_position.x:
+				add_child(FirstMonkey)
+
+		TWO_MONKEYS:
+#			if global.level_difficulty == global.LEVEL_2:
+#				left_margin = 400
+#			elif global.level_difficulty == global.LEVEL_3:
+#				left_margin = 400
+
+			var monkey_margin = 1.28
+			var FirstMonkey = create_cyan_monkey()
+			FirstMonkey.global_position.x = $Player.global_position.x + MONKEY_LEFT_MARGIN
+			if FirstMonkey.global_position.x < $Walls/RightWall.global_position.x:
+				add_child(FirstMonkey)
+
+			var SecondMonkey = create_cyan_monkey()
+			SecondMonkey.global_position.x = FirstMonkey.global_position.x + monkey_margin * MONKEY_PADDING_SIZE
+			if SecondMonkey.global_position.x < $Walls/RightWall.global_position.x:
+				add_child(SecondMonkey)
+
+	bonus_point = CYAN_MONKEY_BONUS_POINTS * total_monkeys
+
+
+func create_cyan_monkey():
+	var MonkeyScene = BlueMonkey.instance()
+	MonkeyScene.connect("player_detected", self, "game_over", [], CONNECT_DEFERRED)
+	MonkeyScene.connect("player_bonus", self, "_on_BlueMonkey_player_bonus", [], CONNECT_DEFERRED)
+	MonkeyScene.position.y = MONKEY_TOP
+	return MonkeyScene
 
 
 func _on_monkey_timer_timeout():
@@ -282,7 +308,6 @@ func _on_WinSound_finished():
 
 func _on_BlueMonkey_player_bonus():
 	bonus_earned = true
-	bonus_point = CYAN_MONKEY_BONUS_POINTS
 
 
 func _on_PlatformSensor_body_entered(body):
