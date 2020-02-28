@@ -46,6 +46,13 @@ func _input(event):
 					$Portrait/FreeMode/LevelSelect.visible = true
 					$Portrait/FreeMode/LevelSelect.text = "LEVEL %02d" % level_select
 					menu = menu_type.SELECT_LEVEL
+				elif selected_option == option.ENDURANCE_MODE:
+					if global.is_unlocked(global.KEY_ENDURANCE_MODE):
+						menu = menu_type.ENTERING_GAME
+						blink_timer.start()
+						$StartSound.play()
+					else:
+						$LockedSound.play()
 				else:
 					level_select = 1
 					menu = menu_type.ENTERING_GAME

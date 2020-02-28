@@ -148,6 +148,7 @@ character_behaviour = "Stage 3:Balls"
 [node name="Charlie" parent="Player" index="0"]
 scale = Vector2( 2.005, 2.5 )
 animation = "run_back"
+frame = 1
 
 [node name="CollisionShape2D" parent="Player" index="1"]
 shape = SubResource( 4 )

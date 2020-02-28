@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://Menu/Menu.gd" type="Script" id=1]
 [ext_resource path="res://assets/ARCADECLASSIC.TTF" type="DynamicFontData" id=2]
@@ -7,6 +7,7 @@
 [ext_resource path="res://assets/title_02.png" type="Texture" id=5]
 [ext_resource path="res://assets/title_03.png" type="Texture" id=6]
 [ext_resource path="res://assets/sfx/ClapStarting.wav" type="AudioStream" id=7]
+[ext_resource path="res://assets/sfx/hurt.wav" type="AudioStream" id=8]
 
 [sub_resource type="DynamicFont" id=1]
 size = 30
@@ -35,6 +36,7 @@ __meta__ = {
 }
 
 [node name="Portrait" type="Control" parent="."]
+editor/display_folded = true
 anchor_right = 1.0
 anchor_bottom = 1.0
 
@@ -145,10 +147,12 @@ autowrap = true
 [node name="AnimatedSprite" type="AnimatedSprite" parent="Portrait"]
 position = Vector2( 250, 166 )
 frames = SubResource( 2 )
-frame = 2
 playing = true
 
 [node name="StartSound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 7 )
 volume_db = -30.0
+
+[node name="LockedSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 8 )
 [connection signal="finished" from="StartSound" to="." method="_on_StartSound_finished"]

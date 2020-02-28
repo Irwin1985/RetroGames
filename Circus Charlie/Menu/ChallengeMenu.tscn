@@ -110,6 +110,7 @@ alignment = 1
 
 [node name="Level1" type="HBoxContainer" parent="NinePatchRect/MarginContainer/LevelContainer/TopLevels"]
 editor/display_folded = true
+visible = false
 margin_left = 152.0
 margin_right = 287.0
 margin_bottom = 161.0
