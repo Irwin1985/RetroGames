@@ -80,6 +80,7 @@ var unlockables = {}
 func _ready() -> void:
 	OS.center_window()
 	load_game()
+	unlockables[KEY_ENDURANCE_MODE] = false
 
 
 func unlock(key : String) -> void:
@@ -95,6 +96,13 @@ func unlock_star() -> void:
 	key = "STARS_" + key
 	if not unlockables.has(key) or unlockables[key] < level_difficulty:
 		unlockables[key] = level_difficulty
+		var unlock_endurance : bool = true
+		for challenge_level in CHALLENGE_KEYS:
+			if not unlockables.has(challenge_level) or unlocked_stars(challenge_level) < 5:
+				unlock_endurance = false
+				break
+		if unlock_endurance:
+			unlock(KEY_ENDURANCE_MODE)
 
 
 func unlocked_stars(level_key : String) -> int:
@@ -122,7 +130,8 @@ func get_HudInstance(in_level_hud: bool = true) -> GameHUD:
 func give_points(points: int) -> void:
 	if game_mode != FREE_MODE:
 		player_score += points
-		life_score_counter += points
+		if game_mode != ENDURANCE_MODE:
+			life_score_counter += points
 		HudInstance.update_score(player_score)
 		if player_score > hi_score:
 			update_hi_score(player_score)
@@ -186,12 +195,21 @@ func start_free_mode(level : int)->void:
 
 func start_challenge_mode(level : int)->void:
 	game_mode = CHALLENGE_MODE
-	print(level)
-	print(CHALLENGE_KEYS[level])
-	print(hiscores[CHALLENGE_KEYS[level]])
 	hi_score = hiscores[CHALLENGE_KEYS[level]]
 	level_difficulty = 1
 	restart_game(level)
+	
+	
+func start_endurance_mode()->void:
+	game_mode = ENDURANCE_MODE
+	hi_score = hiscores[KEY_ENDURANCE_MODE]
+	player_score = 0
+	is_game_over = false
+	game_win = false
+	can_pause = false
+	load_game()
+	play_first_sound = false
+	get_tree().call_deferred("change_scene", "res://Levels/ScenePreviewer.tscn")
 
 
 func restart_game(first_level: int = 0):
@@ -245,7 +263,9 @@ func show_level()->void:
 
 
 func lose_life():
-	if game_mode != FREE_MODE:
+	if game_mode == ENDURANCE_MODE:
+		game_over()
+	elif game_mode != FREE_MODE:
 		global.lives -= 1
 		if global.lives <= 0:
 			game_over()

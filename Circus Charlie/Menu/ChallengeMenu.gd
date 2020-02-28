@@ -1,5 +1,7 @@
 extends MarginContainer
 
+const  OPTIONS_PER_ROW : int = 3
+
 onready var level1 = $NinePatchRect/MarginContainer/LevelContainer/TopLevels/Level1
 onready var level2 = $NinePatchRect/MarginContainer/LevelContainer/TopLevels/Level2
 onready var level3 = $NinePatchRect/MarginContainer/LevelContainer/TopLevels/Level3
@@ -10,7 +12,7 @@ onready var back = $NinePatchRect/MarginContainer/LevelContainer/Back
 
 onready var select_options = [level1, level2, level3, level4, level5, leveln, back]
 var selectable = [false, false, false, false, false, false, true]
-var selected: int = 0
+var selected: int = 6
 
 func _ready():
 # Show unlocked levels
@@ -82,21 +84,20 @@ func _input(event):
 		while not selectable[selected]:
 			selected = (selected + 1) % len(select_options)
 	elif event.is_action_pressed("ui_up"):
-		if selected >= 3:
-			selected -= 3
-			if not selectable[selected]:
-				selected = len(select_options) - 1
-		else:
+		selected -= OPTIONS_PER_ROW
+		while selected >= 0 and not selectable[selected]:
+			selected -= OPTIONS_PER_ROW
+		if selected < 0:
 			selected = len(select_options) - 1
 	elif event.is_action_pressed("ui_down"):
-		if selected <= 3:
-			selected += 3
-			if not selectable[selected]:
-				selected = len(select_options) - 1
-		elif selected == len(select_options) - 1 and selectable[0]:
+		if selected == len(select_options) - 1:
 			selected = 0
 		else:
-			selected = len(select_options) - 1
+			selected += OPTIONS_PER_ROW
+			while selected < len(select_options) and not selectable[selected]:
+				selected += OPTIONS_PER_ROW
+			if selected >= len(select_options):
+				selected = len(select_options) - 1
 	move_cursor()
 	if event.is_action_pressed("ui_cancel"):
 		get_tree().call_deferred("change_scene", "res://Menu/Menu.tscn")
