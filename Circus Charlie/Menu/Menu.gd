@@ -22,6 +22,7 @@ onready var options = [
 
 func _ready():
 	$StartSound.volume_db = global.STANDARD_VOLUME
+	$LockedSound.volume_db = global.STANDARD_VOLUME
 	$Portrait.hide()
 	
 	# Blink Timer
@@ -105,9 +106,7 @@ func _on_StartSound_finished():
 		option.CHALLENGE_MODE:
 			get_tree().call_deferred("change_scene", "res://Menu/ChallengeMenu.tscn")
 		option.ENDURANCE_MODE:
-			menu = menu_type.MAIN_MENU
-			blink_timer.stop()
-			pass
+			global.start_endurance_mode()
 		option.OPTIONS:
 			menu = menu_type.MAIN_MENU
 			blink_timer.stop()

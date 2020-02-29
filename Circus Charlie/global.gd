@@ -80,7 +80,6 @@ var unlockables = {}
 func _ready() -> void:
 	OS.center_window()
 	load_game()
-	unlockables[KEY_ENDURANCE_MODE] = false
 
 
 func unlock(key : String) -> void:
@@ -131,7 +130,10 @@ func give_points(points: int) -> void:
 	if game_mode != FREE_MODE:
 		player_score += points
 		if game_mode != ENDURANCE_MODE:
-			life_score_counter += points
+			if player_score >= life_score_counter:
+				life_score_counter += LIFE_SCORE_LIMIT
+				lives += 1
+				HudInstance.give_life()
 		HudInstance.update_score(player_score)
 		if player_score > hi_score:
 			update_hi_score(player_score)
@@ -214,7 +216,7 @@ func start_endurance_mode()->void:
 
 func restart_game(first_level: int = 0):
 	player_score = 0
-	life_score_counter = 0
+	life_score_counter = LIFE_SCORE_LIMIT
 	lives = 4
 	is_game_over = false
 	game_win = false
@@ -257,6 +259,8 @@ func start_level() -> void:
 func show_level()->void:
 	if game_mode == CHALLENGE_MODE:
 		get_tree().call_deferred("change_scene", stage[current_level])
+	elif game_mode == ENDURANCE_MODE:
+		get_tree().call_deferred("change_scene", "res://Levels/Endurance.tscn")
 	else:
 		get_tree().call_deferred("change_scene", \
 			stage[current_level % LAST_LEVEL])

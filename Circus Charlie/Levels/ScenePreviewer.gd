@@ -25,6 +25,8 @@ func _ready():
 						$StageCaption/StageLabel.text = "HARDER"
 					5:
 						$StageCaption/StageLabel.text = "EXTREME"
+		elif global.game_mode == global.ENDURANCE_MODE:
+			$StageCaption/StageLabel.text = "Endurance"
 		else:
 			$StageCaption/StageLabel.text = "STAGE %02d" % (global.current_level + 1)
 			if global.game_mode == global.CLASSIC_MODE:

@@ -11,11 +11,13 @@ var game_timer = Timer.new()
 var bonus_timer = Timer.new()
 var time_left = 5000
 var time_delta = 10
+var endurance_time: float = 0
 
 func _ready():
 	set_sfx_volume()
 	update_stage()
 	create_timer()
+	set_process(false)
 	if global.game_mode == global.FREE_MODE:
 		$FreeMode.set_visible(true)
 		$HiScore.set_visible(false)
@@ -36,7 +38,30 @@ func _ready():
 				$Difficulty/Desc.text = "HARDER"
 			5:
 				$Difficulty/Desc.text = "EXTREME"
+	elif global.game_mode == global.ENDURANCE_MODE:
+		$Stage.set_visible(false)
+		$EnduranceMode.set_visible(true)
+		$Bonus.set_visible(false)
+		$Time.set_visible(true)
+		$Lives.set_visible(false)
+
 	$AlphaVersionLabel.visible = global.IS_ALPHA_VERSION
+
+
+func start_endurance() -> void:
+	set_process(true)
+
+
+func _process(delta : float) -> void:
+	endurance_time += delta
+	var total_time : String = "%.3f" % endurance_time
+	var seconds : int = total_time.substr(0, total_time.find(".")).to_int()
+	var mill : int = total_time.substr(total_time.find(".") + 1, 3).to_int()
+	var strMill = "%03d" % (mill)
+	var strSeconds = "%02d" % (seconds % 60)
+	var strMinutes = "%02d" % (seconds / 60)
+	var strHours = "%02d" % (seconds / 3600)
+	$Time/LabelTimer.text = strHours + " " + strMinutes + " " + strSeconds + " " + strMill
 
 func set_sfx_volume():
 	for audio in $Sounds.get_children():
@@ -81,11 +106,6 @@ func hide_lives():
 
 func update_score(score):
 	$PlayerScore/PlayerScore.text = "%06d" % score
-	if global.life_score_counter >= global.LIFE_SCORE_LIMIT:
-		global.life_score_counter = 0
-		$Sounds/LiveEarned.play()
-		global.lives += 1
-		update_lives(global.lives)
 
 
 func update_hi_score(score):
@@ -100,6 +120,14 @@ func update_lives(lives: int) -> void:
 	$Lives/SpriteLife4.visible = lives >= 4
 	$Lives/SpriteLife5.visible = lives >= 5
 	$Lives/SpriteLife6.visible = lives >= 6
+
+
+func give_life() -> void:
+	$Sounds/LiveEarned.play()
+	for life in $Lives.get_children():
+		if not life.visible:
+			life.visible = true
+			break
 
 
 func update_stage():
