@@ -119,7 +119,6 @@ var patterns = [
 ]
 
 func _ready():
-	set_sfx_volume()
 	set_player_position()
 	next_bonus_flame = randi() % 5 + 4
 	spawn_boiler()
@@ -135,11 +134,6 @@ func landed_safe()->void:
 		global.give_points(jumped_boilers * BOILER_POINTS + jumped_flames * FLAME_POINTS)
 	jumped_boilers = 0
 	jumped_flames = 0
-
-
-func set_sfx_volume():
-	for audio in $Sounds.get_children():
-		audio.volume_db = global.STANDARD_VOLUME
 
 
 func set_player_position():

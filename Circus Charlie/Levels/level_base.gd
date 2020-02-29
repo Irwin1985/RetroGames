@@ -12,7 +12,8 @@ func _ready():
 	randomize()
 	add_HUD()
 	global.can_pause = true
-	$Sounds/LevelSound	.volume_db = global.STANDARD_VOLUME
+	for sound in $Sounds.get_children():
+		sound.volume_db = global.STANDARD_VOLUME
 	set_timers()
 
 
@@ -22,6 +23,8 @@ func add_HUD():
 	hud.connect("out_of_time", self, "_on_HUD_out_of_time")
 	hud.connect("bonus_giving_finished", self, "start_next_level_on_condition")
 	add_child(hud)
+	if global.game_mode == global.ENDURANCE_MODE:
+		hud.start_endurance()
 
 
 func set_timers():
