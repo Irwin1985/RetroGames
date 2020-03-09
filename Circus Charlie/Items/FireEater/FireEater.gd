@@ -13,7 +13,8 @@ func _ready():
 
 
 func spit_fire() -> void:
-	fire_timer.wait_time = randf() * 1.75 + .75
+#	fire_timer.wait_time = randf() * 1.75 + .75
+	fire_timer.wait_time = randi() % 3 + .75
 	state_machine.travel("Fire Spitting")
 	yield(get_tree().create_timer(0.2),"timeout")
 	if fire_timer.is_stopped():
