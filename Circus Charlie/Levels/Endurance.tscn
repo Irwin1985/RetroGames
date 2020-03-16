@@ -1,8 +1,129 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://Levels/Endurance.gd" type="Script" id=1]
+[ext_resource path="res://assets/background.png" type="Texture" id=2]
+[ext_resource path="res://assets/ground.png" type="Texture" id=3]
+[ext_resource path="res://Player/Player.tscn" type="PackedScene" id=4]
+[ext_resource path="res://assets/sfx/Circus5b intro.wav" type="AudioStream" id=5]
+[ext_resource path="res://assets/sfx/Circus5b loop2.ogg" type="AudioStream" id=6]
+[ext_resource path="res://assets/podium_01.png" type="Texture" id=7]
+[ext_resource path="res://Endurance/LionPickUp/Lion.tscn" type="PackedScene" id=8]
+[ext_resource path="res://Items/Trampoline/trampoline.tscn" type="PackedScene" id=9]
+[ext_resource path="res://Items/BigTrampoline/bigtrampoline.tscn" type="PackedScene" id=10]
+[ext_resource path="res://Items/FireEater/FireEater.tscn" type="PackedScene" id=11]
+[ext_resource path="res://Lion/Lion.tscn" type="PackedScene" id=12]
+[ext_resource path="res://assets/sfx/GameOver.wav" type="AudioStream" id=13]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 10, 512 )
+
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 2048, 10 )
+
+[sub_resource type="RectangleShape2D" id=3]
+extents = Vector2( 47.4316, 3.37305 )
 
 [node name="Endurance" type="Node2D"]
 script = ExtResource( 1 )
 
+[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
+
+[node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_mirroring = Vector2( 512, 0 )
+
+[node name="Background" type="Sprite" parent="ParallaxBackground/ParallaxLayer"]
+scale = Vector2( 2, 2 )
+texture = ExtResource( 2 )
+offset = Vector2( 128, 118 )
+
+[node name="Ground" type="Sprite" parent="ParallaxBackground/ParallaxLayer"]
+position = Vector2( 0, 184 )
+scale = Vector2( 2, 2 )
+texture = ExtResource( 3 )
+offset = Vector2( 128, 118 )
+
+[node name="Limits" type="StaticBody2D" parent="."]
+collision_layer = 16
+collision_mask = 5
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="LeftWall" type="CollisionShape2D" parent="Limits"]
+shape = SubResource( 1 )
+
+[node name="Ground" type="CollisionShape2D" parent="Limits"]
+position = Vector2( 2048, 425 )
+shape = SubResource( 2 )
+
+[node name="FloorDetector" type="Area2D" parent="Limits"]
+collision_layer = 2
+
+[node name="Ground" type="CollisionShape2D" parent="Limits/FloorDetector"]
+position = Vector2( 2048, 415 )
+shape = SubResource( 2 )
+
+[node name="Environment" type="Node2D" parent="."]
+
+[node name="Podium" type="StaticBody2D" parent="Environment" groups=[
+"goal",
+]]
+position = Vector2( 45.0506, 392.205 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Sprite" type="Sprite" parent="Environment/Podium"]
+scale = Vector2( 2, 2 )
+texture = ExtResource( 7 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Environment/Podium"]
+position = Vector2( 0, -18 )
+scale = Vector2( 0.767765, 1.16729 )
+shape = SubResource( 3 )
+
+[node name="LionPickUp" parent="Environment" instance=ExtResource( 8 )]
+position = Vector2( 155.395, 395.701 )
+
+[node name="Trampoline" parent="Environment" instance=ExtResource( 9 )]
+position = Vector2( 316.143, 398.864 )
+
+[node name="FireEater" parent="Environment" instance=ExtResource( 11 )]
+position = Vector2( 620.32, 388 )
+
+[node name="FireEater2" parent="Environment" instance=ExtResource( 11 )]
+position = Vector2( 786.429, 388 )
+
+[node name="FireEater3" parent="Environment" instance=ExtResource( 11 )]
+position = Vector2( 703.374, 388 )
+
+[node name="Big Trampoline2" parent="Environment" instance=ExtResource( 10 )]
+position = Vector2( 917.656, 370 )
+
+[node name="Big Trampoline3" parent="Environment" instance=ExtResource( 10 )]
+position = Vector2( 495.224, 370 )
+
+[node name="Player" type="Node2D" parent="."]
+
+[node name="Player" parent="Player" instance=ExtResource( 4 )]
+position = Vector2( 42.3413, 333.475 )
+gravity = 15
+
+[node name="Lion" parent="Player" instance=ExtResource( 12 )]
+position = Vector2( 98.0926, 303.164 )
+
 [node name="Sounds" type="Node" parent="."]
+
+[node name="Intro" type="AudioStreamPlayer" parent="Sounds"]
+stream = ExtResource( 5 )
+
+[node name="LevelSound" type="AudioStreamPlayer" parent="Sounds"]
+stream = ExtResource( 6 )
+
+[node name="GameOverSound" type="AudioStreamPlayer" parent="Sounds"]
+stream = ExtResource( 13 )
+[connection signal="body_entered" from="Limits/FloorDetector" to="." method="_on_FloorDetector_body_entered"]
+[connection signal="lose" from="Player/Player" to="." method="_on_Player_lose"]
+[connection signal="lose" from="Player/Lion" to="." method="_on_Player_lose"]
+[connection signal="finished" from="Sounds/Intro" to="." method="_on_Intro_finished"]
+[connection signal="finished" from="Sounds/GameOverSound" to="." method="GameOverSound_finished"]

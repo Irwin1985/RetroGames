@@ -145,7 +145,7 @@ tracks/0/keys = {
 "times": PoolRealArray( 0, 0.2, 1, 1.8, 2 ),
 "transitions": PoolRealArray( 1, 0.5, 2, 1, 1 ),
 "update": 0,
-"values": [ Vector2( 0, 5 ), Vector2( -7, -13 ), Vector2( 0, -100 ), Vector2( 7, -13 ), Vector2( 0, 5 ) ]
+"values": [ Vector2( 0, 5 ), Vector2( -7, -13 ), Vector2( 0, -120 ), Vector2( 7, -13 ), Vector2( 0, 5 ) ]
 }
 tracks/1/type = "value"
 tracks/1/path = NodePath(".:rotation_degrees")
@@ -197,9 +197,8 @@ active = true
 parameters/playback = SubResource( 15 )
 
 [node name="Knife" type="Area2D" parent="."]
-visible = false
-position = Vector2( 0, -100 )
-rotation = 6.28319
+position = Vector2( 0, 5 )
+rotation = 10.3847
 collision_layer = 2
 collision_mask = 0
 

@@ -56,6 +56,7 @@ func set_environment():
 func set_player_position():
 	$Player.jumping = true
 	$Player.position.x += calculate_checkpoint_pos()
+	$Player/CollisionShape2D.shape.extents = Vector2(15, 12.5)
 	$Player/Camera2D.limit_left = $Player.position.x - 180
 
 

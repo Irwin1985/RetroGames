@@ -8,12 +8,13 @@ func _ready() -> void:
 	if juggle_timer.connect("timeout", self, "juggle_throw") != OK:
 		print("Error connecting timeout of juggle_timer")
 	juggle_timer.wait_time = randf() * 2.75 + 1
-	juggle_timer.start()
 	add_child(juggle_timer)
+	juggle_timer.start()
 
 
 func juggle_throw() -> void:
 	juggle_timer.wait_time = randf() * 2.75 + 1
+	juggle_timer.wait_time = randi() % 3 + 1
 	state_machine.travel("juggle throw")
 	var new_knife: Area2D = $Knife.duplicate()
 	new_knife.get_node("AnimationPlayer").play("juggle")
