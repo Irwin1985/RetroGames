@@ -1,0 +1,52 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://assets/lion_03.png" type="Texture" id=1]
+[ext_resource path="res://assets/lion_01.png" type="Texture" id=2]
+[ext_resource path="res://assets/lion_02.png" type="Texture" id=3]
+[ext_resource path="res://Endurance/LionPickUp/Lion.gd" type="Script" id=4]
+
+[sub_resource type="SpriteFrames" id=1]
+animations = [ {
+"frames": [ ExtResource( 1 ) ],
+"loop": true,
+"name": "default",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 2 ), ExtResource( 3 ), ExtResource( 1 ) ],
+"loop": true,
+"name": "run",
+"speed": 7.0
+} ]
+
+[sub_resource type="CapsuleShape2D" id=2]
+radius = 7.97192
+height = 12.9975
+
+[sub_resource type="RectangleShape2D" id=3]
+extents = Vector2( 6.81497, 1.06765 )
+
+[node name="LionPickUp" type="RigidBody2D"]
+collision_layer = 4
+collision_mask = 21
+mode = 2
+gravity_scale = 10.0
+script = ExtResource( 4 )
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+scale = Vector2( 2, 2 )
+frames = SubResource( 1 )
+playing = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+rotation = -1.57079
+scale = Vector2( 2, 2 )
+shape = SubResource( 2 )
+
+[node name="Ride" type="Area2D" parent="."]
+scale = Vector2( 2, 2 )
+collision_layer = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Ride"]
+position = Vector2( 0.292393, -8.40626 )
+shape = SubResource( 3 )
+[connection signal="body_entered" from="Ride" to="." method="_on_Ride_body_entered"]

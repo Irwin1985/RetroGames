@@ -8,8 +8,8 @@ func _ready():
 	if fire_timer.connect("timeout", self, "spit_fire") != OK:
 		print("Error connecting timeount of fire_timer")
 	fire_timer.wait_time = randf() * 1.75 + .75
-	fire_timer.start()
 	add_child(fire_timer)
+	fire_timer.start()
 
 
 func spit_fire() -> void:

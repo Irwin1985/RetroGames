@@ -130,7 +130,6 @@ shape = SubResource( 2 )
 disabled = true
 
 [node name="HurtFloor" type="Area2D" parent="."]
-editor/display_folded = true
 position = Vector2( 0, -10 )
 __meta__ = {
 "_edit_group_": true
@@ -227,7 +226,6 @@ stream = ExtResource( 18 )
 volume_db = -30.0
 
 [node name="GoalSensor" type="Area2D" parent="."]
-editor/display_folded = true
 position = Vector2( 3237.23, 129.252 )
 scale = Vector2( 1, 2.36 )
 
@@ -236,7 +234,6 @@ scale = Vector2( 0.44, 4.6 )
 shape = SubResource( 7 )
 
 [node name="CheckPoints" parent="." instance=ExtResource( 19 )]
-editor/display_folded = true
 
 [node name="chkpt_60m" parent="CheckPoints" index="13"]
 position = Vector2( 640, 224.5 )
