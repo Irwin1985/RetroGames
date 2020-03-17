@@ -1,4 +1,4 @@
-extends RigidBody2D
+extends StaticBody2D
 
 signal pick_up
 

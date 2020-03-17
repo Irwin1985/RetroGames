@@ -25,6 +25,9 @@ func _ready():
 #	player.get_node("CollisionShape2D").shape.extents = Vector2(15, 9)
 
 	$Player.remove_child(lion)
+	
+	$Environment/Flame.connect("hurt", lion, "hurt")
+
 
 
 func _on_Intro_finished():
@@ -51,7 +54,7 @@ func stop_items():
 	pass
 
 
-func _on_FloorDetector_body_entered(body):
+func _on_HurtDetector_body_entered(body):
 	if body.name == "Player":
 		player.hurt()
 
@@ -60,8 +63,22 @@ func _on_Player_lose():
 	stop_items()
 	$Sounds/Intro.disconnect("finished", self, "_on_Intro_finished")
 	$Sounds/Intro.stop()
+	hud.stop_endurance()
 	lose()
 
 
 func _on_GameOverSound_finished():
 	GameOverSound_finished()
+
+
+func _on_SectorEnd_body_entered(body):
+	if body.name == "Player" or body.name == "Lion":
+		var next_stop : float = 1024 + 512
+		var next_sector_type : int = randi() % 6
+		
+		$Limits.position.x = $Environment/SectorEnd.position.x - 356
+		player.get_node("Camera2D").limit_left = $Environment/SectorEnd.position.x - 356
+		lion.get_node("Camera2D").limit_left = $Environment/SectorEnd.position.x - 356
+		$Environment/SectorEnd.position.x += next_stop
+
+

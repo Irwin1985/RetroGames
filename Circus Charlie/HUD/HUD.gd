@@ -11,7 +11,6 @@ var game_timer = Timer.new()
 var bonus_timer = Timer.new()
 var time_left = 5000
 var time_delta = 10
-var endurance_time: float = 0
 
 func _ready():
 	set_sfx_volume()
@@ -44,17 +43,19 @@ func _ready():
 		$Bonus.set_visible(false)
 		$Time.set_visible(true)
 		$Lives.set_visible(false)
+		update_endurance_timer()
 
 	$AlphaVersionLabel.visible = global.IS_ALPHA_VERSION
 
 
 func start_endurance() -> void:
 	set_process(true)
+	
+func stop_endurance() -> void:
+	set_process(false)
 
-
-func _process(delta : float) -> void:
-	endurance_time += delta
-	var total_time : String = "%.3f" % endurance_time
+func update_endurance_timer() -> void:
+	var total_time : String = "%.3f" % global.endurance_time
 	var seconds : int = total_time.substr(0, total_time.find(".")).to_int()
 	var mill : int = total_time.substr(total_time.find(".") + 1, 3).to_int()
 	var strMill = "%03d" % (mill)
@@ -62,6 +63,10 @@ func _process(delta : float) -> void:
 	var strMinutes = "%02d" % (seconds / 60)
 	var strHours = "%02d" % (seconds / 3600)
 	$Time/LabelTimer.text = strHours + " " + strMinutes + " " + strSeconds + " " + strMill
+
+func _process(delta : float) -> void:
+	global.endurance_time += delta
+	update_endurance_timer()
 
 func set_sfx_volume():
 	for audio in $Sounds.get_children():

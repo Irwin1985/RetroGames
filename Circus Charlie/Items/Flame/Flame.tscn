@@ -57,7 +57,6 @@ speed = 50
 scale = Vector2( 2, 2 )
 frames = SubResource( 1 )
 animation = "bonus_flame"
-frame = 1
 playing = true
 centered = false
 
@@ -67,7 +66,6 @@ scale = Vector2( 2, 2 )
 z_index = 1
 frames = SubResource( 2 )
 animation = "bonus_flame"
-frame = 1
 playing = true
 centered = false
 
@@ -84,7 +82,6 @@ __meta__ = {
 }
 
 [node name="Bonus" type="Area2D" parent="."]
-editor/display_folded = true
 
 [node name="BonusCollision" type="CollisionShape2D" parent="Bonus"]
 position = Vector2( 20, 60 )
@@ -93,6 +90,10 @@ shape = SubResource( 3 )
 
 [node name="HurtCollision" type="CollisionShape2D" parent="."]
 position = Vector2( 24, 125 )
+shape = SubResource( 4 )
+
+[node name="HurtCollision2" type="CollisionShape2D" parent="."]
+position = Vector2( 24, 20 )
 shape = SubResource( 4 )
 
 [node name="TimerMoveFlame" type="Timer" parent="."]

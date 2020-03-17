@@ -70,6 +70,7 @@ onready var game_file: String = "user://score.save"
 var is_debug_mode := true
 var level_difficulty := 1 setget set_level_difficulty
 var PlatformFactory: RampFactory
+var endurance_time: float = 0
 
 var game_mode: int = FREE_MODE
 var game_win: bool = false
@@ -206,6 +207,7 @@ func start_endurance_mode()->void:
 	game_mode = ENDURANCE_MODE
 	hi_score = hiscores[KEY_ENDURANCE_MODE]
 	player_score = 0
+	endurance_time = 0
 	is_game_over = false
 	game_win = false
 	can_pause = false
