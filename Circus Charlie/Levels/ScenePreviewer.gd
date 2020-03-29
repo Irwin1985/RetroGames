@@ -7,7 +7,9 @@ func _ready():
 		global.play_first_sound = true
 		$StageSound.play()
 
-	add_child(global.get_HudInstance(false))
+	var hud = global.get_HudInstance(false)
+	add_child(hud)
+	hud.start_label_timer()
 	
 	if !global.is_game_over:
 		if global.game_mode == global.CHALLENGE_MODE:

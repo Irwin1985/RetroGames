@@ -77,7 +77,7 @@ func create_timer():
 	# Label Timer
 	label_timer.connect("timeout", self, "_on_timer_label_timeout", [], CONNECT_DEFERRED)
 	label_timer.wait_time = 0.5
-	label_timer.start()
+	label_timer.pause_mode = PAUSE_MODE_PROCESS
 	add_child(label_timer)
 	
 	# Game Timer
@@ -95,6 +95,9 @@ func create_timer():
 func update_timer():
 	$Bonus/LabelTimer.text = "%04d" % time_left
 
+
+func start_label_timer() -> void:
+	label_timer.start()
 
 func begin_time():
 	game_timer.start()
