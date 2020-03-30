@@ -26,7 +26,6 @@ single_flame = ExtResource( 2 )
 boiler = ExtResource( 3 )
 
 [node name="Control" type="Control" parent="."]
-editor/display_folded = true
 visible = false
 margin_right = 40.0
 margin_bottom = 40.0
@@ -40,7 +39,6 @@ stretch_mode = 2
 [node name="Background" parent="." instance=ExtResource( 5 )]
 
 [node name="Floor" type="StaticBody2D" parent="."]
-editor/display_folded = true
 position = Vector2( 1688.56, -62.7929 )
 __meta__ = {
 "_edit_group_": true
@@ -52,7 +50,6 @@ scale = Vector2( 0.998797, 0.542278 )
 shape = SubResource( 1 )
 
 [node name="LeftWall" type="StaticBody2D" parent="."]
-editor/display_folded = true
 position = Vector2( 65.3129, 317.039 )
 __meta__ = {
 "_edit_group_": true
@@ -67,7 +64,6 @@ __meta__ = {
 [node name="BoilerContainer" type="Node2D" parent="."]
 
 [node name="Items" type="Node2D" parent="."]
-editor/display_folded = true
 
 [node name="Podium" parent="Items" instance=ExtResource( 6 )]
 position = Vector2( 5107, 379 )
@@ -107,11 +103,10 @@ position = Vector2( 5000, 0 )
 [node name="FlameContainer" type="Node2D" parent="."]
 
 [node name="Lion" parent="." instance=ExtResource( 8 )]
-editor/display_folded = true
 position = Vector2( 100, 394.147 )
 
 [node name="LionSprite" parent="Lion" index="0"]
-frame = 0
+frame = 1
 
 [node name="Camera2D" parent="Lion" index="1"]
 position = Vector2( -99, 0 )

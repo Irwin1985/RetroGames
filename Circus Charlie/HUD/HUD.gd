@@ -9,9 +9,9 @@ signal bonus_giving_finished
 var label_timer = Timer.new()
 var game_timer = Timer.new()
 var bonus_timer = Timer.new()
+var message_timer = Timer.new()
 var time_left = 5000
 var time_delta = 10
-var endurance_time: float = 0
 
 func _ready():
 	set_sfx_volume()
@@ -44,17 +44,19 @@ func _ready():
 		$Bonus.set_visible(false)
 		$Time.set_visible(true)
 		$Lives.set_visible(false)
+		update_endurance_timer()
 
 	$AlphaVersionLabel.visible = global.IS_ALPHA_VERSION
 
 
 func start_endurance() -> void:
 	set_process(true)
+	
+func stop_endurance() -> void:
+	set_process(false)
 
-
-func _process(delta : float) -> void:
-	endurance_time += delta
-	var total_time : String = "%.3f" % endurance_time
+func update_endurance_timer() -> void:
+	var total_time : String = "%.3f" % global.endurance_time
 	var seconds : int = total_time.substr(0, total_time.find(".")).to_int()
 	var mill : int = total_time.substr(total_time.find(".") + 1, 3).to_int()
 	var strMill = "%03d" % (mill)
@@ -62,6 +64,10 @@ func _process(delta : float) -> void:
 	var strMinutes = "%02d" % (seconds / 60)
 	var strHours = "%02d" % (seconds / 3600)
 	$Time/LabelTimer.text = strHours + " " + strMinutes + " " + strSeconds + " " + strMill
+
+func _process(delta : float) -> void:
+	global.endurance_time += delta
+	update_endurance_timer()
 
 func set_sfx_volume():
 	for audio in $Sounds.get_children():
@@ -72,7 +78,7 @@ func create_timer():
 	# Label Timer
 	label_timer.connect("timeout", self, "_on_timer_label_timeout", [], CONNECT_DEFERRED)
 	label_timer.wait_time = 0.5
-	label_timer.start()
+	label_timer.pause_mode = PAUSE_MODE_PROCESS
 	add_child(label_timer)
 	
 	# Game Timer
@@ -85,11 +91,27 @@ func create_timer():
 	bonus_timer.connect("timeout", self, "_on_bonus_timeout", [], CONNECT_DEFERRED)
 	bonus_timer.wait_time = 0.02
 	add_child(bonus_timer)
+	
+	# Timer to show message
+	message_timer.connect("timeout", self, "_on_message_timeout", [], CONNECT_DEFERRED)
+	message_timer.wait_time = 3
+	add_child(message_timer)
 
 
 func update_timer():
 	$Bonus/LabelTimer.text = "%04d" % time_left
 
+
+func show_message(message : String) -> void:
+	$Message.text = message
+	$Message.set_visible(true)
+
+
+func _on_message_timeout():
+	$Message.set_visible(false)
+
+func start_label_timer() -> void:
+	label_timer.start()
 
 func begin_time():
 	game_timer.start()

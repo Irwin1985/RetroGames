@@ -23,6 +23,8 @@ func add_HUD():
 	hud.connect("out_of_time", self, "_on_HUD_out_of_time")
 	hud.connect("bonus_giving_finished", self, "start_next_level_on_condition")
 	add_child(hud)
+	hud.start_label_timer()
+	hud.begin_time()
 	if global.game_mode == global.ENDURANCE_MODE:
 		hud.start_endurance()
 

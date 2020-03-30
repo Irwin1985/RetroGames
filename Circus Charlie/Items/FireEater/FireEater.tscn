@@ -126,13 +126,12 @@ active = true
 parameters/playback = SubResource( 8 )
 
 [node name="Fire" type="Area2D" parent="."]
-position = Vector2( 0, -280 )
+position = Vector2( 0, -30 )
 scale = Vector2( 2, 2 )
 collision_layer = 2
 collision_mask = 0
 
 [node name="Sprite" type="Sprite" parent="Fire"]
-visible = false
 texture = ExtResource( 3 )
 hframes = 5
 __meta__ = {

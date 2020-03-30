@@ -25,11 +25,9 @@ height = 12.9975
 [sub_resource type="RectangleShape2D" id=3]
 extents = Vector2( 6.81497, 1.06765 )
 
-[node name="LionPickUp" type="RigidBody2D"]
+[node name="LionPickUp" type="StaticBody2D"]
 collision_layer = 4
 collision_mask = 21
-mode = 2
-gravity_scale = 10.0
 script = ExtResource( 4 )
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]

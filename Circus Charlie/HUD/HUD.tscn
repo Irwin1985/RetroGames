@@ -37,7 +37,6 @@ __meta__ = {
 }
 
 [node name="Bonus" type="Control" parent="."]
-editor/display_folded = true
 margin_left = 194.915
 margin_top = 40.8526
 margin_right = 349.915
@@ -128,7 +127,6 @@ custom_fonts/font = SubResource( 1 )
 text = "00 00 00 000"
 
 [node name="HiScore" type="Control" parent="."]
-editor/display_folded = true
 margin_left = 195.0
 margin_top = 25.0
 margin_right = 340.0
@@ -186,7 +184,6 @@ custom_fonts/font = SubResource( 1 )
 text = "ENDURANCE"
 
 [node name="PlayerScore" type="Control" parent="."]
-editor/display_folded = true
 margin_left = 20.0
 margin_top = 15.0
 margin_right = 175.0
@@ -218,7 +215,6 @@ custom_fonts/font = SubResource( 1 )
 text = "1P"
 
 [node name="Stage" type="Control" parent="."]
-editor/display_folded = true
 margin_top = 15.0
 margin_right = 85.0
 margin_bottom = 55.0
@@ -258,7 +254,6 @@ __meta__ = {
 }
 
 [node name="Difficulty" type="Control" parent="."]
-editor/display_folded = true
 visible = false
 margin_top = 15.0
 margin_right = 85.0
@@ -279,7 +274,6 @@ __meta__ = {
 }
 
 [node name="Lives" type="Control" parent="."]
-editor/display_folded = true
 margin_left = 348.0
 margin_top = 46.0
 margin_right = 470.0
@@ -346,8 +340,18 @@ custom_fonts/font = SubResource( 2 )
 text = "PAUSE"
 script = ExtResource( 5 )
 
+[node name="Message" type="Label" parent="."]
+pause_mode = 2
+visible = false
+margin_left = 20.0
+margin_top = 72.0
+margin_right = 481.0
+margin_bottom = 103.0
+custom_fonts/font = SubResource( 2 )
+text = "MESSAGE"
+align = 1
+
 [node name="Sounds" type="Node" parent="."]
-editor/display_folded = true
 
 [node name="PauseSound" type="AudioStreamPlayer" parent="Sounds"]
 pause_mode = 2

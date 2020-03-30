@@ -70,6 +70,7 @@ onready var game_file: String = "user://score.save"
 var is_debug_mode := true
 var level_difficulty := 1 setget set_level_difficulty
 var PlatformFactory: RampFactory
+var endurance_time: float = 0
 
 var game_mode: int = FREE_MODE
 var game_win: bool = false
@@ -83,7 +84,14 @@ func _ready() -> void:
 
 
 func unlock(key : String) -> void:
-	unlockables[key] = true
+	if not unlockables.has(key) or unlockables[key] == false: 
+		unlockables[key] = true
+		if HudInstance != null:
+			if key == KEY_ENDURANCE_MODE:
+				HudInstance.show_message("ENDURANCE MODE UNLOCKED")
+			else:
+				pass
+#				HudInstance.show_message("ACHIEVEMENT UNLOCKED")
 
 
 func is_unlocked(key : String) -> bool:
@@ -95,12 +103,11 @@ func unlock_star() -> void:
 	key = "STARS_" + key
 	if not unlockables.has(key) or unlockables[key] < level_difficulty:
 		unlockables[key] = level_difficulty
-		var unlock_endurance : bool = true
+		var star_count : int = 0
 		for challenge_level in CHALLENGE_KEYS:
-			if not unlockables.has(challenge_level) or unlocked_stars(challenge_level) < 5:
-				unlock_endurance = false
-				break
-		if unlock_endurance:
+			if unlockables.has(challenge_level):
+				star_count += unlocked_stars(challenge_level)
+		if star_count >= 15: # 15 / 30
 			unlock(KEY_ENDURANCE_MODE)
 
 
@@ -206,6 +213,7 @@ func start_endurance_mode()->void:
 	game_mode = ENDURANCE_MODE
 	hi_score = hiscores[KEY_ENDURANCE_MODE]
 	player_score = 0
+	endurance_time = 0
 	is_game_over = false
 	game_win = false
 	can_pause = false
