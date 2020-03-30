@@ -8,7 +8,6 @@ const BOILER_POINTS = 200
 
 var pos = Vector2(0, 0)
 var last_flame = null
-var next_bonus_flame : int = 0
 
 var jumped_flames : int = 0
 var jumped_boilers : int = 0
@@ -120,7 +119,6 @@ var patterns = [
 
 func _ready():
 	set_player_position()
-	next_bonus_flame = randi() % 5 + 4
 	spawn_boiler()
 	spawn_next_flame()
 	$Lion.connect("land", self, "landed_safe")

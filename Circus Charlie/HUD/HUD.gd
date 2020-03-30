@@ -9,6 +9,7 @@ signal bonus_giving_finished
 var label_timer = Timer.new()
 var game_timer = Timer.new()
 var bonus_timer = Timer.new()
+var message_timer = Timer.new()
 var time_left = 5000
 var time_delta = 10
 
@@ -90,11 +91,24 @@ func create_timer():
 	bonus_timer.connect("timeout", self, "_on_bonus_timeout", [], CONNECT_DEFERRED)
 	bonus_timer.wait_time = 0.02
 	add_child(bonus_timer)
+	
+	# Timer to show message
+	message_timer.connect("timeout", self, "_on_message_timeout", [], CONNECT_DEFERRED)
+	message_timer.wait_time = 3
+	add_child(message_timer)
 
 
 func update_timer():
 	$Bonus/LabelTimer.text = "%04d" % time_left
 
+
+func show_message(message : String) -> void:
+	$Message.text = message
+	$Message.set_visible(true)
+
+
+func _on_message_timeout():
+	$Message.set_visible(false)
 
 func start_label_timer() -> void:
 	label_timer.start()

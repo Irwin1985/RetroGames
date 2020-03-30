@@ -84,7 +84,14 @@ func _ready() -> void:
 
 
 func unlock(key : String) -> void:
-	unlockables[key] = true
+	if not unlockables.has(key) or unlockables[key] == false: 
+		unlockables[key] = true
+		if HudInstance != null:
+			if key == KEY_ENDURANCE_MODE:
+				HudInstance.show_message("ENDURANCE MODE UNLOCKED")
+			else:
+				pass
+#				HudInstance.show_message("ACHIEVEMENT UNLOCKED")
 
 
 func is_unlocked(key : String) -> bool:
@@ -96,12 +103,11 @@ func unlock_star() -> void:
 	key = "STARS_" + key
 	if not unlockables.has(key) or unlockables[key] < level_difficulty:
 		unlockables[key] = level_difficulty
-		var unlock_endurance : bool = true
+		var star_count : int = 0
 		for challenge_level in CHALLENGE_KEYS:
-			if not unlockables.has(challenge_level) or unlocked_stars(challenge_level) < 5:
-				unlock_endurance = false
-				break
-		if unlock_endurance:
+			if unlockables.has(challenge_level):
+				star_count += unlocked_stars(challenge_level)
+		if star_count >= 15: # 15 / 30
 			unlock(KEY_ENDURANCE_MODE)
 
 
