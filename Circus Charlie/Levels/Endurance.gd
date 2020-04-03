@@ -8,7 +8,7 @@ var sector_count : int = 1
 var sector_type : int = 0
 var next_sector_type : int = 1
 
-var bg_offset_change : bool = true
+var lowered_background : bool = false
 #var lion_scene : PackedScene = load("res://Lion/Lion.tscn")
 var lion : KinematicBody2D = null
 var player : KinematicBody2D = null
@@ -17,12 +17,22 @@ var player : KinematicBody2D = null
 const FLAME_POINTS = 100
 const BOILER_POINTS = 200
 var lion_pickup_scene : PackedScene = load("res://Endurance/LionPickUp/Lion.tscn")
+var lion_podium_scene : PackedScene = load("res://Endurance/LionPodium/LionPodium.tscn")
 var flame_scene : PackedScene = load("res://Items/Flame/Flame.tscn")
 var boiler_scene : PackedScene = load("res://Items/Boiler/Boiler.tscn")
 var last_flame = null
 var next_bonus_flame : int = 0
 var jumped_flames : int = 0
 var jumped_boilers : int = 0
+
+# Sector 1
+var rope_scene : PackedScene = load("res://Endurance/Rope/Rope.tscn")
+var high_platform_scene : PackedScene = load("res://Items/HighPlatform/HighPlatform.tscn")
+
+# Sector 4
+var swing_scene : PackedScene = load("res://Items/Swing/swing.tscn")
+var trampoline_scene : PackedScene = load("res://Items/Trampoline/trampoline.tscn")
+
 
 func _ready():
 	seed(sector_count)
@@ -45,12 +55,14 @@ func _ready():
 
 	$Player.remove_child(lion)
 	
+	# Prepare sector 0
 	spawn_next_flame()
 	spawn_boiler()
-	lion.connect("land", self, "landed_safe")
+	lion.connect("land", self, "landed_safe", [], CONNECT_DEFERRED)
 	
-	if $Environment/Flame.connect("hurt", lion, "hurt", [], CONNECT_DEFERRED) != OK:
-		print("Error connecting Flame Hurt")
+	# Transition 0-1
+	$Transition/HighPlatform.extend_tower(16)
+	$Transition/HighPlatform2.remove_win_area()
 
 
 func _on_Intro_finished():
@@ -59,10 +71,11 @@ func _on_Intro_finished():
 
 # warning-ignore: unused_argument
 func _process(delta: float)-> void:
-	if bg_offset_change:
-		var player_offset_pos : float = (max(200, min(350, player.position.y)) - 200) * 96 / 150
+	var player_offset_pos : float = (max(200, min(350, player.position.y)) - 200) * 96 / 150
+	if lowered_background and $ParallaxBackground/ParallaxLayer/Background.offset.y < MAX_BG_OFFSET:
 		$ParallaxBackground/ParallaxLayer/Background.offset.y = MAX_BG_OFFSET - player_offset_pos
-	pass
+	elif not lowered_background and $ParallaxBackground/ParallaxLayer/Background.offset.y > MIN_BG_OFFSET:
+		$ParallaxBackground/ParallaxLayer/Background.offset.y = MAX_BG_OFFSET - player_offset_pos
 
 ##################################################
 # Sector 0 methods
@@ -78,8 +91,9 @@ func lion_pick_up():
 
 func spawn_next_flame():
 	var flame : FlameRing = flame_scene.instance()
-	var flame_distance : float = randf() * 244 + 12
-	print (str(flame_distance))
+	var flame_distance : float = randf() * 232
+	if flame_distance < 64:
+		flame_distance = 12
 	var pos : Vector2
 	var flame_type : int = randi() % 6
 	
@@ -120,7 +134,7 @@ func jump_flame()->void:
 
 func spawn_boiler():
 	var boiler_pos : float = $Limits/LeftWall.position.x + 512
-	while boiler_pos < $Limits/SectorEnd.position.x:
+	while boiler_pos <= $Limits/SectorEnd.position.x:
 		var b = boiler_scene.instance()
 		b.position = Vector2(boiler_pos, 379)
 		b.connect("hurt", lion, "hurt")
@@ -144,18 +158,15 @@ func landed_safe()->void:
 	jumped_flames = 0
 
 
-func _on_TransitionPodium_body_entered(body):
-	print("Transition Podium: " + body.name)
-	if body.name == "Lion":
-		var player_position : Vector2 = lion.position + Vector2.UP * 35
-		var static_lion = lion_pickup_scene.instance()
-		static_lion.remove_ride()
-		static_lion.position = player_position + Vector2.DOWN * 35
-		$Player.call_deferred("remove_child", lion)
-		$Player.call_deferred("add_child", player)
-		$Environment.call_deferred("add_child", static_lion)
-		player.set_position(player_position)
-	pass # Replace with function body.
+func _on_TransitionPodium_body_entered():
+	var player_position : Vector2 = lion.position + Vector2.UP * 35
+	var static_lion = lion_pickup_scene.instance()
+	static_lion.remove_ride()
+	static_lion.position = player_position + Vector2.DOWN * 35
+	$Player.call_deferred("remove_child", lion)
+	$Player.call_deferred("add_child", player)
+	$Environment.call_deferred("add_child", static_lion)
+	player.set_position(player_position)
 
 
 func show_points_on_player(points: int, play_sound:bool = true):
@@ -191,30 +202,92 @@ func _on_SectorEnd_body_entered(body):
 		sector_count += 1
 		seed(sector_count)
 		
-		var next_stop : float = 1024 + 512
 		sector_type = next_sector_type
 		# Next sector: 0-5 not repeating the actual one
 		next_sector_type = randi() % 5
 		if next_sector_type >= sector_type:
 			next_sector_type += 1
-		
-		# Move sector and camera limits
-		$Limits.position.x = $Limits/SectorEnd.position.x - 356
-		player.get_node("Camera2D").limit_left = $Limits/SectorEnd.position.x - 356
-		lion.get_node("Camera2D").limit_left = $Limits/SectorEnd.position.x - 356
-		$Limits/SectorEnd.position.x += next_stop
-		
+			
+		move_next_sector_transition()
+
+
+func move_next_sector_transition():
+	
+	var next_stop : float = 1024 + 512
+	# Move sector and camera limits
+	$Limits.position.x = $Limits/SectorEnd.position.x - 356
+	player.get_node("Camera2D").limit_left = $Limits/SectorEnd.position.x - 356
+	lion.get_node("Camera2D").limit_left = $Limits/SectorEnd.position.x - 356
+	$Limits/SectorEnd.position.x += next_stop
+	
+	# Move objects to previous sector
+	for object in $Environment.get_children():
+		$Environment.call_deferred("remove_child", object)
+		$PreviousSector.call_deferred("add_child", object)
+
+	# Add new sector objects
+	for object in $NextSector.get_children():
+		$NextSector.call_deferred("remove_child", object)
+		$Environment.call_deferred("add_child", object)
+
+	# Add distance signs
+	
+	# Add next sector dynamic objects
+	
+	# Change background accordingly
+	if sector_type == 1 or sector_type == 4:
+		lowered_background = true
+	else:
+		lowered_background = false
+
+
+func _on_TransitionCheckpoint_body_entered(body):
+	if body.name == "Player" or body.name == "Lion":
+
 		# Free previous sector objects
-		for object in $Environment.get_children():
+		for object in $PreviousSector.get_children():
+			object.call_deferred("queue_free")
+
+		# Free previous transition objects
+		for object in $Transition.get_children():
 			object.call_deferred("queue_free")
 		
-		# Add new sector objects
-		for object in $NextSector.get_children():
-			$NextSector.call_deferred("remove_child", object)
-			$Environment.call_deferred("add_child", object)
-
-		# Add distance signs
+		# Create next transition
+		if sector_type == 0:
+			var podium = lion_podium_scene.instance()
+			podium.position.x = $Limits/SectorEnd.position.x + 64
+			podium.connect("LionOnTop", self, "_on_TransitionPodium_body_entered", [], CONNECT_DEFERRED)
+			$Transition.call_deferred("add_child", podium)
+		if next_sector_type == 1:
+			var trampoline = trampoline_scene.instance()
+			var swing = swing_scene.instance()
+			var tower = high_platform_scene.instance()
+			var platform = high_platform_scene.instance()
+			trampoline.position.x = $Limits/SectorEnd.position.x + 192
+			swing.position.x = trampoline.position.x + 64
+			tower.position.x = swing.position.x
+			tower.position.y = 60
+			tower.extend_tower(16)
+			platform.position.x = swing.position.x
+			platform.position.y = 284
+			platform.remove_win_area()
+			$Transition.call_deferred("add_child", trampoline)
+			$Transition.call_deferred("add_child", swing)
+			$Transition.call_deferred("add_child", tower)
+			$Transition.call_deferred("add_child", platform)
 		
-		# Add next sector transition
-		bg_offset_change = true
+		# Add next sector static objects
+		if next_sector_type == 1:
+			var rope = rope_scene.instance()
+			rope.position.x = $Limits/SectorEnd.position.x + 256
+			$NextSector.call_deferred("add_child", rope)
+			rope = rope_scene.instance()
+			rope.position.x = $Limits/SectorEnd.position.x + 768
+			$NextSector.call_deferred("add_child", rope)
+			rope = rope_scene.instance()
+			rope.position.x = $Limits/SectorEnd.position.x + 768 + 512
+			$NextSector.call_deferred("add_child", rope)
+		
+		# Move transition Checkpoint
+		$Limits/TransitionCheckpoint.position.x = $Limits/SectorEnd.position.x + 1024
 
