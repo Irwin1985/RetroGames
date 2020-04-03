@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://Levels/Endurance.gd" type="Script" id=1]
 [ext_resource path="res://assets/background.png" type="Texture" id=2]
@@ -8,12 +8,11 @@
 [ext_resource path="res://assets/sfx/Circus5b loop2.ogg" type="AudioStream" id=6]
 [ext_resource path="res://assets/podium_01.png" type="Texture" id=7]
 [ext_resource path="res://Endurance/LionPickUp/Lion.tscn" type="PackedScene" id=8]
-[ext_resource path="res://Items/Trampoline/trampoline.tscn" type="PackedScene" id=9]
 [ext_resource path="res://Lion/Lion.tscn" type="PackedScene" id=12]
 [ext_resource path="res://assets/sfx/GameOver.wav" type="AudioStream" id=13]
-[ext_resource path="res://Items/Flame/Flame.tscn" type="PackedScene" id=14]
-[ext_resource path="res://Items/HighPlatform/HighPlatform.tscn" type="PackedScene" id=15]
-[ext_resource path="res://Items/Swing/swing.tscn" type="PackedScene" id=16]
+
+[sub_resource type="RectangleShape2D" id=4]
+extents = Vector2( 47.4316, 3.37305 )
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 10, 512 )
@@ -21,14 +20,8 @@ extents = Vector2( 10, 512 )
 [sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 2048, 10 )
 
-[sub_resource type="RectangleShape2D" id=4]
-extents = Vector2( 10, 512 )
-
 [sub_resource type="RectangleShape2D" id=3]
-extents = Vector2( 47.4316, 3.37305 )
-
-[sub_resource type="RectangleShape2D" id=5]
-extents = Vector2( 20, 5 )
+extents = Vector2( 10, 512 )
 
 [node name="Endurance" type="Node2D"]
 script = ExtResource( 1 )
@@ -48,6 +41,28 @@ position = Vector2( 0, 184 )
 scale = Vector2( 2, 2 )
 texture = ExtResource( 3 )
 offset = Vector2( 128, 118 )
+
+[node name="Environment" type="Node2D" parent="."]
+
+[node name="Podium" type="StaticBody2D" parent="Environment" groups=[
+"goal",
+]]
+position = Vector2( 45.0506, 392.205 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Sprite" type="Sprite" parent="Environment/Podium"]
+scale = Vector2( 2, 2 )
+texture = ExtResource( 7 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Environment/Podium"]
+position = Vector2( 0, -18 )
+scale = Vector2( 0.767765, 1.16729 )
+shape = SubResource( 4 )
+
+[node name="LionPickUp" parent="Environment" instance=ExtResource( 8 )]
+position = Vector2( 148.52, 395.701 )
 
 [node name="Limits" type="StaticBody2D" parent="."]
 collision_layer = 16
@@ -79,69 +94,20 @@ position = Vector2( 2048, 0 )
 collision_layer = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Limits/SectorEnd"]
-shape = SubResource( 4 )
-
-[node name="Environment" type="Node2D" parent="."]
-
-[node name="Podium" type="StaticBody2D" parent="Environment" groups=[
-"goal",
-]]
-position = Vector2( 45.0506, 392.205 )
-__meta__ = {
-"_edit_group_": true
-}
-
-[node name="Sprite" type="Sprite" parent="Environment/Podium"]
-scale = Vector2( 2, 2 )
-texture = ExtResource( 7 )
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Environment/Podium"]
-position = Vector2( 0, -18 )
-scale = Vector2( 0.767765, 1.16729 )
 shape = SubResource( 3 )
 
-[node name="LionPickUp" parent="Environment" instance=ExtResource( 8 )]
-position = Vector2( 148.52, 395.701 )
+[node name="TransitionCheckpoint" type="Area2D" parent="Limits"]
+position = Vector2( 1024, 0 )
+collision_layer = 4
 
-[node name="Flame" parent="Environment" instance=ExtResource( 14 )]
-position = Vector2( 545, 188 )
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Limits/TransitionCheckpoint"]
+shape = SubResource( 3 )
+
+[node name="PreviousSector" type="Node2D" parent="."]
+
+[node name="Transition" type="Node2D" parent="."]
 
 [node name="NextSector" type="Node2D" parent="."]
-
-[node name="Podium2" type="StaticBody2D" parent="NextSector" groups=[
-"goal",
-]]
-position = Vector2( 2098, 392.205 )
-__meta__ = {
-"_edit_group_": true
-}
-
-[node name="Sprite" type="Sprite" parent="NextSector/Podium2"]
-scale = Vector2( 2, 2 )
-texture = ExtResource( 7 )
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="NextSector/Podium2"]
-position = Vector2( 0, -18 )
-scale = Vector2( 0.767765, 1.16729 )
-shape = SubResource( 3 )
-
-[node name="Area2D" type="Area2D" parent="NextSector/Podium2"]
-collision_layer = 8
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="NextSector/Podium2/Area2D"]
-position = Vector2( 0, -25 )
-shape = SubResource( 5 )
-
-[node name="Trampoline2" parent="NextSector" instance=ExtResource( 9 )]
-position = Vector2( 2220, 398.864 )
-
-[node name="HighPlatform" parent="NextSector" instance=ExtResource( 15 )]
-
-[node name="HighPlatform2" parent="NextSector" instance=ExtResource( 15 )]
-position = Vector2( 2400, 284 )
-
-[node name="swing" parent="NextSector" instance=ExtResource( 16 )]
-position = Vector2( 2300, 120 )
 
 [node name="Player" type="Node2D" parent="."]
 
@@ -166,7 +132,7 @@ stream = ExtResource( 6 )
 stream = ExtResource( 13 )
 [connection signal="body_entered" from="Limits/HurtDetector" to="." method="_on_HurtDetector_body_entered"]
 [connection signal="body_entered" from="Limits/SectorEnd" to="." method="_on_SectorEnd_body_entered"]
-[connection signal="body_entered" from="NextSector/Podium2/Area2D" to="." method="_on_TransitionPodium_body_entered"]
+[connection signal="body_entered" from="Limits/TransitionCheckpoint" to="." method="_on_TransitionCheckpoint_body_entered"]
 [connection signal="lose" from="Player/Player" to="." method="_on_Player_lose"]
 [connection signal="lose" from="Player/Lion" to="." method="_on_Player_lose"]
 [connection signal="finished" from="Sounds/Intro" to="." method="_on_Intro_finished"]

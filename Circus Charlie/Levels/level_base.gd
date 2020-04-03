@@ -77,19 +77,21 @@ func GameOverSound_finished():
 
 
 func _on_HUD_little_time_left():
-	$Sounds/LevelSound.pitch_scale = global.pitch_scale
-	$Sounds/LevelSound.stop()
-	$Sounds/LevelSound.play()
+	if global.game_mode != global.ENDURANCE_MODE:
+		$Sounds/LevelSound.pitch_scale = global.pitch_scale
+		$Sounds/LevelSound.stop()
+		$Sounds/LevelSound.play()
 
 
 func _on_HUD_out_of_time():
 	var found := false
-	if get_node(PLAYER_NAME) != null:
-		found = true
-		get_node(PLAYER_NAME).lose()
-	if not found and get_node(LION_NAME) != null:
-		found = true
-		get_node(LION_NAME).lose()
+	if global.game_mode != global.ENDURANCE_MODE:
+		if get_node(PLAYER_NAME) != null:
+			found = true
+			get_node(PLAYER_NAME).lose()
+		if not found and get_node(LION_NAME) != null:
+			found = true
+			get_node(LION_NAME).lose()
 
 func _on_audience_timeout()->void:
 	$Background/Celebrating.visible = not $Background/Celebrating.visible
