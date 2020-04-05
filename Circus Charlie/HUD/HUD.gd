@@ -60,7 +60,9 @@ func update_endurance_timer() -> void:
 	var seconds : int = total_time.substr(0, total_time.find(".")).to_int()
 	var mill : int = total_time.substr(total_time.find(".") + 1, 3).to_int()
 	var strMill = "%03d" % (mill)
+# warning-ignore: integer_division
 	var strSeconds = "%02d" % (seconds % 60)
+# warning-ignore: integer_division
 	var strMinutes = "%02d" % (seconds / 60)
 	var strHours = "%02d" % (seconds / 3600)
 	$Time/LabelTimer.text = strHours + " " + strMinutes + " " + strSeconds + " " + strMill

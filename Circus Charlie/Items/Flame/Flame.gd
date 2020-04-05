@@ -55,7 +55,8 @@ func stop():
 
 # warning-ignore:unused_argument
 func _on_Score_body_entered(body):
-	emit_signal("jump_through")
+	if body.name == global.LION_NAME:
+		emit_signal("jump_through")
 
 
 func _on_TimerMoveFlame_timeout():
@@ -67,7 +68,6 @@ func _on_VisibilityNotifier2D_screen_entered():
 
 
 func _on_VisibilityNotifier2D_screen_exited():
-#	queue_free()
 	emit_signal("disappear", self)
 
 

@@ -198,6 +198,9 @@ func animate(state: String) -> void:
 
 
 func take_swing(swing: Swing) -> void:
+	if swing == null:
+		last_swing = null
+		return
 	if last_swing != null and last_swing != swing:
 		last_swing.enable_bar()
 	hanging = true

@@ -150,7 +150,7 @@ position = Vector2( 0, 2.5 )
 [node name="Sprite" parent="HighPlatform/PlatformTable" index="0"]
 scale = Vector2( 2.5, 2.5 )
 
-[node name="CollisionShape2D" parent="HighPlatform/PlatformTable" index="1"]
+[node name="CollisionShape2D" parent="HighPlatform/PlatformTable" index="2"]
 visible = false
 position = Vector2( 1.509, -94 )
 disabled = true

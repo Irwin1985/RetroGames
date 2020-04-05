@@ -2,6 +2,7 @@ extends Area2D
 
 signal hurt
 signal cyan_monkey_showed
+signal screen_entered
 signal screen_exited
 signal bonus_earned
 
@@ -47,6 +48,10 @@ func set_playback_speed(new_speed):
 	$AnimatedSprite.speed_scale = new_speed
 
 
+func _on_VisibilityNotifier2D_screen_entered():
+	emit_signal("screen_entered", self)
+
+
 func _on_VisibilityNotifier2D_screen_exited():	
 	emit_signal("screen_exited", self)
 
@@ -62,3 +67,4 @@ func _on_CyanMonkeyTimer_timeout():
 	$AnimatedSprite.frame = 2
 	move = true
 	$AnimatedSprite.play()
+
