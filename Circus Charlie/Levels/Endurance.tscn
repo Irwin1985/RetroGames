@@ -11,17 +11,17 @@
 [ext_resource path="res://Lion/Lion.tscn" type="PackedScene" id=12]
 [ext_resource path="res://assets/sfx/GameOver.wav" type="AudioStream" id=13]
 
-[sub_resource type="RectangleShape2D" id=4]
-extents = Vector2( 47.4316, 3.37305 )
-
-[sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 10, 512 )
-
 [sub_resource type="RectangleShape2D" id=2]
-extents = Vector2( 2048, 10 )
+extents = Vector2( 10, 512 )
 
 [sub_resource type="RectangleShape2D" id=3]
+extents = Vector2( 2048, 10 )
+
+[sub_resource type="RectangleShape2D" id=4]
 extents = Vector2( 10, 512 )
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 47.4316, 3.37305 )
 
 [node name="Endurance" type="Node2D"]
 script = ExtResource( 1 )
@@ -42,6 +42,47 @@ scale = Vector2( 2, 2 )
 texture = ExtResource( 3 )
 offset = Vector2( 128, 118 )
 
+[node name="Limits" type="StaticBody2D" parent="."]
+collision_layer = 16
+collision_mask = 5
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="LeftWall" type="CollisionShape2D" parent="Limits"]
+shape = SubResource( 2 )
+
+[node name="Ground" type="CollisionShape2D" parent="Limits"]
+position = Vector2( 2048, 425 )
+shape = SubResource( 3 )
+
+[node name="HurtDetector" type="Area2D" parent="Limits"]
+collision_layer = 2
+
+[node name="Ground" type="CollisionShape2D" parent="Limits/HurtDetector"]
+position = Vector2( 2048, 424 )
+shape = SubResource( 3 )
+
+[node name="Ceiling" type="CollisionShape2D" parent="Limits/HurtDetector"]
+position = Vector2( 2048, 35 )
+shape = SubResource( 3 )
+
+[node name="SectorEnd" type="Area2D" parent="Limits"]
+position = Vector2( 2048, 0 )
+collision_layer = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Limits/SectorEnd"]
+shape = SubResource( 4 )
+
+[node name="TransitionCheckpoint" type="Area2D" parent="Limits"]
+position = Vector2( 1024, 0 )
+collision_layer = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Limits/TransitionCheckpoint"]
+shape = SubResource( 4 )
+
+[node name="PreviousSector" type="Node2D" parent="."]
+
 [node name="Environment" type="Node2D" parent="."]
 
 [node name="Podium" type="StaticBody2D" parent="Environment" groups=[
@@ -59,51 +100,10 @@ texture = ExtResource( 7 )
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Environment/Podium"]
 position = Vector2( 0, -18 )
 scale = Vector2( 0.767765, 1.16729 )
-shape = SubResource( 4 )
-
-[node name="LionPickUp" parent="Environment" instance=ExtResource( 8 )]
-position = Vector2( 148.52, 395.701 )
-
-[node name="Limits" type="StaticBody2D" parent="."]
-collision_layer = 16
-collision_mask = 5
-__meta__ = {
-"_edit_group_": true
-}
-
-[node name="LeftWall" type="CollisionShape2D" parent="Limits"]
 shape = SubResource( 1 )
 
-[node name="Ground" type="CollisionShape2D" parent="Limits"]
-position = Vector2( 2048, 425 )
-shape = SubResource( 2 )
-
-[node name="HurtDetector" type="Area2D" parent="Limits"]
-collision_layer = 2
-
-[node name="Ground" type="CollisionShape2D" parent="Limits/HurtDetector"]
-position = Vector2( 2048, 424 )
-shape = SubResource( 2 )
-
-[node name="Ceiling" type="CollisionShape2D" parent="Limits/HurtDetector"]
-position = Vector2( 2048, 35 )
-shape = SubResource( 2 )
-
-[node name="SectorEnd" type="Area2D" parent="Limits"]
-position = Vector2( 2048, 0 )
-collision_layer = 4
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Limits/SectorEnd"]
-shape = SubResource( 3 )
-
-[node name="TransitionCheckpoint" type="Area2D" parent="Limits"]
-position = Vector2( 1024, 0 )
-collision_layer = 4
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Limits/TransitionCheckpoint"]
-shape = SubResource( 3 )
-
-[node name="PreviousSector" type="Node2D" parent="."]
+[node name="LionPickUp" parent="Environment" instance=ExtResource( 8 )]
+position = Vector2( 148.52, 398 )
 
 [node name="Transition" type="Node2D" parent="."]
 

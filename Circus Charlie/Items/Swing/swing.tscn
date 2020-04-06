@@ -3,7 +3,7 @@
 [ext_resource path="res://Items/Swing/swing.gd" type="Script" id=1]
 [ext_resource path="res://assets/swing.png" type="Texture" id=2]
 
-[sub_resource type="CapsuleShape2D" id=2]
+[sub_resource type="CapsuleShape2D" id=1]
 radius = 7.60561
 height = 12.4118
 
@@ -25,5 +25,5 @@ offset = Vector2( -2, 30 )
 position = Vector2( -52.368, 23.877 )
 rotation = -0.471237
 scale = Vector2( 0.352257, 0.280031 )
-shape = SubResource( 2 )
+shape = SubResource( 1 )
 [connection signal="body_entered" from="SwingRope" to="." method="_on_Area2D_body_entered"]
