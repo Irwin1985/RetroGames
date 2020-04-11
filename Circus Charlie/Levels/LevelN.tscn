@@ -80,7 +80,6 @@ margin_right = 740.0
 margin_bottom = 105.0
 
 [node name="Checkpoints" type="Node2D" parent="."]
-editor/display_folded = true
 
 [node name="level_70m" type="Sprite" parent="Checkpoints"]
 position = Vector2( 64, 440 )

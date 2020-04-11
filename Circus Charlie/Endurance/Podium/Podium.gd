@@ -17,3 +17,5 @@ func _on_Top_body_entered(body):
 #		$Player.call_deferred("add_child", player)
 #		$Environment.call_deferred("add_child", static_lion)
 #		player.set_position(player_position)
+	elif body.name == global.PLAYER_NAME:
+		body.gravity = 15

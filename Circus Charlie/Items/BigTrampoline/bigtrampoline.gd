@@ -2,8 +2,9 @@ extends Trampoline
 class_name BigTrampoline
 
 signal bonus_pick
+signal first_bounce
 
-var give_points: bool = true
+var first_bounce: bool = true
 var bounce_count: int = 0
 var checkpoint: int = 0
 
@@ -26,8 +27,9 @@ func bounce_player(body: PhysicsBody2D) -> void:
 		if body.can_bounce():
 			if checkpoint != 0:
 				global.set_checkpoint(checkpoint)
-			if give_points:
-				give_points = false
+			if first_bounce:
+				first_bounce = false
+				emit_signal("first_bounce")
 				global.give_points(20)
 			var bounciness : float = 1100
 			bounce_count += 1

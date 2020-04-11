@@ -9,7 +9,6 @@ var sector_type : int = 0
 var next_sector_type : int = 1
 
 var lowered_background : bool = false
-#var lion_scene : PackedScene = load("res://Lion/Lion.tscn")
 var lion : KinematicBody2D = null
 var player : Player = null
 
@@ -17,7 +16,7 @@ var player : Player = null
 const FLAME_POINTS = 100
 const BOILER_POINTS = 200
 var lion_pickup_scene : PackedScene = load("res://Endurance/LionPickUp/Lion.tscn")
-var lion_podium_scene : PackedScene = load("res://Endurance/LionPodium/LionPodium.tscn")
+var transition_podium_scene : PackedScene = load("res://Endurance/Podium/Podium.tscn")
 var flame_scene : PackedScene = load("res://Items/Flame/Flame.tscn")
 var boiler_scene : PackedScene = load("res://Items/Boiler/Boiler.tscn")
 var last_flame = null
@@ -32,10 +31,17 @@ var monkey_scene : PackedScene = load("res://Monkey/MonkeyBase.tscn")
 var start_swing : Swing = null
 var last_monkey : Area2D = null
 
+# Sector 2
+var ball_scene : PackedScene = load("res://Items/Ball.tscn")
+
 # Sector 4
 var swing_scene : PackedScene = load("res://Items/Swing/swing.tscn")
 var trampoline_scene : PackedScene = load("res://Items/Trampoline/trampoline.tscn")
 
+# Sector 5
+var big_trampoline_scene : PackedScene = load("res://Items/BigTrampoline/bigtrampoline.tscn")
+var fire_eater_scene : PackedScene = load("res://Items/FireEater/FireEater.tscn")
+var juggler_scene : PackedScene = load("res://Items/Juggler/Juggler.tscn")
 
 func _ready():
 	seed(sector_count)
@@ -59,8 +65,7 @@ func _ready():
 	$Player.remove_child(lion)
 	
 	# Prepare sector 0
-	spawn_next_flame()
-	spawn_boiler()
+	spawn_boiler($Limits/SectorEnd.position.x, false)
 # warning-ignore: return_value_discarded
 	lion.connect("land", self, "landed_safe", [], CONNECT_DEFERRED)
 
@@ -83,7 +88,7 @@ func _process(delta: float)-> void:
 
 func add_lion_transition_in() -> void:
 	var lion_pickup_item = lion_pickup_scene.instance()
-	lion_pickup_item.position.x = $Limits/SectorEnd.position.x + 128
+	lion_pickup_item.position.x = $Limits/SectorEnd.position.x + 160
 	lion_pickup_item.position.y = 398
 	if lion_pickup_item.connect("pick_up", self, "lion_pick_up", [lion_pickup_item], CONNECT_DEFERRED) != OK:
 		print("Error connecting Lion Pickup")
@@ -96,6 +101,7 @@ func lion_pick_up(pickup_item):
 	$Player.call_deferred("remove_child", player)
 	$Player.call_deferred("add_child", lion)
 	lion.set_position(player_position)
+	spawn_next_flame()
 
 
 func spawn_next_flame():
@@ -151,9 +157,16 @@ func jump_flame()->void:
 	jumped_flames += 1
 
 
-func spawn_boiler():
-	var boiler_pos : float = $Limits/LeftWall.position.x + 512
-	while boiler_pos <= $Limits/SectorEnd.position.x:
+func spawn_boiler(sector_length : float, start_at_sector_end : bool = true) -> void:
+	var boiler_pos : float
+	var end_pos : float
+	if start_at_sector_end:
+		boiler_pos = $Limits/SectorEnd.position.x + 768
+		end_pos = $Limits/SectorEnd.position.x + sector_length
+	else:
+		boiler_pos = $Limits/LeftWall.position.x + 512
+		end_pos = sector_length
+	while boiler_pos <= end_pos:
 		var b = boiler_scene.instance()
 		b.position = Vector2(boiler_pos, 379)
 		b.connect("hurt", lion, "hurt")
@@ -178,7 +191,7 @@ func landed_safe()->void:
 
 
 func add_lion_transition_out() -> void:
-	var podium = lion_podium_scene.instance()
+	var podium = transition_podium_scene.instance()
 	podium.position.x = $Limits/SectorEnd.position.x + 64
 	podium.connect("LionOnTop", self, "_on_TransitionPodium_body_entered", [], CONNECT_DEFERRED)
 	$Transition.call_deferred("add_child", podium)
@@ -228,6 +241,10 @@ func add_monkey_environment(next_stop: float) -> void:
 	rope.position.x = $Limits/SectorEnd.position.x + 768 + 512
 	$Environment.call_deferred("add_child", rope)
 	
+	var fireeater = fire_eater_scene.instance()
+	fireeater.position.x = $Limits/SectorEnd.position.x + 768 + 512
+	$Environment.call_deferred("add_child", fireeater)
+	
 	var platform = high_platform_scene.instance()
 	platform.position.x = $Limits/SectorEnd.position.x + next_stop
 	platform.position.y = 252
@@ -268,6 +285,73 @@ func _on_monkey_screen_entered(monkey) -> void:
 func _on_monkey_screen_exited(monkey) -> void:
 	if monkey.position.x < player.position.x:
 		monkey.call_deferred("queue_free")
+
+##################################################
+# Sector 2 methods - Balls
+##################################################
+
+func add_ball_transition_in() -> void:
+	var ball = ball_scene.instance()
+	ball.position.x = $Limits/SectorEnd.position.x + 160
+	ball.position.y = 400
+	ball.set_can_move_itself(false)
+#	ball.connect("first_bounce", self, "change_gravity", [20], CONNECT_DEFERRED)
+	$Transition.call_deferred("add_child", ball)
+
+##################################################
+# Sector 3 methods - Horse
+##################################################
+
+func add_horse_transition_in() -> void:
+	pass
+
+##################################################
+# Sector 4 methods - Swings
+##################################################
+
+func add_swing_transition_in() -> void:
+	pass
+
+##################################################
+# Sector 5 methods - Trampolines
+##################################################
+
+func add_trampoline_transition_in() -> void:
+	var trampoline = big_trampoline_scene.instance()
+	trampoline.position.x = $Limits/SectorEnd.position.x + 160
+	trampoline.connect("first_bounce", self, "change_gravity", [20], CONNECT_DEFERRED)
+	$Transition.call_deferred("add_child", trampoline)
+
+
+func add_trampoline_environment(next_stop: float) -> void:
+	var trampoline
+	var xpos : float = 160
+	while xpos < next_stop:
+		trampoline = big_trampoline_scene.instance()
+		trampoline.position.x = $Limits/SectorEnd.position.x + xpos
+		$Environment.call_deferred("add_child", trampoline)
+		
+# Jugglers and Fire Eaters
+		if xpos > 200:
+			# warning-ignore:integer_division
+			var char_posx : int = xpos + 85
+#			if char_posx > (checkpoint_pos + 512):
+			# warning-ignore:narrowing_conversion
+			var diff_weight : int = pow(2, global.level_difficulty)
+			var random: int = randi() % (1 + diff_weight * 2)
+			if random > 0 and random <= diff_weight:
+				var new_fire_eater: Node2D = fire_eater_scene.instance()
+				new_fire_eater.position = Vector2($Limits/SectorEnd.position.x + char_posx, 388)
+				$Environment.add_child(new_fire_eater)
+			elif random > diff_weight:
+				var new_juggler: Node2D = juggler_scene.instance()
+				new_juggler.position = Vector2($Limits/SectorEnd.position.x + char_posx, 388)
+				$Environment.add_child(new_juggler)
+		xpos += 512 / 3
+
+
+func change_gravity(gravity : int) -> void:
+	player.gravity = gravity
 
 
 func show_points_on_player(points: int, play_sound:bool = true):
@@ -310,13 +394,24 @@ func _on_TransitionCheckpoint_body_entered(body):
 		player.take_swing(null)
 		
 		# Create next transition
-		if sector_type == 0:
+		if sector_type == 0 or \
+			sector_type == 2 or \
+			sector_type == 3 or \
+			sector_type == 5:
 			add_lion_transition_out()
 			
 		if next_sector_type == 0:
 			add_lion_transition_in()
 		elif next_sector_type == 1:
 			add_monkey_transition_in()
+		elif next_sector_type == 2:
+			add_ball_transition_in()
+		elif next_sector_type == 3:
+			add_horse_transition_in()
+		elif next_sector_type == 4:
+			add_swing_transition_in()
+		elif next_sector_type == 5:
+			add_trampoline_transition_in()
 		
 		# Add next sector static objects
 		if next_sector_type == 1:
@@ -365,12 +460,12 @@ func move_next_sector_transition():
 	# Add distance signs
 	
 	# Add next sector dynamic objects
-	
 	if sector_type == 0:
-		spawn_next_flame()
-		spawn_boiler()
+		spawn_boiler(next_stop)
 	elif sector_type == 1:
 		add_monkey_environment(next_stop)
+	elif sector_type == 5:
+		add_trampoline_environment(next_stop)
 		
 	# Change background accordingly
 	if sector_type == 1 or sector_type == 4:

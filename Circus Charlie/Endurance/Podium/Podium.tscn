@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=2]
 
-[ext_resource path="res://assets/podium_01.png" type="Texture" id=1]
-[ext_resource path="res://Endurance/LionPodium/LionPodium.gd" type="Script" id=2]
+[ext_resource path="res://Endurance/Podium/Podium.gd" type="Script" id=1]
+[ext_resource path="res://assets/podium_01.png" type="Texture" id=2]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 47.4316, 3.37305 )
@@ -13,14 +13,14 @@ extents = Vector2( 20, 5 )
 "goal",
 ]]
 position = Vector2( 0, 392.205 )
-script = ExtResource( 2 )
+script = ExtResource( 1 )
 __meta__ = {
 "_edit_group_": true
 }
 
 [node name="Sprite" type="Sprite" parent="."]
 scale = Vector2( 2, 2 )
-texture = ExtResource( 1 )
+texture = ExtResource( 2 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2( 0, -18 )
