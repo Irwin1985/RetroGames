@@ -1,0 +1,34 @@
+[remap]
+
+importer="texture"
+type="StreamTexture"
+path="res://.import/Shao Kahn.png-74efee69d4fe07131cbf83cd3049ffdd.stex"
+metadata={
+"vram_texture": false
+}
+
+[deps]
+
+source_file="res://assets/fighters/Shao Kahn.png"
+dest_files=[ "res://.import/Shao Kahn.png-74efee69d4fe07131cbf83cd3049ffdd.stex" ]
+
+[params]
+
+compress/mode=0
+compress/lossy_quality=0.7
+compress/hdr_mode=0
+compress/bptc_ldr=0
+compress/normal_map=0
+flags/repeat=0
+flags/filter=false
+flags/mipmaps=false
+flags/anisotropic=false
+flags/srgb=2
+process/fix_alpha_border=true
+process/premult_alpha=false
+process/HDR_as_SRGB=false
+process/invert_color=false
+stream=false
+size_limit=0
+detect_3d=true
+svg/scale=1.0
