@@ -1,0 +1,112 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://GameFont.tres" type="DynamicFont" id=1]
+[ext_resource path="res://assets/level.png" type="Texture" id=2]
+[ext_resource path="res://assets/vida.png" type="Texture" id=3]
+[ext_resource path="res://scripts/HUD.gd" type="Script" id=4]
+
+[node name="HUD" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 4 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Guia" type="Sprite" parent="."]
+visible = false
+texture = ExtResource( 2 )
+centered = false
+
+[node name="LabelVidas" type="Label" parent="."]
+margin_left = 3.0
+margin_top = 1.0
+margin_right = 81.0
+margin_bottom = 25.0
+custom_fonts/font = ExtResource( 1 )
+custom_colors/font_color = Color( 0.901961, 0, 0, 1 )
+text = "VIDAS"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="LabelPuntos" type="Label" parent="."]
+margin_left = 3.0
+margin_top = 31.0
+margin_right = 206.0
+margin_bottom = 55.0
+custom_fonts/font = ExtResource( 1 )
+custom_colors/font_color = Color( 0.901961, 0, 0, 1 )
+text = "PUNTOS 0"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="LabelNivel" type="Label" parent="."]
+margin_left = 440.0
+margin_top = 1.0
+margin_right = 512.0
+margin_bottom = 25.0
+custom_fonts/font = ExtResource( 1 )
+custom_colors/font_color = Color( 0.901961, 0, 0, 1 )
+text = "NIVEL"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="LabelNivelNro" type="Label" parent="."]
+margin_left = 568.0
+margin_top = 1.0
+margin_right = 582.0
+margin_bottom = 25.0
+custom_fonts/font = ExtResource( 1 )
+custom_colors/font_color = Color( 0.901961, 0, 0, 1 )
+text = "1"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="LabelJugador" type="Label" parent="."]
+margin_left = 440.0
+margin_top = 31.0
+margin_right = 582.0
+margin_bottom = 55.0
+custom_fonts/font = ExtResource( 1 )
+custom_colors/font_color = Color( 0.901961, 0, 0, 1 )
+text = "JUGADOR 1"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+margin_left = 112.0
+margin_right = 172.0
+margin_bottom = 33.0
+__meta__ = {
+"_edit_group_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="V1" type="TextureRect" parent="HBoxContainer"]
+visible = false
+margin_right = 12.0
+margin_bottom = 33.0
+texture = ExtResource( 3 )
+
+[node name="V2" type="TextureRect" parent="HBoxContainer"]
+visible = false
+margin_right = 12.0
+margin_bottom = 33.0
+texture = ExtResource( 3 )
+
+[node name="V3" type="TextureRect" parent="HBoxContainer"]
+visible = false
+margin_right = 12.0
+margin_bottom = 33.0
+texture = ExtResource( 3 )
+
+[node name="V4" type="TextureRect" parent="HBoxContainer"]
+visible = false
+margin_right = 12.0
+margin_bottom = 33.0
+texture = ExtResource( 3 )

@@ -1,0 +1,91 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://assets/momia_sprite_sheet.png" type="Texture" id=1]
+[ext_resource path="res://assets/sarcofago_sprite_sheet.png" type="Texture" id=2]
+[ext_resource path="res://scripts/Sarcofago.gd" type="Script" id=3]
+
+[sub_resource type="Animation" id=3]
+resource_name = "Default"
+tracks/0/type = "value"
+tracks/0/path = NodePath("SpriteSarcofago:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 0 ]
+}
+
+[sub_resource type="Animation" id=2]
+length = 4.0
+tracks/0/type = "value"
+tracks/0/path = NodePath("SpriteSarcofago:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.3, 0.6, 0.9, 1.2, 1.5 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 0, 1, 2, 3, 4, 5 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("SpriteMomia:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 1.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ false, true ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("SpriteMomia:frame")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 1.9, 2.4, 2.9, 3.4, 3.9 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 0, 11, 11, 1, 2 ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("SpriteMomia:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0, 2, 2.5, 3, 3.5, 4 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ Vector2( 12, 10 ), Vector2( 12, 12 ), Vector2( 12, 14 ), Vector2( 12, 16 ), Vector2( 12, 18 ), Vector2( 12, 20 ) ]
+}
+
+[node name="Sarcofago" type="Node2D"]
+script = ExtResource( 3 )
+
+[node name="SpriteSarcofago" type="Sprite" parent="."]
+texture = ExtResource( 2 )
+centered = false
+hframes = 6
+
+[node name="SpriteMomia" type="Sprite" parent="."]
+visible = false
+position = Vector2( 12, 10 )
+texture = ExtResource( 1 )
+centered = false
+hframes = 16
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/Default = SubResource( 3 )
+anims/Start = SubResource( 2 )
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]

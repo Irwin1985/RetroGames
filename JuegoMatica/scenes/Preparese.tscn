@@ -1,0 +1,136 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://assets/pixel_lowercase.tres" type="DynamicFont" id=1]
+[ext_resource path="res://assets/preparese_fondo2.png" type="Texture" id=2]
+[ext_resource path="res://assets/preparese_fondo.png" type="Texture" id=3]
+[ext_resource path="res://assets/pixel_lowercase9x16.tres" type="DynamicFont" id=4]
+[ext_resource path="res://scripts/Preparese.gd" type="Script" id=5]
+
+[node name="Preparese" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_right = -430.0
+margin_bottom = -238.0
+script = ExtResource( 5 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Background" type="ColorRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0, 0, 0, 0.866667 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="VBoxDatos" type="VBoxContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_lock_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="Preparese" type="TextureRect" parent="VBoxDatos"]
+margin_right = 210.0
+margin_bottom = 32.0
+texture = ExtResource( 3 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Label" type="Label" parent="VBoxDatos/Preparese"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 2.0
+margin_top = 2.0
+margin_right = -6.0
+margin_bottom = -2.0
+custom_fonts/font = ExtResource( 1 )
+custom_colors/font_color = Color( 0, 0.905882, 0.00392157, 1 )
+text = "Preparese"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_lock_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="Estadisticas" type="TextureRect" parent="VBoxDatos"]
+margin_top = 36.0
+margin_right = 210.0
+margin_bottom = 160.0
+texture = ExtResource( 2 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxDatos/Estadisticas"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 2.0
+margin_top = 2.0
+margin_right = -6.0
+margin_bottom = -2.0
+alignment = 1
+__meta__ = {
+"_edit_lock_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="Jugador" type="Label" parent="VBoxDatos/Estadisticas/VBoxContainer"]
+margin_top = 10.0
+margin_right = 202.0
+margin_bottom = 32.0
+custom_fonts/font = ExtResource( 4 )
+custom_colors/font_color = Color( 0.462745, 0.443137, 0.305882, 1 )
+text = "Jugador 1"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_lock_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="Vidas" type="Label" parent="VBoxDatos/Estadisticas/VBoxContainer"]
+margin_top = 36.0
+margin_right = 202.0
+margin_bottom = 58.0
+custom_fonts/font = ExtResource( 4 )
+custom_colors/font_color = Color( 0.462745, 0.443137, 0.305882, 1 )
+text = "Vidas 4"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_lock_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="Nivel" type="Label" parent="VBoxDatos/Estadisticas/VBoxContainer"]
+margin_top = 62.0
+margin_right = 202.0
+margin_bottom = 84.0
+custom_fonts/font = ExtResource( 4 )
+custom_colors/font_color = Color( 0.462745, 0.443137, 0.305882, 1 )
+text = "Nivel 1"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_lock_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="Puntos" type="Label" parent="VBoxDatos/Estadisticas/VBoxContainer"]
+margin_top = 88.0
+margin_right = 202.0
+margin_bottom = 110.0
+custom_fonts/font = ExtResource( 4 )
+custom_colors/font_color = Color( 0.462745, 0.443137, 0.305882, 1 )
+text = "Puntos"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_lock_": true,
+"_edit_use_anchors_": false
+}

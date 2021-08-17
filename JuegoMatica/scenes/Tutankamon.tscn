@@ -1,0 +1,85 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://assets/level.png" type="Texture" id=1]
+[ext_resource path="res://scripts/Tutankamon.gd" type="Script" id=2]
+[ext_resource path="res://scenes/Momia.tscn" type="PackedScene" id=3]
+[ext_resource path="res://scenes/Player.tscn" type="PackedScene" id=4]
+[ext_resource path="res://scenes/HUD.tscn" type="PackedScene" id=5]
+[ext_resource path="res://scenes/Sarcofago.tscn" type="PackedScene" id=6]
+[ext_resource path="res://scenes/Preparese.tscn" type="PackedScene" id=7]
+
+[node name="Tutankamon" type="Node"]
+script = ExtResource( 2 )
+
+[node name="level" type="Sprite" parent="."]
+texture = ExtResource( 1 )
+centered = false
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="ContenedorEcuaciones" type="Node2D" parent="."]
+
+[node name="ContenedorEscalerasPiso1" type="Node2D" parent="."]
+
+[node name="ContenedorEscalerasPiso2" type="Node2D" parent="."]
+
+[node name="ContenedorEscalerasPiso3" type="Node2D" parent="."]
+
+[node name="ContenedorGlobal" type="Node2D" parent="."]
+
+[node name="ContenedorInterruptores" type="Node2D" parent="."]
+
+[node name="PlayerPosition" type="Position2D" parent="."]
+position = Vector2( 58, 130 )
+
+[node name="Player" parent="." instance=ExtResource( 4 )]
+visible = false
+position = Vector2( 58, 132 )
+
+[node name="HUD" parent="." instance=ExtResource( 5 )]
+visible = false
+
+[node name="Sarcofago" parent="." instance=ExtResource( 6 )]
+position = Vector2( 287, 6 )
+
+[node name="Momia" parent="." instance=ExtResource( 3 )]
+visible = false
+position = Vector2( 317, 56 )
+
+[node name="MomiaPosition" type="Position2D" parent="."]
+position = Vector2( 317, 56 )
+
+[node name="TimerAlgoritmoMomia" type="Timer" parent="."]
+
+[node name="TimerSalidaMomia" type="Timer" parent="."]
+one_shot = true
+
+[node name="Efecto" type="ColorRect" parent="."]
+visible = false
+modulate = Color( 0.00392157, 0.00392157, 0.00392157, 0.92549 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0, 0, 0, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Tween" type="Tween" parent="Efecto"]
+
+[node name="Preparese" parent="." instance=ExtResource( 7 )]
+visible = false
+margin_left = 215.0
+margin_top = 126.0
+margin_right = -215.0
+margin_bottom = -112.0
+[connection signal="dancing_done" from="Player" to="." method="_on_Player_dancing_done"]
+[connection signal="dead" from="Player" to="." method="_on_Player_dead"]
+[connection signal="wanted_climb" from="Player" to="." method="_on_Character_wanted_climb"]
+[connection signal="animation_finished" from="Sarcofago" to="." method="_on_Sarcofago_animation_finished"]
+[connection signal="ready_to_go" from="Momia" to="." method="_on_Momia_ready_to_go"]
+[connection signal="wanted_climb" from="Momia" to="." method="_on_Character_wanted_climb"]
+[connection signal="timeout" from="TimerAlgoritmoMomia" to="." method="_on_TimerAlgoritmoMomia_timeout"]
+[connection signal="timeout" from="TimerSalidaMomia" to="." method="_on_TimerSalidaMomia_timeout"]
+[connection signal="tween_completed" from="Efecto/Tween" to="." method="_on_Tween_tween_completed"]
+[connection signal="start_game" from="Preparese" to="." method="_start_game"]

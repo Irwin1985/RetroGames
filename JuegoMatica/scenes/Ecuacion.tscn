@@ -1,0 +1,23 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://assets/ecuacion.png" type="Texture" id=1]
+[ext_resource path="res://GameFont.tres" type="DynamicFont" id=2]
+[ext_resource path="res://scripts/Ecuacion.gd" type="Script" id=3]
+
+[node name="Ecuacion" type="Sprite"]
+texture = ExtResource( 1 )
+script = ExtResource( 3 )
+
+[node name="FormulaLabel" type="Label" parent="."]
+margin_left = -37.0
+margin_top = -21.0
+margin_right = 37.0
+margin_bottom = 20.0
+custom_fonts/font = ExtResource( 2 )
+custom_colors/font_color = Color( 0.901961, 0, 0, 1 )
+text = "0x0"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
