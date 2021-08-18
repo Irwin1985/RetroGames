@@ -43,6 +43,9 @@ enum {
 	LEVEL_10,
 }
 
+# scenes parameters
+var _scene_params = null
+
 # TODO: cargar estas variables desde el fichero
 var _default_save_data: Dictionary = {
 	"suma_resta": 1,
@@ -50,6 +53,7 @@ var _default_save_data: Dictionary = {
 	"division": 1,
 	"fracciones": true,
 	"negativos": true,
+	"piramide_record": 0,
 	"scores": [
 		{
 			"name": "",
@@ -102,6 +106,7 @@ var multiplica = int(config.multiplicacion)
 var division = int(config.division)
 var fracciones:bool = config.fracciones
 var negativos:bool = config.negativos
+var piramide_record = config.piramide_record
 
 # variables de sesión
 var player_lives := 4
@@ -1476,7 +1481,7 @@ func get_allowed_operations():
 	return suma_resta + multiplica + division
 
 
-func save_data_to_file(save_data):
+func save_data_to_file(save_data = null):
 	if save_data == null:
 		save_data = config
 
@@ -1555,8 +1560,15 @@ func new_score(score:int, player:String)->void:
 	save_data_to_file(config)
 	
 
-func change_scene(_new_scene:String)->void:
+func change_scene(_new_scene:String, params = null)->void:
+	_scene_params = params
 	if _new_scene != "":
 		var _root = get_tree()
 		_root.change_scene("res://scenes/" + _new_scene + ".tscn")
+
+
+func get_param(param_name:String):
+	if _scene_params != null and _scene_params.has(param_name):
+		return _scene_params[param_name]
+	return null
 

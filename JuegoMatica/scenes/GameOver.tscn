@@ -28,14 +28,26 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Label" type="Label" parent="VBoxContainer"]
-margin_top = 174.0
+[node name="Jugador1" type="Label" parent="VBoxContainer"]
+margin_top = 168.0
 margin_right = 640.0
-margin_bottom = 225.0
+margin_bottom = 198.0
 custom_fonts/font = ExtResource( 1 )
 custom_colors/font_color = Color( 0.901961, 0, 0, 1 )
-text = "JUGADOR 1
-JUEGO TERMINADO"
+text = "JUGADOR 1"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="JuegoTerminado" type="Label" parent="VBoxContainer"]
+margin_top = 202.0
+margin_right = 640.0
+margin_bottom = 232.0
+custom_fonts/font = ExtResource( 1 )
+custom_colors/font_color = Color( 0.901961, 0, 0, 1 )
+text = "JUEGO TERMINADO"
 align = 1
 valign = 1
 __meta__ = {
