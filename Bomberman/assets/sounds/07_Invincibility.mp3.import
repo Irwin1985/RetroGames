@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/07_Invincibility.mp3-afb65aebd276b678a0196ca5e7045e18.mp3str"
+
+[deps]
+
+source_file="res://assets/sounds/07_Invincibility.mp3"
+dest_files=[ "res://.import/07_Invincibility.mp3-afb65aebd276b678a0196ca5e7045e18.mp3str" ]
+
+[params]
+
+loop=false
+loop_offset=0

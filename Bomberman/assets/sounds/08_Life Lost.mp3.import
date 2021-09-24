@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/08_Life Lost.mp3-ef0bd5b4da831b89565987e9797b65da.mp3str"
+
+[deps]
+
+source_file="res://assets/sounds/08_Life Lost.mp3"
+dest_files=[ "res://.import/08_Life Lost.mp3-ef0bd5b4da831b89565987e9797b65da.mp3str" ]
+
+[params]
+
+loop=false
+loop_offset=0

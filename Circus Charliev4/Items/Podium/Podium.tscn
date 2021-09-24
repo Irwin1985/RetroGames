@@ -1,0 +1,51 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://Items/Podium/Podium.gd" type="Script" id=1]
+[ext_resource path="res://assets/podium_01.png" type="Texture" id=2]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 47.4316, 3.37305 )
+
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 36.835, 3.37305 )
+
+[sub_resource type="RectangleShape2D" id=3]
+extents = Vector2( 4.43462, 70.9154 )
+
+[node name="Podium" type="StaticBody2D" groups=[
+"goal",
+]]
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Sprite" type="Sprite" parent="."]
+scale = Vector2( 2, 2 )
+texture = ExtResource( 2 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( 0.837337, -19.9927 )
+scale = Vector2( 0.767765, 1.16729 )
+shape = SubResource( 1 )
+
+[node name="PodiumTop" type="Area2D" parent="."]
+editor/display_folded = true
+position = Vector2( 0.942062, -31.8208 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PodiumTop"]
+shape = SubResource( 2 )
+
+[node name="PlayerLoseSensor" type="Area2D" parent="."]
+position = Vector2( 71.4738, -43.8625 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerLoseSensor"]
+shape = SubResource( 3 )
+[connection signal="body_entered" from="PodiumTop" to="." method="_on_PodiumTop_body_entered"]
+[connection signal="body_entered" from="PlayerLoseSensor" to="." method="_on_PlayerLoseSensor_body_entered"]

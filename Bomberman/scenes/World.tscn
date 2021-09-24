@@ -1,0 +1,46 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://assets/textures/world.png" type="Texture" id=1]
+[ext_resource path="res://scripts/World.gd" type="Script" id=2]
+
+[node name="World" type="Node2D"]
+script = ExtResource( 2 )
+
+[node name="Sprite" type="Sprite" parent="."]
+position = Vector2( 0, 32 )
+texture = ExtResource( 1 )
+centered = false
+
+[node name="HUD" type="Control" parent="."]
+margin_right = 40.0
+margin_bottom = 40.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Display" type="ColorRect" parent="HUD"]
+margin_right = 496.0
+margin_bottom = 32.0
+color = Color( 0.678431, 0.678431, 0.678431, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="CollisionContainer" type="Node2D" parent="."]
+
+[node name="PositionContainer" type="Node2D" parent="."]
+
+[node name="Position0" type="Position2D" parent="PositionContainer"]
+position = Vector2( 40, 72 )
+
+[node name="Position1" type="Position2D" parent="PositionContainer"]
+position = Vector2( 40, 104 )
+
+[node name="Position2" type="Position2D" parent="PositionContainer"]
+position = Vector2( 40, 136 )
+
+[node name="Position3" type="Position2D" parent="PositionContainer"]
+position = Vector2( 40, 168 )
+
+[node name="Position4" type="Position2D" parent="PositionContainer"]
+position = Vector2( 40, 200 )

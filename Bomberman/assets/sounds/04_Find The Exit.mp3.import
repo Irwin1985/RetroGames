@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/04_Find The Exit.mp3-344fb6bc5ff3a739f87094be632e2b46.mp3str"
+
+[deps]
+
+source_file="res://assets/sounds/04_Find The Exit.mp3"
+dest_files=[ "res://.import/04_Find The Exit.mp3-344fb6bc5ff3a739f87094be632e2b46.mp3str" ]
+
+[params]
+
+loop=false
+loop_offset=0

@@ -1,0 +1,158 @@
+[gd_scene load_steps=11 format=2]
+
+[ext_resource path="res://Menu/Menu.gd" type="Script" id=1]
+[ext_resource path="res://assets/ARCADECLASSIC.TTF" type="DynamicFontData" id=2]
+[ext_resource path="res://assets/cursor_hand.png" type="Texture" id=3]
+[ext_resource path="res://assets/title_01.png" type="Texture" id=4]
+[ext_resource path="res://assets/title_02.png" type="Texture" id=5]
+[ext_resource path="res://assets/title_03.png" type="Texture" id=6]
+[ext_resource path="res://assets/sfx/ClapStarting.wav" type="AudioStream" id=7]
+[ext_resource path="res://assets/sfx/hurt.wav" type="AudioStream" id=8]
+
+[sub_resource type="DynamicFont" id=1]
+size = 30
+extra_spacing_space = 13
+font_data = ExtResource( 2 )
+
+[sub_resource type="SpriteFrames" id=2]
+animations = [ {
+"frames": [ ExtResource( 4 ), ExtResource( 5 ), ExtResource( 6 ) ],
+"loop": true,
+"name": "default",
+"speed": 8.0
+} ]
+
+[node name="Menu" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 1 )
+
+[node name="ColorRect" type="ColorRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0, 0, 0, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Portrait" type="Control" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="TitleLabel" type="Label" parent="Portrait"]
+anchor_right = 1.0
+margin_top = 46.0
+margin_bottom = 77.0
+custom_fonts/font = SubResource( 1 )
+text = "2019  RETRO GAMES"
+align = 1
+autowrap = true
+
+[node name="ChannelLabel" type="Label" parent="Portrait"]
+margin_top = 267.0
+margin_right = 500.0
+margin_bottom = 298.0
+custom_fonts/font = SubResource( 1 )
+text = "BY IRWIN RODRIGUEZ"
+align = 1
+autowrap = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="PlayLabel" type="Label" parent="Portrait"]
+margin_top = 300.0
+margin_right = 500.0
+margin_bottom = 331.0
+custom_fonts/font = SubResource( 1 )
+text = "PLAY SELECT"
+align = 1
+autowrap = true
+
+[node name="SelectHand" type="TextureRect" parent="Portrait"]
+margin_left = 124.0
+margin_top = 348.0
+margin_right = 160.0
+margin_bottom = 366.0
+texture = ExtResource( 3 )
+expand = true
+
+[node name="ClassicMode" type="Label" parent="Portrait"]
+margin_left = 171.0
+margin_top = 336.0
+margin_right = 500.0
+margin_bottom = 367.0
+custom_fonts/font = SubResource( 1 )
+text = "Classic Mode"
+autowrap = true
+
+[node name="FreeMode" type="Label" parent="Portrait"]
+margin_left = 171.0
+margin_top = 354.0
+margin_right = 500.0
+margin_bottom = 385.0
+custom_fonts/font = SubResource( 1 )
+text = "Free Mode"
+autowrap = true
+
+[node name="LevelSelect" type="Label" parent="Portrait/FreeMode"]
+visible = false
+margin_left = 171.0
+margin_right = 500.0
+margin_bottom = 65.0
+custom_fonts/font = SubResource( 1 )
+custom_colors/font_color = Color( 0.12549, 1, 0, 1 )
+text = "Lev"
+autowrap = true
+
+[node name="ChallengeMode" type="Label" parent="Portrait"]
+margin_left = 171.0
+margin_top = 372.0
+margin_right = 500.0
+margin_bottom = 403.0
+custom_fonts/font = SubResource( 1 )
+text = "Challenge Mode"
+autowrap = true
+
+[node name="EnduranceMode" type="Label" parent="Portrait"]
+margin_left = 171.0
+margin_top = 390.0
+margin_right = 500.0
+margin_bottom = 421.0
+custom_fonts/font = SubResource( 1 )
+text = "Endurance Mode"
+autowrap = true
+
+[node name="Options" type="Label" parent="Portrait"]
+margin_left = 171.0
+margin_top = 408.0
+margin_right = 500.0
+margin_bottom = 473.0
+custom_fonts/font = SubResource( 1 )
+text = "Options
+"
+autowrap = true
+
+[node name="Exit" type="Label" parent="Portrait"]
+margin_left = 171.0
+margin_top = 426.0
+margin_right = 500.0
+margin_bottom = 491.0
+custom_fonts/font = SubResource( 1 )
+text = "Exit
+"
+autowrap = true
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="Portrait"]
+position = Vector2( 250, 166 )
+frames = SubResource( 2 )
+frame = 2
+playing = true
+
+[node name="StartSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 7 )
+volume_db = -30.0
+
+[node name="LockedSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 8 )
+[connection signal="finished" from="StartSound" to="." method="_on_StartSound_finished"]

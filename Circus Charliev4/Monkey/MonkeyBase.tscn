@@ -1,0 +1,64 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://Monkey/MonkeyBase.gd" type="Script" id=1]
+[ext_resource path="res://assets/monkey_03.png" type="Texture" id=2]
+[ext_resource path="res://assets/monkey_02.png" type="Texture" id=3]
+[ext_resource path="res://assets/monkey_01.png" type="Texture" id=4]
+
+[sub_resource type="SpriteFrames" id=1]
+animations = [ {
+"frames": [ ExtResource( 2 ), ExtResource( 3 ), ExtResource( 4 ) ],
+"loop": true,
+"name": "default",
+"speed": 4.0
+} ]
+
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 6.01617, 7.05374 )
+
+[sub_resource type="RectangleShape2D" id=3]
+extents = Vector2( 3.13036, 6.84942 )
+
+[node name="MonkeyBase" type="Area2D"]
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+scale = Vector2( 2, 2 )
+frames = SubResource( 1 )
+playing = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( -5.23858, -5.04911 )
+shape = SubResource( 2 )
+
+[node name="VisibilityNotifier2D" type="VisibilityNotifier2D" parent="."]
+position = Vector2( -60, 0 )
+scale = Vector2( 1.2, 1.04 )
+rect = Rect2( -10, -10, 60, 20 )
+
+[node name="PlayerSensor" type="RayCast2D" parent="."]
+position = Vector2( -21, 0 )
+cast_to = Vector2( 0, 0 )
+
+[node name="CyanMonkeyTimer" type="Timer" parent="."]
+wait_time = 0.5
+
+[node name="MonkeyBack" type="StaticBody2D" parent="."]
+position = Vector2( -2.29837, 9.35853 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MonkeyBack"]
+shape = SubResource( 3 )
+
+[node name="PlayerBonusSensor" type="RayCast2D" parent="."]
+position = Vector2( 0, -60 )
+enabled = true
+cast_to = Vector2( 0, -100 )
+[connection signal="screen_entered" from="VisibilityNotifier2D" to="." method="_on_VisibilityNotifier2D_screen_entered"]
+[connection signal="screen_exited" from="VisibilityNotifier2D" to="." method="_on_VisibilityNotifier2D_screen_exited"]
+[connection signal="timeout" from="CyanMonkeyTimer" to="." method="_on_CyanMonkeyTimer_timeout"]

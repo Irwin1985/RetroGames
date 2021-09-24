@@ -1,0 +1,143 @@
+[gd_scene load_steps=16 format=2]
+
+[ext_resource path="res://Levels/Level1.gd" type="Script" id=1]
+[ext_resource path="res://Items/Flame/Flame.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Items/Boiler/Boiler.tscn" type="PackedScene" id=3]
+[ext_resource path="res://assets/level1.png" type="Texture" id=4]
+[ext_resource path="res://Items/Podium/Podium.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Meters.tscn" type="PackedScene" id=6]
+[ext_resource path="res://Lion/Lion.tscn" type="PackedScene" id=7]
+[ext_resource path="res://assets/Stage1.ogg" type="AudioStream" id=8]
+[ext_resource path="res://assets/sfx/Hurt.wav" type="AudioStream" id=9]
+[ext_resource path="res://assets/sfx/GameOver.wav" type="AudioStream" id=10]
+[ext_resource path="res://assets/sfx/Clapping.wav" type="AudioStream" id=11]
+[ext_resource path="res://assets/sfx/TimeReduce.ogg" type="AudioStream" id=12]
+[ext_resource path="res://HUD/HUD.tscn" type="PackedScene" id=13]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 2650, 0.356628 )
+
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 0.556427, 92.8256 )
+
+[node name="Level1" type="Node2D"]
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_group_": true
+}
+single_flame = ExtResource( 2 )
+boiler = ExtResource( 3 )
+
+[node name="Control" type="Control" parent="."]
+editor/display_folded = true
+margin_right = 40.0
+margin_bottom = 40.0
+
+[node name="TextureRect" type="TextureRect" parent="Control"]
+margin_right = 5247.0
+margin_bottom = 460.0
+texture = ExtResource( 4 )
+stretch_mode = 2
+
+[node name="Floor" type="StaticBody2D" parent="."]
+editor/display_folded = true
+position = Vector2( 1688.56, -62.7929 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Floor"]
+position = Vector2( 926.074, 473.952 )
+scale = Vector2( 0.998797, 0.542278 )
+shape = SubResource( 1 )
+
+[node name="LeftWall" type="StaticBody2D" parent="."]
+editor/display_folded = true
+position = Vector2( 65.3129, 317.039 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LeftWall"]
+shape = SubResource( 2 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="BoilerContainer" type="Node2D" parent="."]
+
+[node name="Items" type="Node2D" parent="."]
+editor/display_folded = true
+
+[node name="Podium" parent="Items" instance=ExtResource( 5 )]
+position = Vector2( 5107, 379 )
+
+[node name="Meters" parent="Items" instance=ExtResource( 6 )]
+
+[node name="FlameContainer" type="Node2D" parent="."]
+
+[node name="Lion" parent="." instance=ExtResource( 7 )]
+editor/display_folded = true
+position = Vector2( 100, 394.147 )
+
+[node name="Camera2D" parent="Lion" index="1"]
+offset = Vector2( 90, -85 )
+limit_left = -90
+limit_top = 0
+limit_right = 5200
+limit_bottom = 460
+
+[node name="SentinelsContainer" type="Node2D" parent="."]
+
+[node name="Sounds" type="Node2D" parent="."]
+
+[node name="LevelSound" type="AudioStreamPlayer" parent="Sounds"]
+stream = ExtResource( 8 )
+autoplay = true
+
+[node name="HurtSound" type="AudioStreamPlayer" parent="Sounds"]
+stream = ExtResource( 9 )
+
+[node name="GameOverSound" type="AudioStreamPlayer" parent="Sounds"]
+stream = ExtResource( 10 )
+
+[node name="WinSound" type="AudioStreamPlayer" parent="Sounds"]
+stream = ExtResource( 11 )
+
+[node name="ReduceTimeSound" type="AudioStreamPlayer" parent="Sounds"]
+stream = ExtResource( 12 )
+
+[node name="HUD" parent="." instance=ExtResource( 13 )]
+
+[node name="CheckPoints" type="Node2D" parent="."]
+editor/display_folded = true
+
+[node name="chkpt_90m" type="Position2D" parent="CheckPoints"]
+position = Vector2( 718, 394.147 )
+
+[node name="chkpt_80m" type="Position2D" parent="CheckPoints"]
+position = Vector2( 1218, 394.147 )
+
+[node name="chkpt_70m" type="Position2D" parent="CheckPoints"]
+position = Vector2( 1718, 394.147 )
+
+[node name="chkpt_60m" type="Position2D" parent="CheckPoints"]
+position = Vector2( 2218, 394.147 )
+
+[node name="chkpt_50m" type="Position2D" parent="CheckPoints"]
+position = Vector2( 2718, 394.147 )
+
+[node name="chkpt_40m" type="Position2D" parent="CheckPoints"]
+position = Vector2( 3218, 394.147 )
+
+[node name="chkpt_30m" type="Position2D" parent="CheckPoints"]
+position = Vector2( 3718, 394.147 )
+
+[node name="chkpt_20m" type="Position2D" parent="CheckPoints"]
+position = Vector2( 4218, 394.147 )
+[connection signal="win" from="Lion" to="." method="_on_Lion_win"]
+[connection signal="finished" from="Sounds/HurtSound" to="." method="_on_HurtSound_finished"]
+[connection signal="finished" from="Sounds/GameOverSound" to="." method="_on_GameOverSound_finished"]
+[connection signal="finished" from="Sounds/WinSound" to="." method="_on_WinSound_finished"]
+
+[editable path="Lion"]

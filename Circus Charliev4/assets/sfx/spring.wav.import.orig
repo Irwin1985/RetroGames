@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/Spring.wav-5cf3d8b2c03f0c9f9e854aafd2215731.sample"
+
+[deps]
+
+source_file="res://assets/sfx/Spring.wav"
+dest_files=[ "res://.import/Spring.wav-5cf3d8b2c03f0c9f9e854aafd2215731.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=true
+edit/normalize=true
+edit/loop=false
+compress/mode=0

@@ -1,0 +1,356 @@
+[gd_scene load_steps=37 format=2]
+
+[ext_resource path="res://Levels/Level4.gd" type="Script" id=1]
+[ext_resource path="res://Items/Background/Background.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Items/ChannelInfo.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Horse/Horse.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Items/Podium/Podium.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Player/Player.tscn" type="PackedScene" id=6]
+[ext_resource path="res://assets/level_120m.png" type="Texture" id=7]
+[ext_resource path="res://assets/level_110m.png" type="Texture" id=8]
+[ext_resource path="res://assets/level_100m.png" type="Texture" id=9]
+[ext_resource path="res://assets/level_90m.png" type="Texture" id=10]
+[ext_resource path="res://assets/level_80m.png" type="Texture" id=11]
+[ext_resource path="res://assets/level_70m.png" type="Texture" id=12]
+[ext_resource path="res://assets/level_60m.png" type="Texture" id=13]
+[ext_resource path="res://assets/level_50m.png" type="Texture" id=14]
+[ext_resource path="res://assets/level_40m.png" type="Texture" id=15]
+[ext_resource path="res://assets/level_30m.png" type="Texture" id=16]
+[ext_resource path="res://assets/level_20m.png" type="Texture" id=17]
+[ext_resource path="res://assets/level_10m.png" type="Texture" id=18]
+[ext_resource path="res://assets/level_0m.png" type="Texture" id=19]
+[ext_resource path="res://assets/level_130m.png" type="Texture" id=20]
+[ext_resource path="res://assets/level_140m.png" type="Texture" id=21]
+[ext_resource path="res://assets/level_150m.png" type="Texture" id=22]
+[ext_resource path="res://assets/level_160m.png" type="Texture" id=23]
+[ext_resource path="res://assets/level_170m.png" type="Texture" id=24]
+[ext_resource path="res://assets/level_180m.png" type="Texture" id=25]
+[ext_resource path="res://assets/level_190m.png" type="Texture" id=26]
+[ext_resource path="res://assets/level_200m.png" type="Texture" id=27]
+[ext_resource path="res://assets/Stage1.ogg" type="AudioStream" id=28]
+[ext_resource path="res://assets/sfx/GameOver.wav" type="AudioStream" id=29]
+[ext_resource path="res://assets/sfx/Clapping.wav" type="AudioStream" id=30]
+[ext_resource path="res://Items/CheckPoints.tscn" type="PackedScene" id=31]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 15, 12.1 )
+
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 5126.64, 0.107824 )
+
+[sub_resource type="RectangleShape2D" id=3]
+extents = Vector2( 2, 70.8109 )
+
+[sub_resource type="RectangleShape2D" id=4]
+
+[sub_resource type="RectangleShape2D" id=5]
+extents = Vector2( 8.00684, 15.4359 )
+
+[node name="Level4" type="Node2D"]
+script = ExtResource( 1 )
+
+[node name="Background" parent="." instance=ExtResource( 2 )]
+margin_right = 5070.0
+rect_scale = Vector2( 2.00733, 1.99855 )
+
+[node name="Audience1" parent="Background/Celebrating" index="0"]
+margin_left = 4719.71
+margin_top = 56.0406
+margin_right = 4943.71
+margin_bottom = 72.0406
+
+[node name="Audience2" parent="Background/Celebrating" index="1"]
+margin_left = 4976.0
+margin_right = 5070.0
+
+[node name="ChannelInfo" parent="." instance=ExtResource( 3 )]
+margin_left = 4000.0
+margin_top = 65.0
+margin_right = 4040.0
+margin_bottom = 105.0
+
+[node name="Horse" parent="." instance=ExtResource( 4 )]
+position = Vector2( 120, 375 )
+
+[node name="Podium" parent="." instance=ExtResource( 5 )]
+position = Vector2( 10040, 378.21 )
+
+[node name="PlayerLoseSensor" parent="Podium" index="3"]
+position = Vector2( 90.0246, -105.698 )
+scale = Vector2( 1, 1.88 )
+
+[node name="Player" parent="." instance=ExtResource( 6 )]
+position = Vector2( 114.151, 343.674 )
+scale = Vector2( 0.998518, 0.804541 )
+speed = 250
+jump_power = 450
+gravity = 15
+slow_backward = true
+process_hurt = true
+character_behaviour = "Stage 4:Horse"
+
+[node name="Charlie" parent="Player" index="0"]
+scale = Vector2( 2.005, 2.41 )
+animation = "ride"
+
+[node name="CollisionShape2D" parent="Player" index="1"]
+shape = SubResource( 1 )
+
+[node name="Camera2D" parent="Player" index="2"]
+position = Vector2( -110, 0 )
+anchor_mode = 0
+limit_left = 0
+limit_top = 0
+limit_right = 10138
+limit_bottom = 460
+editor_draw_limits = true
+editor_draw_drag_margin = true
+
+[node name="LevelContainer" type="Node2D" parent="."]
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="level_120m" type="Sprite" parent="LevelContainer"]
+position = Vector2( 4060, 435 )
+scale = Vector2( 2, 2 )
+texture = ExtResource( 7 )
+
+[node name="level_110m" type="Sprite" parent="LevelContainer"]
+position = Vector2( 4560, 435 )
+scale = Vector2( 2, 2 )
+texture = ExtResource( 8 )
+
+[node name="level_100m" type="Sprite" parent="LevelContainer"]
+position = Vector2( 5060, 435 )
+scale = Vector2( 2, 2 )
+texture = ExtResource( 9 )
+
+[node name="level_90m" type="Sprite" parent="LevelContainer"]
+position = Vector2( 5560, 434.337 )
+scale = Vector2( 2, 2 )
+texture = ExtResource( 10 )
+
+[node name="level_80m" type="Sprite" parent="LevelContainer"]
+position = Vector2( 6060, 435 )
+scale = Vector2( 2, 2 )
+texture = ExtResource( 11 )
+
+[node name="level_70m" type="Sprite" parent="LevelContainer"]
+position = Vector2( 6560, 435 )
+scale = Vector2( 2, 2 )
+texture = ExtResource( 12 )
+
+[node name="level_60m" type="Sprite" parent="LevelContainer"]
+position = Vector2( 7060, 435 )
+scale = Vector2( 2, 2 )
+texture = ExtResource( 13 )
+
+[node name="level_50m" type="Sprite" parent="LevelContainer"]
+position = Vector2( 7560, 435 )
+scale = Vector2( 2, 2 )
+texture = ExtResource( 14 )
+
+[node name="level_40m" type="Sprite" parent="LevelContainer"]
+position = Vector2( 8060, 435 )
+scale = Vector2( 2, 2 )
+texture = ExtResource( 15 )
+
+[node name="level_30m" type="Sprite" parent="LevelContainer"]
+position = Vector2( 8560, 435 )
+scale = Vector2( 2, 2 )
+texture = ExtResource( 16 )
+
+[node name="level_20m" type="Sprite" parent="LevelContainer"]
+position = Vector2( 9060, 435 )
+scale = Vector2( 2, 2 )
+texture = ExtResource( 17 )
+
+[node name="level_10m" type="Sprite" parent="LevelContainer"]
+position = Vector2( 9560, 435 )
+scale = Vector2( 2, 2 )
+texture = ExtResource( 18 )
+
+[node name="level_00m" type="Sprite" parent="LevelContainer"]
+position = Vector2( 10060, 435 )
+scale = Vector2( 2, 2 )
+texture = ExtResource( 19 )
+
+[node name="level_130m" type="Sprite" parent="LevelContainer"]
+position = Vector2( 3560, 435 )
+scale = Vector2( 2, 2 )
+texture = ExtResource( 20 )
+
+[node name="level_140m" type="Sprite" parent="LevelContainer"]
+position = Vector2( 3060, 435 )
+scale = Vector2( 2, 2 )
+texture = ExtResource( 21 )
+
+[node name="level_150m" type="Sprite" parent="LevelContainer"]
+position = Vector2( 2560, 435 )
+scale = Vector2( 2, 2 )
+texture = ExtResource( 22 )
+
+[node name="level_160m" type="Sprite" parent="LevelContainer"]
+position = Vector2( 2060, 435 )
+scale = Vector2( 2, 2 )
+texture = ExtResource( 23 )
+
+[node name="level_170m" type="Sprite" parent="LevelContainer"]
+position = Vector2( 1560, 435 )
+scale = Vector2( 2, 2 )
+texture = ExtResource( 24 )
+
+[node name="level_180m" type="Sprite" parent="LevelContainer"]
+position = Vector2( 1060, 435 )
+scale = Vector2( 2, 2 )
+texture = ExtResource( 25 )
+
+[node name="level_190m" type="Sprite" parent="LevelContainer"]
+position = Vector2( 560, 434.659 )
+scale = Vector2( 2, 2 )
+texture = ExtResource( 26 )
+
+[node name="level_200m" type="Sprite" parent="LevelContainer"]
+position = Vector2( 60, 435 )
+scale = Vector2( 2, 2 )
+texture = ExtResource( 27 )
+
+[node name="Floor" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Floor"]
+position = Vector2( 5079.5, 414.334 )
+scale = Vector2( 0.990652, 70.7378 )
+shape = SubResource( 2 )
+
+[node name="BallContainer" type="Node2D" parent="."]
+
+[node name="Walls" type="Node" parent="."]
+
+[node name="LeftWall" type="StaticBody2D" parent="Walls"]
+position = Vector2( 28, 142 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Walls/LeftWall"]
+shape = SubResource( 3 )
+
+[node name="Sounds" type="Node" parent="."]
+
+[node name="LevelSound" type="AudioStreamPlayer" parent="Sounds"]
+stream = ExtResource( 28 )
+volume_db = -30.0
+autoplay = true
+
+[node name="GameOverSound" type="AudioStreamPlayer" parent="Sounds"]
+stream = ExtResource( 29 )
+volume_db = -30.0
+
+[node name="WinSound" type="AudioStreamPlayer" parent="Sounds"]
+stream = ExtResource( 30 )
+volume_db = -30.0
+
+[node name="GoalSensor" type="Area2D" parent="."]
+position = Vector2( 9609.18, 294.764 )
+scale = Vector2( 1, 2.36 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GoalSensor"]
+scale = Vector2( 0.44, 4.6 )
+shape = SubResource( 4 )
+
+[node name="CheckPoints" parent="." instance=ExtResource( 31 )]
+
+[node name="chkpt_190m" parent="CheckPoints" index="0"]
+position = Vector2( 640, 334 )
+
+[node name="chkpt_180m" parent="CheckPoints" index="1"]
+position = Vector2( 1140, 334 )
+
+[node name="chkpt_170m" parent="CheckPoints" index="2"]
+position = Vector2( 1640, 334 )
+
+[node name="chkpt_160m" parent="CheckPoints" index="3"]
+position = Vector2( 2140, 334 )
+
+[node name="chkpt_150m" parent="CheckPoints" index="4"]
+position = Vector2( 2640, 334 )
+
+[node name="chkpt_140m" parent="CheckPoints" index="5"]
+position = Vector2( 3140, 334 )
+
+[node name="chkpt_130m" parent="CheckPoints" index="6"]
+position = Vector2( 3640, 334 )
+
+[node name="chkpt_120m" parent="CheckPoints" index="7"]
+position = Vector2( 4140, 334 )
+
+[node name="chkpt_110m" parent="CheckPoints" index="8"]
+position = Vector2( 4640, 334 )
+
+[node name="chkpt_100m" parent="CheckPoints" index="9"]
+position = Vector2( 5140, 334 )
+
+[node name="chkpt_90m" parent="CheckPoints" index="10"]
+position = Vector2( 5640, 334 )
+
+[node name="chkpt_80m" parent="CheckPoints" index="11"]
+position = Vector2( 6140, 334 )
+
+[node name="chkpt_70m" parent="CheckPoints" index="12"]
+position = Vector2( 6640, 334 )
+
+[node name="chkpt_60m" parent="CheckPoints" index="13"]
+position = Vector2( 7140, 334 )
+
+[node name="chkpt_50m" parent="CheckPoints" index="14"]
+position = Vector2( 7640, 334 )
+
+[node name="chkpt_40m" parent="CheckPoints" index="15"]
+position = Vector2( 8140, 334 )
+
+[node name="chkpt_30m" parent="CheckPoints" index="16"]
+position = Vector2( 8640, 334 )
+
+[node name="chkpt_20m" parent="CheckPoints" index="17"]
+position = Vector2( -50, 334 )
+
+[node name="Bounce" type="Node2D" parent="."]
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="PlayerPodiumRule" type="Area2D" parent="."]
+position = Vector2( 9995.64, 379.725 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerPodiumRule"]
+shape = SubResource( 5 )
+[connection signal="player_detected" from="Podium" to="." method="_on_Podium_player_detected"]
+[connection signal="bonus" from="Player" to="." method="_on_Player_bonus"]
+[connection signal="hit" from="Player" to="." method="_on_Player_hit"]
+[connection signal="jumped" from="Player" to="." method="_on_Player_jumped"]
+[connection signal="lose" from="Player" to="." method="_on_Player_lose"]
+[connection signal="win" from="Player" to="." method="_on_Player_win"]
+[connection signal="body_entered" from="Floor" to="." method="_on_Floor_body_entered"]
+[connection signal="finished" from="Sounds/GameOverSound" to="." method="_on_GameOverSound_finished"]
+[connection signal="finished" from="Sounds/WinSound" to="." method="_on_WinSound_finished"]
+[connection signal="body_entered" from="GoalSensor" to="." method="_on_GoalSensor_body_entered"]
+[connection signal="body_entered" from="PlayerPodiumRule" to="." method="_on_PlayerPodiumRule_body_entered"]
+
+[editable path="Background"]
+
+[editable path="Background/Celebrating"]
+
+[editable path="Horse"]
+
+[editable path="Podium"]
+
+[editable path="Player"]
+
+[editable path="CheckPoints"]

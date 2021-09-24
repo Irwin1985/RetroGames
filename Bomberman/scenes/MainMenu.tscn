@@ -1,0 +1,85 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://assets/textures/main_menu.png" type="Texture" id=1]
+[ext_resource path="res://assets/textures/menu_arrow.png" type="Texture" id=2]
+[ext_resource path="res://scripts/MainMenu.gd" type="Script" id=3]
+[ext_resource path="res://assets/sounds/01_Title Screen.mp3" type="AudioStream" id=4]
+[ext_resource path="res://assets/fonts/gris/0.png" type="Texture" id=5]
+
+[node name="MainMenu" type="Node2D"]
+script = ExtResource( 3 )
+
+[node name="MenuSprite" type="Sprite" parent="."]
+texture = ExtResource( 1 )
+centered = false
+
+[node name="ArrowSprite" type="Sprite" parent="."]
+position = Vector2( 64, 152 )
+texture = ExtResource( 2 )
+centered = false
+
+[node name="StartPosition" type="Position2D" parent="."]
+position = Vector2( 64, 152 )
+
+[node name="ContinuePosition" type="Position2D" parent="."]
+position = Vector2( 128, 152 )
+
+[node name="MainMenuSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 4 )
+autoplay = true
+
+[node name="Top" type="Node2D" parent="."]
+position = Vector2( 112, 168 )
+
+[node name="Sprite1" type="Sprite" parent="Top"]
+visible = false
+texture = ExtResource( 5 )
+centered = false
+
+[node name="Sprite2" type="Sprite" parent="Top"]
+visible = false
+position = Vector2( 8, 0 )
+texture = ExtResource( 5 )
+centered = false
+
+[node name="Sprite3" type="Sprite" parent="Top"]
+visible = false
+position = Vector2( 16, 0 )
+texture = ExtResource( 5 )
+centered = false
+
+[node name="Sprite4" type="Sprite" parent="Top"]
+visible = false
+position = Vector2( 24, 0 )
+texture = ExtResource( 5 )
+centered = false
+
+[node name="Sprite5" type="Sprite" parent="Top"]
+visible = false
+position = Vector2( 32, 0 )
+texture = ExtResource( 5 )
+centered = false
+
+[node name="Sprite6" type="Sprite" parent="Top"]
+visible = false
+position = Vector2( 40, 0 )
+texture = ExtResource( 5 )
+centered = false
+
+[node name="Sprite7" type="Sprite" parent="Top"]
+visible = false
+position = Vector2( 48, 0 )
+texture = ExtResource( 5 )
+centered = false
+
+[node name="Sprite8" type="Sprite" parent="Top"]
+visible = false
+position = Vector2( 56, 0 )
+texture = ExtResource( 5 )
+centered = false
+
+[node name="Sprite9" type="Sprite" parent="Top"]
+visible = false
+position = Vector2( 64, 0 )
+texture = ExtResource( 5 )
+centered = false

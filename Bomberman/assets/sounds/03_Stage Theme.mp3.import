@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/03_Stage Theme.mp3-9324c42de1f548935adaf7a99bfe6d59.mp3str"
+
+[deps]
+
+source_file="res://assets/sounds/03_Stage Theme.mp3"
+dest_files=[ "res://.import/03_Stage Theme.mp3-9324c42de1f548935adaf7a99bfe6d59.mp3str" ]
+
+[params]
+
+loop=false
+loop_offset=0

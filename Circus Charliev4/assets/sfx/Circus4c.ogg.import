@@ -1,0 +1,16 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOGGVorbis"
+uid="uid://cddcqwe87uy0n"
+path="res://.godot/imported/Circus4c.ogg-75441b2a932aad6d573cc521e8f9fef9.oggvorbisstr"
+
+[deps]
+
+source_file="res://assets/sfx/Circus4c.ogg"
+dest_files=["res://.godot/imported/Circus4c.ogg-75441b2a932aad6d573cc521e8f9fef9.oggvorbisstr"]
+
+[params]
+
+loop=true
+loop_offset=0

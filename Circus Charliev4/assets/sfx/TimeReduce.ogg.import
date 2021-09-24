@@ -1,0 +1,16 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOGGVorbis"
+uid="uid://bo7iq4e6rvwre"
+path="res://.godot/imported/TimeReduce.ogg-23ec9b2e81deeb8017a044399fd38f5c.oggvorbisstr"
+
+[deps]
+
+source_file="res://assets/sfx/TimeReduce.ogg"
+dest_files=["res://.godot/imported/TimeReduce.ogg-23ec9b2e81deeb8017a044399fd38f5c.oggvorbisstr"]
+
+[params]
+
+loop=true
+loop_offset=0

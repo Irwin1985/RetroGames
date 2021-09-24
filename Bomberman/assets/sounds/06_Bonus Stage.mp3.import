@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/06_Bonus Stage.mp3-32075e4d25459f0ecd6f81c9aeedd4f6.mp3str"
+
+[deps]
+
+source_file="res://assets/sounds/06_Bonus Stage.mp3"
+dest_files=[ "res://.import/06_Bonus Stage.mp3-32075e4d25459f0ecd6f81c9aeedd4f6.mp3str" ]
+
+[params]
+
+loop=false
+loop_offset=0

@@ -1,0 +1,37 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://Levels/ScenePreviewer.gd" type="Script" id=1]
+[ext_resource path="res://assets/ARCADECLASSIC.TTF" type="DynamicFontData" id=2]
+[ext_resource path="res://assets/sfx/ClapEnding.wav" type="AudioStream" id=3]
+[ext_resource path="res://HUD/HUD.tscn" type="PackedScene" id=4]
+
+[sub_resource type="DynamicFont" id=1]
+size = 30
+font_data = ExtResource( 2 )
+
+[node name="ScenePreviewer" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 1 )
+
+[node name="ColorRect" type="ColorRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0, 0, 0, 1 )
+
+[node name="StageCaption" type="MarginContainer" parent="."]
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+
+[node name="StageLabel" type="Label" parent="StageCaption"]
+margin_right = 500.0
+margin_bottom = 31.0
+custom_fonts/font = SubResource( 1 )
+text = "STAGE 0"
+align = 1
+
+[node name="StageSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 3 )
+
+[node name="HUD" parent="." instance=ExtResource( 4 )]

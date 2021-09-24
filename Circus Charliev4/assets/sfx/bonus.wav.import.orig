@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/Bonus.wav-2f303fb6de1bb869ac06263d2c85ee27.sample"
+
+[deps]
+
+source_file="res://assets/sfx/Bonus.wav"
+dest_files=[ "res://.import/Bonus.wav-2f303fb6de1bb869ac06263d2c85ee27.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=true
+edit/normalize=true
+edit/loop=false
+compress/mode=0

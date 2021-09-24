@@ -1,0 +1,35 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://Items/Trampoline/trampoline.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Items/BigTrampoline/bigtrampoline.gd" type="Script" id=2]
+[ext_resource path="res://assets/big trampoline.png" type="Texture" id=3]
+[ext_resource path="res://assets/gold.png" type="Texture" id=4]
+[ext_resource path="res://assets/sfx/bonus.wav" type="AudioStream" id=5]
+
+[sub_resource type="CircleShape2D" id=1]
+radius = 12.7785
+
+[node name="Big Trampoline" instance=ExtResource( 1 )]
+position = Vector2( 100, 370 )
+script = ExtResource( 2 )
+
+[node name="sprite" parent="." index="0"]
+position = Vector2( 0, 16 )
+texture = ExtResource( 3 )
+
+[node name="Bonus" type="Area2D" parent="." index="3"]
+visible = false
+position = Vector2( 0, -270 )
+
+[node name="Sprite" type="Sprite" parent="Bonus" index="0"]
+texture = ExtResource( 4 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Bonus" index="1"]
+position = Vector2( 0.951309, 3.56741 )
+shape = SubResource( 1 )
+disabled = true
+
+[node name="BonusSound" type="AudioStreamPlayer" parent="Bonus" index="2"]
+stream = ExtResource( 5 )
+volume_db = -30.0
+[connection signal="body_entered" from="Bonus" to="." method="_on_Bonus_body_entered"]
