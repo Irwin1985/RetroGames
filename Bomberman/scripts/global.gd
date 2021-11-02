@@ -1,5 +1,10 @@
 extends Node
 
+enum {
+	DOOR,
+	POWERUP,
+}
+
 # Array de números
 var num_gris := [
 	load("res://assets/fonts/gris/0.png"),
