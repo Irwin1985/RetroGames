@@ -3,6 +3,9 @@ extends Node2D
 export (PackedScene) var BrickScene
 export (PackedScene) var ExitScene
 export (PackedScene) var PowerupScene
+export (PackedScene) var WallScene
+export (PackedScene) var BombScene
+export (PackedScene) var ExplosionScene
 
 const BLOCK_OFFSET = 32
 const NUM_ROWS = 11
@@ -24,23 +27,17 @@ func _ready() -> void:
 	$HUD.update_hud("Time", TIME)
 	$HUD.update_hud("Left", Global.lives)
 	_set_environment()
-	
+	$Player.start($PlayerPosition.position)
+
 
 func _add_static_blocks() -> void:
-	# creamos la figura (RectangleShape2D)
-	# para ahorrar recursos.
-	var rectangleShape2D = RectangleShape2D.new()
-	rectangleShape2D.extents = Vector2(8, 8)
-
 	for i in 5: # for exterior (FILAS)
 		var position2D = get_node("PositionContainer/Position" + str(i))
 		for j in 14: # for interior (COLUMNAS)
-			var colShape = CollisionShape2D.new()
+			var WallInstance = WallScene.instance()
 			var pos = position2D.position
-	
-			colShape.shape = rectangleShape2D
-			colShape.position = Vector2(pos.x + BLOCK_OFFSET * j if j > 0 else pos.x, pos.y)
-			$CollisionContainer.add_child(colShape)
+			WallInstance.position = Vector2(pos.x + BLOCK_OFFSET * j if j > 0 else pos.x, pos.y)
+			$CollisionContainer.add_child(WallInstance)
 
 
 func _on_GameTimer_timeout() -> void:
@@ -141,3 +138,16 @@ func _on_brick_show_secret(type:int, value:int) -> void:
 		PowerupInstance = PowerupScene.instance()
 		PowerupInstance.set_powerup(value)
 		add_child(PowerupInstance)
+
+
+func _on_Player_bomb_planted() -> void:
+	var BombInstance = BombScene.instance()
+	BombInstance.position = $Player.position
+	BombInstance.connect("exploded", self, "_on_BombInstance_exploded")
+	add_child(BombInstance)
+
+
+func _on_BombInstance_exploded(new_position:Vector2) -> void:
+	var ExplosionInstance = ExplosionScene.instance()
+	ExplosionInstance.position = new_position
+	add_child(ExplosionInstance)

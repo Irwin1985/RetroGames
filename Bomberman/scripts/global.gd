@@ -363,6 +363,10 @@ var right_bricks: Dictionary = {
 var current_level: int = 1
 var lives: int = 2
 
+# variables globales para el Player
+var player_has_detonator:bool = false
+var player_bomb_limit:int = 1 #default limit
+
 
 func get_level_bricks() -> int:
 	return 50 + current_level * 3

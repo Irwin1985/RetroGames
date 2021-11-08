@@ -1,7 +1,164 @@
-[gd_scene format=2]
+[gd_scene load_steps=15 format=2]
 
-[node name="Player" type="Area2D"]
+[ext_resource path="res://assets/textures/player_sheet.png" type="Texture" id=1]
+[ext_resource path="res://assets/sounds/14_BombPlant.wav" type="AudioStream" id=2]
+[ext_resource path="res://assets/sounds/12_UpDown.wav" type="AudioStream" id=3]
+[ext_resource path="res://assets/sounds/13_Walk.wav" type="AudioStream" id=4]
+[ext_resource path="res://scripts/Player.gd" type="Script" id=5]
+[ext_resource path="res://assets/sounds/15_Dead.wav" type="AudioStream" id=6]
+[ext_resource path="res://assets/sounds/17_Slide.mp3" type="AudioStream" id=7]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 7.9, 8 )
+
+[sub_resource type="Animation" id=2]
+resource_name = "die"
+length = 0.7
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 9, 10, 11, 12, 13, 14, 15 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Sprite:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.7 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
+}
+
+[sub_resource type="Animation" id=3]
+length = 0.3
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 2, 1, 0, 1 ]
+}
+
+[sub_resource type="Animation" id=4]
+length = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 4 ]
+}
+
+[sub_resource type="Animation" id=5]
+resource_name = "start"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 5 ]
+}
+
+[sub_resource type="Animation" id=6]
+length = 0.3
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 6, 7, 8, 7 ]
+}
+
+[sub_resource type="Animation" id=7]
+length = 0.4
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 4, 3, 4, 5, 4 ]
+}
+
+[node name="Player" type="KinematicBody2D"]
+script = ExtResource( 5 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Camera2D" type="Camera2D" parent="."]
+current = true
+limit_left = 0
+limit_top = 0
+limit_right = 512
+limit_bottom = 232
 
 [node name="Sprite" type="Sprite" parent="."]
+texture = ExtResource( 1 )
+hframes = 16
+frame = 6
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource( 1 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+playback_speed = 1.25
+anims/die = SubResource( 2 )
+anims/down = SubResource( 3 )
+anims/idle = SubResource( 4 )
+anims/start = SubResource( 5 )
+anims/up = SubResource( 6 )
+anims/walk = SubResource( 7 )
+
+[node name="DeadSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 6 )
+
+[node name="WalkingSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 4 )
+
+[node name="UpDownSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 3 )
+
+[node name="BombPlantSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 2 )
+
+[node name="SlideSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 7 )

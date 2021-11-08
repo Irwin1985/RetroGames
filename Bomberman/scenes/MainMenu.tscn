@@ -10,13 +10,14 @@
 script = ExtResource( 3 )
 
 [node name="MenuSprite" type="Sprite" parent="."]
+position = Vector2( 0, 1.19209e-07 )
+scale = Vector2( 1, 0.975301 )
 texture = ExtResource( 1 )
 centered = false
 
 [node name="ArrowSprite" type="Sprite" parent="."]
 position = Vector2( 64, 152 )
 texture = ExtResource( 2 )
-centered = false
 
 [node name="StartPosition" type="Position2D" parent="."]
 position = Vector2( 64, 152 )

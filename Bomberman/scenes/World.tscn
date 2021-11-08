@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://assets/textures/world.png" type="Texture" id=1]
 [ext_resource path="res://scripts/World.gd" type="Script" id=2]
@@ -7,15 +7,30 @@
 [ext_resource path="res://scenes/Brick.tscn" type="PackedScene" id=5]
 [ext_resource path="res://scenes/Exit.tscn" type="PackedScene" id=6]
 [ext_resource path="res://scenes/Powerup.tscn" type="PackedScene" id=7]
+[ext_resource path="res://scenes/Player.tscn" type="PackedScene" id=8]
+[ext_resource path="res://scenes/Wall.tscn" type="PackedScene" id=9]
+[ext_resource path="res://scenes/Explosion.tscn" type="PackedScene" id=10]
+[ext_resource path="res://scenes/Bomb.tscn" type="PackedScene" id=11]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 232, 8 )
+
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 8, 104 )
 
 [node name="World" type="Node2D"]
 script = ExtResource( 2 )
 BrickScene = ExtResource( 5 )
 ExitScene = ExtResource( 6 )
 PowerupScene = ExtResource( 7 )
+WallScene = ExtResource( 9 )
+BombScene = ExtResource( 11 )
+ExplosionScene = ExtResource( 10 )
 
 [node name="Sprite" type="Sprite" parent="."]
 position = Vector2( 0, 24 )
+scale = Vector2( 1, 1 )
+z_index = -2
 texture = ExtResource( 1 )
 centered = false
 
@@ -50,4 +65,49 @@ autoplay = true
 [node name="GameTimer" type="Timer" parent="."]
 autostart = true
 
+[node name="PlayerPosition" type="Position2D" parent="."]
+position = Vector2( 24, 48 )
+
+[node name="Player" parent="." instance=ExtResource( 8 )]
+position = Vector2( 24, 48 )
+
+[node name="Walls" type="Node2D" parent="."]
+
+[node name="UpWall" type="StaticBody2D" parent="Walls"]
+position = Vector2( 248, 32 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Walls/UpWall"]
+shape = SubResource( 1 )
+
+[node name="DownWall" type="StaticBody2D" parent="Walls"]
+position = Vector2( 248, 224 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Walls/DownWall"]
+shape = SubResource( 1 )
+
+[node name="LeftWall" type="StaticBody2D" parent="Walls"]
+position = Vector2( 8, 128 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Walls/LeftWall"]
+shape = SubResource( 2 )
+
+[node name="RightWall" type="StaticBody2D" parent="Walls"]
+position = Vector2( 488, 128 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Walls/RightWall"]
+shape = SubResource( 2 )
+
 [connection signal="timeout" from="GameTimer" to="." method="_on_GameTimer_timeout"]
+[connection signal="bomb_planted" from="Player" to="." method="_on_Player_bomb_planted"]

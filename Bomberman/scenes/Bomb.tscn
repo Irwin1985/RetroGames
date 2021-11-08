@@ -1,0 +1,63 @@
+[gd_scene load_steps=9 format=2]
+
+[ext_resource path="res://assets/textures/bomb_sprite.png" type="Texture" id=1]
+[ext_resource path="res://scripts/Bomb.gd" type="Script" id=2]
+
+[sub_resource type="AtlasTexture" id=1]
+atlas = ExtResource( 1 )
+region = Rect2( 16, 0, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=2]
+atlas = ExtResource( 1 )
+region = Rect2( 0, 0, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=3]
+atlas = ExtResource( 1 )
+region = Rect2( 32, 0, 16, 16 )
+
+[sub_resource type="SpriteFrames" id=4]
+animations = [ {
+"frames": [ SubResource( 1 ), SubResource( 2 ), SubResource( 1 ), SubResource( 3 ) ],
+"loop": true,
+"name": "default",
+"speed": 3.5
+} ]
+
+[sub_resource type="RectangleShape2D" id=5]
+extents = Vector2( 8, 8 )
+
+[sub_resource type="RectangleShape2D" id=6]
+extents = Vector2( 1.12626, 5.2527 )
+
+[node name="Bomb" type="StaticBody2D"]
+z_index = -1
+script = ExtResource( 2 )
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+frames = SubResource( 4 )
+playing = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource( 5 )
+disabled = true
+
+[node name="BombTimer" type="Timer" parent="."]
+wait_time = 2.5
+one_shot = true
+autostart = true
+
+[node name="LeftSensor" type="Area2D" parent="."]
+position = Vector2( -20, 0 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LeftSensor"]
+shape = SubResource( 6 )
+
+[node name="RightSensor" type="Area2D" parent="."]
+position = Vector2( 20, 0 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RightSensor"]
+shape = SubResource( 6 )
+
+[connection signal="timeout" from="BombTimer" to="." method="_on_BombTimer_timeout"]
+[connection signal="body_entered" from="LeftSensor" to="." method="_on_LeftSensor_body_entered"]
+[connection signal="body_entered" from="RightSensor" to="." method="_on_RightSensor_body_entered"]
